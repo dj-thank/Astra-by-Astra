@@ -57,6 +57,13 @@ private:
     void ApplyNavigationControls(star::FlightInput& Controls);
     void UpdateNavigationSnapshot();
     void ConfigureNavigationQA();
+    void UpdateLocalFlightQABefore();
+    void InjectLocalFlightQA(star::FlightInput& Controls);
+    void UpdateLocalFlightQAAfter();
+    bool bLocalFlightQA=false;
+    star::FlightState LocalFlightQASaved;
+    double LocalFlightQATravel=0;
+    star::Vec3d LocalFlightQABeforeBodyPosition;
     bool CheckNavigationQADeadline();
     bool RequireNavigationQA(bool Condition,const TCHAR* Reason);
     void UpdateNavigationQABeforeFlight();

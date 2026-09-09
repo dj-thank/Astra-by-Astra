@@ -86,6 +86,15 @@ int main() {
         input={};input.yaw=0.4;controller.ApplyNavigationControls(input);
         Check(!controller.Navigation.Tick(sim).autopilotActive,"flight input cancels AP");
 
+        state=State();state.mode=star::FlightMode::LocalCruise;state.velocityMetersPerSecond={20000,0,0};
+        Check(sim.RestoreState(state),"local drive restore");controller.ResetNavigation();controller.SetFlightPaused(false);
+        input={};input.hasThrottle=true;input.throttle=1;controller.ApplyNavigationControls(input);
+        Check(!input.paused&&!controller.bFlightPaused&&sim.State().mode==star::FlightMode::LocalCruise,
+            "local drive uses actual gate without interplanetary permission");
+        controller.SetFlightPaused(true);controller.SetFlightPaused(false);controller.ApplyNavigationControls(input);
+        Check(!input.paused&&!controller.bFlightPaused,"local drive resume does not loop into safety pause");
+        sim.SetMode(star::FlightMode::Maneuver);controller.ApplyNavigationControls(input);
+        Check(!input.paused,"local drive exit keeps integrating deceleration");
         state=State();state.velocityMetersPerSecond={2500,0,0};
         state.orientation=star::Quatd::FromForwardUp({-1,0,0},{0,0,1});
         Check(sim.RestoreState(state),"wrong-heading high-energy restore");

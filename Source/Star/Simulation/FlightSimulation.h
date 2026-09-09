@@ -67,7 +67,7 @@ struct TerrainSample {
 // when unavailable. Missing/invalid data conservatively uses terrainMaxHeight.
 using TerrainSampler = std::function<bool(const BodyDefinition&, const Vec3d&, TerrainSample&)>;
 
-enum class FlightMode : std::uint8_t { Maneuver, Landing, Cruise, Landed };
+enum class FlightMode : std::uint8_t { Maneuver, Landing, Cruise, Landed, LocalCruise };
 enum class ContactKind : std::uint8_t { None, Landed, Recovered, TerrainSafetyLimit };
 
 struct FlightInput {
@@ -104,6 +104,9 @@ struct FlightConfig {
     double fixedStepSeconds = 1.0 / 120.0;
     double maxFrameSeconds = 0.25; // Excess wall time is reported, never fast-forwarded.
     double maxManeuverSpeedMps = 300.0;
+    double maxLocalCruiseSpeedMps = 20000.0;
+    double localCruiseAccelerationMps2 = 4000.0;
+    double localCruiseBrakeMps2 = 8000.0;
     double maxLandingSpeedMps = 30.0;
     double maxCruiseSpeedMps = 50.0 * SpeedOfLightMps;
     double maneuverAccelerationMps2 = 45.0;
@@ -199,6 +202,7 @@ public:
     AdvanceResult Advance(double frameSeconds, const FlightInput& input);
     BodyTelemetry Telemetry(const std::string& bodyId) const;
     double ApproachSpeedLimitMps() const;
+    double LocalCruiseSpeedLimitMps() const;
     // Near-body radial bank leveling and fictional support effort; no global up
     // or gravity. Manual angular-rate controls retain damping in either setting.
     void SetFlightAssistEnabled(bool enabled);

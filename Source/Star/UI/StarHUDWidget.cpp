@@ -373,9 +373,9 @@ TSharedRef<SWidget> UStarHUDWidget::BuildMenu()
         Add(TEXT("自動操縦"),TEXT("ToggleAutopilot"));
         if(Current.bNavigationSafetyPause)
             Add(TEXT("B  安全に減速する（操船入力を停止）"),TEXT("NavigationSafeBrake"));
-        Add(TEXT("C  巡航を切り替え（航行確認が必要）"),TEXT("ToggleCruise"));
+        Add(TEXT("C  周辺巡航 / 通常飛行"),TEXT("ToggleCruise"));
         NavigationPanel->AddSlot().AutoHeight().Padding(0, 8)
-            [MakeText(T(TEXT("選択だけでは加速しません。機首を目標へ向け、Fで確認後、Cで巡航。Oは確認前に機首合わせ、確認後に自動航行します。操船入力で自動操縦を解除します。")), 13, Muted, 420)];
+            [MakeText(T(TEXT("Cで周辺を高速飛行。W/Sで速度、Spaceで停止。惑星間を移動するときだけ、機首を目標へ向けFで確認します。Oは機首合わせ・自動航行、操船入力で解除できます。")), 13, Muted, 420)];
     }
 
     TSharedRef<SWidget> Contents = NavigationPanel;
@@ -511,7 +511,7 @@ TSharedRef<SWidget> UStarHUDWidget::BuildSettingsPanel()
             + SHorizontalBox::Slot().FillWidth(1).Padding(0, 0, 8, 0)[MakeButton(TEXT("ゆっくり"), TEXT("LookSensitivityDelta"), -0.1f)]
             + SHorizontalBox::Slot().FillWidth(1)[MakeButton(TEXT("速く"), TEXT("LookSensitivityDelta"), 0.1f)] ]
         + SVerticalBox::Slot().AutoHeight().Padding(0, 26, 0, 0)
-          [MakeText(T(TEXT("W/S 推力  I/K ピッチ  J/L ヨー  Q/E ロール\n右マウス＋マウス 操船  矢印 見回す\nG 着陸脚  F 離陸 / 飛行中は航行確認\nO 自動操縦  C 確認済み航路で巡航  Space 制動\nTab 目標  V 視点  R スキャン  P 写真\nPageUp / PageDown 上昇 / 下降\nF5 保存  F9 読み込み  F12 撮影  Esc 一時停止\n機器の切断・フォーカス喪失・一時停止・読込で航行許可を解除します。")), 14, Muted, 640)];
+          [MakeText(T(TEXT("W/S 推力  I/K ピッチ  J/L ヨー  Q/E ロール\n右マウス＋マウス 操船  矢印 見回す\nG 着陸脚  F 離陸 / 飛行中は航行確認\nO 自動操縦  C 周辺巡航 / 通常  Space 制動\nTab 目標  V 視点  R スキャン  P 写真\nPageUp / PageDown 上昇 / 下降\nF5 保存  F9 読み込み  F12 撮影  Esc 一時停止\n機器の切断・フォーカス喪失・一時停止・読込で航行許可を解除します。")), 14, Muted, 640)];
 }
 
 void UStarHUDWidget::ApplySnapshot(const FStarHUDSnapshot& Snapshot)
@@ -651,4 +651,3 @@ void UStarHUDWidget::NativeDestruct()
     MenuInputProcessor.Reset();
     Super::NativeDestruct();
 }
-

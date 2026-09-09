@@ -239,6 +239,64 @@ void EarthScenicFlight() {
         Check((sim.State().positionMeters-night.positionMeters).Length()>5000&&sim.State().recoveryCount==0,"Night flight moves safely with pilot throttle");
     }
 }
+void LocalPlanetDrive() {
+    BodyDefinition earth;earth.id="earth";earth.radiusMeters=6371000;earth.atmosphereHeightMeters=15000;
+    earth.centerMeters={1.49e11,-4e10,2e10};
+    FlightSimulation sim({earth});FlightState s;
+    s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+450000};
+    s.orientation=Quatd::FromForwardUp({1,0,0},{0,0,1});s.mode=FlightMode::LocalCruise;
+    Check(sim.RestoreState(s),"local cruise restore");
+    FlightInput input;input.hasThrottle=true;input.throttle=1;
+    double peak=0;
+    for(int i=0;i<3600;++i){
+        const auto before=sim.State();const auto result=sim.Advance(1.0/30,input);
+        Check(result.contact.kind==ContactKind::None,"level planet drive has no contact");
+        peak=std::max(peak,sim.State().velocityMetersPerSecond.Length());
+        Check((sim.State().positionMeters-before.positionMeters).Length()<670,"no local travel jump");
+    }
+    Check(peak>19000&&peak<=20000.001,"local cruise reaches bounded 20 km/s");
+    Near(sim.Telemetry("earth").referenceAltitudeMeters,450000,100,"assisted drive follows curved horizon");
+    Check((sim.State().positionMeters-s.positionMeters).Length()>2000000,"drive visibly covers regional distances");
+    FlightState loaded;Check(DeserializeFlightState(SerializeFlightState(sim.State()),loaded),"local mode save round trip");
+    Check(loaded.mode==FlightMode::LocalCruise,"save retains local speed mode");
+    input.paused=true;const auto paused=sim.State();sim.Advance(1,input);
+    NearVec(sim.State().positionMeters,paused.positionMeters,0,"pause preserves local flight");
+    input.paused=false;input.yaw=.5;AdvanceFor(sim,4,1.0/30,input);
+    Check(sim.State().recoveryCount==0,"turning at local speed does not recover");
+    input.yaw=0;input.brake=true;AdvanceFor(sim,5,1.0/30,input);
+    Check(sim.State().velocityMetersPerSecond.Length()<.01,"local brake stops within five seconds");
+    input.brake=false;AdvanceFor(sim,8,1.0/30,input);
+    sim.SetMode(FlightMode::Maneuver);AdvanceFor(sim,5,1.0/30,input);
+    Check(sim.State().velocityMetersPerSecond.Length()<=300.001,"cruise exit decelerates to maneuver speed");
+    s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+16000};
+    Check(sim.RestoreState(s),"near-ground drive fixture");
+    Check(sim.LocalCruiseSpeedLimitMps()<111,"near-ground local speed envelope");
+    s.orientation=Quatd::FromForwardUp({0,0,-1},{1,0,0});Check(sim.RestoreState(s),"inward fixture");
+    const double inward=sim.LocalCruiseSpeedLimitMps();s.orientation=Quatd::FromForwardUp({0,0,1},{1,0,0});
+    Check(sim.RestoreState(s),"outward fixture");Near(sim.LocalCruiseSpeedLimitMps(),inward,1e-9,"turning across horizon never unlocks transfer speed");
+    FlightState cadenceReference;
+    for(int hz:{15,30,60,144}) {
+        FlightSimulation drive({earth});
+        s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+450000};
+        s.orientation=Quatd::FromForwardUp({1,0,0},{0,0,1});
+        Check(drive.RestoreState(s),"cadence start");
+        for(int frame=0;frame<hz*10;++frame){
+            FlightInput command;command.hasThrottle=true;command.throttle=.8;
+            command.yaw=frame>=hz*2&&frame<hz*4?.3:0;
+            command.pitch=frame>=hz*5&&frame<hz*6?.15:0;
+            command.brake=frame>=hz*8;
+            Check(drive.Advance(1.0/hz,command).contact.kind==ContactKind::None,"multi-cadence turning stays clear");
+        }
+        if(hz==15)cadenceReference=drive.State();
+        else NearVec(drive.State().positionMeters,cadenceReference.positionMeters,.01,"local driving independent of render rate");
+    }
+    s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+16000};
+    s.orientation=Quatd::FromForwardUp({0,0,-1},{1,0,0});
+    Check(sim.RestoreState(s),"local dive fixture");input={};input.hasThrottle=true;input.throttle=1;
+    AdvanceFor(sim,60,1.0/30,input);
+    Check(sim.State().recoveryCount==1&&sim.State().throttleNeutralRequired,"local ground contact recovers once and waits for neutral");
+    Check(sim.Telemetry("earth").referenceAltitudeMeters>=15000,"local dive cannot tunnel through Earth");
+}
 void TwilightIsRealFlight() {
     BodyDefinition earth;earth.id="earth";earth.radiusMeters=6371008.4;
     earth.centerMeters={1.49e11,-2e10,3e8};earth.atmosphereHeightMeters=EarthFlightFloorMeters;
@@ -444,6 +502,7 @@ void InvalidInputsAndPause() {
 
 int main() {
     const std::vector<std::pair<const char*,std::function<void()>>> tests{
+        {"local planet drive, horizon, lifecycle and braking",LocalPlanetDrive},
         {"coordinate precision and floating origin",Coordinates},
         {"quaternions and intuitive controls",QuaternionAndControls},
         {"render rate independent fixed-step path",RenderRateIndependence},

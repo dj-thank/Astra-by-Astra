@@ -53,7 +53,7 @@ inline FlightState InitialVoyage(const BodyDefinition& earth,const BodyDefinitio
     const auto radial=(-east+towardSun*0.14+pole*0.20).Normalized();
     FlightState state;
     state.positionMeters=earth.centerMeters+radial*(earth.radiusMeters+450000.0);
-    const auto forward=(Vec3d::Cross(radial,towardSun).Normalized()-radial*0.35).Normalized();
+    const auto forward=Vec3d::Cross(radial,towardSun).Normalized();
     state.orientation=Quatd::FromForwardUp(forward,radial);
     state.targetBodyId="moon";
     return state;

@@ -17,7 +17,7 @@ double Degrees(double radians) { return radians * (180.0 / Pi); }
 double AngleDegrees(Vec3d a, Vec3d b) {
     return Degrees(std::acos(Clamp(Vec3d::Dot(a.Normalized(), b.Normalized()), -1.0, 1.0)));
 }
-bool ValidMode(FlightMode mode) { return static_cast<unsigned>(mode) <= 3; }
+bool ValidMode(FlightMode mode) { return static_cast<unsigned>(mode) <= 4; }
 bool ValidStateData(const FlightState& s) {
     const double qn = std::hypot(std::hypot(s.orientation.w, s.orientation.x),
                                  std::hypot(s.orientation.y, s.orientation.z));
@@ -146,6 +146,9 @@ FlightSimulation::FlightSimulation(std::vector<BodyDefinition> bodies, FlightCon
     positive(config_.maxFrameSeconds,defaults.maxFrameSeconds,1.0);
     config_.maxFrameSeconds=std::max(config_.maxFrameSeconds,config_.fixedStepSeconds);
     positive(config_.maxManeuverSpeedMps,defaults.maxManeuverSpeedMps);
+    positive(config_.maxLocalCruiseSpeedMps,defaults.maxLocalCruiseSpeedMps,100000.0);
+    positive(config_.localCruiseAccelerationMps2,defaults.localCruiseAccelerationMps2,100000.0);
+    positive(config_.localCruiseBrakeMps2,defaults.localCruiseBrakeMps2,100000.0);
     positive(config_.maxLandingSpeedMps,defaults.maxLandingSpeedMps);
     positive(config_.maxCruiseSpeedMps,defaults.maxCruiseSpeedMps,50.0*SpeedOfLightMps);
     positive(config_.maneuverAccelerationMps2,defaults.maneuverAccelerationMps2);
@@ -309,6 +312,17 @@ BodyTelemetry FlightSimulation::Telemetry(const std::string& id) const {
     return result;
 }
 
+double FlightSimulation::LocalCruiseSpeedLimitMps() const {
+    double limit=config_.maxLocalCruiseSpeedMps;
+    for(const auto& body:bodies_) {
+        const double shell=body.radiusMeters+(body.landable?body.terrainMaxHeightMeters:body.atmosphereHeightMeters)+ContactRadius();
+        const double clearance=std::max(0.0,(state_.positionMeters-body.centerMeters).Length()-shell);
+        // All directions share this envelope: crossing the horizon cannot
+        // switch between an approach cap and an interplanetary speed target.
+        limit=std::min(limit,config_.maxLandingSpeedMps+clearance*0.08);
+    }
+    return std::min(limit,config_.maxCruiseSpeedMps);
+}
 double FlightSimulation::ApproachSpeedLimitMps() const {
     double limit=config_.maxCruiseSpeedMps;
     const Vec3d motion=state_.velocityMetersPerSecond.Length()>1.0?state_.velocityMetersPerSecond.Normalized():Forward(state_.orientation);
@@ -421,7 +435,7 @@ ContactEvent FlightSimulation::ResolveContact(const SweepHit& hit) {
     event.slopeDegrees=AngleDegrees(hit.surface.normal,hit.radial);
     event.tiltDegrees=AngleDegrees(Up(state_.orientation),hit.surface.normal);
     const bool safe=hit.body->landable&&hit.gearContact&&state_.gearDeployed&&hit.surface.available&&!hit.safetyLimit&&
-        state_.mode!=FlightMode::Cruise&&normalSpeed<=0.001&&
+        state_.mode!=FlightMode::Cruise&&state_.mode!=FlightMode::LocalCruise&&normalSpeed<=0.001&&
         event.downwardSpeedMps<=config_.maxLandingDescentMps&&event.lateralSpeedMps<=config_.maxLandingLateralMps&&
         event.slopeDegrees<=config_.maxLandingSlopeDegrees&&event.tiltDegrees<=config_.maxLandingTiltDegrees;
     ResetDynamics();
@@ -495,10 +509,11 @@ ContactEvent FlightSimulation::Step(const FlightInput& raw) {
     angularVelocity_+=(angular-angularVelocity_)*response;
     const double magnitude=angularVelocity_.Length();
     if(magnitude>1.0e-10)state_.orientation=(before*Quatd::FromAxisAngle(angularVelocity_,magnitude*dt)).Normalized();
-    const bool cruise=state_.mode==FlightMode::Cruise;
+    const bool localCruise=state_.mode==FlightMode::LocalCruise;
+    const bool cruise=state_.mode==FlightMode::Cruise||localCruise;
     const double chargeTarget=cruise&&state_.throttle>0.02&&!raw.brake?1.0:0.0;
     propulsion_.cruiseCharge+=(chargeTarget-propulsion_.cruiseCharge)*(1.0-std::exp(-dt/config_.cruiseChargeSeconds));
-    double maxSpeed=cruise?std::min(config_.maxCruiseSpeedMps,ApproachSpeedLimitMps()):
+    double maxSpeed=localCruise?LocalCruiseSpeedLimitMps():cruise?std::min(config_.maxCruiseSpeedMps,ApproachSpeedLimitMps()):
         state_.mode==FlightMode::Landing?config_.maxLandingSpeedMps:config_.maxManeuverSpeedMps;
     maxSpeed=std::min(maxSpeed,config_.maxCruiseSpeedMps);
     Vec3d desired=Forward(state_.orientation)*(state_.throttle*maxSpeed);
@@ -509,17 +524,19 @@ ContactEvent FlightSimulation::Step(const FlightInput& raw) {
         desired+=translation*config_.landingTranslationSpeedMps;
     } else desired+=translation*config_.strafeSpeedMps;
     if(raw.brake) {desired={};state_.throttle=0.0;}
-    double acceleration=cruise?config_.cruiseAccelerationMps2:config_.maneuverAccelerationMps2;
+    double acceleration=localCruise?config_.localCruiseAccelerationMps2:cruise?config_.cruiseAccelerationMps2:config_.maneuverAccelerationMps2;
     // Leaving cruise must retain high-energy braking; using local acceleration
     // here would leave a ship moving at c for years after a mode switch.
     const bool decelerating=raw.brake || state_.velocityMetersPerSecond.Length()>desired.Length()+1.0;
     if(decelerating) {
-        acceleration=state_.velocityMetersPerSecond.Length()>config_.maxManeuverSpeedMps*2.0?
-            config_.cruiseBrakeAccelerationMps2:config_.brakeAccelerationMps2;
+        const double speed=state_.velocityMetersPerSecond.Length();
+        acceleration=speed>config_.maxLocalCruiseSpeedMps*1.05?
+            config_.cruiseBrakeAccelerationMps2:(localCruise||speed>config_.maxManeuverSpeedMps*2.0)?
+            config_.localCruiseBrakeMps2:config_.brakeAccelerationMps2;
     }
     if(cruise&&!decelerating)acceleration*=0.15+0.85*propulsion_.cruiseCharge;
     const Vec3d oldVelocity=state_.velocityMetersPerSecond;
-    if(raw.smoothGuidance) {
+    if(raw.smoothGuidance&&!localCruise) {
         // Critically damped velocity tracking, integrated at the fixed step.
         // Acceleration and jerk envelopes follow the nearest physical surface;
         // deep-space values explicitly belong to the fictional cruise drive.
@@ -557,6 +574,26 @@ ContactEvent FlightSimulation::Step(const FlightInput& raw) {
     const Vec3d destination=state_.positionMeters+state_.velocityMetersPerSecond*dt;
     const auto hit=Sweep(state_.positionMeters,destination,before);
     if(hit.body)return ResolveContact(hit);
+    if(localCruise&&flightAssistEnabled_) {
+        // Transport the local horizon through the actual integrated motion.
+        // This flight assist keeps a level course around a curved planet;
+        // pitch/roll inputs still change the attitude relative to that horizon.
+        const BodyDefinition* nearby=nullptr;double relativeDistance=1.5;
+        for(const auto& body:bodies_) {
+            const double ratio=(state_.positionMeters-body.centerMeters).Length()/body.radiusMeters;
+            if(ratio<relativeDistance){nearby=&body;relativeDistance=ratio;}
+        }
+        if(nearby) {
+            const auto from=(state_.positionMeters-nearby->centerMeters).Normalized();
+            const auto to=(destination-nearby->centerMeters).Normalized();
+            const auto axis=Vec3d::Cross(from,to);
+            if(axis.Length()>1e-12) {
+                const auto transport=Quatd::FromAxisAngle(axis,std::atan2(axis.Length(),Vec3d::Dot(from,to)));
+                state_.orientation=(transport*state_.orientation).Normalized();
+                state_.velocityMetersPerSecond=transport.Rotate(state_.velocityMetersPerSecond);
+            }
+        }
+    }
     state_.positionMeters=destination;
     return {};
 }
@@ -600,7 +637,7 @@ bool DeserializeFlightState(const std::string& text,FlightState& state) {
         >>parsed.velocityMetersPerSecond.x>>parsed.velocityMetersPerSecond.y>>parsed.velocityMetersPerSecond.z
         >>parsed.orientation.w>>parsed.orientation.x>>parsed.orientation.y>>parsed.orientation.z
         >>mode>>parsed.throttle>>gear>>neutral>>parsed.recoveryCount>>parsed.simulationTimeSeconds
-        >>std::quoted(parsed.targetBodyId)>>std::quoted(parsed.landedBodyId))||mode>3||gear>1||neutral>1)return false;
+        >>std::quoted(parsed.targetBodyId)>>std::quoted(parsed.landedBodyId))||mode>4||gear>1||neutral>1)return false;
     parsed.mode=static_cast<FlightMode>(mode);parsed.gearDeployed=gear!=0;parsed.throttleNeutralRequired=neutral!=0;
     stream>>std::ws;if(!stream.eof()||!ValidStateData(parsed))return false;
     parsed.orientation=parsed.orientation.Normalized();state=std::move(parsed);return true;

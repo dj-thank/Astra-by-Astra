@@ -15,6 +15,11 @@ jobs:
       - name: Audio routing
         shell: pwsh
         run: ./Tools/Audio/Test-Routing.ps1
+      - name: Navigation and real controller policy
+        shell: pwsh
+        run: |
+          ./Tools/Navigation/Test-Native.ps1
+          ./Tools/Navigation/Test-Runtime.ps1
       - name: Content installation safety
         shell: pwsh
         run: python Tests/Release/test_content_setup.py

@@ -72,7 +72,7 @@ void AStarPlayerController::ConfigureNavigationQA()
 bool AStarPlayerController::CheckNavigationQADeadline()
 {
     if(bNavigationQAFinished) return false;
-    if(FPlatformTime::Seconds()-NavigationQAStartedWall>120)
+    if(FPlatformTime::Seconds()-NavigationQAStartedWall>(bLocalFlightQA?240:120))
     { FinishNavigationQA(false,TEXT("Navigation QA exceeded 120 wall seconds"));return false; }
     return true;
 }
@@ -84,6 +84,7 @@ bool AStarPlayerController::RequireNavigationQA(bool Condition,const TCHAR* Reas
 }
 void AStarPlayerController::UpdateNavigationQABeforeFlight()
 {
+    if(bLocalFlightQA){UpdateLocalFlightQABefore();return;}
     if(bNavigationQAFinished||!CheckNavigationQADeadline()) return;
     if(!RequireNavigationQA(!NavigationBypassed(),TEXT("Navigation QA must not bypass navigation permission"))) return;
     auto& Sim=*Ship->Simulation();
@@ -201,6 +202,7 @@ void AStarPlayerController::UpdateNavigationQABeforeFlight()
 }
 void AStarPlayerController::InjectNavigationQAInput(star::FlightInput& Controls)
 {
+    if(bLocalFlightQA){InjectLocalFlightQA(Controls);return;}
     if(bNavigationQAFinished) { Controls=star::FlightInput{};Controls.paused=true;return; }
     // Scripted input, labelled as such in the result. All ordinary permission,
     // disconnect and pause gates still consume this input in PlayerTick.
@@ -222,6 +224,7 @@ void AStarPlayerController::ObserveNavigationQAControls(const star::FlightInput&
     // and pausing. It must not alter physical state; Advance is tested against
     // this post-gate snapshot, including the resulting mode.
     NavigationQABeforeAdvanceState=Ship->Simulation()->State();
+    if(bLocalFlightQA)return;
     if(!RequireNavigationQA(SamePhysicalState(NavigationQABeforeAdvanceState,NavigationQABeforeState),
         TEXT("Navigation gate changed position, velocity, attitude, time, target or recovery count"))) return;
     if(Controls.paused)
@@ -244,6 +247,7 @@ void AStarPlayerController::ObserveNavigationQAControls(const star::FlightInput&
 }
 void AStarPlayerController::UpdateNavigationQAAfterFlight()
 {
+    if(bLocalFlightQA){UpdateLocalFlightQAAfter();return;}
     if(bNavigationQAFinished||!bNavigationQAStarted) return;
     ++NavigationQAFrames;
     const auto& State=Ship->Simulation()->State();
@@ -318,7 +322,7 @@ void AStarPlayerController::FinishNavigationQA(bool Success,const FString& Reaso
         Result->SetStringField(TEXT("reason"),Reason);Result->SetStringField(TEXT("stage"),NavigationQAStageName);
         Result->SetStringField(TEXT("scope"),TEXT("UE runtime with scripted HandleAction and control inputs; normal navigation gate; physical keyboard, HOTAS, screenshot visual quality and whole-route acceptance are not established"));
         Result->SetNumberField(TEXT("wallSeconds"),FPlatformTime::Seconds()-NavigationQAStartedWall);
-        Result->SetNumberField(TEXT("maximumWallSeconds"),120);
+        Result->SetNumberField(TEXT("maximumWallSeconds"),bLocalFlightQA?240:120);
         Result->SetBoolField(TEXT("scriptedInput"),true);Result->SetBoolField(TEXT("physicalInputTested"),false);
         Result->SetNumberField(TEXT("assertions"),NavigationQAAssertions);Result->SetNumberField(TEXT("frames"),NavigationQAFrames);
         Result->SetBoolField(TEXT("navigationBypassed"),NavigationBypassed());

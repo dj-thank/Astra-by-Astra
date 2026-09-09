@@ -214,7 +214,9 @@ NavigationCommand NavigationPilot::Tick(const FlightSimulation& simulation) {
     out.controls.hasThrottle=true;out.controls.throttle=0;out.controls.brake=true;
     out.controls.smoothGuidance=true;
     out.highSpeedAuthorized=valid && !paused_ && authorizedDestination_==destination_ && !destination_.empty();
-    out.requiresSafetyPause=!out.highSpeedAuthorized && state.velocityMetersPerSecond.Length()>simulation.Config().maxManeuverSpeedMps*2;
+    const double unconfirmedLimit=state.mode==FlightMode::Cruise?simulation.Config().maxManeuverSpeedMps*2:
+        simulation.Config().maxLocalCruiseSpeedMps*1.05;
+    out.requiresSafetyPause=!out.highSpeedAuthorized && state.velocityMetersPerSecond.Length()>unconfirmedLimit;
     out.canConfirmTransfer=valid && CanConfirm(simulation);
     if(target) out.headingErrorDegrees=Heading(state,*target);
     if(paused_) { out.status=NavigationStatus::Paused;out.controls.paused=true;return out; }
@@ -242,7 +244,7 @@ NavigationCommand NavigationPilot::Tick(const FlightSimulation& simulation) {
     if(route_.empty() && !BuildRoute(simulation)) {
         Revoke(NavigationStatus::RouteBlocked);autopilot_=false;
         out.status=status_;out.highSpeedAuthorized=false;out.autopilotActive=false;
-        out.requiresSafetyPause=state.velocityMetersPerSecond.Length()>simulation.Config().maxManeuverSpeedMps*2;
+        out.requiresSafetyPause=state.velocityMetersPerSecond.Length()>unconfirmedLimit;
         return out;
     }
     const bool final=waypoint_+1==route_.size();

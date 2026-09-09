@@ -71,6 +71,15 @@ void GateTests(const std::vector<BodyDefinition>& bodies) {
     Check(!pilot.Tick(simulation).highSpeedAuthorized,"invalid target revokes grant");
     Select(simulation,pilot,"earth");Check(!pilot.ConfirmTransfer(simulation),"same local body cannot arm escape");
 }
+void LocalSpeedDoesNotFreeze(const std::vector<BodyDefinition>& bodies) {
+    auto simulation=MakeSimulation(bodies);
+    auto state=simulation.State();state.velocityMetersPerSecond=Forward(state.orientation)*10000;
+    Check(simulation.RestoreState(state),"local-speed fixture restored");
+    NavigationPilot pilot;Select(simulation,pilot,"earth");
+    Check(!pilot.Tick(simulation).requiresSafetyPause,"local planetary driving must not require interplanetary permission");
+    pilot.SetPaused(true);pilot.SetPaused(false);
+    Check(!pilot.Tick(simulation).requiresSafetyPause,"resume at local speed must not immediately freeze again");
+}
 void LifecycleTests(const std::vector<BodyDefinition>& bodies) {
     auto simulation=MakeSimulation(bodies);NavigationPilot pilot;Select(simulation,pilot,"moon");
     Check(pilot.ConfirmTransfer(simulation),"lifecycle initial confirm");
@@ -196,6 +205,7 @@ void MovingCelestialFrameTest(const std::vector<BodyDefinition>& bodies) {
 int main(int argc,char** argv) {
     try {
         Check(argc==2,"pass dated body fixture path");const auto bodies=LoadBodies(argv[1]);
+        LocalSpeedDoesNotFreeze(bodies);
         GateTests(bodies);LifecycleTests(bodies);BlockedRouteTest(bodies);HoldAndAlignmentTests(bodies);
         MovingCelestialFrameTest(bodies);
         TransferIntegration(bodies,false);TransferIntegration(bodies,true);TransferIntegration(bodies,false,"saturn");

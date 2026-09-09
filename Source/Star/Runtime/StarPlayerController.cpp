@@ -90,7 +90,8 @@ void AStarPlayerController::BeginPlay()
     bBenchmarkShowUI=FParse::Param(FCommandLine::Get(),TEXT("StarBenchmarkUI"));
     bGuidedTourTest=FParse::Param(FCommandLine::Get(),TEXT("StarTourTest"));
     bEVAQA=FParse::Param(FCommandLine::Get(),TEXT("StarEVAQA"));
-    bNavigationQA=FParse::Param(FCommandLine::Get(),TEXT("StarNavigationQA"));
+    bLocalFlightQA=FParse::Param(FCommandLine::Get(),TEXT("StarLocalFlightQA"));
+    bNavigationQA=bLocalFlightQA||FParse::Param(FCommandLine::Get(),TEXT("StarNavigationQA"));
     FParse::Value(FCommandLine::Get(),TEXT("StarEVAPath="),EVAQADirectory);
     if(bEVAQA&&EVAQADirectory.IsEmpty()) { bEVAQA=false;UE_LOG(LogTemp,Error,TEXT("StarEVAQA requires isolated StarEVAPath")); }
     if((bEVAQA||bBenchmark||bGuidedTourTest)&&FParse::Param(FCommandLine::Get(),TEXT("StarAudioCapture")))
@@ -768,9 +769,18 @@ void AStarPlayerController::HandleAction(FName Action,float Value)
         NavigationCommand=Navigation.Tick(*Sim);
         if(NavigationCommand.autopilotActive)
         { Navigation.Cancel();NavigationCommand=Navigation.Tick(*Sim); }
-        if(Sim->State().mode==star::FlightMode::Cruise) Sim->SetMode(star::FlightMode::Maneuver);
-        else if(!bFlightPaused&&!bPhotoMode&&NavigationCommand.highSpeedAuthorized) Sim->SetMode(star::FlightMode::Cruise);
-        else SetStatus(TEXT("巡航は未許可です。目標を選び、機首を向けてFで航行を確認してください。"));
+        if(bPhotoMode||bMainMenu||!bSessionStarted||InputSettings) { SetStatus(TEXT("飛行画面に戻ってから巡航を操作してください。"));return; }
+        const bool WasPaused=bFlightPaused;
+        if(Sim->State().mode==star::FlightMode::Landed) { SetStatus(TEXT("離陸してから巡航を操作してください。"));return; }
+        if(Sim->State().mode==star::FlightMode::Cruise||Sim->State().mode==star::FlightMode::LocalCruise)
+        { Sim->SetMode(star::FlightMode::Maneuver);SetStatus(TEXT("通常飛行へ減速します。Spaceで停止できます。")); }
+        else
+        {
+            Sim->SetMode(NavigationCommand.highSpeedAuthorized?star::FlightMode::Cruise:star::FlightMode::LocalCruise);
+            SetStatus(NavigationCommand.highSpeedAuthorized?TEXT("惑星間巡航：推力で加速します。"):
+                TEXT("周辺巡航：W/Sで速度調整、Spaceで停止、Cで通常飛行。"));
+        }
+        if(WasPaused)SetFlightPaused(false);
         Ship->PlaySoundEvent(TEXT("View"));
     }
     else if(Action==TEXT("Precision"))
@@ -895,7 +905,7 @@ void AStarPlayerController::UpdateSnapshot(double Dt)
     Snapshot.Throttle=static_cast<float>(State.throttle);
     Snapshot.bGearDeployed=State.gearDeployed;
     Snapshot.bLanded=State.mode==star::FlightMode::Landed;
-    Snapshot.bCruise=State.mode==star::FlightMode::Cruise;
+    Snapshot.bCruise=State.mode==star::FlightMode::Cruise||State.mode==star::FlightMode::LocalCruise;
     Snapshot.bCockpitView=!EVAPawn&&Ship->IsCockpitView();
     Snapshot.bPaused=bFlightPaused;
     Snapshot.bPhotoMode=bPhotoMode;
