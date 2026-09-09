@@ -117,7 +117,7 @@ int main() {
             input.yaw=1;input.pitch=1;input.roll=1;input.strafeUp=1;input.strafeRight=1;input.takeoff=true;
             controller.W=true;
             controller.ApplyNavigationControls(input);
-            Check(input.throttle==0&&input.brake&&input.smoothGuidance&&
+            Check(input.throttle==0&&input.brake&&!input.smoothGuidance&&
                 input.yaw==0&&input.pitch==0&&input.roll==0&&input.strafeUp==0&&input.strafeRight==0&&!input.takeoff,
                 "recovery ignores forward throttle and every flight control");
             Check(!controller.Navigation.Tick(sim).highSpeedAuthorized,"brake recovery cannot grant transfer");
@@ -134,6 +134,12 @@ int main() {
         controller.ApplyNavigationControls(input);controller.ToggleNavigationSafeBrake();
         controller.SetFlightPaused(true);
         Check(!controller.bNavigationBrakingRecovery&&controller.bFlightPaused,"pause cancels special recovery");
+        auto highManual=State();highManual.mode=star::FlightMode::Maneuver;highManual.velocityMetersPerSecond={1000000,0,0};
+        Check(sim.RestoreState(highManual),"unconfirmed high-speed maneuver save");controller.ResetNavigation();
+        input={};controller.ApplyNavigationControls(input);controller.ToggleNavigationSafeBrake();
+        for(int frame=0;frame<300&&!controller.bFlightPaused;++frame){controller.ApplyNavigationControls(input);sim.Advance(1.0/60,input);}
+        Check(sim.State().velocityMetersPerSecond.Length()<1&&controller.bFlightPaused,
+            "emergency recovery must brake high energy even after cruise mode was cleared");
         controller.bGuidedTour=true;controller.bFlightPaused=false;input={};input.throttle=1;
         controller.ApplyNavigationControls(input);
         Check(input.throttle==1&&!input.paused,"explicit tour driver keeps its own controls");

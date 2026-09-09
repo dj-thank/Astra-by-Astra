@@ -591,7 +591,9 @@ void AStarPlayerController::ApplyNavigationControls(star::FlightInput& Controls)
         // the safety-pause threshold until stopped; never assign state vectors.
         Controls=star::FlightInput{};
         Controls.hasThrottle=true;Controls.throttle=0;Controls.brake=true;
-        Controls.smoothGuidance=true;Controls.paused=bFlightPaused||bPhotoMode;
+        // Emergency recovery must retain the simulation's high-energy brake,
+        // even if a save/mode switch has already cleared interplanetary Cruise.
+        Controls.smoothGuidance=false;Controls.paused=bFlightPaused||bPhotoMode;
         if(Sim.State().velocityMetersPerSecond.Length()<1.0)
         {
             Sim.SetMode(star::FlightMode::Maneuver);

@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$Label='local-flight',[switch]$Editor,[string]$PackageName='Star-Win64-local-drive',[string]$EngineRoot='',[switch]$Stress,[switch]$Offline,[switch]$ColdCache)
+param([string]$Label='local-flight',[switch]$Editor,[string]$PackageName='Star-Win64-local-drive',[string]$EngineRoot='',[switch]$Stress,[switch]$Offline,[switch]$ColdCache,[switch]$LegacyRecovery)
 $ErrorActionPreference='Stop'
 $root=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 if($Label -notmatch '^[a-z0-9-]+$'){throw 'Use a simple label'}
@@ -11,6 +11,11 @@ $launchArgs=@('-windowed','-RenderOffscreen','-NoVSync','-NoSound','-ForceRes','
  ('-UserDir="'+$root+'/work/unified-world/editor-unified-r1/user"'),('-abslog="'+$out+'/game.log"'),
  '"-ExecCmds=DisableAllScreenMessages,t.MaxFPS 0"')
 if($Stress){$launchArgs+='-StarLocalFlightStressQA'}
+if($LegacyRecovery){
+ if($Stress){throw 'Select either altitude stress or legacy recovery'}
+ $launchArgs=$launchArgs|Where-Object {$_ -ne '-StarLocalFlightQA'}
+ $launchArgs+=@('-StarNavigationQA','-StarNavigationManualRecovery','-StarClockRate=0')
+}
 if($Offline){$launchArgs+='-StarOfflineEarth'}
 if($Editor){$engine=& "$PSScriptRoot/Find-Engine.ps1" -EngineRoot $EngineRoot;$exe="$engine/Engine/Binaries/Win64/UnrealEditor.exe";$launchArgs=@(('"'+$root+'/Star.uproject"'),'-game')+$launchArgs}
 else{$exe=Join-Path $root "outputs/$PackageName/Windows/Star/Binaries/Win64/Star.exe"}

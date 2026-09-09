@@ -115,7 +115,7 @@ void AStarPlayerController::UpdateNavigationQABeforeFlight()
                 TEXT("Selecting Moon must not grant transfer"))) return;
             break;
         case 1:
-            NavigationQAStageName=TEXT("01_cruise_rejected");HandleAction(TEXT("ToggleCruise"));
+            NavigationQAStageName=TEXT("01_local_cruise_without_transfer");HandleAction(TEXT("ToggleCruise"));
             if(!RequireNavigationQA(Sim.State().mode!=star::FlightMode::Cruise&&!Navigation.Tick(Sim).highSpeedAuthorized,
                 TEXT("C accepted an unconfirmed transfer"))) return;
             break;
@@ -150,8 +150,13 @@ void AStarPlayerController::UpdateNavigationQABeforeFlight()
             NavigationQAHighSpeedFixture.simulationTimeSeconds=17;
             NavigationQAHighSpeedFixture.throttle=1;
             NavigationQAHighSpeedFixture.velocityMetersPerSecond=star::Forward(NavigationQAInitialFixture.orientation)*-2500;
+            if(FParse::Param(FCommandLine::Get(),TEXT("StarNavigationManualRecovery"))){
+                NavigationQAHighSpeedFixture.mode=star::FlightMode::Maneuver;
+                NavigationQAHighSpeedFixture.velocityMetersPerSecond=star::Forward(NavigationQAInitialFixture.orientation)*-100000000;
+            }
             auto Save=MakeShared<FJsonObject>();Save->SetNumberField(TEXT("schemaVersion"),1);
             Save->SetStringField(TEXT("dataEpoch"),Ship->Director()->Catalog().DataEpoch());
+            Save->SetNumberField(TEXT("astronomyUtc"),Ship->Director()->WorldUtc());Save->SetNumberField(TEXT("astronomyRate"),0);
             Save->SetStringField(TEXT("flight"),FlightJson(NavigationQAHighSpeedFixture));
             Save->SetStringField(TEXT("exploration"),Exploration->ExportProgressJson());
             FString Text;FJsonSerializer::Serialize(Save,TJsonWriterFactory<>::Create(&Text));
@@ -231,7 +236,7 @@ void AStarPlayerController::ObserveNavigationQAControls(const star::FlightInput&
     {
         const bool FinishedBraking=NavigationQAStage==8&&bNavigationQARecoveryBeforeGate&&
             !bNavigationBrakingRecovery&&bFlightPaused&&
-            NavigationQABeforeState.mode==star::FlightMode::Cruise&&
+            NavigationQABeforeState.mode==NavigationQAHighSpeedFixture.mode&&
             NavigationQABeforeAdvanceState.mode==star::FlightMode::Maneuver&&
             NavigationQABeforeState.velocityMetersPerSecond.Length()<1;
         if(!RequireNavigationQA(SameHeldState(NavigationQABeforeAdvanceState,NavigationQABeforeState)||FinishedBraking,
@@ -241,7 +246,7 @@ void AStarPlayerController::ObserveNavigationQAControls(const star::FlightInput&
         RequireNavigationQA(Controls.hasThrottle&&Controls.throttle==0&&Controls.brake&&!Controls.paused&&
             Navigation.Tick(*Ship->Simulation()).autopilotActive,TEXT("Unconfirmed AP accelerated, stopped steering or became paused"));
     if(NavigationQAStage==8)
-        RequireNavigationQA(Controls.hasThrottle&&Controls.throttle==0&&Controls.brake&&Controls.smoothGuidance&&
+        RequireNavigationQA(Controls.hasThrottle&&Controls.throttle==0&&Controls.brake&&!Controls.smoothGuidance&&
             Controls.yaw==0&&Controls.pitch==0&&Controls.roll==0&&Controls.strafeRight==0&&Controls.strafeUp==0&&!Controls.takeoff,
             TEXT("Brake-only recovery forwarded a non-braking flight input"));
 }
