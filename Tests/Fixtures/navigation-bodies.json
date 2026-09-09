@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "epoch": "2026-09-19T00:00:00Z",
+  "timeScale": "UTC (Horizons UT)",
+  "basis": "ecliptic-j2000",
+  "origin": "solar-system-barycenter",
+  "vectors": "geometric, no light-time or aberration",
+  "bodies": [
+    {
+      "id": "sun",
+      "nameJa": "太陽",
+      "radiusMeters": 695700000.0,
+      "positionMeters": [
+        -197224822.9112271,
+        -773407082.7666285,
+        14392330.964660559
+      ],
+      "velocityMetersPerSecond": [
+        10.56479377720816,
+        4.187795794358597,
+        -0.2230133030189372
+      ],
+      "basis": "ecliptic-j2000",
+      "epoch": "2026-09-19T00:00:00Z",
+      "horizonsId": "10",
+      "radiusConvention": "mean spherical reference",
+      "bodyFixedFrame": "IAU_SUN",
+      "bodyFixedToEclipticJ2000": [
+        [
+          -0.12051477388291523,
+          0.9851425338046607,
+          0.12235349347232778
+        ],
+        [
+          -0.9925794775666918,
+          -0.11756968709698737,
+          -0.0310378702450671
+        ],
+        [
+          -0.016191664194360744,
+          -0.12518608854361427,
+          0.9920011457885356
+        ]
+      ],
+      "orientationConvention": "row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north",
+      "northPoleEclipticJ2000": [
+        0.12235349347232778,
+        -0.0310378702450671,
+        0.9920011457885356
+      ],
+      "orientationEpoch": "2026-09-19T00:00:00Z",
+      "orientationKernels": [
+        "naif0012.tls",
+        "pck00011.tpc"
+      ]
+    },
+    {
+      "id": "earth",
+      "nameJa": "地球",
+      "radiusMeters": 6371008.4,
+      "positionMeters": [
+        149684774131.58972,
+        -11996979365.06788,
+        14558153.0090943
+      ],
+      "velocityMetersPerSecond": [
+        1741.161161913849,
+        29598.56847235891,
+        -2.521535020600041
+      ],
+      "basis": "ecliptic-j2000",
+      "epoch": "2026-09-19T00:00:00Z",
+      "horizonsId": "399",
+      "radiusConvention": "mean spherical reference",
+      "bodyFixedFrame": "IAU_EARTH",
+      "bodyFixedToEclipticJ2000": [
+        [
+          0.9990342482618689,
+          0.043861443058875564,
+          0.002597039205617787
+        ],
+        [
+          -0.041274388562943444,
+          0.9165568676247192,
+          0.3977686931606336
+        ],
+        [
+          0.015066374766268851,
+          -0.39749173855912545,
+          0.917482055480458
+        ]
+      ],
+      "orientationConvention": "row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north",
+      "northPoleEclipticJ2000": [
+        0.002597039205617787,
+        0.3977686931606336,
+        0.917482055480458
+      ],
+      "orientationEpoch": "2026-09-19T00:00:00Z",
+      "orientationKernels": [
+        "naif0012.tls",
+        "pck00011.tpc"
+      ],
+      "orientationLimit": "IAU_EARTH approximate spin model, not ITRF high-precision Earth orientation."
+    },
+    {
+      "id": "moon",
+      "nameJa": "月",
+      "radiusMeters": 1737400.0,
+      "positionMeters": [
+        149665063933.88022,
+        -12399395837.20435,
+        -17979450.24832245
+      ],
+      "velocityMetersPerSecond": [
+        2705.339589152989,
+        29546.11828637799,
+        38.6580340608873
+      ],
+      "basis": "ecliptic-j2000",
+      "epoch": "2026-09-19T00:00:00Z",
+      "horizonsId": "301",
+      "radiusConvention": "mean spherical reference",
+      "bodyFixedFrame": "MOON_ME",
+      "bodyFixedToEclipticJ2000": [
+        [
+          0.05873599567683467,
+          -0.9981687807841486,
+          0.01446263737141554
+        ],
+        [
+          0.9979793803333854,
+          0.05906421143348126,
+          0.023421685616813626
+        ],
+        [
+          -0.024233019647635523,
+          0.013057717856778405,
+          0.9996210565825082
+        ]
+      ],
+      "orientationConvention": "row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north",
+      "northPoleEclipticJ2000": [
+        0.01446263737141554,
+        0.023421685616813626,
+        0.9996210565825082
+      ],
+      "orientationEpoch": "2026-09-19T00:00:00Z",
+      "orientationKernels": [
+        "naif0012.tls",
+        "pck00011.tpc",
+        "moon_pa_de421_1900-2050.bpc",
+        "moon_080317.tf"
+      ],
+      "orientationLimit": "DE421 mean Earth/polar-axis frame, consistent with conventional LRO mapping; position still Horizons current solution."
+    },
+    {
+      "id": "saturn",
+      "nameJa": "土星",
+      "radiusMeters": 58232000.0,
+      "positionMeters": [
+        1387350120914.707,
+        253703099842.55902,
+        -59650177276.39042
+      ],
+      "velocityMetersPerSecond": [
+        -2266.7027530706778,
+        9481.401661299165,
+        -74.94256277521094
+      ],
+      "basis": "ecliptic-j2000",
+      "epoch": "2026-09-19T00:00:00Z",
+      "horizonsId": "699",
+      "radiusConvention": "mean spherical reference",
+      "equatorialRadiusMeters": 60268000.0,
+      "polarRadiusMeters": 54364000.0,
+      "bodyFixedFrame": "IAU_SATURN",
+      "bodyFixedToEclipticJ2000": [
+        [
+          -0.6642456155507871,
+          -0.7426079876096218,
+          0.08550519843812761
+        ],
+        [
+          0.686650521311109,
+          -0.5609469452335634,
+          0.46243873779811734
+        ],
+        [
+          -0.29544682060353616,
+          0.3658850931255897,
+          0.8825187107499424
+        ]
+      ],
+      "orientationConvention": "row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north",
+      "northPoleEclipticJ2000": [
+        0.08550519843812761,
+        0.46243873779811734,
+        0.8825187107499424
+      ],
+      "orientationEpoch": "2026-09-19T00:00:00Z",
+      "orientationKernels": [
+        "naif0012.tls",
+        "pck00011.tpc"
+      ]
+    }
+  ],
+  "provenance": [
+    {
+      "path": "Data/epoch_selection.json",
+      "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+      "sourceJsonPointer": "/horizonsResponses/sun/rawResponseUtf8",
+      "sourceResponseSha256": "c9fe8f3012f174790e05483ab3db608f22a1efea2c47c5330ad76c511bbf5938",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-07 00:00:00'",
+        "STOP_TIME": "'2026-10-06 00:00:00'",
+        "STEP_SIZE": "'12 h'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'10'"
+      },
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-07+00%3A00%3A00%27&STOP_TIME=%272026-10-06+00%3A00%3A00%27&STEP_SIZE=%2712+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%2710%27",
+      "observationDate": "2026-09-19T00:00:00Z",
+      "sourceUnits": "KM-S; converted to meters and meters/second"
+    },
+    {
+      "path": "Data/epoch_selection.json",
+      "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+      "sourceJsonPointer": "/horizonsResponses/moon/rawResponseUtf8",
+      "sourceResponseSha256": "ae8bd3678a375c40d47b74d24b4f3fe726fc86b56d0cb5a57a8eeacf0e4351a9",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-07 00:00:00'",
+        "STOP_TIME": "'2026-10-06 00:00:00'",
+        "STEP_SIZE": "'12 h'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'301'"
+      },
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-07+00%3A00%3A00%27&STOP_TIME=%272026-10-06+00%3A00%3A00%27&STEP_SIZE=%2712+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27301%27",
+      "observationDate": "2026-09-19T00:00:00Z",
+      "sourceUnits": "KM-S; converted to meters and meters/second"
+    },
+    {
+      "path": "Data/epoch_selection.json",
+      "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+      "sourceJsonPointer": "/horizonsResponses/earth/rawResponseUtf8",
+      "sourceResponseSha256": "2e516b7b5ea7d9a305b9ccdb0b8b835361aa116d3496038247e27e34204ac247",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-19 00:00:00'",
+        "STOP_TIME": "'2026-09-19 00:01:00'",
+        "STEP_SIZE": "'1 min'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'399'"
+      },
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-19+00%3A00%3A00%27&STOP_TIME=%272026-09-19+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27399%27",
+      "observationDate": "2026-09-19T00:00:00Z",
+      "sourceUnits": "KM-S; converted to meters and meters/second"
+    },
+    {
+      "path": "Data/epoch_selection.json",
+      "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+      "sourceJsonPointer": "/horizonsResponses/saturn/rawResponseUtf8",
+      "sourceResponseSha256": "b4f79a7cc647fca18dfa50037574658ab41db3724107b20d4abf4724908a7654",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-19 00:00:00'",
+        "STOP_TIME": "'2026-09-19 00:01:00'",
+        "STEP_SIZE": "'1 min'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'699'"
+      },
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-19+00%3A00%3A00%27&STOP_TIME=%272026-09-19+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27699%27",
+      "observationDate": "2026-09-19T00:00:00Z",
+      "sourceUnits": "KM-S; converted to meters and meters/second"
+    }
+  ],
+  "orientationCalculation": {
+    "library": "SpiceyPy 8.2.0",
+    "toolkit": "CSPICE_N0067",
+    "ephemerisTimeTdbSecondsPastJ2000": 843048069.1824105,
+    "operation": "pxform(bodyFixedFrame,ECLIPJ2000,ET)"
+  },
+  "orientationSources": [
+    {
+      "path": "Data/provenance/kernels/naif0012.tls",
+      "id": "naif0012.tls",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+      "retrievedAt": "2026-09-06T03:11:40.456561+00:00",
+      "bytes": 5257,
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "lastModified": "Fri, 15 Jul 2016 00:00:37 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    },
+    {
+      "path": "Data/provenance/kernels/pck00011.tpc",
+      "id": "pck00011.tpc",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "retrievedAt": "2026-09-06T03:11:40.745116+00:00",
+      "bytes": 131226,
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "lastModified": "Tue, 27 Dec 2022 16:28:50 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    },
+    {
+      "path": "Data/provenance/kernels/moon_pa_de421_1900-2050.bpc",
+      "id": "moon_pa_de421_1900-2050.bpc",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+      "retrievedAt": "2026-09-06T03:11:42.801059+00:00",
+      "bytes": 1770496,
+      "sha256": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+      "lastModified": "Wed, 19 Mar 2008 04:51:40 GMT",
+      "contentType": null
+    },
+    {
+      "path": "Data/provenance/kernels/moon_080317.tf",
+      "id": "moon_080317.tf",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+      "retrievedAt": "2026-09-06T03:11:41.892393+00:00",
+      "bytes": 21437,
+      "sha256": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993",
+      "lastModified": "Thu, 18 Jul 2013 10:07:49 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 #include "Terrain/StarRemoteRaster.h"
 #include "Simulation/SolarLighting.h"
 #include "Runtime/StarDataCatalog.h"
+#include "Runtime/StarDiagnostics.h"
 #include "ProceduralMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/Texture2D.h"
@@ -38,6 +39,8 @@ struct FStarEarthTerrainState
 {
     std::atomic<bool> Cancel{false};
     TFuture<TUniquePtr<FTile>> Job;
+    TSharedPtr<std::atomic<bool>,ESPMode::ThreadSafe> JobCancel;
+    double JobStarted=0;
     TArray<TUniquePtr<FTile>> Tiles;
     int South=0,West=0,JobIndex=-1;bool Located=false,Enabled=true,Near=false;
     star::BodyDefinition Earth;
@@ -46,7 +49,10 @@ void FStarEarthTerrainDeleter::operator()(FStarEarthTerrainState* S) const {dele
 UStarEarthTerrainComponent::UStarEarthTerrainComponent(){State.Reset(new FStarEarthTerrainState);}
 UStarEarthTerrainComponent::~UStarEarthTerrainComponent(){Shutdown();}
 void UStarEarthTerrainComponent::EndPlay(const EEndPlayReason::Type R){Shutdown();Super::EndPlay(R);}
-void UStarEarthTerrainComponent::Shutdown(){if(State){State->Cancel.store(true);if(State->Job.IsValid())State->Job.Wait();}}
+void UStarEarthTerrainComponent::Shutdown(){if(State){State->Cancel.store(true);if(State->JobCancel)State->JobCancel->store(true);
+    // Workers capture their own cancellation token, never this component/state.
+    // Teardown therefore does not wait on HTTP or a stale raster on the game thread.
+    State->Job=TFuture<TUniquePtr<FTile>>();}}
 void UStarEarthTerrainComponent::Initialize(UMaterialInterface* M)
 {
     Material=M;State->Enabled=M&&!FParse::Param(FCommandLine::Get(),TEXT("StarOfflineEarth"));
@@ -66,13 +72,22 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
         const auto Absolute=Earth.centerMeters+Earth.bodyFixedToSimulation.Rotate(State->Tiles[I]->Anchor);
         Meshes[I]->SetWorldLocationAndRotation(V(star::ToUnrealCentimeters(Absolute,Origin)),FStarDataCatalog::UERotation(Earth.bodyFixedToSimulation));
     }
-    if(!Near)return;
     const auto N=Local.Normalized();const double Lat=asin(FMath::Clamp(N.z,-1.0,1.0))*180/UE_DOUBLE_PI,Lon=atan2(N.y,N.x)*180/UE_DOUBLE_PI;
     const int South=FMath::Clamp(FMath::FloorToInt(Lat)-1,-90,87),West=FMath::FloorToInt(Lon)-1;
+    if(State->Job.IsValid()&&State->JobCancel&&!State->JobCancel->load()&&State->Tiles.IsValidIndex(State->JobIndex)){
+        const auto& Tile=*State->Tiles[State->JobIndex];
+        const int LongitudeOffset=(Tile.Lon-West+720)%360;
+        if(!Near||Tile.Lat<South||Tile.Lat>South+2||LongitudeOffset>=3){
+            State->JobCancel->store(true);
+            StarDiagnostics::Event(TEXT("terrain_cancel"),GeoName(Tile.Lat,Tile.Lon)+(Near?TEXT(": superseded region"):TEXT(": left detail range")));
+        }
+    }
     if(State->Job.IsValid()&&State->Job.IsReady())
     {
         auto Result=State->Job.Consume();const int Index=State->JobIndex;State->JobIndex=-1;
-        if(Result&&State->Tiles.IsValidIndex(Index))
+        const bool Cancelled=State->JobCancel&&State->JobCancel->load();State->JobCancel.Reset();
+        if(Cancelled&&State->Tiles.IsValidIndex(Index))State->Tiles[Index]->Attempted=false;
+        if(!Cancelled&&Result&&State->Tiles.IsValidIndex(Index))
         {
             State->Tiles[Index]=MoveTemp(Result);
             if(State->Tiles[Index]->Ready)Upload(Index);
@@ -80,6 +95,7 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
                 *GeoName(State->Tiles[Index]->Lat,State->Tiles[Index]->Lon),*State->Tiles[Index]->Height.Error,*State->Tiles[Index]->Color.Error);
         }
     }
+    if(!Near)return;
     if(!State->Located||South!=State->South||West!=State->West)
     {
         // Finish the single bounded read before shifting the 3x3 window. No concurrent writers.
@@ -115,14 +131,17 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
         {
             State->Tiles[I]->Attempted=true;State->JobIndex=I;
             const int TileLat=State->Tiles[I]->Lat,TileLon=State->Tiles[I]->Lon;
-            auto* Shared=State.Get();const FString Cache=FPaths::ProjectSavedDir()/TEXT("EarthCache/v1");
-            State->Job=Async(EAsyncExecution::ThreadPool,[Shared,TileLat,TileLon,Cache](){
+            const auto JobCancel=MakeShared<std::atomic<bool>,ESPMode::ThreadSafe>(false);State->JobCancel=JobCancel;
+            State->JobStarted=FPlatformTime::Seconds();StarDiagnostics::Event(TEXT("terrain_request"),GeoName(TileLat,TileLon));
+            const FString Cache=FPaths::ProjectSavedDir()/TEXT("EarthCache/v1");
+            State->Job=Async(EAsyncExecution::ThreadPool,[JobCancel,TileLat,TileLon,Cache](){
                 auto T=MakeUnique<FTile>();T->Lat=TileLat;T->Lon=TileLon;T->Attempted=true;
                 const FString Name=GeoName(TileLat,TileLon);
+                StarDiagnostics::FScope DiagnosticScope(*(TEXT("terrain_download:")+Name));
                 const FString Dem=FString::Printf(TEXT("Copernicus_DSM_COG_10_%s%02d_00_%s%03d_00_DEM"),TileLat<0?TEXT("S"):TEXT("N"),FMath::Abs(TileLat),TileLon<0?TEXT("W"):TEXT("E"),FMath::Abs(TileLon));
                 const FString ColorUrl=FString::Printf(TEXT("https://esa-worldcover-s2.s3.eu-central-1.amazonaws.com/rgbnir/2021/%s/ESA_WorldCover_10m_2021_v200_%s_S2RGBNIR.tif"),*Name.Left(3),*Name);
                 // Year is the source acquisition year for imagery; the DSM is the 2021 release of 2011-2015 observations.
-                T->Ready=T->Color.Load(ColorUrl,AtlasTile,Cache,Shared->Cancel)&&T->Height.Load(TEXT("https://copernicus-dem-30m.s3.amazonaws.com/")+Dem+TEXT("/")+Dem+TEXT(".tif"),1800,Cache,Shared->Cancel);
+                T->Ready=T->Color.Load(ColorUrl,AtlasTile,Cache,*JobCancel)&&T->Height.Load(TEXT("https://copernicus-dem-30m.s3.amazonaws.com/")+Dem+TEXT("/")+Dem+TEXT(".tif"),1800,Cache,*JobCancel);
                 T->Ready=T->Ready&&T->Color.Bits==16&&T->Color.Channels==4&&T->Height.Floating&&T->Height.Bits==32&&T->Height.Channels==1;
                 if(T->Ready)
                 {
@@ -130,11 +149,11 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
                     const int ClassLat=FMath::FloorToInt(TileLat/3.0)*3,ClassLon=FMath::FloorToInt(TileLon/3.0)*3;
                     const FString ClassUrl=TEXT("https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_")+GeoName(ClassLat,ClassLon)+TEXT("_Map.tif");
                     FStarRemoteRaster Classes;
-                    T->Ready=Classes.Load(ClassUrl,9000,Cache,Shared->Cancel)&&Classes.Bits==8&&Classes.Channels==1;
+                    T->Ready=Classes.Load(ClassUrl,9000,Cache,*JobCancel)&&Classes.Bits==8&&Classes.Channels==1;
                     if(T->Ready)
                     {
                         const int W=T->Color.Width,H=T->Color.Height;T->WaterMask.SetNumZeroed(W*H);T->LandMask.SetNumZeroed(W*H);
-                        for(int Y=0;Y<H;++Y)for(int X=0;X<W;++X)
+                        for(int Y=0;Y<H&&!JobCancel->load();++Y)for(int X=0;X<W;++X)
                         {
                             const double Longitude=TileLon+(X+0.5)/W,Latitude=TileLat+1-(Y+0.5)/H;
                             const int CX=FMath::Clamp(int((Longitude-ClassLon)/3*Classes.Width),0,Classes.Width-1);
@@ -146,6 +165,8 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
                     }
                     else T->Color.Error=TEXT("Measured water classification unavailable; keep global fallback");
                 }
+                T->Ready=T->Ready&&!JobCancel->load();
+                StarDiagnostics::Event(T->Ready?TEXT("terrain_download_ready"):JobCancel->load()?TEXT("terrain_download_cancelled"):TEXT("terrain_download_failed"),Name+TEXT(" ")+T->Color.Error+TEXT(" ")+T->Height.Error);
                 return T;
             });break;
         }
@@ -153,6 +174,7 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
 }
 void UStarEarthTerrainComponent::Upload(int32 Index)
 {
+    StarDiagnostics::FScope DiagnosticScope(TEXT("terrain_gpu_upload"));
     auto& T=*State->Tiles[Index];const auto& C=T.Color;const auto& D=T.Height;
     const auto* RGB=reinterpret_cast<const uint16*>(C.Samples.GetData());
     TArray<FFloat16Color> Colors;Colors.SetNum(C.Width*C.Height);T.Mask.SetNumZeroed(AtlasTile*AtlasTile);
@@ -220,6 +242,7 @@ void UStarEarthTerrainComponent::Upload(int32 Index)
 }
 void UStarEarthTerrainComponent::RefreshCoverage()
 {
+    StarDiagnostics::FScope DiagnosticScope(TEXT("terrain_coverage_upload"));
     ++RenderRevision;
     const int W=AtlasTile*3;TArray<uint8> Pixels;Pixels.SetNumZeroed(W*W);
     for(int I=0;I<9;++I)if(Meshes[I]&&State->Tiles[I]->Mask.Num()==AtlasTile*AtlasTile)
@@ -268,7 +291,10 @@ FString UStarEarthTerrainComponent::StatusText() const
     if(!State||!State->Near)return FString();
     if(!State->Enabled)return TEXT("地表：全球地図（オフライン）");
     const bool Detailed=Meshes.ContainsByPredicate([](const auto& M){return M&&M->IsVisible();});
+    if(State->Job.IsValid()){
+        if(FPlatformTime::Seconds()-State->JobStarted>10)return TEXT("地表の読込に時間がかかっています · 操縦できます");
+        return Detailed?TEXT("2021年の詳細地表 · 周辺を読み込み中（操縦できます）"):TEXT("地表を読み込み中 · 全球地図で操縦できます");
+    }
     if(Detailed)return TEXT("詳細地表：2021年観測画像・実測地形 ／ 晴天");
-    if(State->Job.IsValid())return TEXT("周辺の観測地形を読み込み中 ／ 晴天");
     return TEXT("この地域の詳細地表は未取得 ／ 全球地図を表示中");
 }

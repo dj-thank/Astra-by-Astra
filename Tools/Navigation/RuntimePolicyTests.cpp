@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdexcept>
 #define TEXT(value) value
+namespace StarDiagnostics { void Event(const char*,const char*,bool=true) {} }
 namespace FMath { double Abs(double value) { return std::abs(value); } }
 namespace EKeys { enum Key { W, S }; }
 struct FInputModeGameOnly { void SetConsumeCaptureMouseDown(bool) {} };

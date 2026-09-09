@@ -268,6 +268,9 @@ void LocalPlanetDrive() {
     input.brake=false;AdvanceFor(sim,8,1.0/30,input);
     sim.SetMode(FlightMode::Maneuver);AdvanceFor(sim,5,1.0/30,input);
     Check(sim.State().velocityMetersPerSecond.Length()<=300.001,"cruise exit decelerates to maneuver speed");
+    sim.SetMode(FlightMode::LocalCruise);AdvanceFor(sim,8,1.0/30,input);
+    sim.SetMode(FlightMode::Landing);AdvanceFor(sim,5,1.0/30,input);
+    Check(sim.State().velocityMetersPerSecond.Length()<=30.001,"precision entry removes local cruise speed within five seconds");
     s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+16000};
     Check(sim.RestoreState(s),"near-ground drive fixture");
     Check(sim.LocalCruiseSpeedLimitMps()<111,"near-ground local speed envelope");

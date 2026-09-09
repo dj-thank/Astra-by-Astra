@@ -1,5 +1,6 @@
 #include "Simulation/SolarLighting.h"
 #include "Runtime/StarShipPawn.h"
+#include "Runtime/StarDiagnostics.h"
 #include "Runtime/StarWorldDirector.h"
 #include "Runtime/StarDataCatalog.h"
 #include "Presentation/StarInstrumentWidget.h"
@@ -202,6 +203,8 @@ void AStarShipPawn::EndPlay(const EEndPlayReason::Type Reason)
 }
 bool AStarShipPawn::InitializeFlight()
 {
+    StarDiagnostics::Initialize();
+    StarDiagnostics::FScope DiagnosticScope(TEXT("initialize_flight"));
     if(Flight) return IsReady();
     WorldDirector=Cast<AStarWorldDirector>(UGameplayStatics::GetActorOfClass(GetWorld(),AStarWorldDirector::StaticClass()));
     if(!WorldDirector) WorldDirector=GetWorld()->SpawnActor<AStarWorldDirector>();
@@ -673,6 +676,8 @@ void AStarShipPawn::CreateInstrument(const FString& Name,const FVector& Position
 void AStarShipPawn::AdvanceFlight(double Dt,const star::FlightInput& Input)
 {
     if(!Flight||!WorldDirector) return;
+    StarDiagnostics::Phase(TEXT("physics"));
+    StarDiagnostics::Flight(*Flight,Input,RenderOrigin,CameraAbsoluteMeters(),WorldDirector->WorldUtc(),WorldDirector->EarthSurfaceStatus(),TEXT("before_physics"));
     const float SafeDt=FMath::Clamp(static_cast<float>(Dt),0.0f,0.25f);
     const double BeforeTime=Flight->State().simulationTimeSeconds;
     if(Input.paused)
@@ -719,6 +724,8 @@ void AStarShipPawn::AdvanceFlight(double Dt,const star::FlightInput& Input)
         else if(RcsPulseRemaining<=0.0f) RcsPulseDemand=0.0f;
     }
     const auto Result=Flight->Advance(Dt,Input);
+    if(Result.discardedSeconds>0.01)StarDiagnostics::Event(TEXT("simulation_time_limited"),TEXT("Frame hitch: excess wall time was not fast-forwarded"),true,Result.discardedSeconds*1000);
+    if(Result.contact.kind!=star::ContactKind::None)StarDiagnostics::Event(TEXT("contact"),FString::Printf(TEXT("kind=%d body=%s descent=%g lateral=%g"),int(Result.contact.kind),UTF8_TO_TCHAR(Result.contact.bodyId.c_str()),Result.contact.downwardSpeedMps,Result.contact.lateralSpeedMps));
     if(Flight->State().mode==star::FlightMode::Landed)
     {
         RcsPulseRemaining=0.0f;
@@ -728,9 +735,11 @@ void AStarShipPawn::AdvanceFlight(double Dt,const star::FlightInput& Input)
     if(Result.contact.kind==star::ContactKind::Landed) PlaySoundEvent(TEXT("Landing"));
     else if(Result.contact.kind==star::ContactKind::Recovered) PlaySoundEvent(TEXT("Warning"));
     const auto Distance=Flight->State().positionMeters-RenderOrigin;
-    if(Distance.Length()>5000.0) RenderOrigin=Flight->State().positionMeters;
+    if(Distance.Length()>5000.0){RenderOrigin=Flight->State().positionMeters;StarDiagnostics::Event(TEXT("origin_rebase"),FString::Printf(TEXT("distanceMeters=%g"),Distance.Length()),false);}
     RefreshTransform(Input.paused?0:Dt);
+    StarDiagnostics::Phase(TEXT("scene"));
     WorldDirector->UpdateScene(Flight->State(),RenderOrigin,CameraAbsoluteMeters(),Input.paused?0:Dt,GetController()!=nullptr);
+    StarDiagnostics::Flight(*Flight,Input,RenderOrigin,CameraAbsoluteMeters(),WorldDirector->WorldUtc(),WorldDirector->EarthSurfaceStatus(),TEXT("after_scene"));
 }
 void AStarShipPawn::RefreshTransform(double Dt)
 {

@@ -28,6 +28,7 @@ for p in sorted((stage/'Windows').rglob('*')):
 for p in sorted((args.engine_root/'Engine/Source/ThirdParty/Licenses').glob('*')):
  if p.is_file():files.append((p,'licenses/engine/'+p.name))
 files += [(ROOT/'LICENSE','LICENSE'),(ROOT/'THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md'),(ROOT/'docs/CREDITS.md','CREDITS.md'),(ROOT/'docs/PLAYING.md','PLAYING.md'),(ROOT/'docs/NETWORK.md','NETWORK.md'),(ROOT/'Plugins/StarFlightInput/ThirdParty/SDL3/LICENSE.txt','licenses/SDL3.txt'),(ROOT/'Content/Star/UI/Fonts/OFL.txt','licenses/Noto-OFL.txt')]
+files.append((ROOT/'docs/DIAGNOSTICS.md','DIAGNOSTICS.md'))
 base='''@echo off
 setlocal
 chcp 65001 >nul

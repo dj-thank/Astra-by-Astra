@@ -531,7 +531,7 @@ ContactEvent FlightSimulation::Step(const FlightInput& raw) {
     if(decelerating) {
         const double speed=state_.velocityMetersPerSecond.Length();
         acceleration=speed>config_.maxLocalCruiseSpeedMps*1.05?
-            config_.cruiseBrakeAccelerationMps2:(localCruise||speed>config_.maxManeuverSpeedMps*2.0)?
+            config_.cruiseBrakeAccelerationMps2:(localCruise||speed>config_.maxManeuverSpeedMps+1.0)?
             config_.localCruiseBrakeMps2:config_.brakeAccelerationMps2;
     }
     if(cruise&&!decelerating)acceleration*=0.15+0.85*propulsion_.cruiseCharge;

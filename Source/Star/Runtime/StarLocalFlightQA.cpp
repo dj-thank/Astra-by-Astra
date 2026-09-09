@@ -10,6 +10,9 @@ const TCHAR* LocalStages[]={TEXT("00_normal_start"),TEXT("01_C_accelerate"),TEXT
  TEXT("14_local_autopilot"),TEXT("15_manual_override"),TEXT("16_rapid_C"),TEXT("17_photo"),TEXT("18_photo_exit"),
  TEXT("19_precision"),TEXT("20_return_to_drive")};
 const double LocalDurations[]={3,10,3,3,5,10,1,10,5,10,1,1,10,2,6,4,4,1,4,5,8};
+const TCHAR* StressStages[]={TEXT("00_normal_start"),TEXT("01_cruise"),TEXT("02_climb_out_of_detail"),TEXT("03_stop_at_altitude"),
+ TEXT("04_descend_into_detail"),TEXT("05_stop_after_descent"),TEXT("06_large_heading_change"),TEXT("07_finish")};
+const double StressDurations[]={3,10,65,5,90,5,10,2};
 }
 void AStarPlayerController::UpdateLocalFlightQABefore()
 {
@@ -25,6 +28,13 @@ void AStarPlayerController::UpdateLocalFlightQABefore()
         bNavigationQAStarted=true;NavigationQAStageWall=FPlatformTime::Seconds();
     }
     if(bNavigationQAStageAction)return;
+    if(bLocalFlightStressQA){
+        NavigationQAStageName=StressStages[NavigationQAStage];
+        if(NavigationQAStage==0&&Ship->IsCockpitView())HandleAction(TEXT("ToggleView"));
+        if(NavigationQAStage==1)HandleAction(TEXT("ToggleCruise"));
+        if(NavigationQAStage==6)LocalFlightQASaved=Sim.State();
+        bNavigationQAStageAction=true;return;
+    }
     NavigationQAStageName=LocalStages[NavigationQAStage];
     switch(NavigationQAStage){
     case 0: if(Ship->IsCockpitView())HandleAction(TEXT("ToggleView"));break;
@@ -57,6 +67,17 @@ void AStarPlayerController::InjectLocalFlightQA(star::FlightInput& Controls)
     if(S==2)Controls.yaw=.4;
     if(S==3)Controls.yaw=-.4;
     if(S==15)Controls.yaw=.2;
+    if(bLocalFlightStressQA){
+        Controls.throttle=(S==1||S==2||S==4||S==6)?1:0;Controls.brake=S==3||S==5||S==7;
+        Controls.yaw=S==6?.8:0;Controls.pitch=0;
+        if(S==2||S==4||S==6){
+            const auto& Sim=*Ship->Simulation();const auto* Earth=Sim.FindBody("earth");
+            const auto Radial=(Sim.State().positionMeters-Earth->centerMeters).Normalized();
+            const double Pitch=FMath::Asin(FMath::Clamp(star::Vec3d::Dot(star::Forward(Sim.State().orientation),Radial),-1.0,1.0));
+            const double Desired=S==2?80.0:S==4?-80.0:0.0;
+            Controls.pitch=FMath::Clamp((FMath::DegreesToRadians(Desired)-Pitch)*2.0,-.8,.8);
+        }
+    }
     KeyboardThrottle=static_cast<float>(Controls.throttle);
     NavigationQARequestedInput=Controls;NavigationQABeforeState=Ship->Simulation()->State();
     const auto* Earth=Ship->Simulation()->FindBody("earth");
@@ -81,6 +102,19 @@ void AStarPlayerController::UpdateLocalFlightQAAfter()
     if(NavigationQAAppliedInput.paused&&!RequireNavigationQA(Delta<.001&&Dt==0,
         TEXT("Pause/photo advanced local flight")))return;
     const double Age=FPlatformTime::Seconds()-NavigationQAStageWall;
+    if(bLocalFlightStressQA){
+        const int S=NavigationQAStage;const double Altitude=Ship->Simulation()->Telemetry("earth").referenceAltitudeMeters;
+        const bool DescentDone=S==4&&Age>5&&Altitude<450000;
+        if(!DescentDone&&Age<StressDurations[S])return;
+        if(S==2&&!RequireNavigationQA(Altitude>1550000,TEXT("Climb did not leave the detail-retention range")))return;
+        if((S==3||S==5)&&!RequireNavigationQA(Speed<1,TEXT("High-altitude/descent braking failed")))return;
+        if(S==4&&!RequireNavigationQA(Altitude<1200000,TEXT("Descent did not reenter detailed Earth range")))return;
+        if(S==6&&!RequireNavigationQA(star::Vec3d::Dot(star::Forward(State.orientation),star::Forward(LocalFlightQASaved.orientation))<.5,
+            TEXT("Stress route did not exercise a large heading change")))return;
+        CaptureNavigationQAStage();
+        if(S==7){FinishNavigationQA(true,TEXT("Normal voyage: high-speed climb, detail-range exit, stop, continuous descent, reentry and large turn passed; no physical controller claim"));return;}
+        ++NavigationQAStage;bNavigationQAStageAction=false;NavigationQAStageWall=FPlatformTime::Seconds();return;
+    }
     if(Age<LocalDurations[NavigationQAStage])return;
     const int S=NavigationQAStage;
     if((S==1||S==5||S==7||S==9||S==12||S==20)&&!RequireNavigationQA(Speed>15000&&!bFlightPaused,

@@ -358,6 +358,7 @@ TSharedRef<SWidget> UStarHUDWidget::BuildMenu()
     Add(TEXT("設定"), TEXT("OpenSettings"));
     if (!bMain) Add(TEXT("航海を保存"), TEXT("Save"));
     Add(TEXT("保存した航海を読み込む"), TEXT("Load"));
+    if(!bMain) Add(TEXT("不具合調査のログを開く"),TEXT("OpenDiagnostics"));
     if(!bMain&&(Current.bLanded||Current.bOnFoot)) Add(Current.bOnFoot?TEXT("H  船へ戻る"):TEXT("H  船外へ出て月面を歩く"),TEXT("ToggleEVA"));
     if(!Current.bGuidedTour) Add(TEXT("ツアー後の航海を読み込む"), TEXT("LoadTour"));
     Add(TEXT("終了"), TEXT("Quit"));

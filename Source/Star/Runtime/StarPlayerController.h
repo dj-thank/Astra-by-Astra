@@ -61,6 +61,7 @@ private:
     void InjectLocalFlightQA(star::FlightInput& Controls);
     void UpdateLocalFlightQAAfter();
     bool bLocalFlightQA=false;
+    bool bLocalFlightStressQA=false;
     star::FlightState LocalFlightQASaved;
     double LocalFlightQATravel=0;
     star::Vec3d LocalFlightQABeforeBodyPosition;

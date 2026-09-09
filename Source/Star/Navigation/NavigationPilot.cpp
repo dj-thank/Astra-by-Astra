@@ -231,7 +231,7 @@ NavigationCommand NavigationPilot::Tick(const FlightSimulation& simulation) {
         out.status=arrived_ ? NavigationStatus::Arrived : NavigationStatus::LocalHold;
         // Existing high energy requires pause at the runtime boundary. If root
         // explicitly elects to brake, ordinary simulation braking remains usable.
-        out.controls.smoothGuidance=state.velocityMetersPerSecond.Length()<=simulation.Config().maxManeuverSpeedMps*2;
+        out.controls.smoothGuidance=state.velocityMetersPerSecond.Length()<=simulation.Config().maxLandingSpeedMps;
         Steer(simulation,holdForward_,holdUp_,out.controls);
         return out;
     }

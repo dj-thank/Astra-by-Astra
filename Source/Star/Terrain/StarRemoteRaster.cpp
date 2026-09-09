@@ -1,9 +1,11 @@
 #include "Terrain/StarRemoteRaster.h"
+#include "Runtime/StarDiagnostics.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
 #include "HAL/PlatformProcess.h"
 #include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "Misc/SecureHash.h"
 #include "HAL/FileManager.h"
 THIRD_PARTY_INCLUDES_START
@@ -26,7 +28,7 @@ struct FRangeReader
         if(Blocks.Contains(Index))return true;
         const FString Path=Directory/TEXT("range-")+LexToString(Index)+TEXT(".bin");
         TArray<uint8> Bytes;
-        if(FFileHelper::LoadFileToArray(Bytes,*Path)&&Bytes.Num()>0&&Bytes.Num()<=BlockSize)
+        if(IFileManager::Get().FileExists(*Path)&&FFileHelper::LoadFileToArray(Bytes,*Path)&&Bytes.Num()>0&&Bytes.Num()<=BlockSize)
         {Blocks.Add(Index,MoveTemp(Bytes));return true;}
         struct FResponse {std::atomic<bool> Done{false};int Code=0;TArray<uint8> Data;FString Range;};
         auto Response=MakeShared<FResponse,ESPMode::ThreadSafe>();
@@ -41,10 +43,12 @@ struct FRangeReader
         if(!Request->ProcessRequest())return false;
         while(!Response->Done.load())
         {
-            if(Cancel.load()||FPlatformTime::Seconds()>Deadline){Request->CancelRequest();return false;}
+            if(Cancel.load()||FPlatformTime::Seconds()>Deadline){Request->CancelRequest();
+                StarDiagnostics::Event(Cancel.load()?TEXT("raster_cancelled"):TEXT("raster_timeout"),FString::Printf(TEXT("source=%s block=%llu"),*FPaths::GetCleanFilename(Directory),Index));return false;}
             FPlatformProcess::Sleep(0.01f);
         }
-        if(Response->Code!=206||Response->Data.IsEmpty()||Response->Data.Num()>BlockSize)return false;
+        if(Response->Code!=206||Response->Data.IsEmpty()||Response->Data.Num()>BlockSize){
+            StarDiagnostics::Event(TEXT("raster_http_failed"),FString::Printf(TEXT("source=%s block=%llu http=%d bytes=%d"),*FPaths::GetCleanFilename(Directory),Index,Response->Code,Response->Data.Num()));return false;}
         FString Prefix,Total;if(!Response->Range.Split(TEXT("/"),&Prefix,&Total))return false;
         if(!Prefix.StartsWith(FString::Printf(TEXT("bytes %llu-"),Index*BlockSize)))return false;
         Size=FCString::Strtoui64(*Total,nullptr,10);
@@ -89,7 +93,7 @@ bool FStarRemoteRaster::Load(const FString& Url,int32 MaximumDimension,const FSt
     SourceUrl=Url;
     FRangeReader R{Url,Cache/FMD5::HashAnsiString(*Url),Cancel};
     FString SizeText;
-    if(FFileHelper::LoadFileToString(SizeText,*(R.Directory/TEXT("size.txt"))))R.Size=FCString::Strtoui64(*SizeText,nullptr,10);
+    if(IFileManager::Get().FileExists(*(R.Directory/TEXT("size.txt")))&&FFileHelper::LoadFileToString(SizeText,*(R.Directory/TEXT("size.txt"))))R.Size=FCString::Strtoui64(*SizeText,nullptr,10);
     if(!R.Fetch(0)||!R.Size){Error=TEXT("HTTP range unavailable");return false;}
     TIFF* T=TIFFClientOpen("STAR observed raster","rm",&R,Read,Write,Seek,Close,Size,Map,Unmap);
     if(!T){Error=TEXT("Invalid TIFF");return false;}

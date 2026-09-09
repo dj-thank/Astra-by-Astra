@@ -14,6 +14,7 @@ if (-not $installation) { throw 'Visual Studio C++ Build Tools were not found.' 
 Import-Module (Join-Path $installation 'Common7/Tools/Microsoft.VisualStudio.DevShell.dll')
 Enter-VsDevShell -VsInstallPath $installation -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64' | Out-Null
 $dataPath = Join-Path $DependencyRoot 'Content/Star/Data/bodies.json'
+if(!(Test-Path -LiteralPath $dataPath)){$dataPath=Join-Path $projectRoot 'Tests/Fixtures/navigation-bodies.json'}
 $data = Get-Content -LiteralPath $dataPath -Raw -Encoding utf8 | ConvertFrom-Json
 $culture = [System.Globalization.CultureInfo]::InvariantCulture
 $fixtureLines = foreach ($body in $data.bodies) {

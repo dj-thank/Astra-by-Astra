@@ -1,4 +1,5 @@
 #include "Runtime/StarPlayerController.h"
+#include "Runtime/StarDiagnostics.h"
 #include "Simulation/EarthFlight.h"
 #include "Misc/App.h"
 #include "AudioMixerBlueprintLibrary.h"
@@ -90,7 +91,8 @@ void AStarPlayerController::BeginPlay()
     bBenchmarkShowUI=FParse::Param(FCommandLine::Get(),TEXT("StarBenchmarkUI"));
     bGuidedTourTest=FParse::Param(FCommandLine::Get(),TEXT("StarTourTest"));
     bEVAQA=FParse::Param(FCommandLine::Get(),TEXT("StarEVAQA"));
-    bLocalFlightQA=FParse::Param(FCommandLine::Get(),TEXT("StarLocalFlightQA"));
+    bLocalFlightStressQA=FParse::Param(FCommandLine::Get(),TEXT("StarLocalFlightStressQA"));
+    bLocalFlightQA=bLocalFlightStressQA||FParse::Param(FCommandLine::Get(),TEXT("StarLocalFlightQA"));
     bNavigationQA=bLocalFlightQA||FParse::Param(FCommandLine::Get(),TEXT("StarNavigationQA"));
     FParse::Value(FCommandLine::Get(),TEXT("StarEVAPath="),EVAQADirectory);
     if(bEVAQA&&EVAQADirectory.IsEmpty()) { bEVAQA=false;UE_LOG(LogTemp,Error,TEXT("StarEVAQA requires isolated StarEVAPath")); }
@@ -215,6 +217,7 @@ void AStarPlayerController::AxisChanged(const FInputActionValue& Value,FName Nam
 void AStarPlayerController::AxisCompleted(const FInputActionValue&,FName Name) { Axes.FindOrAdd(Name)=0; }
 void AStarPlayerController::PlayerTick(float DeltaTime)
 {
+    StarDiagnostics::FFrame DiagnosticFrame(DeltaTime);
     Super::PlayerTick(DeltaTime);
     if(bQAQuitPending)
     {
@@ -250,7 +253,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
     }
     if(bBenchmark) UpdateBenchmark(DeltaTime);
     if(!bVRRequested&&!bBenchmark&&!bAcceptance&&!bGuidedTourTest&&!bNavigationQA&&FSlateApplication::IsInitialized()&&!FSlateApplication::Get().IsActive()&&!bFlightPaused)
-    { SetFlightPaused(true);SetStatus(TEXT("ウィンドウが非アクティブになったため一時停止しました。")); }
+    { StarDiagnostics::Event(TEXT("pause_cause"),TEXT("window_focus_lost"));SetFlightPaused(true);SetStatus(TEXT("ウィンドウが非アクティブになったため一時停止しました。")); }
     auto* Plugin=FStarFlightInputModule::GetIfAvailable();
     if(EVAPawn) { if(!bFlightPaused)Ship->AdvanceWorldClock(DeltaTime);TickEVA(DeltaTime);return; }
     if(Plugin)
@@ -266,7 +269,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
             NavigationQADeviceGeneration=InputStatus.ConnectionGeneration;
         }
         if(InputStatus.bRequiresPause&&!bFlightPaused&&!bBenchmark&&!bAcceptance&&!bGuidedTour&&!QAFocusOnly)
-        { SetFlightPaused(true);SetStatus(TEXT("入力機器を確認してください。安全のため一時停止しました。")); }
+        { StarDiagnostics::Event(TEXT("pause_cause"),TEXT("input_device_requires_pause"));SetFlightPaused(true);SetStatus(TEXT("入力機器を確認してください。安全のため一時停止しました。")); }
     }
     if(bGuidedTour) UpdateGuidedTourCommand(DeltaTime);
     if(bNavigationQA) UpdateNavigationQABeforeFlight();
@@ -378,6 +381,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
     }
     if(bBenchmark&&FParse::Param(FCommandLine::Get(),TEXT("StarTimeQA")))
     { TickAstronomyQA();Controls.paused=bFlightPaused||bPhotoMode; }
+    StarDiagnostics::Phase(TEXT("clock"));
     if(!Controls.paused) { Ship->AdvanceWorldClock(DeltaTime);Navigation.FollowCelestialFrames(*Ship->Simulation()); }
     Ship->AdvanceFlight(DeltaTime,Controls);
     if(bBenchmark&&BenchmarkStage>=BenchmarkStart&&BenchmarkStage<BenchmarkStart+BenchmarkCount&&FParse::Param(FCommandLine::Get(),TEXT("StarEarthFlightQA")))
@@ -441,6 +445,7 @@ void AStarPlayerController::SetFlightPaused(bool Value)
             SetStatus(TEXT("高速状態を安全停止中です。目標に機首を向けた状態でFを押すと航行を確認できます。"),8);
         }
     }
+    if(bFlightPaused!=Value)StarDiagnostics::Event(TEXT("pause_state"),bNavigationSafetyPause?TEXT("unconfirmed_interplanetary_speed"):Value?TEXT("paused"):TEXT("resumed"));
     bFlightPaused=Value;
     bScanHeld=bBrakeHeld=false;
     Axes.Reset();
@@ -666,6 +671,8 @@ void AStarPlayerController::UpdateNavigationSnapshot()
         default: Snapshot.NavigationStatusText=Local?TEXT("付近の通常飛行 · 惑星間航行は未許可"):
             Name+FString::Printf(TEXT("への航行：未確認 · 機首差 %.1f°"),NavigationCommand.headingErrorDegrees);break;
     }
+    if(Ship->Simulation()->State().mode==star::FlightMode::LocalCruise&&!Snapshot.bAutopilotActive&&!bFlightPaused&&!bPhotoMode)
+        Snapshot.NavigationStatusText=FString::Printf(TEXT("周辺巡航 · 上限 %.2f km/s · Cで通常飛行"),Ship->Simulation()->LocalCruiseSpeedLimitMps()/1000.0);
     if(Snapshot.bNavigationSafetyPause)
         Snapshot.NavigationStatusText=TEXT("高速状態を安全停止 · ")+Name+FString::Printf(TEXT("へ機首差 %.1f° · Fで確認 / Bで安全に減速"),NavigationCommand.headingErrorDegrees);
     if(Snapshot.bNavigationBrakingRecovery)
@@ -685,6 +692,8 @@ void AStarPlayerController::SetWorldDateTime(const FString& Value)
 }
 void AStarPlayerController::HandleAction(FName Action,float Value)
 {
+    StarDiagnostics::Event(TEXT("action"),Action.ToString());
+    if(Action==TEXT("OpenDiagnostics")){FPlatformProcess::ExploreFolder(*StarDiagnostics::Directory());return;}
     if(Ship&&Ship->IsReady()&&(Action==TEXT("ClockNow")||Action==TEXT("ClockHour")||Action==TEXT("ClockRate")))
     {
         auto* Director=Ship->Director();
@@ -962,6 +971,7 @@ FString AStarPlayerController::SaveFilename() const
 }
 bool AStarPlayerController::SaveGame()
 {
+    StarDiagnostics::FScope DiagnosticScope(TEXT("save_game"));
     if(bNavigationQA&&!bNavigationQAPathReady) return false;
     if(!bSessionStarted) { SetStatus(TEXT("飛行を開始してから保存してください。"));return false; }
     if(!Ship||!Ship->IsReady()||!Exploration) return false;
@@ -1006,6 +1016,7 @@ bool AStarPlayerController::SaveGame()
 }
 bool AStarPlayerController::LoadGame()
 {
+    StarDiagnostics::FScope DiagnosticScope(TEXT("load_game"));
     if(bNavigationQA&&!bNavigationQAPathReady) return false;
     if(bGuidedTour)
     {
