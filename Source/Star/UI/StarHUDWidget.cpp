@@ -351,16 +351,8 @@ TSharedRef<SWidget> UStarHUDWidget::BuildMenu()
     const auto Add = [&](const FString& Label, FName Action)
     { NavigationPanel->AddSlot().AutoHeight().Padding(0, 4)[MakeButton(Label, Action)]; };
     Add(bMain ? TEXT("探査を始める") : (Current.bGuidedTour ? TEXT("ツアーを再開") : TEXT("飛行に戻る")), bMain ? FName(TEXT("StartFlight")) : FName(TEXT("Resume")));
-    if (bMain) Add(TEXT("地球上空フライト"), TEXT("StartEarthFlight"));
-    if (bMain) Add(TEXT("地球の夜景フライト"), TEXT("StartEarthNightFlight"));
-    if (bMain) Add(TEXT("ゆったり宇宙ツアー（約10分）"), TEXT("StartGuidedTour"));
+    if (!bMain&&!Current.bGuidedTour&&!Current.bOnFoot) Add(TEXT("この場所からガイド航行"), TEXT("StartGuidedTour"));
     else if (Current.bGuidedTour) Add(Current.GuidedTourProgress >= 1.0f ? TEXT("ツアーを閉じて手動操縦へ") : TEXT("手動操縦へ切り替え"), TEXT("ManualTakeover"));
-    if(bMain)
-    {
-        Add(TEXT("地球を眺めるフライト"),TEXT("EarthOrbit"));
-        Add(TEXT("朝日へ向かうフライト"),TEXT("EarthSunrise"));
-        Add(TEXT("夕焼けのフライト"),TEXT("EarthSunset"));
-    }
     Add(TEXT("観測目標・探査日誌"), TEXT("OpenMissions"));
     Add(TEXT("写真を撮る"), TEXT("TogglePhoto"));
     Add(TEXT("設定"), TEXT("OpenSettings"));

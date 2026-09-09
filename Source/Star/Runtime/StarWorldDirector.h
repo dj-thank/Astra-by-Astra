@@ -32,7 +32,6 @@ public:
     FStarObservationSample Observe(const star::FlightState& State, const star::Vec3d& CameraMeters, const star::Vec3d& CameraForward, const FString& TargetId, bool bScanning, bool bCockpit, double DeltaSeconds, uint64 Sequence) const;
     star::FlightState InitialFlightState() const;
     void SetExposure(float Value);
-    void SetTwilightDream(bool Enabled, bool Sunset=false);
     // Toggle the cosmetic photographic sky. The NASA ICRF/J2000 catalogue
     // remains the restrained fallback when this is disabled.
     void SetEnhancedStars(bool Enabled);
@@ -42,6 +41,8 @@ public:
     star::Vec3d SafeCameraPosition(const star::Vec3d& Desired) const;
     bool TerrainReadyForLanding() const;
     FString EarthSurfaceStatus() const;
+    FLinearColor EnvironmentLightIntegral() const;
+    float MinimumExposureEV() const;
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -49,7 +50,6 @@ private:
     UPROPERTY() TObjectPtr<UStarEarthTerrainComponent> EarthTerrain;
     bool bEarthLUTEnabled=true, bEarthVolumeClouds=true, bEarthPacificEnabled=true;
     double EarthWeatherTimeOverride=-1.0;
-    bool bDreamTwilight=false, bDreamSunset=false;
     void CreateBodies();
     void CreateLighting();
     void CaptureEnvironmentDiagnostic(const star::Vec3d& Origin, const star::Vec3d& Camera);
@@ -69,12 +69,14 @@ private:
     bool bEnvironmentCaptureRequested = false;
     bool bLocalEnvironment = false;
     bool bEnvironmentPending = false, bEnvironmentFenceIssued = false, bEnvironmentActive = false;
-    bool bHaveEnvironmentCamera = false;
     uint64 EnvironmentUpdateFrame = MAX_uint64;
-    double EnvironmentClock = 0, EnvironmentStableSeconds = 0, EnvironmentCaptureTime = 0;
+    double EnvironmentClock = 0, EnvironmentCaptureTime = 0;
     double EnvironmentValidityMeters = 500, EnvironmentFade = 0;
     FString EnvironmentBody;
-    star::Vec3d EnvironmentCapturePosition, EnvironmentPreviousCamera;
+    star::Vec3d EnvironmentCapturePosition, EnvironmentSunLocal, EnvironmentWorldDirection;
+    FLinearColor EnvironmentIntegral=FLinearColor::Black;
+    double EnvironmentCaptureUtc=0;
+    uint64 EnvironmentTerrainRevision=0;
     FRenderCommandFence EnvironmentFence;
     UPROPERTY() TObjectPtr<USceneComponent> SceneRoot;
     UPROPERTY() TArray<TObjectPtr<UProceduralMeshComponent>> BodyMeshes;

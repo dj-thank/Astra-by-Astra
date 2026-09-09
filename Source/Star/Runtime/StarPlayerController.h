@@ -72,6 +72,12 @@ private:
     void SetStatus(const FString& Message,double Seconds=5.0);
     void UpdateBenchmark(double Dt);
     void TickAstronomyQA();
+    void UpdateUnifiedWorldQA(double Dt);
+    bool UnifiedStartedNormally=false, UnifiedGuideChecked=false, UnifiedGuidePreserved=false;
+    int32 UnifiedLastBucket=-1;
+    uint8 UnifiedShots=0;
+    double UnifiedPreviousClearance=0;
+    double UnifiedNightHoldStarted=-1;
     star::Vec3d BenchmarkInitialEarthLocal;
     double BenchmarkInitialSunClearance=0;
     void ConfigureAcceptance();

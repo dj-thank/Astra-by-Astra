@@ -47,10 +47,6 @@ public:
     void ClearGuidedCamera();
     void RecenterLook();
     void ToggleView();
-    void BeginEarthScenicFlightView();
-    void StartEarthView(bool bSunset, bool bOrbit=false);
-    void EndEarthView();
-    bool IsEarthView() const { return bEarthView; }
     bool ToggleLandingGear();
     bool IsGearAnimating() const { return GearAlpha>0.001f&&GearAlpha<0.999f; }
     bool GearDesired() const { return bDesiredGearDeployed; }
@@ -79,10 +75,6 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
-    bool bEarthView=false, bEarthSunset=false, bEarthOrbit=false;
-    double EarthViewTime=0;
-    star::Vec3d EarthViewCamera;
-    void UpdateEarthView(double Dt);
     bool LoadShip();
     bool LoadPhotoPlumes();
     void UpdatePhotoPlumes(double Dt,bool bPaused);
@@ -106,7 +98,6 @@ private:
     FVector PhotoOffsetCm = FVector::ZeroVector;
     FString LoadError;
     bool bCockpitView = true;
-    bool bEarthScenicFlightView = false;
     bool bAssetsReady = false;
     float LookYaw = 0,LookPitch = 0;
     float GearAlpha = 0;

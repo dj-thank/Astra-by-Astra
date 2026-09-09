@@ -1,0 +1,12 @@
+{
+  "source": "NASA/JPL Horizons / NAIF SPICE",
+  "frame": "ECLIPJ2000; body-fixed rotations",
+  "sourceFile": "Content/Star/Data/ephemeris-2026.bin",
+  "sourceSha256": "6aacecd6e1b4422f04d1b2d5bb40ddd485b5a0a5ea9645898c186cddbe256ad5",
+  "utcStart": "2026-09-19T00:00:00Z",
+  "utcEnd": "2026-09-20T00:00:00Z",
+  "rows": 25,
+  "stepSeconds": 3600.0,
+  "units": "meters, meters/second, unit quaternion",
+  "kind": "Unmodified consecutive rows from the project ephemeris; test fixture only"
+}

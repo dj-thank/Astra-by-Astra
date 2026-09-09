@@ -1,5 +1,6 @@
 #include "Terrain/StarEarthTerrainComponent.h"
 #include "Terrain/StarRemoteRaster.h"
+#include "Simulation/SolarLighting.h"
 #include "Runtime/StarDataCatalog.h"
 #include "ProceduralMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -56,7 +57,8 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
     if(!State||!State->Enabled||State->Cancel.load())return;
     State->Earth=Earth;
     const auto Local=Earth.bodyFixedToSimulation.Conjugate().Rotate(Camera-Earth.centerMeters);
-    const bool Near=Local.Length()<Earth.radiusMeters+350000;
+    const bool Near=star::EarthDetailInRange(Local.Length()-Earth.radiusMeters,State->Near);
+    if(State->Near!=Near)++RenderRevision;
     State->Near=Near;
     for(auto& M:Meshes)if(M)M->SetVisibility(Near);
     for(int I=0;I<Meshes.Num();++I)if(Meshes[I])
@@ -218,6 +220,7 @@ void UStarEarthTerrainComponent::Upload(int32 Index)
 }
 void UStarEarthTerrainComponent::RefreshCoverage()
 {
+    ++RenderRevision;
     const int W=AtlasTile*3;TArray<uint8> Pixels;Pixels.SetNumZeroed(W*W);
     for(int I=0;I<9;++I)if(Meshes[I]&&State->Tiles[I]->Mask.Num()==AtlasTile*AtlasTile)
         for(int Y=0;Y<AtlasTile;++Y)FMemory::Memcpy(Pixels.GetData()+((I/3)*AtlasTile+Y)*W+(I%3)*AtlasTile,State->Tiles[I]->Mask.GetData()+Y*AtlasTile,AtlasTile);
@@ -235,7 +238,7 @@ void UStarEarthTerrainComponent::ApplyGlobeCoverage(UMaterialInstanceDynamic* Gl
         if(W->K2_GetScalarParameterValue(TEXT("TerrainWaterOnly"))<0.5f)W->CopyMaterialUniformParameters(Globe);
         for(const TCHAR* P:{TEXT("SunDirectionLocal"),TEXT("CameraLocal"),TEXT("OccluderLocal"),TEXT("BodyAxes")})
             W->SetVectorParameterValue(P,Globe->K2_GetVectorParameterValue(P));
-        for(const TCHAR* P:{TEXT("SunRadiance"),TEXT("RadiusMeters"),TEXT("OccluderRadius"),TEXT("SunAngularRadius")})
+        for(const TCHAR* P:{TEXT("SunRadiance"),TEXT("RadiusMeters"),TEXT("OccluderRadius"),TEXT("SunAngularRadius"),TEXT("NightIntensity")})
             W->SetScalarParameterValue(P,Globe->K2_GetScalarParameterValue(P));
         W->SetScalarParameterValue(TEXT("EarthSurfaceEnabled"),0);
         W->SetScalarParameterValue(TEXT("TerrainWaterOnly"),1);
@@ -245,7 +248,7 @@ void UStarEarthTerrainComponent::ApplyGlobeCoverage(UMaterialInstanceDynamic* Gl
         const auto Axis=[&](star::Vec3d A){auto P=star::SimulationDirectionToUnreal(State->Earth.bodyFixedToSimulation.Rotate(A));return FLinearColor(P.x,P.y,P.z,1);};
         W->SetVectorParameterValue(TEXT("PatchAxisXUE"),Axis({1,0,0}));W->SetVectorParameterValue(TEXT("PatchAxisYUE"),Axis({0,1,0}));W->SetVectorParameterValue(TEXT("PatchAxisZUE"),Axis({0,0,1}));
         W->SetScalarParameterValue(TEXT("CloudOpacity"),0);W->SetScalarParameterValue(TEXT("CloudCoverage"),0);
-        W->SetScalarParameterValue(TEXT("NightIntensity"),0);
+        // The observed patch retains the same dated city-light layer as the globe.
     }
     static TWeakObjectPtr<UTexture2D> Last;
     if(Active&&Last.Get()!=Coverage.Get())
@@ -254,6 +257,9 @@ void UStarEarthTerrainComponent::ApplyGlobeCoverage(UMaterialInstanceDynamic* Gl
         const auto S=Globe->K2_GetVectorParameterValue(TEXT("SunDirectionLocal"));
         UE_LOG(LogTemp,Display,TEXT("STAR Earth surface light: radiance=%g sunLocal=%g,%g,%g axes=%g"),Globe->K2_GetScalarParameterValue(TEXT("SunRadiance")),S.R,S.G,S.B,Globe->K2_GetVectorParameterValue(TEXT("BodyAxes")).R);
         UE_LOG(LogTemp,Display,TEXT("STAR Earth coverage: enabled=%g bounds=%g,%g,%g textureBound=%d blend=%d"),Globe->K2_GetScalarParameterValue(TEXT("EarthSurfaceEnabled")),B.R,B.G,B.B,Globe->K2_GetTextureParameterValue(TEXT("EarthSurfaceMask"))==Coverage.Get(),int(Globe->GetBlendMode()));
+        bool NightMatches=true;
+        for(const auto& Patch:WaterMaterials)if(Patch)NightMatches &= FMath::IsNearlyEqual(Patch->K2_GetScalarParameterValue(TEXT("NightIntensity")),Globe->K2_GetScalarParameterValue(TEXT("NightIntensity")));
+        UE_LOG(LogTemp,Display,TEXT("STAR shared Earth night layer: intensity=%g patchesMatch=%d"),Globe->K2_GetScalarParameterValue(TEXT("NightIntensity")),NightMatches);
         Last=Coverage;
     }
 }

@@ -2,8 +2,14 @@
 from pathlib import Path
 import argparse,hashlib,json,subprocess,zipfile
 ROOT=Path(__file__).resolve().parents[2]
-parser=argparse.ArgumentParser();parser.add_argument('--engine-root',type=Path,required=True);args=parser.parse_args()
-stage=ROOT/'outputs/Star-Win64';out=ROOT/'outputs/STAR-Windows.zip'
+parser=argparse.ArgumentParser()
+parser.add_argument('--engine-root',type=Path,required=True)
+parser.add_argument('--stage',type=Path,default=ROOT/'outputs/Star-Win64')
+parser.add_argument('--output',type=Path,default=ROOT/'outputs/STAR-Windows.zip')
+parser.add_argument('--version',default='0.4.0-preview.1')
+args=parser.parse_args()
+stage=args.stage.resolve();out=args.output.resolve()
+out.parent.mkdir(parents=True,exist_ok=True)
 assert (stage/'Windows/Star/Binaries/Win64/Star.exe').is_file()
 assert not out.exists(),'Preserve previous release ZIPs'
 def sha(p):
@@ -58,7 +64,7 @@ VRはPCにOpenXRランタイムを設定し、ヘッドセットを接続してP
 
 ソース・報告・更新: https://github.com/dj-thank/STAR
 '''.encode('utf-8')}
-manifest={'version':'0.4.0-preview.1','sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'buildConfiguration':'Development preview','headsetVerified':False,'signed':False,'files':[{'path':name,'bytes':p.stat().st_size,'sha256':sha(p)} for p,name in files]+[{'path':name,'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest()} for name,body in generated.items()]}
+manifest={'version':args.version,'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'buildConfiguration':'Development preview','headsetVerified':False,'signed':False,'files':[{'path':name,'bytes':p.stat().st_size,'sha256':sha(p)} for p,name in files]+[{'path':name,'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest()} for name,body in generated.items()]}
 generated['release-info.json']=(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n').encode('utf-8')
 with zipfile.ZipFile(out,'x',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
  for p,name in files:z.write(p,name)

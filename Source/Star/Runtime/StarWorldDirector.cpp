@@ -1,3 +1,4 @@
+#include "Simulation/SolarLighting.h"
 #include "Runtime/StarWorldDirector.h"
 #include "ProceduralMeshComponent.h"
 #include "Materials/MaterialInterface.h"
@@ -23,7 +24,7 @@
 
 namespace
 {
-constexpr double AU = 149597870700.0;
+constexpr double AU = star::AstronomicalUnitMeters;
 constexpr double MaximumProxyDistanceM = 500000000.0;
 constexpr double LunarRadiusM = 1737400.0;
 // The simulation and collision contract deliberately use Saturn's mean
@@ -347,7 +348,7 @@ void AStarWorldDirector::CreateLighting()
     bEnvironmentCaptureDiagnostic=FParse::Param(FCommandLine::Get(),TEXT("StarEnvironmentCapture"))&&
         ((FParse::Param(FCommandLine::Get(),TEXT("StarBenchmark"))&&CapturePoseCount==1)||
          bValidEVAProbe);
-    bLocalEnvironment=FParse::Param(FCommandLine::Get(),TEXT("StarLocalEnvironment"))&&!bEnvironmentCaptureDiagnostic;
+    bLocalEnvironment=!FParse::Param(FCommandLine::Get(),TEXT("StarNoEnvironmentBounce"))&&!bEnvironmentCaptureDiagnostic;
     PostProcess=GetWorld()->SpawnActor<APostProcessVolume>();
     PostProcess->bUnbound=true;
     auto& Settings=PostProcess->Settings;
@@ -399,15 +400,7 @@ star::FlightState AStarWorldDirector::InitialFlightState() const
     const auto* Moon=Data.Find(TEXT("moon"));
     const auto* Sun=Data.Find(TEXT("sun"));
     if(!Earth||!Moon||!Sun) return State;
-    const auto TowardSun=(Sun->Definition.centerMeters-Earth->Definition.centerMeters).Normalized();
-    const auto Pole=Earth->Definition.bodyFixedToSimulation.Rotate({0,0,1});
-    const auto East=star::Vec3d::Cross(Pole,TowardSun).Normalized();
-    const auto Radial=(-East+TowardSun*0.14+Pole*0.20).Normalized();
-    State.positionMeters=Earth->Definition.centerMeters+Radial*(Earth->Definition.radiusMeters+450000.0);
-    const auto Forward=(star::Vec3d::Cross(Radial,TowardSun).Normalized()-Radial*0.35).Normalized();
-    State.orientation=star::Quatd::FromForwardUp(Forward,Radial);
-    State.targetBodyId="moon";
-    return State;
+    return star::InitialVoyage(Earth->Definition,Sun->Definition);
 }
 void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::Vec3d& Origin,const star::Vec3d& Camera,double Dt,bool bActiveCameraUpdate)
 {
@@ -452,16 +445,35 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
         PhysicalAtmosphere->SetVisibility(NativeAtmosphere);
         if(NativeAtmosphere) PhysicalAtmosphere->SetWorldLocation(FStarDataCatalog::UEVector(star::ToUnrealCentimeters(LocalEarth->Definition.centerMeters,Origin)));
     }
-    const bool bEarthAtmosphere=LocalEarth && (Camera-LocalEarth->Definition.centerMeters).Length()<LocalEarth->Definition.radiusMeters+80000.0;
-    // Bright terrestrial twilight washes out the photographic star background.
-    if(StarMesh) StarMesh->SetVisibility(!bEarthAtmosphere || bDreamTwilight);
+    // Atmospheric extinction and exposure determine star visibility at every altitude.
+    if(StarMesh)StarMesh->SetVisibility(true);
+    const auto Solar=star::ObserveSun(Camera,Sun->Definition.centerMeters,Sun->Definition.radiusMeters);
     const auto ToSun=Sun->Definition.centerMeters-Camera;
     const double SunDistance=FMath::Max(AU*0.05,ToSun.Length());
     if(NativeAtmosphere)
     {
         auto* Light=Cast<UDirectionalLightComponent>(SunLight->GetLightComponent());
-        const float Angle=static_cast<float>(FMath::RadiansToDegrees(2.0*FMath::Asin(FMath::Clamp(Sun->Definition.radiusMeters/SunDistance,0.0,1.0))));
+        const float Angle=static_cast<float>(FMath::RadiansToDegrees(2.0*Solar.angularRadiusRadians));
         if(!FMath::IsNearlyEqual(Light->LightSourceAngle,Angle,0.0001f)) Light->SetLightSourceAngle(Angle);
+    }
+    double SunVisibility=1.0,ObserverSunVisibility=1.0;
+    for(const auto& Record:Data.Bodies())
+    {
+        const auto& Occluder=Record.Definition;
+        if(Occluder.id=="sun") continue;
+        double ShadowRadius=Occluder.radiusMeters;
+        const auto Offset=State.positionMeters-Occluder.centerMeters;
+        if(Occluder.landable&&Offset.Length()<Occluder.radiusMeters+30000)
+        {
+            // A below-datum crater is still open to the sky. A local sampled
+            // shell provides the broad horizon; terrain meshes cast local shadows.
+            star::TerrainSample Surface;
+            if(Data.SampleTerrain(Occluder,Offset.Normalized(),Surface)) ShadowRadius+=Surface.heightMeters-0.25;
+        }
+        const double Fraction=star::SolarDiskVisibleFraction(Camera,
+            Sun->Definition.centerMeters,Sun->Definition.radiusMeters,Occluder.centerMeters,ShadowRadius);
+        ObserverSunVisibility=FMath::Min(ObserverSunVisibility,Fraction);
+        if(!(NativeAtmosphere&&Occluder.id=="earth"))SunVisibility=FMath::Min(SunVisibility,Fraction);
     }
     if(PostProcess)
     {
@@ -469,18 +481,10 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
         // exposure-compensated star photo must not drive the meter to an
         // extreme while a small bright Moon grows into the frame.
         const float SolarEV=14.0f-2.0f*FMath::Log2(static_cast<float>(SunDistance/AU));
-        float NightAllowance=0.0f;
-        if(LocalEarth)
-        {
-            const auto Offset=Camera-LocalEarth->Definition.centerMeters;
-            const float RadiusRatio=static_cast<float>(Offset.Length()/LocalEarth->Definition.radiusMeters);
-            const float SolarCos=static_cast<float>(star::Vec3d::Dot(Offset.Normalized(),ToSun.Normalized()));
-            const float Nightside=FMath::SmoothStep(0.35f,0.9f,-SolarCos);
-            const float Nearby=1.0f-FMath::SmoothStep(3.0f,4.0f,RadiusRatio);
-            // Allow the histogram to reveal actual Black Marble city lights in
-            // Earth's shadow. Smooth distance/phase bounds avoid a camera jump.
-            NightAllowance=14.0f*Nightside*Nearby;
-        }
+        // The histogram sees actual scene radiance. A daylight-only lower EV
+        // bound had prevented adaptation even in planetary shadow.
+        float NightAllowance=18.0f*FMath::SmoothStep(0.0f,1.0f,static_cast<float>(1.0-ObserverSunVisibility));
+        if(FParse::Param(FCommandLine::Get(),TEXT("StarLegacyNightExposure")))NightAllowance=0;
         PostProcess->Settings.AutoExposureMinBrightness=SolarEV-2.0f-NightAllowance;
         PostProcess->Settings.AutoExposureMaxBrightness=SolarEV+2.0f;
         float FixedEV=13.0f;
@@ -492,29 +496,11 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
     }
     const FVector LightDirection=FStarDataCatalog::UEVector(star::SimulationDirectionToUnreal(ToSun.Normalized()));
     SunLight->SetActorRotation((-LightDirection).Rotation());
-    double SunVisibility=1.0;
-    for(const auto& Record:Data.Bodies())
-    {
-        const auto& Occluder=Record.Definition;
-        if(Occluder.id=="sun") continue;
-        if(NativeAtmosphere&&Occluder.id=="earth") continue; // Applied per pixel by the native atmosphere; do not count it twice.
-        double ShadowRadius=Occluder.radiusMeters;
-        const auto Offset=State.positionMeters-Occluder.centerMeters;
-        if(Occluder.landable&&Offset.Length()<Occluder.radiusMeters+30000)
-        {
-            // A below-datum crater is still open to the sky. A local sampled
-            // shell provides the broad horizon; terrain meshes cast local shadows.
-            star::TerrainSample Surface;
-            if(Data.SampleTerrain(Occluder,Offset.Normalized(),Surface)) ShadowRadius+=Surface.heightMeters-0.25;
-        }
-        SunVisibility=FMath::Min(SunVisibility,star::SolarDiskVisibleFraction(State.positionMeters,
-            Sun->Definition.centerMeters,Sun->Definition.radiusMeters,Occluder.centerMeters,ShadowRadius));
-    }
     auto* SolarLight=Cast<UDirectionalLightComponent>(SunLight->GetLightComponent());
     // The atmosphere needs unoccluded solar illuminance even after local sunset.
     // Native per-pixel transmittance includes Earth shadow. Other bodies still
     // use the geometric occultation factor for opaque receivers.
-    SolarLight->SetIntensity(static_cast<float>(127500.0*AU*AU/(SunDistance*SunDistance)*(NativeAtmosphere?1.0:SunVisibility)));
+    SolarLight->SetIntensity(static_cast<float>(Solar.illuminanceLux*(NativeAtmosphere?1.0:SunVisibility)));
     SolarLight->SetDiffuseScale(NativeAtmosphere?static_cast<float>(SunVisibility):1.0f);
     SolarLight->SetSpecularScale(NativeAtmosphere?static_cast<float>(SunVisibility):1.0f);
     for(int32 I=0;I<Data.Bodies().Num();++I)
@@ -544,7 +530,7 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
         const double BodySunDistance=FMath::Max(AU*0.05,BodyToSun.Length());
         const auto LocalSun=Body.bodyFixedToSimulation.Conjugate().Rotate(BodyToSun.Normalized());
         const auto LocalCamera=Body.bodyFixedToSimulation.Conjugate().Rotate(Camera-Body.centerMeters)/Body.radiusMeters;
-        const float Radiance=static_cast<float>(127500.0*AU*AU/(BodySunDistance*BodySunDistance)/star::Pi);
+        const float Radiance=static_cast<float>(star::SolarIlluminanceAtOneAU*AU*AU/(BodySunDistance*BodySunDistance)/star::Pi);
         const auto SetParameters=[&](UMaterialInstanceDynamic* Mat)
         {
             if(!Mat) return;
@@ -559,8 +545,8 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
                 Mat->SetVectorParameterValue(TEXT("AxisXUE"),ToAxis({1,0,0}));
                 Mat->SetVectorParameterValue(TEXT("AxisYUE"),ToAxis({0,1,0}));
                 Mat->SetVectorParameterValue(TEXT("AxisZUE"),ToAxis({0,0,1}));
-                Mat->SetScalarParameterValue(TEXT("DreamStrength"),Body.id=="earth"&&bDreamTwilight?1.0f:0.0f);
-                Mat->SetScalarParameterValue(TEXT("DreamSunset"),bDreamSunset?1.0f:0.0f);
+                Mat->SetScalarParameterValue(TEXT("DreamStrength"),0.0f);
+                Mat->SetScalarParameterValue(TEXT("DreamSunset"),0.0f);
             }
             Mat->SetVectorParameterValue(TEXT("BodyAxes"),FLinearColor(EquatorialScale,EquatorialScale,PolarScale,1));
             Mat->SetScalarParameterValue(TEXT("SunRadiance"),Radiance);
@@ -615,7 +601,7 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
         {
             auto* Mat=BodyMaterials[I].Get();
             // Photosphere surface brightness is independent of observer distance.
-            Mat->SetScalarParameterValue(TEXT("SunRadiance"),bDreamTwilight?72000000.0f:18000000.0f);
+            Mat->SetScalarParameterValue(TEXT("SunRadiance"),static_cast<float>(Solar.diskLuminance));
             Mat->SetScalarParameterValue(TEXT("EarthRadiusMeters"),0.0f);
             if(LocalEarth)
             {
@@ -687,64 +673,68 @@ void AStarWorldDirector::CaptureEnvironmentDiagnostic(const star::Vec3d& Origin,
     // and terrain, which do not have software-Lumen mesh cards/distance fields.
     // Direct sunlight remains the directional light; exclude its visible disk
     // and the exposure-compensated decorative stars to avoid double energy.
-    StarMesh->bVisibleInReflectionCaptures=false;StarMesh->MarkRenderStateDirty();
+    if(StarMesh->bVisibleInReflectionCaptures){StarMesh->bVisibleInReflectionCaptures=false;StarMesh->MarkRenderStateDirty();}
     for(int32 I=0;I<Data.Bodies().Num();++I)
         if(Data.Bodies()[I].Definition.id=="sun")
-        {BodyMeshes[I]->bVisibleInReflectionCaptures=false;BodyMeshes[I]->MarkRenderStateDirty();}
+        {if(BodyMeshes[I]->bVisibleInReflectionCaptures){BodyMeshes[I]->bVisibleInReflectionCaptures=false;BodyMeshes[I]->MarkRenderStateDirty();}}
     if(FParse::Param(FCommandLine::Get(),TEXT("StarEnvironmentEmpty")))
     {
         // Negative control: capture black space while retaining the normal
         // visible scene. Unit intensity must not invent any ambient energy.
         TInlineComponentArray<UPrimitiveComponent*> Environment;
         GetComponents(Environment);
-        for(auto* Part:Environment){Part->bVisibleInReflectionCaptures=false;Part->MarkRenderStateDirty();}
+        for(auto* Part:Environment)if(Part->bVisibleInReflectionCaptures){Part->bVisibleInReflectionCaptures=false;Part->MarkRenderStateDirty();}
     }
     for(TActorIterator<AStarShipPawn> It(GetWorld());It;++It)
     {
         TInlineComponentArray<UPrimitiveComponent*> Parts;
         It->GetComponents(Parts);
-        for(auto* Part:Parts){Part->bVisibleInReflectionCaptures=false;Part->MarkRenderStateDirty();}
+        for(auto* Part:Parts)if(Part->bVisibleInReflectionCaptures){Part->bVisibleInReflectionCaptures=false;Part->MarkRenderStateDirty();}
     }
     auto* Light=SkyLight->GetLightComponent();
     SkyLight->SetActorLocation(FStarDataCatalog::UEVector(star::ToUnrealCentimeters(Camera,Origin)));
     Light->SourceType=SLS_CapturedScene;
     Light->bRealTimeCapture=false;
     Light->SkyDistanceThreshold=10.0f;
-    Light->bCaptureEmissiveOnly=false;
+    Light->bCaptureEmissiveOnly=true; // Planet/atmosphere radiance, without recursive lit-terrain feedback.
     Light->bLowerHemisphereIsBlack=false;
     Light->SetLightColor(FLinearColor::White);
-    Light->SetIntensity(bLocalEnvironment?0.0f:1.0f); // No old cubemap during a managed update.
+    if(!bLocalEnvironment||!bEnvironmentActive)Light->SetIntensity(bLocalEnvironment?0.0f:1.0f);
+    Light->CubemapResolution=128;
     Light->RecaptureSky();
     bEnvironmentCaptureRequested=true;
-    UE_LOG(LogTemp,Display,TEXT("STAR lookdev: single-pose environment recapture requested at %g seconds"),SceneTime);
+    UE_LOG(LogTemp,Display,TEXT("STAR radiance environment capture requested at %g seconds"),SceneTime);
 }
 void AStarWorldDirector::UpdateLocalEnvironment(const star::Vec3d& Origin,const star::Vec3d& Camera,double Dt)
 {
-    FString BodyId;
-    double LargestRatio=0.1,Altitude=0;
+    const FStarBodyRecord* Dominant=nullptr;
+    double LargestRatio=0.025;
     for(const auto& Record:Data.Bodies())
     {
-        const auto& Body=Record.Definition;
-        if(Body.id=="sun")continue;
-        const auto Offset=Camera-Body.centerMeters;
-        const double Distance=Offset.Length();
-        const double Ratio=Body.radiusMeters/FMath::Max(1.0,Distance);
-        if(Ratio<=LargestRatio)continue;
-        LargestRatio=Ratio;BodyId=UTF8_TO_TCHAR(Body.id.c_str());
-        Altitude=Distance-Body.radiusMeters;
-        star::TerrainSample Ground;
-        if(Body.landable&&Data.SampleTerrain(Body,Offset.Normalized(),Ground))Altitude-=Ground.heightMeters;
+        if(Record.Definition.id=="sun")continue;
+        const double Ratio=Record.Definition.radiusMeters/FMath::Max(1.0,(Camera-Record.Definition.centerMeters).Length());
+        if(Ratio>LargestRatio){LargestRatio=Ratio;Dominant=&Record;}
     }
-    const double Speed=bHaveEnvironmentCamera&&Dt>0?(Camera-EnvironmentPreviousCamera).Length()/Dt:0;
-    EnvironmentPreviousCamera=Camera;bHaveEnvironmentCamera=true;
-    const bool bEligible=!BodyId.IsEmpty()&&(BodyId!=TEXT("moon")||Altitude>5000||TerrainReadyForLanding());
-    const double Drift=(Camera-EnvironmentCapturePosition).Length();
-    const bool bStillValid=bEligible&&BodyId==EnvironmentBody&&Drift<EnvironmentValidityMeters;
     auto* Light=SkyLight->GetLightComponent();
-    if(bEnvironmentActive&&!bStillValid)
+    const auto* Sun=Data.Find(TEXT("sun"));
+    if(!Dominant||!Sun)
+    {
+        Light->SetIntensity(0);bEnvironmentActive=false;EnvironmentFade=0;return;
+    }
+    const auto& Body=Dominant->Definition;const FString BodyId=UTF8_TO_TCHAR(Body.id.c_str());
+    const auto Local=Body.bodyFixedToSimulation.Conjugate().Rotate(Camera-Body.centerMeters);
+    const auto SunLocal=Body.bodyFixedToSimulation.Conjugate().Rotate((Sun->Definition.centerMeters-Body.centerMeters).Normalized());
+    const auto WorldDirection=(Body.centerMeters-Camera).Normalized();
+    const double Altitude=Local.Length()-Body.radiusMeters;
+    const bool Eligible=Body.id!="moon"||Altitude>5000||TerrainReadyForLanding();
+    const double Drift=(Local-EnvironmentCapturePosition).Length();
+    const double AngularDrift=FMath::Max(
+        FMath::Acos(FMath::Clamp(star::Vec3d::Dot(SunLocal,EnvironmentSunLocal),-1.0,1.0)),
+        FMath::Acos(FMath::Clamp(star::Vec3d::Dot(WorldDirection,EnvironmentWorldDirection),-1.0,1.0)));
+    const bool Valid=Eligible&&BodyId==EnvironmentBody&&Drift<EnvironmentValidityMeters&&AngularDrift<FMath::DegreesToRadians(6.0);
+    if(bEnvironmentActive&&!Valid)
     {
         Light->SetIntensity(0);bEnvironmentActive=false;EnvironmentFade=0;
-        UE_LOG(LogTemp,Display,TEXT("STAR environment cleared: previous=%s current=%s drift=%g"),*EnvironmentBody,*BodyId,Drift);
     }
     if(bEnvironmentPending)
     {
@@ -752,32 +742,43 @@ void AStarWorldDirector::UpdateLocalEnvironment(const star::Vec3d& Origin,const 
         if(!bEnvironmentFenceIssued&&!USkyLightComponent::HasSkyCapturesToUpdate()&&Light->GetProcessedSkyTexture())
         {
             GetWorld()->SendAllEndOfFrameUpdates();
-            EnvironmentFence.BeginFence(FRenderCommandFence::ESyncDepth::RHIThread);
-            bEnvironmentFenceIssued=true;
+            EnvironmentFence.BeginFence(FRenderCommandFence::ESyncDepth::RHIThread);bEnvironmentFenceIssued=true;
         }
         if(bEnvironmentFenceIssued&&EnvironmentFence.IsFenceComplete())
         {
             bEnvironmentPending=false;bEnvironmentFenceIssued=false;
-            bEnvironmentActive=bStillValid;EnvironmentFade=0;
-            UE_LOG(LogTemp,Display,TEXT("STAR environment ready: body=%s accepted=%d seconds=%g"),*EnvironmentBody,bEnvironmentActive,EnvironmentClock-EnvironmentCaptureTime);
+            bEnvironmentActive=Valid;
+            if(Valid)EnvironmentIntegral=Light->GetIrradianceEnvironmentMap().CalcIntegral();
+            UE_LOG(LogTemp,Display,TEXT("STAR environment ready: body=%s accepted=%d SH_integral=%g,%g,%g age=%g"),
+                *BodyId,bEnvironmentActive,EnvironmentIntegral.R,EnvironmentIntegral.G,EnvironmentIntegral.B,EnvironmentClock-EnvironmentCaptureTime);
         }
     }
     if(bEnvironmentActive)
     {
         EnvironmentFade=FMath::Min(1.0,EnvironmentFade+Dt*2.0);
-        const double Weight=EnvironmentFade*FMath::Clamp(1.0-Drift/EnvironmentValidityMeters,0.0,1.0);
-        Light->SetIntensity(float(Weight));
+        Light->SetIntensity(static_cast<float>(EnvironmentFade));
     }
-    EnvironmentStableSeconds=bEligible&&Speed<5.0?EnvironmentStableSeconds+Dt:0;
-    if(!bEnvironmentActive&&!bEnvironmentPending&&EnvironmentStableSeconds>=3.0&&EnvironmentClock>=5.0)
+    const double Age=EnvironmentClock-EnvironmentCaptureTime;
+    const uint64 TerrainRevision=EarthTerrain?EarthTerrain->RadianceRevision():0;
+    const bool TimeChanged=FMath::Abs(AstronomicalUtc-EnvironmentCaptureUtc)>0.1;
+    const bool Changed=Drift>EnvironmentValidityMeters*0.2||AngularDrift>FMath::DegreesToRadians(0.5)||
+        TerrainRevision!=EnvironmentTerrainRevision||(Age>=2.0&&TimeChanged);
+    if(Eligible&&!bEnvironmentPending&&EnvironmentClock>=3.0&&Age>=0.5&&(!bEnvironmentActive||Changed))
     {
-        EnvironmentBody=BodyId;EnvironmentCapturePosition=Camera;
-        EnvironmentValidityMeters=FMath::Clamp(FMath::Max(0.0,Altitude)*0.25,500.0,10000.0);
-        EnvironmentCaptureTime=EnvironmentClock;
-        CaptureEnvironmentDiagnostic(Origin,Camera);
-        bEnvironmentPending=true;EnvironmentStableSeconds=0;
-        UE_LOG(LogTemp,Display,TEXT("STAR environment request: body=%s validity_m=%g"),*BodyId,EnvironmentValidityMeters);
+        EnvironmentBody=BodyId;EnvironmentCapturePosition=Local;
+        EnvironmentSunLocal=SunLocal;EnvironmentWorldDirection=WorldDirection;
+        EnvironmentValidityMeters=FMath::Clamp(FMath::Max(0.0,Altitude)*0.25,50.0,50000.0);
+        EnvironmentCaptureTime=EnvironmentClock;EnvironmentCaptureUtc=AstronomicalUtc;EnvironmentTerrainRevision=TerrainRevision;
+        CaptureEnvironmentDiagnostic(Origin,Camera);bEnvironmentPending=true;
     }
+}
+FLinearColor AStarWorldDirector::EnvironmentLightIntegral() const
+{
+    return bEnvironmentActive?EnvironmentIntegral*static_cast<float>(EnvironmentFade):FLinearColor::Black;
+}
+float AStarWorldDirector::MinimumExposureEV() const
+{
+    return PostProcess?PostProcess->Settings.AutoExposureMinBrightness:0.0f;
 }
 void AStarWorldDirector::UpdateTerrain(const star::FlightState& State,const star::Vec3d& Origin)
 {
@@ -861,19 +862,6 @@ bool AStarWorldDirector::SetWorldUtc(double UnixSeconds)
     AstronomicalUtc=UnixSeconds;return true;
 }
 FString AStarWorldDirector::EarthSurfaceStatus() const {return EarthTerrain?EarthTerrain->StatusText():FString();}
-void AStarWorldDirector::SetTwilightDream(bool Enabled,bool Sunset)
-{
-    Enabled=false;Sunset=false;bDreamTwilight=false;bDreamSunset=false;
-    if(!PostProcess) return;
-    auto& Settings=PostProcess->Settings;
-    Settings.BloomIntensity=Enabled?(Sunset?1.15f:0.95f):0.18f;
-    Settings.VignetteIntensity=0.0f;
-    Settings.bOverride_BloomThreshold=Enabled;
-    Settings.BloomThreshold=1.0f;
-    Settings.bOverride_LensFlareIntensity=Enabled;
-    Settings.LensFlareIntensity=0.0f;
-}
-
 void AStarWorldDirector::SetExposure(float Value)
 {
     if(PostProcess) PostProcess->Settings.AutoExposureBias=FMath::Clamp(Value,-5.0f,5.0f);

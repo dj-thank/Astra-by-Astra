@@ -21,9 +21,11 @@ public:
     void ApplyGlobeCoverage(UMaterialInstanceDynamic* Globe);
     void Shutdown();
     FString StatusText() const;
+    uint64 RadianceRevision() const { return RenderRevision; }
 protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
+    uint64 RenderRevision=0;
     void Upload(int32 Index);
     void RefreshCoverage();
     TUniquePtr<FStarEarthTerrainState,FStarEarthTerrainDeleter> State;

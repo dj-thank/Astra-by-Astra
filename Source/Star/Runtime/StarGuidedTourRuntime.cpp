@@ -76,11 +76,6 @@ void AStarPlayerController::StartGuidedTour()
         SetStatus(TEXT("受入テスト中はツアーを開始できません。"));
         return;
     }
-    if (bSessionStarted)
-    {
-        SetStatus(TEXT("新しいツアーはメニューからのみ開始できます。現在の飛行を保持しています。"));
-        return;
-    }
     if (!Ship || !Ship->IsReady())
     {
         SetStatus(Ship ? Ship->Error() : TEXT("機体を準備しています。"));
@@ -94,12 +89,16 @@ void AStarPlayerController::StartGuidedTour()
         return;
     }
 
-    // This reset is reachable only from the explicit new-tour menu action
-    // (or the separately named QA command line). It never writes the manual
-    // star-v1.json slot and never runs after a session has started.
-    if (!Ship->RestoreFlight(Director->InitialFlightState()))
+    // Guidance takes over the current voyage; it never creates another world/pose.
+    const bool ExistingVoyage=bSessionStarted;
+    const auto* Earth=Simulation->FindBody("earth");
+    const auto& Current=Simulation->State();
+    const double EarthDistance=Earth?(Current.positionMeters-Earth->centerMeters).Length():0;
+    if(EVAPawn||bPhotoMode||!Earth||Current.mode==star::FlightMode::Landed||
+       EarthDistance<Earth->radiusMeters+Earth->atmosphereHeightMeters+1000||
+       EarthDistance>Earth->radiusMeters*1.25||Current.velocityMetersPerSecond.Length()>1.0)
     {
-        SetStatus(TEXT("新しい地球シナリオを開始できません。既存の飛行は保持しています。"));
+        SetStatus(TEXT("ガイド航行は地球の軌道付近で減速してから開始できます。現在地と航海は保持しています。"));
         return;
     }
     ResetNavigation();
@@ -116,11 +115,11 @@ void AStarPlayerController::StartGuidedTour()
     }
 
     bGuidedTour = true;
-    bTourPreparing=true;TourWarmSeconds=TourResidentSeconds=0;
-    for(TObjectIterator<UTexture2D> It;It;++It)
+    bTourPreparing=!ExistingVoyage;TourWarmSeconds=TourResidentSeconds=0;
+    if(!ExistingVoyage)for(TObjectIterator<UTexture2D> It;It;++It)
         if(It->GetPathName().StartsWith(TEXT("/Game/Star/"))) It->SetForceMipLevelsToBeResident(900.0f);
-    if(PlayerCameraManager) PlayerCameraManager->SetManualCameraFade(1.0f,FLinearColor::Black,false);
-    bTourSaveSlot = true;
+    if(!ExistingVoyage&&PlayerCameraManager) PlayerCameraManager->SetManualCameraFade(1.0f,FLinearColor::Black,false);
+    bTourSaveSlot = bTourSaveSlot || !ExistingVoyage;
     bGuidedTourFinished = false;
     bGuidedTourFailed = false;
     bGuidedTourActualScanComplete = false;
@@ -150,13 +149,16 @@ void AStarPlayerController::StartGuidedTour()
     bMainMenu = false;
     // A body can lie below or behind the cockpit glazing during attitude
     // changes. Start sightseeing outside the hull so it remains visible.
-    if(Ship->IsCockpitView()) Ship->ToggleView();
-    Ship->RecenterLook();
+    if(!ExistingVoyage)
+    {
+        if(Ship->IsCockpitView()) Ship->ToggleView();
+        Ship->RecenterLook();
+    }
     if (HUD) HUD->SetMainMenuVisible(false);
     // SetFlightPaused observes bGuidedTour and therefore leaves the flight
     // plugin disabled while the guide is active.
     SetFlightPaused(false);
-    SetStatus(bGuidedTourTest ? TEXT("ツアーQAを開始しました。実際の観測記録を保存します。") : TEXT("約10分の宇宙ツアーを開始しました。視点は自由に動かせます。Homeで自動視点へ戻れます。"));
+    SetStatus(bGuidedTourTest ? TEXT("ツアーQAを開始しました。実際の観測記録を保存します。") : TEXT("現在地からガイド航行を開始しました。手動操縦へ戻しても同じ航海が続きます。"));
 }
 
 void AStarPlayerController::ManualTakeover()
@@ -186,7 +188,7 @@ void AStarPlayerController::ManualTakeover()
     SetFlightPaused(true);
     bMainMenu = false;
     bSessionStarted = true;
-    SetStatus(TEXT("手動操縦へ切り替えました。ツアーの保存枠を使います。入力を確認して再開してください。"));
+    SetStatus(TEXT("手動操縦へ戻りました。現在の航海を続けます。入力を確認して再開してください。"));
 }
 
 void AStarPlayerController::UpdateGuidedTourCommand(double Dt)

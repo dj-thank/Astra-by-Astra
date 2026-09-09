@@ -1,3 +1,4 @@
+#include "Simulation/SolarLighting.h"
 #include "Runtime/StarShipPawn.h"
 #include "Runtime/StarWorldDirector.h"
 #include "Runtime/StarDataCatalog.h"
@@ -672,7 +673,6 @@ void AStarShipPawn::CreateInstrument(const FString& Name,const FVector& Position
 void AStarShipPawn::AdvanceFlight(double Dt,const star::FlightInput& Input)
 {
     if(!Flight||!WorldDirector) return;
-    if(bEarthView) { UpdateEarthView(Dt); return; }
     const float SafeDt=FMath::Clamp(static_cast<float>(Dt),0.0f,0.25f);
     const double BeforeTime=Flight->State().simulationTimeSeconds;
     if(Input.paused)
@@ -748,10 +748,15 @@ void AStarShipPawn::RefreshTransform(double Dt)
     if(bGuideLookActive) GuideLookRotation=(GetActorQuat().Inverse()*GuideWorldRotation).Rotator();
     const FRotator Look=bGuideLookActive?GuideLookRotation:FRotator(LookPitch,LookYaw,0);
     FVector Socket=bCockpitView?CockpitSocketCm:Look.RotateVector(ChaseSocketCm);
-    if(bEarthScenicFlightView&&!bCockpitView&&!bGuideCameraOffsetActive&&WorldDirector&&Flight)
+    if(!bCockpitView&&!bGuideCameraOffsetActive&&WorldDirector&&Flight)
     {
         const auto* Earth=WorldDirector->Catalog().Find(TEXT("earth"));
-        if(Earth) Socket*=(Flight->State().positionMeters-Earth->Definition.centerMeters).Length()<Earth->Definition.radiusMeters+500000.0?1.8f:3.0f;
+        if(Earth)
+        {
+            const double Altitude=(State.positionMeters-Earth->Definition.centerMeters).Length()-Earth->Definition.radiusMeters;
+            const double Nearby=1.0-FMath::SmoothStep(1500000.0,3000000.0,Altitude);
+            Socket*=FMath::Lerp(1.0,star::EarthChaseDistanceScale(Altitude),Nearby);
+        }
     }
     if(!bCockpitView&&bGuideCameraOffsetActive)
         Socket=GetActorTransform().InverseTransformVectorNoScale(FStarDataCatalog::UEVector(star::SimulationDirectionToUnreal(GuideCameraOffsetMeters)*100.0));
@@ -875,28 +880,6 @@ void AStarShipPawn::RecenterLook()
     RefreshTransform(0);
 }
 void AStarShipPawn::ToggleView() { bCockpitView=!bCockpitView;ClearGuidedCamera();RecenterLook();bGuidedCameraUserOverride=true;PlaySoundEvent(TEXT("View")); }
-void AStarShipPawn::BeginEarthScenicFlightView()
-{
-    if(bVRRequested){if(!bCockpitView)ToggleView();return;}
-    bEarthScenicFlightView=true;
-    if(bCockpitView) ToggleView();
-    bool bNight=false;
-    if(WorldDirector&&Flight)
-    {
-        const auto* Earth=WorldDirector->Catalog().Find(TEXT("earth"));
-        const auto* Sun=WorldDirector->Catalog().Find(TEXT("sun"));
-        if(Earth&&Sun)
-            bNight=star::Vec3d::Dot((Flight->State().positionMeters-Earth->Definition.centerMeters).Normalized(),
-                (Sun->Definition.centerMeters-Flight->State().positionMeters).Normalized())<-0.16;
-    }
-    RecenterLook();
-    const auto LocalForward=Flight->State().orientation.Conjugate().Rotate(CameraForwardSimulation());
-    const float NeutralPitch=static_cast<float>(FMath::RadiansToDegrees(FMath::Atan2(LocalForward.z,FMath::Sqrt(LocalForward.x*LocalForward.x+LocalForward.y*LocalForward.y))));
-    bool bCloseNight=false;
-    if(bNight&&WorldDirector) if(const auto* Earth=WorldDirector->Catalog().Find(TEXT("earth")))
-        bCloseNight=(Flight->State().positionMeters-Earth->Definition.centerMeters).Length()<Earth->Definition.radiusMeters+80000.0;
-    SetLook(bCloseNight?-10.0f:0.0f,(bNight?(bCloseNight?-78.0f:-60.0f):-34.0f)-NeutralPitch,false);
-}
 bool AStarShipPawn::ToggleLandingGear()
 {
     if(!Flight||Flight->State().mode==star::FlightMode::Landed) return false;
@@ -938,7 +921,6 @@ void AStarShipPawn::SetEVAAudio(bool Enabled) { if(ShipAudio) ShipAudio->SetEVAM
 void AStarShipPawn::SetInteriorMonitor(bool Enabled) { if(ShipAudio) ShipAudio->SetInteriorMonitorEnabled(Enabled); }
 star::Vec3d AStarShipPawn::CameraAbsoluteMeters() const
 {
-    if(bEarthView) return EarthViewCamera;
     return star::FromUnrealCentimeters(FStarDataCatalog::SimVector(FlightCamera->GetComponentLocation()),RenderOrigin);
 }
 star::Vec3d AStarShipPawn::CameraForwardSimulation() const
@@ -989,55 +971,3 @@ bool AStarShipPawn::RestoreFlight(const star::FlightState& State)
     return true;
 }
 void AStarShipPawn::CalcCamera(float DeltaTime,FMinimalViewInfo& OutResult) { FlightCamera->GetCameraView(DeltaTime,OutResult); }
-
-void AStarShipPawn::StartEarthView(bool bSunset, bool bOrbit)
-{
-    if(!IsReady()) return;
-    bEarthView=true; bEarthSunset=bSunset; bEarthOrbit=bOrbit; EarthViewTime=0;
-    WorldDirector->SetTwilightDream(!bOrbit,bSunset);
-    VisualRoot->SetVisibility(false,true);
-    UpdateEarthView(0);
-}
-void AStarShipPawn::EndEarthView()
-{
-    if(!bEarthView) return;
-    bEarthView=false;
-    WorldDirector->SetTwilightDream(false);
-    VisualRoot->SetVisibility(true,true);
-    RenderOrigin=Flight->State().positionMeters;
-    RefreshTransform(0);
-    WorldDirector->UpdateScene(Flight->State(),RenderOrigin,CameraAbsoluteMeters(),0);
-}
-void AStarShipPawn::UpdateEarthView(double Dt)
-{
-    const auto* Earth=WorldDirector->Catalog().Find(TEXT("earth"));
-    const auto* Sun=WorldDirector->Catalog().Find(TEXT("sun"));
-    if(!Earth||!Sun) { EndEarthView(); return; }
-    EarthViewTime+=FMath::Clamp(Dt,0.0,0.1);
-    double ViewSeconds=EarthViewTime;
-    if(FParse::Param(FCommandLine::Get(),TEXT("StarBenchmark")))
-        FParse::Value(FCommandLine::Get(),TEXT("StarEarthViewSeconds="),ViewSeconds);
-    const double T=FMath::Clamp(ViewSeconds/120.0,0.0,1.0);
-    const double Approach=T*T*(3.0-2.0*T);
-    const double Altitude=bEarthOrbit?FMath::Exp(FMath::Lerp(FMath::Loge(Earth->Definition.radiusMeters*2.9),FMath::Loge(180000.0),Approach))
-                                     :bEarthSunset?3000.0:450000.0;
-    const double Dip=FMath::Acos(Earth->Definition.radiusMeters/(Earth->Definition.radiusMeters+Altitude));
-    const double Elevation=-Dip+FMath::DegreesToRadians(bEarthSunset?FMath::Lerp(1.8,-0.4,T):FMath::Lerp(0.05,1.8,T));
-    const auto Sunward=(Sun->Definition.centerMeters-Earth->Definition.centerMeters).Normalized();
-    const auto Pole=Earth->Definition.bodyFixedToSimulation.Rotate({0,0,1});
-    const auto Side=star::Vec3d::Cross(Pole,Sunward).Normalized()*((bEarthSunset||bEarthOrbit)?1.0:-1.0);
-    const double OrbitPhase=FMath::DegreesToRadians(FMath::Lerp(35.0,33.4,Approach));
-    const auto Up=bEarthOrbit?(Sunward*FMath::Cos(OrbitPhase)+Side*FMath::Sin(OrbitPhase)+Pole*0.12).Normalized()
-                            :Side*FMath::Cos(Elevation)+Sunward*FMath::Sin(Elevation);
-    const auto Tangent=(Sunward-Up*star::Vec3d::Dot(Sunward,Up)).Normalized();
-    EarthViewCamera=Earth->Definition.centerMeters+Up*(Earth->Definition.radiusMeters+Altitude);
-    RenderOrigin=EarthViewCamera;
-    // The observation camera has its own nearby render origin. Flight/save state stays untouched.
-    SetActorLocationAndRotation(FVector::ZeroVector,FQuat::Identity,false,nullptr,ETeleportType::TeleportPhysics);
-    const double Pitch=-Dip+FMath::DegreesToRadians(bEarthSunset?7.0:3.0);
-    const auto Forward=bEarthOrbit?-Up:Tangent*FMath::Cos(Pitch)+Up*FMath::Sin(Pitch);
-    FlightCamera->SetWorldLocationAndRotation(FVector::ZeroVector,FStarDataCatalog::UERotation(star::Quatd::FromForwardUp(Forward,bEarthOrbit?Pole:Up)));
-    FlightCamera->SetFieldOfView(bEarthSunset?55.0f:62.0f);
-    auto ViewState=Flight->State(); ViewState.positionMeters=EarthViewCamera;
-    WorldDirector->UpdateScene(ViewState,RenderOrigin,EarthViewCamera,Dt);
-}

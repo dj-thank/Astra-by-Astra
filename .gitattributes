@@ -10,3 +10,5 @@
 *.exr binary
 *.wav binary
 *.ttf binary
+
+*.bin binary

@@ -46,9 +46,9 @@ star::EarthFlightPreset EarthFlightPresetForPose(const FString& Pose) {
     if(Pose==TEXT("orbitflight")) return star::EarthFlightPreset::Orbit;
     return star::EarthFlightPreset::Coast;
 }
-void BeginScenicPilotView(AStarShipPawn* Ship,star::EarthFlightPreset Preset,const star::BodyDefinition& Earth) {
-    Ship->Director()->SetTwilightDream(false);
-    Ship->BeginEarthScenicFlightView();
+void ConfigureFlightCaptureView(AStarShipPawn* Ship,star::EarthFlightPreset Preset,const star::BodyDefinition& Earth) {
+    // Capture framing only. Ordinary voyages have no preset-dependent state.
+    if(!Ship->IsVRRequested()&&Ship->IsCockpitView())Ship->ToggleView();
     const auto SetCameraPitch=[&](float Yaw,float DesiredPitch) {
         Ship->RecenterLook();Ship->SetLook(Yaw,0,false);
         const auto LocalForward=Ship->Simulation()->State().orientation.Conjugate().Rotate(Ship->CameraForwardSimulation());
@@ -350,7 +350,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
                 const auto Before=Ship->Simulation()->State().positionMeters;
                 HandleAction(TEXT("EarthOrbit"));
                 const double Delta=(Ship->Simulation()->State().positionMeters-Before).Length();
-                Event(TEXT("active-voyage-preset-does-not-relocate"),Delta<0.001&&!Ship->IsEarthView()&&!bPhotoMode,Delta);++Step;
+                Event(TEXT("active-voyage-preset-does-not-relocate"),Delta<0.001&&!bPhotoMode,Delta);++Step;
             }
             if(Step==1&&BenchmarkStageTime>=18)
             { HandleAction(TEXT("Pause"));PauseTime=Ship->Simulation()->State().simulationTimeSeconds;Event(TEXT("pause"),bFlightPaused);++Step; }
@@ -394,7 +394,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
                 static_cast<double>(BenchmarkStageTime),State.simulationTimeSeconds,State.positionMeters.x,State.positionMeters.y,State.positionMeters.z,
                 Camera.x,Camera.y,Camera.z,Forward.x,Forward.y,Forward.z,(State.positionMeters-Earth.centerMeters).Length()-Earth.radiusMeters,
                 star::EarthSunHorizonClearance(Earth,Sun.centerMeters,State.positionMeters)*180/star::Pi,State.velocityMetersPerSecond.Length(),
-                static_cast<unsigned long long>(State.recoveryCount),bFlightPaused?TEXT("true"):TEXT("false"),Ship->IsEarthView()?TEXT("true"):TEXT("false"),bPhotoMode?TEXT("true"):TEXT("false"));
+                static_cast<unsigned long long>(State.recoveryCount),bFlightPaused?TEXT("true"):TEXT("false"),TEXT("false"),bPhotoMode?TEXT("true"):TEXT("false"));
             FFileHelper::SaveStringToFile(Line,*(BenchmarkPath/TEXT("flight-trajectory.jsonl")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM,&IFileManager::Get(),FILEWRITE_Append);
             const auto Local=Earth.bodyFixedToSimulation.Conjugate().Rotate(State.positionMeters-Earth.centerMeters);
             const FString Astro=FString::Printf(TEXT("{\"engineSeconds\":%.9f,\"utc\":%.9f,\"rate\":%.0f,\"earthLocal\":[%.9f,%.9f,%.9f],\"earthCenter\":[%.9f,%.9f,%.9f],\"sunCenter\":[%.9f,%.9f,%.9f]}\n"),
@@ -410,6 +410,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
     if(bNavigationQA) UpdateNavigationQAAfterFlight();
     if(HUD) HUD->ApplySnapshot(Snapshot);
     Ship->UpdatePresentation(Snapshot,bFlightPaused||bPhotoMode,MasterVolume);
+    if(bBenchmark&&FParse::Param(FCommandLine::Get(),TEXT("StarUnifiedWorldQA")))UpdateUnifiedWorldQA(DeltaTime);
     if(!LastPhotoRequest.IsEmpty()&&IFileManager::Get().FileExists(*LastPhotoRequest))
     { SetStatus(TEXT("写真を保存しました。"));LastPhotoRequest.Reset(); }
 }
@@ -723,21 +724,6 @@ void AStarPlayerController::HandleAction(FName Action,float Value)
     }
     if(!Ship||!Ship->IsReady()) { SetStatus(Ship?Ship->Error():TEXT("機体を準備しています。"));return; }
     auto* Sim=Ship->Simulation();
-    if(Action==TEXT("EarthSunrise")||Action==TEXT("EarthSunset")||Action==TEXT("EarthOrbit"))
-    {
-        // Scenic presets initialize a NEW piloted voyage only. Never replace
-        // an active voyage with a hidden ship or an independent camera track.
-        if(!bMainMenu||bSessionStarted||EVAPawn||bGuidedTour) return;
-        Action=Action==TEXT("EarthSunrise")?TEXT("StartEarthSunriseFlight"):
-            Action==TEXT("EarthSunset")?TEXT("StartEarthSunsetFlight"):TEXT("StartEarthOrbitFlight");
-    }
-    if(Ship->IsEarthView()&&(Action==TEXT("TogglePhoto")||Action==TEXT("Pause")||Action==TEXT("Resume")))
-    {
-        Ship->EndEarthView(); bPhotoMode=false; SetFlightPaused(true);
-        if(HUD&&bMainMenu) HUD->SetMainMenuVisible(true);
-        return;
-    }
-
     if(bNavigationBrakingRecovery&&(Action==TEXT("ToggleCruise")||Action==TEXT("Precision")||Action==TEXT("ToggleGear")||Action==TEXT("Takeoff")))
     { SetStatus(TEXT("安全減速中は操船を停止しています。B / Escで中断できます。"));return; }
     if(Action==TEXT("ToggleEnhancedStars"))
@@ -753,30 +739,7 @@ void AStarPlayerController::HandleAction(FName Action,float Value)
         SetStatus(Enabled?TEXT("操縦補助：オン"):TEXT("操縦補助：オフ"));
         return;
     }
-    if(Action==TEXT("StartEarthFlight")||Action==TEXT("StartEarthNightFlight")||Action==TEXT("StartEarthSunriseFlight")||Action==TEXT("StartEarthSunsetFlight")||Action==TEXT("StartEarthOrbitFlight"))
-    {
-        // A new-session entry only. Never discard an active flight from pause.
-        if(!bMainMenu||bSessionStarted||EVAPawn||bGuidedTour) return;
-        const auto* Earth=Ship->Director()->Catalog().Find(TEXT("earth"));
-        if(!Earth) return;
-        const bool Night=Action==TEXT("StartEarthNightFlight");
-        const auto Preset=Night?star::EarthFlightPreset::Night:
-            Action==TEXT("StartEarthSunriseFlight")?star::EarthFlightPreset::Sunrise:
-            Action==TEXT("StartEarthSunsetFlight")?star::EarthFlightPreset::Sunset:
-            Action==TEXT("StartEarthOrbitFlight")?star::EarthFlightPreset::Orbit:star::EarthFlightPreset::Coast;
-        const auto* Sun=Ship->Director()->Catalog().Find(TEXT("sun"));
-        if(!Sun) return;
-        Ship->EndEarthView();
-        const auto Initial=star::MakeEarthFlight(Earth->Definition,Sun->Definition.centerMeters,Preset);
-        if(!Ship->RestoreFlight(Initial)) return;
-        ResetNavigation();KeyboardThrottle=0;bBrakeHeld=false;
-        BeginScenicPilotView(Ship,Preset,Earth->Definition);
-        SetStatus(Night?TEXT("夜側の都市上空。矢印・ハット・Alt＋右ドラッグで見回し、Vで船内視点、Pで撮影。")
-            :TEXT("アンダマン諸島上空。スロットルで前進、Vで船内視点、Pで撮影。"));
-        if(Preset==star::EarthFlightPreset::Sunrise||Preset==star::EarthFlightPreset::Sunset||Preset==star::EarthFlightPreset::Orbit)
-            SetStatus(TEXT("操縦しながら景色を眺められます。W/Sで速度、矢印・ハット・Alt＋右ドラッグで見回し、Vで視点切替。"));
-        Action=TEXT("StartFlight");
-    }
+    // Former scenic-start actions intentionally cannot relocate a voyage.
     if(Action==TEXT("StartFlight"))
     {
         bSessionStarted=true;
@@ -1200,8 +1163,9 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
         }
         ++BenchmarkStage;BenchmarkStageTime=0;
         if(BenchmarkStage>=BenchmarkStart+BenchmarkCount) { RequestQAQuit();return; }
+        const bool Unified=FParse::Param(FCommandLine::Get(),TEXT("StarUnifiedWorldQA"));
         const auto& Catalog=Ship->Director()->Catalog();
-        auto State=Ship->Director()->InitialFlightState();
+        auto State=Unified?Ship->Simulation()->State():Ship->Director()->InitialFlightState();
         if(BenchmarkStage==1)
         {
             const auto* Moon=Catalog.Find(TEXT("moon"));
@@ -1242,20 +1206,29 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
         }
         if(IsEarthFlightPose(EarthPose))
             State=star::MakeEarthFlight(Catalog.Find(TEXT("earth"))->Definition,Catalog.Find(TEXT("sun"))->Definition.centerMeters,EarthFlightPresetForPose(EarthPose));
-        if(Ship->RestoreFlight(State)) ResetNavigation();
+        if(!Unified&&Ship->RestoreFlight(State)) ResetNavigation();
         if(BenchmarkStage==0)
         {
             const auto& E=Catalog.Find(TEXT("earth"))->Definition;const auto& S=Catalog.Find(TEXT("sun"))->Definition;
             BenchmarkInitialEarthLocal=E.bodyFixedToSimulation.Conjugate().Rotate(State.positionMeters-E.centerMeters);
             BenchmarkInitialSunClearance=star::EarthSunHorizonClearance(E,S.centerMeters,State.positionMeters)*180/star::Pi;
         }
-        if(IsEarthFlightPose(EarthPose)) BeginScenicPilotView(Ship,EarthFlightPresetForPose(EarthPose),Catalog.Find(TEXT("earth"))->Definition);
-        const bool WantCockpit=bVRRequested || BenchmarkStage==3 || (IsEarthFlightPose(EarthPose)&&FParse::Param(FCommandLine::Get(),TEXT("StarEarthFlightCockpit")));
+        if(IsEarthFlightPose(EarthPose)) ConfigureFlightCaptureView(Ship,EarthFlightPresetForPose(EarthPose),Catalog.Find(TEXT("earth"))->Definition);
+        const bool WantCockpit=Unified?Ship->IsCockpitView():bVRRequested || BenchmarkStage==3 || (IsEarthFlightPose(EarthPose)&&FParse::Param(FCommandLine::Get(),TEXT("StarEarthFlightCockpit")));
         if(WantCockpit!=Ship->IsCockpitView()) Ship->ToggleView();
         if(IsEarthFlightPose(EarthPose) && !bBenchmarkPitchOverride && WantCockpit) Ship->SetLook(0,EarthPose==TEXT("nightflight")?-25:-8,false);
         if(BenchmarkStage==3) Ship->SetLook(BenchmarkLookYaw,bBenchmarkPitchOverride?BenchmarkLookPitch:-12,false);
         else if(BenchmarkLookYaw!=0||bBenchmarkPitchOverride) Ship->SetLook(BenchmarkLookYaw,BenchmarkLookPitch,false);
-        bMainMenu=false;bFlightPaused=false;bPhotoMode=false;bSessionStarted=true;
+        if(Unified)
+        {
+            const auto Before=Ship->Simulation()->State();
+            const bool WasMain=bMainMenu&&!bSessionStarted;
+            bOpenedInitialInputSettings=true; // Scripted runtime check, not hardware calibration.
+            HandleAction(TEXT("StartFlight"),0);
+            UnifiedStartedNormally=WasMain&&!bMainMenu&&bSessionStarted&&
+                (Ship->Simulation()->State().positionMeters-Before.positionMeters).Length()<0.000001&&EarthPose.IsEmpty();
+        }
+        else {bMainMenu=false;bFlightPaused=false;bPhotoMode=false;bSessionStarted=true;}
         if(!EarthPose.IsEmpty() && !IsEarthFlightPose(EarthPose))
         {
             bPhotoMode=true;
@@ -1349,7 +1322,7 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
             Metadata->SetNumberField(TEXT("flightSpeedMps"),CurrentFlight.velocityMetersPerSecond.Length());
             Metadata->SetNumberField(TEXT("simulationTimeSeconds"),CurrentFlight.simulationTimeSeconds);
             Metadata->SetNumberField(TEXT("flightRecoveries"),static_cast<double>(CurrentFlight.recoveryCount));
-            Metadata->SetBoolField(TEXT("observationMode"),Ship->IsEarthView());
+            Metadata->SetBoolField(TEXT("observationMode"),false);
             Metadata->SetBoolField(TEXT("photoMode"),bPhotoMode);
             Metadata->SetBoolField(TEXT("shipHidden"),Ship->IsHidden());
             const auto& Sun=Ship->Director()->Catalog().Find(TEXT("sun"))->Definition;
@@ -1357,7 +1330,7 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
             Metadata->SetNumberField(TEXT("initialSunHorizonClearanceDegrees"),BenchmarkInitialSunClearance);
             Metadata->SetStringField(TEXT("flightInputSource"),TEXT("Scripted PlayerTick controls; no physical input acceptance"));
         }
-        Metadata->SetStringField(TEXT("cameraMode"),Ship->IsEarthView()?TEXT("earth-observation"):Ship->IsCockpitView()?TEXT("cockpit"):TEXT("chase"));
+        Metadata->SetStringField(TEXT("cameraMode"),Ship->IsCockpitView()?TEXT("cockpit"):TEXT("chase"));
         Metadata->SetStringField(TEXT("dataEpoch"),Ship->Director()->Catalog().DataEpoch());
         Metadata->SetNumberField(TEXT("astronomyUtc"),Ship->Director()->WorldUtc());
         Metadata->SetNumberField(TEXT("astronomyRate"),Ship->Director()->ClockRate());
