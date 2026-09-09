@@ -1,0 +1,18 @@
+{
+  "verified_utc": "2026-09-06T16:06:06.779257+00:00",
+  "stage": "SOURCE_CHECKS_PASS_SOURCE_ASSET_ONLY",
+  "tests": "6 unittest cases passed; all16 original RGB tiles byte-identical after mosaic, output SHA256 matches, initial2kx2k region fully available, no alpha on exact-black service gaps, geographic cardinal/center registration",
+  "shader_non_earth_and_prior_code": "Removing only inserted EarthDetail block reproduces HEAD Planet.ush text exactly, including oblate Saturn and lunar terrain hole",
+  "texture_bytes": 45733387,
+  "texture_sha256": "a4b0be42f90c045a9db0596f3b6c3d52dc819f22e598daf7c6b16978fb171bae",
+  "nodata_fraction": 0.15279322862625122,
+  "visual_inspection": "Center1:1 crop and regional preview inspected: distinct recorded cloudlets/shadows, no synthetic enhancement. Inspection is source pixels, not GPU.",
+  "not_run": [
+    "UE shader compilation",
+    "texture import and BC7 alpha inspection",
+    "packaged4K horizon/nadir mip-residency and performance",
+    "physical input"
+  ],
+  "largest_residual": "Fixed observed cloud/glint shading on sphere; global weather differs at feathered patch edge. No cloud volume/parallax.",
+  "source_failure": "2026-09-05 Terra preview timed out; archived2025-09-06 Aqua selected. One WMS504 on tile0,3 succeeded on one retry."
+}

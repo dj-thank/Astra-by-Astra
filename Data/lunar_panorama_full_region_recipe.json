@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_MULTI_DIRECTION_PHOTO_PROJECTION_CANDIDATE",
+  "texturePath": "Content/Star/Art/LunarPanorama/FullRegion/apollo17_full_region_photo_rgba.png",
+  "texturePixels": [
+    8192,
+    8192
+  ],
+  "geographicBounds": {
+    "westLongitudeDegrees": 29.905659225360438,
+    "eastLongitudeDegrees": 31.65791929677411,
+    "northLatitudeDegrees": 21.30346716191105,
+    "southLatitudeDegrees": 19.390749761336185
+  },
+  "colorSpace": "sRGB interpreted scan RGB; linear alpha",
+  "metersPerTexelProjected": [
+    6.094970703125,
+    7.080078125
+  ],
+  "sha256": "1cc3a8e6c35e60087f36c6d8367311b25d64dedc0e5f6494e9654534fe0f6af0",
+  "nonzeroAlphaPixels": 1887393,
+  "sourceSupportPixelsBeforeVisibility": {
+    "north": 7645342,
+    "southwest": 3727397,
+    "southeast": 1895907,
+    "northeast": 4775545,
+    "west": 224009
+  },
+  "sourceFrames": [
+    22500,
+    22518,
+    22513,
+    22504,
+    22495
+  ],
+  "projection": "Fixed measured DTM surfaces; no sky shell, no camera-facing geometry.",
+  "maskReasons": [
+    "near ground<1.8km",
+    "source image outside observed mountain footline",
+    "sky/black unusable pixels",
+    "unregistered heading including West Family summit",
+    "Southeast shadowed/unreliable skyline beyond fitted columns",
+    "DTM missing data",
+    "terrain hidden by nearer samples",
+    "per-column skyline residual>=0.7deg",
+    "low far-tier confidence near source gaps; no masking of corrected near/far band"
+  ],
+  "north": "New full-DTM verification/refinement, legacy files unchanged; root should prefer this verified registration to old crop-only fit.",
+  "runtime": "Requires far10m tier and corrected near5m->far10m->LOLA cascade. Existing5m raw/interior preserved; only300m outer blend changes.",
+  "full360PhotoCoverageComplete": false
+}

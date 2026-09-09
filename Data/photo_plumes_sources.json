@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "source": {
+    "id": "KSC-08pd0715",
+    "url": "https://images-assets.nasa.gov/image/KSC-08pd0715/KSC-08pd0715~orig.jpg",
+    "page": "https://images.nasa.gov/details/KSC-08pd0715",
+    "date": "2008-03-11",
+    "credit": "NASA/Jerry Cannon, Rusty Backer",
+    "license": "NASA media usage guidelines; US government work; no endorsement",
+    "policy": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "original_size_px": [
+      2008,
+      3000
+    ],
+    "sha256": "82ee98d34b4e7d5d70a771319199210c084bed6afd8b99980fb5f9e337f919a7",
+    "original_color_space": "sRGB assumed from JPEG",
+    "observation": "STS-123 atmospheric launch, left SSME exhaust"
+  },
+  "binding": {
+    "quad_px_TL_BL_BR_TR": [
+      615,
+      2275,
+      382,
+      2999,
+      584,
+      2999,
+      721,
+      2302
+    ],
+    "uv": "U transverse; V nozzle to image bottom",
+    "sampled_length_in_nozzle_diameters_estimate": 8,
+    "scale_status": "projected ratio only; no camera calibration; D supplied by actual socket geometry",
+    "source_nozzle_width_px_estimate": 105
+  },
+  "interpretations": [
+    "last 18 percent taper beyond photographic truncation",
+    "6 azimuthal sheet repetitions",
+    "8 D runtime extent",
+    "cruise stretch and spool response",
+    "spacecraft vacuum luminous exhaust; atmospheric cells remain cinematic reference"
+  ],
+  "textures": {
+    "T_PlumePhoto.png": {
+      "size": [
+        256,
+        1024
+      ],
+      "srgb": false,
+      "channels": "RGB normalized linear emission chroma; A relative emission intensity; straight alpha",
+      "address": "clamp",
+      "mips": true
+    },
+    "T_PlumeAxial.png": {
+      "size": [
+        16,
+        1024
+      ],
+      "srgb": false,
+      "channels": "R/B transverse mean; G transverse max; A 1",
+      "address": "clamp",
+      "mips": true
+    }
+  },
+  "not_observed": [
+    "absolute radiance or plasma temperature",
+    "vacuum shock cells",
+    "3D density",
+    "extra temporal frames"
+  ],
+  "files": {
+    "T_PlumePhoto.png": {
+      "sha256": "a4699977f701a48cf59f9afcbcd5d2d863071207bfef7ed8efccc588bfd2fac1",
+      "bytes": 408048
+    },
+    "T_PlumeAxial.png": {
+      "sha256": "b418a24c1e0f29906875d6d92466efd59aa34092941ec0abcbd15142195108e8",
+      "bytes": 1854
+    },
+    "plume_mesh.json": {
+      "sha256": "c4afe8add917f2065818c0042a50aa2a808bd11e1e0942c97641faa65ff29058",
+      "bytes": 25505
+    },
+    "plume_disks.json": {
+      "sha256": "27bd9672f8c1a94d1f50ccf9772f9d5245aaa9e414bfb2e6c1422c927e782a57",
+      "bytes": 8752
+    }
+  },
+  "validation": {
+    "cpu_views_degrees": [
+      0,
+      45,
+      80,
+      90
+    ],
+    "cpu_shader_signal_spool": [
+      0.18,
+      0.55,
+      1
+    ],
+    "engine_shader_compilation": "NOT_RUN",
+    "gpu_timing": "NOT_RUN",
+    "independent_visual_review": "NOT_RUN",
+    "residuals": [
+      "crossed-sheet angular rays at oblique near-rear views",
+      "static photograph has no measured motion",
+      "source exposure does not calibrate radiance"
+    ]
+  }
+}

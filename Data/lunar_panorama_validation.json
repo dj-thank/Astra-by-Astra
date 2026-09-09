@@ -1,0 +1,20 @@
+{
+  "status": "LOCAL_SOURCE_GEOMETRY_REGISTRATION_CHECKS_PASS",
+  "sourceHashChecks": 27,
+  "artifactHashChecks": 16,
+  "source22500HoldoutRmsDegrees": 0.12377093693515291,
+  "wrongHeading10DegreesRms": 1.8036441865382817,
+  "demVertexCheckCount": 79,
+  "demVertexMaxErrorMeters": 7.893989569164425e-07,
+  "meshVerticalReliefMeters": 1406.766496,
+  "glbReadbackMeanByteDifference": 0.023329878159665394,
+  "glbReadbackMaxByteDifference": 40.0,
+  "notValidated": [
+    "UE",
+    "GPU",
+    "packaged game",
+    "independent visual acceptance",
+    "true camera location",
+    "multi-location photographic accuracy"
+  ]
+}

@@ -1,0 +1,676 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_ASSET_AND_REGISTRATION_CANDIDATE",
+  "retrievedAtUtc": "2026-09-06T16:23:23.155823+00:00",
+  "sourceSequence": {
+    "mission": "Apollo17",
+    "station": "Schmitt EVA1 LM 4-o-clock panorama, northeast/NNE of LM; not Geology Station 1",
+    "photographer": "Harrison H. Schmitt",
+    "adjustedMissionTimeRange": [
+      "117:45:40",
+      "117:47:43"
+    ],
+    "observationDate": "1972-12-12",
+    "approximateUtcRange": [
+      "1972-12-12T00:38:40Z",
+      "1972-12-12T00:40:43Z"
+    ],
+    "utcMethod": "Launch1972-12-07T05:33Z + adjusted MET - 02:40 mission-clock advance. Sequence bound, not individual shutter timestamps.",
+    "clockSource": "https://apollojournals.org/afj/ap17fj/09_day04_part1_clock_update.html",
+    "sequenceSource": "https://apollojournals.org/alsj/a17/a17.lrvdep.html#1174743"
+  },
+  "rights": {
+    "basis": "NASA photograph reuse under NASA media guidelines; ALSJ image library asserts no copyright for NASA photographs.",
+    "credit": "NASA; original-film scan processing Kipp Teague; Apollo Lunar Surface Journal",
+    "policyUrls": [
+      "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "https://apollojournals.org/alsj/a17/images17.html"
+    ],
+    "scope": "Individual OF300 NASA frames, not third-party assembled panoramas/captions. No endorsement. Reuse assessment is not a license to NASA insignia or portraits.",
+    "excluded": "Google Moon / Street View imagery; ASU post-scanning processed products; third-party ALSJ panorama/anaglyph composites",
+    "asuDistinction": "https://apollo.im-ldi.com/ABOUT_SCANS/ distinguishes public-domain unprocessed raw scans from restricted ASU derived products. No ASU photograph product downloaded."
+  },
+  "colorSpace": "JPEG scan interpreted sRGB for display; not calibrated surface albedo or spectral reflectance.",
+  "processing": {
+    "fullStitch": "SIFT + spherical camera bundle adjustment; gaps and near-field ghosts remain; reference only.",
+    "projection": "Two frame perspective rays onto measured DTM. No camera-facing plane or sky shell. Mask rejects near ground, outside sector, approximate occlusion, sky and photo footline.",
+    "scanMarks": "Derived texture only: known reseau grid localized and inpainted. Small repaired pixels are inferred, not observation. Original JPEG bytes unchanged.",
+    "lighting": "Baked original sunlight; preview unlit; not relightable PBR.",
+    "geometry": "LROC5m DEM sampled every5 posts (25m preview vertices), exact spherical ENU conversion. Heights not altered.",
+    "parallax": "World-fixed DEM texture provides geometric parallax. Original-view occlusions/backside pixels are not observed. No guarantee beyond local camera motion."
+  },
+  "dtm": {
+    "metadata": "Content/Star/Data/apollo17.json",
+    "heightPath": "Content/Star/Data/apollo17_height_f32.bin",
+    "heightSha256": "884c5e3936f735f66abc1b2ff76ae36c10b07550e9f8fdd38af62a0ffbde9fec",
+    "datum": "MOON_ME, planetocentric east-positive,1737400m sphere",
+    "credit": "NASA/GSFC/Arizona State University; LROC team",
+    "observations": "2010-07-28..2016-03-17"
+  },
+  "sources": [
+    {
+      "id": "AS17-147-22493",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22493HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22493HR.jpg",
+      "sha256": "c899900c7bd09c534da5f8691f123efd66cfa516df5ff6eae7f564f3c3fd8b82",
+      "bytes": 1000105,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22493",
+      "sceneFeature": "South Massif / Geophone Rock"
+    },
+    {
+      "id": "AS17-147-22494",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22494HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22494HR.jpg",
+      "sha256": "74685de8301d8ed5453afa1d671a005e8ab804f93be8685879d9bb39848f4bda",
+      "bytes": 928967,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22494",
+      "sceneFeature": "West Family Mountain"
+    },
+    {
+      "id": "AS17-147-22495",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22495HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22495HR.jpg",
+      "sha256": "984d7643d2a04980370e9b30421ddac365d1e4025920eeb6cceb73799b8308a1",
+      "bytes": 830641,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22495",
+      "sceneFeature": "West and Old Family Mountains"
+    },
+    {
+      "id": "AS17-147-22496",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22496HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22496HR.jpg",
+      "sha256": "62c82b7ee89c3c9bfddbda983a9cab95bfcc1481afb532034e35af0b60baaf13",
+      "bytes": 1400382,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22496",
+      "sceneFeature": "North Massif / fresh crater"
+    },
+    {
+      "id": "AS17-147-22497",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22497HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22497HR.jpg",
+      "sha256": "288b8b1b0fadcf7f214bc32baf4b00604b6ba95928579cf5ee601c636c5b358b",
+      "bytes": 1173710,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22497",
+      "sceneFeature": "North Massif / fresh crater"
+    },
+    {
+      "id": "AS17-147-22498",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22498HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22498HR.jpg",
+      "sha256": "c128a75958bdd217b39306865a114524ba57ea269a8e66cb237bb21cc904161b",
+      "bytes": 920671,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22498",
+      "sceneFeature": "North Massif"
+    },
+    {
+      "id": "AS17-147-22499",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22499HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22499HR.jpg",
+      "sha256": "a69d304d47e7470868bea0937a6674c16533b3c68619619eea35e07754698107",
+      "bytes": 1528502,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22499",
+      "sceneFeature": "near ground"
+    },
+    {
+      "id": "AS17-147-22500",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22500HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22500HR.jpg",
+      "sha256": "9878141942a9a26866ab53c84a02baab46df77da5cd4a723e980efada1cf35a4",
+      "bytes": 1063162,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22500",
+      "sceneFeature": "North Massif"
+    },
+    {
+      "id": "AS17-147-22501",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22501HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22501HR.jpg",
+      "sha256": "12cbb75b26a6a1f95a351f005af37583d523c52c03adfd735b7b818f8e455375",
+      "bytes": 1705776,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22501",
+      "sceneFeature": "near ground north"
+    },
+    {
+      "id": "AS17-147-22502",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22502HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22502HR.jpg",
+      "sha256": "51ed5d4e564699c26812cb39162a3f82b56529c4f25bec14d1a05e2cc8966b15",
+      "bytes": 1257588,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22502",
+      "sceneFeature": "North Massif / boulder track"
+    },
+    {
+      "id": "AS17-147-22503",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22503HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22503HR.jpg",
+      "sha256": "4f39777d0b709f863b96ae3154e203fcbfa392a4404979d170792732073c0822",
+      "bytes": 1836503,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22503",
+      "sceneFeature": "near ground / boulder track"
+    },
+    {
+      "id": "AS17-147-22504",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22504HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22504HR.jpg",
+      "sha256": "c0658568944b962be91e9f7fbed32e730161fa1abcf23000784b5b038b04bd69",
+      "bytes": 1765244,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22504",
+      "sceneFeature": "Wessex Cleft"
+    },
+    {
+      "id": "AS17-147-22505",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22505HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22505HR.jpg",
+      "sha256": "7f94bfe105dbebe63cce04de02a1565861d50cf310891be61f0e843bc8feaa45",
+      "bytes": 1458361,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22505",
+      "sceneFeature": "Sculptured Hills"
+    },
+    {
+      "id": "AS17-147-22506",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22506HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22506HR.jpg",
+      "sha256": "641a428d5c28ff82d05fa139d995576a07bc042fbb96c9506714cf95db97b438",
+      "bytes": 1523166,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22506",
+      "sceneFeature": "Sculptured Hills"
+    },
+    {
+      "id": "AS17-147-22507",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22507HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22507HR.jpg",
+      "sha256": "60da3e79689d59e3546ea917d00b5496ec85559d65de8813f43c520ac9bf938a",
+      "bytes": 1054775,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22507",
+      "sceneFeature": "Sun / eastern terrain"
+    },
+    {
+      "id": "AS17-147-22508",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22508HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22508HR.jpg",
+      "sha256": "4b5bc2d30c25dcfe245b1b5258d990482364f3a68f0ed2252e87f737fadaa934",
+      "bytes": 1519571,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22508",
+      "sceneFeature": "eastern terrain"
+    },
+    {
+      "id": "AS17-147-22509",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22509HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22509HR.jpg",
+      "sha256": "06772e053725cf7332f03781cd5600c357bececdb07acca3e6ca7ff599394676",
+      "bytes": 988460,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22509",
+      "sceneFeature": "crater east of LM"
+    },
+    {
+      "id": "AS17-147-22510",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22510HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22510HR.jpg",
+      "sha256": "e9f08a75ba5b562e215513b88678f330f668aa71aa3b4694fec2e63ac83a1efd",
+      "bytes": 963440,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22510",
+      "sceneFeature": "near ground east"
+    },
+    {
+      "id": "AS17-147-22511",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22511HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22511HR.jpg",
+      "sha256": "4ba58710a3fcc5660bc4403248dbc5f67211f30651183fb2d9622ca88a2d52ba",
+      "bytes": 1499883,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22511",
+      "sceneFeature": "East Massif"
+    },
+    {
+      "id": "AS17-147-22512",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22512HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22512HR.jpg",
+      "sha256": "899d890274ffd0fe9d86533a9b949e4061dc526daff388438b0137c0a0609ff1",
+      "bytes": 1233181,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22512",
+      "sceneFeature": "gap toward East Massif"
+    },
+    {
+      "id": "AS17-147-22513",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22513HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22513HR.jpg",
+      "sha256": "f3d975c7ac4aff98713205eb093f25f394d17db44fd8d6b646604087230e950b",
+      "bytes": 1297249,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22513",
+      "sceneFeature": "East Massif"
+    },
+    {
+      "id": "AS17-147-22514",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22514HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22514HR.jpg",
+      "sha256": "5804de2b313075aef86c55f8c032a9d6a15ce8e8480359bc6d8c3e798e1068f1",
+      "bytes": 1199126,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22514",
+      "sceneFeature": "East Massif / LM strut"
+    },
+    {
+      "id": "AS17-147-22515",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22515HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22515HR.jpg",
+      "sha256": "5ea1fa93aa0c3e90515b3b220680b8066df9bc0d018d2f55f60da1d484ee154a",
+      "bytes": 1272154,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22515",
+      "sceneFeature": "Bear Mountain / LM"
+    },
+    {
+      "id": "AS17-147-22516",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22516HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22516HR.jpg",
+      "sha256": "bf9e631fdd7703a17a966fc2a33a7641629df8c71f04a0e23de43f7d42a73eef",
+      "bytes": 1436031,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22516",
+      "sceneFeature": "LM"
+    },
+    {
+      "id": "AS17-147-22517",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22517HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22517HR.jpg",
+      "sha256": "b6e88522770ff6e1badc0638c2de6fc358d9c3eb244f3079d9a83964539a48fc",
+      "bytes": 1261897,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22517",
+      "sceneFeature": "LM"
+    },
+    {
+      "id": "AS17-147-22518",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22518HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22518HR.jpg",
+      "sha256": "dcf2f45e111fbf571f758a7d97faf6c846441ad7c70e7878866a74a65eb7f69a",
+      "bytes": 1070715,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22518",
+      "sceneFeature": "South Massif"
+    },
+    {
+      "id": "AS17-147-22519",
+      "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22519HR.jpg",
+      "url": "https://apollojournals.org/alsj/a17/AS17-147-22519HR.jpg",
+      "sha256": "976afdf482141ecc5935508c76ae1253d39aadf53b2470ce42a689b52ce5dc0e",
+      "bytes": 849659,
+      "pixels": [
+        2340,
+        2350
+      ],
+      "sourcePage": "https://apollojournals.org/alsj/a17/images17.html#22519",
+      "sceneFeature": "South Massif / LM"
+    }
+  ],
+  "projection": {
+    "texture": "Content/Star/Art/LunarPanorama/north_massif_photo_projection_rgba.png",
+    "nativeTexturePixels": [
+      3072,
+      2048
+    ],
+    "sourcePixelOuterBounds": [
+      350,
+      80,
+      1800,
+      1000
+    ],
+    "geoBounds": {
+      "west": 30.58745438933778,
+      "east": 30.841888307177754,
+      "north": 20.375551888485635,
+      "south": 20.22385361188832
+    },
+    "photoFrames": [
+      22498,
+      22500
+    ],
+    "acceptedAzimuthDegrees": [
+      312,
+      360,
+      0,
+      4
+    ],
+    "minimumDistanceMeters": 1800,
+    "maximumDistanceMeters": 6500,
+    "nonzeroAlphaPixels": 1767568,
+    "alphaCoverageFraction": 0.28094736735026044,
+    "mesh": {
+      "vertices": 53360,
+      "triangles": 105774,
+      "vertexSpacingMeters": 25,
+      "axes": "E,N,U meters; UE X=N*100 Y=E*100 Z=U*100",
+      "referenceGroundHeightMeters": -2626.984130859375
+    },
+    "limit": "Approximate image registration, baked 1972 lighting; alpha does not certify backside coverage. No DEM displacement."
+  },
+  "artifacts": [
+    {
+      "path": "Content/Star/Art/LunarPanorama/north_massif.mtl",
+      "sha256": "74ca29a77bac072be435691f47918fa15f221cae5af570a506326584f613e329",
+      "bytes": 106
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/north_massif_candidate.blend",
+      "sha256": "92c94b0dfbde3ab327af2106eb10d8efbe412754bb61876cb222c5aeba79a74d",
+      "bytes": 5518414
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/north_massif_candidate.glb",
+      "sha256": "2cba814d047f0933686356ce0537d24273f43d018c3f0b4809a42b9f03a6c7ec",
+      "bytes": 14173616
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/north_massif_measured_enu_m.obj",
+      "sha256": "c2a4c59729e1ce242be5f5101aa5d02cc0aea69c5501cc4fc4bc79afc48ef1ea",
+      "bytes": 7201204
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/north_massif_photo_projection_rgba.png",
+      "sha256": "e121aa6a739255361a7e2a4c2bf5c6616f9c0920eca24fb3ece3801d5041a318",
+      "bytes": 6410496
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/north_massif_projection_on_neutral.png",
+      "sha256": "c92e02c32fe3f1f444ecd22390ff9aa6ce99ca6e9dd6120fb7af0d134b10bd1a",
+      "bytes": 2754054
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Registration/dem_horizon.npz",
+      "sha256": "73b629d990a2eb15694f86f231b58574b570bac4cc2abb34f106d5199e111f42",
+      "bytes": 87156
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/contact.jpg",
+      "sha256": "9b609537dff69ffb5051195f1ef200be5beea08f1b168db4408514d0ec4c9b67",
+      "bytes": 496044
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/east_100m.png",
+      "sha256": "cefcfe0adb4325d1c95824f49e0789826e1edd435984e17217e69cabbfff75fc",
+      "bytes": 797400
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/elevated_250m.png",
+      "sha256": "c189bcd2ad6759d2e5656ef3509b0e85b5c6f8d87019d521e9147e8d419e5ace",
+      "bytes": 939023
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/full_sequence_stitch.jpg",
+      "sha256": "c22d0252cf5aaf89c3c66a0a0070d80a52cbd0d895e459d8afe34f816f13ca63",
+      "bytes": 1838182
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/glb_readback.png",
+      "sha256": "2e7428445eec922ec5ab93ec7d96da5a3ea2483892176e44eff3effca85cc582",
+      "bytes": 819102
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/horizon_fit.png",
+      "sha256": "a0914e1555c6a3dd388aa744d0c426e9f8d3e4124695a17da21bb8abb31a580e",
+      "bytes": 37830
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/reference.png",
+      "sha256": "11fc6f2a93dc47f8097a180c3c15e56cdcde6211b4028e1997b2d4176e81ebee",
+      "bytes": 802228
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/sequence_stitch.jpg",
+      "sha256": "a36a6a309a21c0eb0d31c5d387933d1753beab17a5918cb1788ae9215c48bdbc",
+      "bytes": 1147381
+    },
+    {
+      "path": "Content/Star/Art/LunarPanorama/Review/west_100m.png",
+      "sha256": "0e5e76702ce140fe98b50fb21eb9b72d39fcf29431cfa3ee75606cd579497170",
+      "bytes": 806189
+    }
+  ],
+  "review": {
+    "status": "CPU_BLENDER_CANDIDATE_RENDER_ONLY",
+    "views": [
+      {
+        "view": "reference",
+        "positionEnuMeters": [
+          0,
+          0,
+          1.6
+        ],
+        "cameraToWorld": [
+          [
+            0.9540483951568604,
+            0.07078884541988373,
+            0.29117104411125183,
+            0.0
+          ],
+          [
+            0.2962424159049988,
+            -0.07663755118846893,
+            -0.9520331025123596,
+            0.0
+          ],
+          [
+            -0.045078687369823456,
+            0.9945428967475891,
+            -0.09408657997846603,
+            1.600000023841858
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "view": "east_100m",
+        "positionEnuMeters": [
+          100,
+          0,
+          1.6
+        ],
+        "cameraToWorld": [
+          [
+            0.9540483951568604,
+            0.07078884541988373,
+            0.29117104411125183,
+            100.0
+          ],
+          [
+            0.2962424159049988,
+            -0.07663755118846893,
+            -0.9520331025123596,
+            0.0
+          ],
+          [
+            -0.045078687369823456,
+            0.9945428967475891,
+            -0.09408657997846603,
+            1.600000023841858
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "view": "west_100m",
+        "positionEnuMeters": [
+          -100,
+          0,
+          1.6
+        ],
+        "cameraToWorld": [
+          [
+            0.9540483951568604,
+            0.07078884541988373,
+            0.29117104411125183,
+            -100.0
+          ],
+          [
+            0.2962424159049988,
+            -0.07663755118846893,
+            -0.9520331025123596,
+            0.0
+          ],
+          [
+            -0.045078687369823456,
+            0.9945428967475891,
+            -0.09408657997846603,
+            1.600000023841858
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "view": "elevated_250m",
+        "positionEnuMeters": [
+          0,
+          0,
+          251.6
+        ],
+        "cameraToWorld": [
+          [
+            0.9540483951568604,
+            0.07078884541988373,
+            0.29117104411125183,
+            0.0
+          ],
+          [
+            0.2962424159049988,
+            -0.07663755118846893,
+            -0.9520331025123596,
+            0.0
+          ],
+          [
+            -0.045078687369823456,
+            0.9945428967475891,
+            -0.09408657997846603,
+            251.60000610351562
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "renderEngine": "CYCLES",
+    "device": "CPU",
+    "vertices": 53360,
+    "triangles": 105774
+  },
+  "remaining": [
+    "Root UE import/material comparison/cook/package check",
+    "Independent visual review not performed in this bounded worker",
+    "No full360 terrain calibration, near-field photogrammetry or observed backsides"
+  ]
+}

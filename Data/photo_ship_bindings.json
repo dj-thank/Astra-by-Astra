@@ -1,0 +1,750 @@
+{
+  "status": "LOCAL_SOURCE_CANDIDATE_NOT_RUNTIME_PASS",
+  "version": 2,
+  "material_bindings": [
+    {
+      "material": "M_CeramicIvory",
+      "parts": [
+        "SM_HullCeramic",
+        "SM_RadiatorPort",
+        "SM_RadiatorStarboard",
+        "SM_OutriggerPort",
+        "SM_OutriggerStarboard",
+        "SM_CockpitShell",
+        "SM_SciencePayload",
+        "SM_ServiceModule",
+        "SM_GearBays"
+      ],
+      "base_color_linear": [
+        0.67,
+        0.71,
+        0.7
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "CeramicCoat",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_CeramicWarm",
+      "parts": [
+        "SM_HullCeramic",
+        "SM_CockpitShell"
+      ],
+      "base_color_linear": [
+        0.64,
+        0.65,
+        0.6
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "CeramicCoat",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_CeramicCold",
+      "parts": [
+        "SM_HullCeramic"
+      ],
+      "base_color_linear": [
+        0.6,
+        0.66,
+        0.69
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "CeramicCoat",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_CeramicCool",
+      "parts": [
+        "SM_HullCeramic",
+        "SM_EnginePort",
+        "SM_EngineStarboard",
+        "SM_ServiceModule",
+        "SM_CockpitInterior"
+      ],
+      "base_color_linear": [
+        0.38,
+        0.46,
+        0.48
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "CeramicCoat",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_GraphiteStructure",
+      "parts": [
+        "SM_HullStructure",
+        "SM_EnginePort",
+        "SM_EngineStarboard",
+        "SM_CockpitShell",
+        "SM_ServiceModule",
+        "SM_AftServiceBulkhead",
+        "SM_GearNose",
+        "SM_GearPort",
+        "SM_GearStarboard",
+        "SM_Heatshield",
+        "SM_RCS_ForePort",
+        "SM_RCS_ForeStarboard",
+        "SM_RCS_AftPort",
+        "SM_RCS_AftStarboard",
+        "SM_CockpitInterior",
+        "SM_Throttle"
+      ],
+      "base_color_linear": [
+        0.045,
+        0.065,
+        0.076
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "CarbonShield",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)",
+      "interpretation": "photographic carbon-composite shield surface analogy, not measured graphite hull coating"
+    },
+    {
+      "material": "M_Titanium",
+      "parts": [
+        "SM_HullStructure",
+        "SM_HullCeramic",
+        "SM_RadiatorPort",
+        "SM_RadiatorStarboard",
+        "SM_EnginePort",
+        "SM_OutriggerPort",
+        "SM_EngineStarboard",
+        "SM_OutriggerStarboard",
+        "SM_CockpitShell",
+        "SM_HullMarkings",
+        "SM_SciencePayload",
+        "SM_ServiceModule",
+        "SM_AftServiceBulkhead",
+        "SM_GearNose",
+        "SM_GearBays",
+        "SM_GearPort",
+        "SM_GearStarboard",
+        "SM_Heatshield",
+        "SM_RCS_ForePort",
+        "SM_RCS_ForeStarboard",
+        "SM_RCS_AftPort",
+        "SM_RCS_AftStarboard",
+        "SM_CockpitInterior",
+        "SM_InstrumentPanel",
+        "SM_ControlStick",
+        "SM_Throttle"
+      ],
+      "base_color_linear": [
+        0.22,
+        0.26,
+        0.29
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "SatinMetal",
+      "metallic": 1,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_MachinedAlloy",
+      "parts": [
+        "SM_HullCeramic",
+        "SM_RadiatorPort",
+        "SM_RadiatorStarboard",
+        "SM_EnginePort",
+        "SM_EngineStarboard",
+        "SM_SciencePayload",
+        "SM_ServiceModule",
+        "SM_AftServiceBulkhead",
+        "SM_GearNose",
+        "SM_GearPort",
+        "SM_GearStarboard",
+        "SM_RCS_ForePort",
+        "SM_RCS_ForeStarboard",
+        "SM_RCS_AftPort",
+        "SM_RCS_AftStarboard",
+        "SM_CockpitInterior",
+        "SM_InstrumentPanel"
+      ],
+      "base_color_linear": [
+        0.49,
+        0.54,
+        0.57
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "SatinMetal",
+      "metallic": 1,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_MutedAmber",
+      "parts": [
+        "SM_EnginePort",
+        "SM_EngineStarboard",
+        "SM_HullMarkings",
+        "SM_ServiceModule",
+        "SM_CockpitInterior",
+        "SM_ControlStick"
+      ],
+      "base_color_linear": [
+        0.55,
+        0.21,
+        0.032
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "CeramicCoat",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)",
+      "interpretation": "amber dielectric coating with photographic glazed ceramic microstructure; not bare copper or gold"
+    },
+    {
+      "material": "M_HeatShield",
+      "parts": [
+        "SM_HullCeramic",
+        "SM_RadiatorPort",
+        "SM_RadiatorStarboard",
+        "SM_EnginePort",
+        "SM_OutriggerPort",
+        "SM_EngineStarboard",
+        "SM_OutriggerStarboard",
+        "SM_CockpitShell",
+        "SM_HullMarkings",
+        "SM_SciencePayload",
+        "SM_ServiceModule",
+        "SM_AftServiceBulkhead",
+        "SM_GearNose",
+        "SM_GearPort",
+        "SM_GearStarboard",
+        "SM_Heatshield",
+        "SM_RCS_ForePort",
+        "SM_RCS_ForeStarboard",
+        "SM_RCS_AftPort",
+        "SM_RCS_AftStarboard",
+        "SM_InstrumentPanel"
+      ],
+      "base_color_linear": [
+        0.009,
+        0.014,
+        0.021
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "CarbonShield",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)",
+      "interpretation": "Parker carbon shield side photographic residual; radiator instances use dark-coated-fin analogy, not NASA radiator construction",
+      "part_overrides": {
+        "SM_RadiatorPort": {
+          "roughness_offset": -0.04,
+          "interpretation": "dark radiator coating surface analogy, dynamic thermal emission remains runtime controlled"
+        },
+        "SM_RadiatorStarboard": {
+          "roughness_offset": -0.04,
+          "interpretation": "dark radiator coating surface analogy, dynamic thermal emission remains runtime controlled"
+        }
+      }
+    },
+    {
+      "material": "M_CockpitSoftTouch",
+      "parts": [
+        "SM_OutriggerPort",
+        "SM_OutriggerStarboard",
+        "SM_CockpitShell",
+        "SM_ServiceModule",
+        "SM_GearNose",
+        "SM_GearPort",
+        "SM_GearStarboard",
+        "SM_CockpitInterior",
+        "SM_InstrumentPanel",
+        "SM_ControlStick",
+        "SM_Throttle"
+      ],
+      "base_color_linear": [
+        0.018,
+        0.025,
+        0.03
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "SoftTouch",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_SeatWoven",
+      "parts": [
+        "SM_CockpitInterior"
+      ],
+      "base_color_linear": [
+        0.1,
+        0.145,
+        0.16
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "SeatWeave",
+      "metallic": 0,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_CanopyGlass",
+      "parts": [
+        "SM_CanopyGlass"
+      ],
+      "base_color_linear": [
+        0.6,
+        0.73,
+        0.79
+      ],
+      "status": "PRESERVE_FUNCTIONAL",
+      "reference_photo": "OrionCockpit.jpg",
+      "reason": "Real photographed display bezels/covered optics and clear helmet visor support optical reference only. Preserve live Japanese UI, lights, and current neutral clear glass; printing photo pixels would freeze UI or occlude view."
+    },
+    {
+      "material": "M_DisplayBlack",
+      "parts": [
+        "SM_SciencePayload",
+        "SM_Heatshield",
+        "SM_InstrumentPanel"
+      ],
+      "base_color_linear": [
+        0.003,
+        0.012,
+        0.017
+      ],
+      "status": "PRESERVE_FUNCTIONAL",
+      "reference_photo": "ShuttleFlightDeck.jpg",
+      "reason": "Real photographed display bezels/covered optics and clear helmet visor support optical reference only. Preserve live Japanese UI, lights, and current neutral clear glass; printing photo pixels would freeze UI or occlude view."
+    },
+    {
+      "material": "M_PhosphorIce",
+      "parts": [
+        "SM_InstrumentPanel"
+      ],
+      "base_color_linear": [
+        0.14,
+        0.56,
+        0.65
+      ],
+      "status": "PRESERVE_FUNCTIONAL",
+      "reference_photo": "ShuttleFlightDeck.jpg",
+      "reason": "Real photographed display bezels/covered optics and clear helmet visor support optical reference only. Preserve live Japanese UI, lights, and current neutral clear glass; printing photo pixels would freeze UI or occlude view."
+    },
+    {
+      "material": "M_LabelWhite",
+      "parts": [
+        "SM_HullMarkings",
+        "SM_InstrumentPanel"
+      ],
+      "base_color_linear": [
+        0.76,
+        0.83,
+        0.83
+      ],
+      "status": "PRESERVE_FUNCTIONAL",
+      "reference_photo": "ShuttleFlightDeck.jpg",
+      "reason": "Real photographed display bezels/covered optics and clear helmet visor support optical reference only. Preserve live Japanese UI, lights, and current neutral clear glass; printing photo pixels would freeze UI or occlude view."
+    },
+    {
+      "material": "M_NavigationWhite",
+      "parts": [
+        "SM_CockpitInterior"
+      ],
+      "base_color_linear": [
+        0.68,
+        0.9,
+        1
+      ],
+      "status": "PRESERVE_FUNCTIONAL",
+      "reference_photo": "ShuttleFlightDeck.jpg",
+      "reason": "Real photographed display bezels/covered optics and clear helmet visor support optical reference only. Preserve live Japanese UI, lights, and current neutral clear glass; printing photo pixels would freeze UI or occlude view."
+    },
+    {
+      "material": "M_NavigationRed",
+      "parts": [],
+      "base_color_linear": [
+        0.7,
+        0.025,
+        0.012
+      ],
+      "status": "PRESERVE_FUNCTIONAL",
+      "reference_photo": "ShuttleFlightDeck.jpg",
+      "reason": "Real photographed display bezels/covered optics and clear helmet visor support optical reference only. Preserve live Japanese UI, lights, and current neutral clear glass; printing photo pixels would freeze UI or occlude view."
+    },
+    {
+      "material": "M_NavigationGreen",
+      "parts": [],
+      "base_color_linear": [
+        0.025,
+        0.54,
+        0.2
+      ],
+      "status": "PRESERVE_FUNCTIONAL",
+      "reference_photo": "ShuttleFlightDeck.jpg",
+      "reason": "Real photographed display bezels/covered optics and clear helmet visor support optical reference only. Preserve live Japanese UI, lights, and current neutral clear glass; printing photo pixels would freeze UI or occlude view."
+    },
+    {
+      "material": "M_ThermalFoil",
+      "parts": [],
+      "base_color_linear": [
+        0.48,
+        0.3,
+        0.065
+      ],
+      "status": "PHOTO_MAP_CANDIDATE_UNASSIGNED",
+      "map_set": "FoilResponse",
+      "metallic": 1,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    },
+    {
+      "material": "M_HeatCopper",
+      "parts": [
+        "SM_EnginePort",
+        "SM_OutriggerPort",
+        "SM_EngineStarboard",
+        "SM_OutriggerStarboard"
+      ],
+      "base_color_linear": [
+        0.31,
+        0.17,
+        0.068
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "SatinMetal",
+      "metallic": 1,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)",
+      "interpretation": "photographic steel microstructure recolored to original copper/heat-blue design; not measured metal spectrum or observed heat history"
+    },
+    {
+      "material": "M_HeatBlue",
+      "parts": [
+        "SM_EnginePort",
+        "SM_EngineStarboard"
+      ],
+      "base_color_linear": [
+        0.09,
+        0.17,
+        0.22
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "SatinMetal",
+      "metallic": 1,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)",
+      "interpretation": "photographic steel microstructure recolored to original copper/heat-blue design; not measured metal spectrum or observed heat history"
+    },
+    {
+      "material": "M_EtchedTitanium",
+      "parts": [
+        "SM_HullStructure"
+      ],
+      "base_color_linear": [
+        0.065,
+        0.085,
+        0.095
+      ],
+      "status": "PHOTO_MAP_CANDIDATE",
+      "map_set": "EtchedMetal",
+      "metallic": 1,
+      "base_color_equation": "original_linear_color * (1 + (Modulation_linear - 0.5) * 0.3)"
+    }
+  ],
+  "map_sets": [
+    {
+      "id": "SeatWeave",
+      "source_color": "terlenka_Diffuse.png",
+      "crop_px": [
+        0,
+        0,
+        2048,
+        2048
+      ],
+      "roughness_mean": 0.82,
+      "roughness_gain": 0.32,
+      "normal_xy_gain": 0.6,
+      "normal_evidence": "publisher PBR map, adapted; not a measured STAR material",
+      "maps": {
+        "modulation": "Content/Star/Art/PhotoShip/Maps/SeatWeave_Modulation.png",
+        "roughness": "Content/Star/Art/PhotoShip/Maps/SeatWeave_Roughness.png",
+        "normal_dx": "Content/Star/Art/PhotoShip/Maps/SeatWeave_NormalDX.png"
+      },
+      "repeat_m": [
+        0.265708,
+        0.265651
+      ],
+      "scale_evidence": "Poly Haven dimensions millimeters; 2048 of 2053 px height cropped"
+    },
+    {
+      "id": "SoftTouch",
+      "source_color": "rubber_tiles_Diffuse.png",
+      "crop_px": [
+        64,
+        64,
+        320,
+        320
+      ],
+      "roughness_mean": 0.64,
+      "roughness_gain": 0.16,
+      "normal_xy_gain": 0.18,
+      "normal_evidence": "publisher PBR map, adapted; not a measured STAR material",
+      "maps": {
+        "modulation": "Content/Star/Art/PhotoShip/Maps/SoftTouch_Modulation.png",
+        "roughness": "Content/Star/Art/PhotoShip/Maps/SoftTouch_Roughness.png",
+        "normal_dx": "Content/Star/Art/PhotoShip/Maps/SoftTouch_NormalDX.png"
+      },
+      "repeat_m": [
+        0.25,
+        0.25
+      ],
+      "scale_evidence": "adopted prior 2m tile field; material analogy to clean elastomer, flooring seams excluded"
+    },
+    {
+      "id": "SatinMetal",
+      "source_color": "Metal063/Metal063_1K-JPG_Color.jpg",
+      "crop_px": [
+        32,
+        32,
+        288,
+        288
+      ],
+      "roughness_mean": 0.32,
+      "roughness_gain": 0.12,
+      "normal_xy_gain": 0.12,
+      "normal_evidence": "publisher PBR map, adapted; not a measured STAR material",
+      "maps": {
+        "modulation": "Content/Star/Art/PhotoShip/Maps/SatinMetal_Modulation.png",
+        "roughness": "Content/Star/Art/PhotoShip/Maps/SatinMetal_Roughness.png",
+        "normal_dx": "Content/Star/Art/PhotoShip/Maps/SatinMetal_NormalDX.png"
+      },
+      "repeat_m": [
+        0.12,
+        0.12
+      ],
+      "scale_evidence": "estimated render scale; publisher dimensions 0; steel surface analogy, not titanium/alloy chemistry nor brushing measurement"
+    },
+    {
+      "id": "EtchedMetal",
+      "source_color": "Metal063/Metal063_1K-JPG_Color.jpg",
+      "crop_px": [
+        32,
+        32,
+        288,
+        288
+      ],
+      "roughness_mean": 0.5,
+      "roughness_gain": 0.2,
+      "normal_xy_gain": 0.22,
+      "normal_evidence": "publisher PBR map, adapted; not a measured STAR material",
+      "maps": {
+        "modulation": "Content/Star/Art/PhotoShip/Maps/EtchedMetal_Modulation.png",
+        "roughness": "Content/Star/Art/PhotoShip/Maps/EtchedMetal_Roughness.png",
+        "normal_dx": "Content/Star/Art/PhotoShip/Maps/EtchedMetal_NormalDX.png"
+      },
+      "repeat_m": [
+        0.12,
+        0.12
+      ],
+      "scale_evidence": "same clean steel photo region, stronger satin response; not measured acid etch"
+    },
+    {
+      "id": "CeramicCoat",
+      "source_color": "interior_tiles_Diffuse.png",
+      "crop_px": [
+        560,
+        220,
+        816,
+        476
+      ],
+      "roughness_mean": 0.42,
+      "roughness_gain": 0.12,
+      "normal_xy_gain": 0.08,
+      "normal_evidence": "publisher PBR map, adapted; not a measured STAR material",
+      "maps": {
+        "modulation": "Content/Star/Art/PhotoShip/Maps/CeramicCoat_Modulation.png",
+        "roughness": "Content/Star/Art/PhotoShip/Maps/CeramicCoat_Roughness.png",
+        "normal_dx": "Content/Star/Art/PhotoShip/Maps/CeramicCoat_NormalDX.png"
+      },
+      "repeat_m": [
+        0.2375,
+        0.2375
+      ],
+      "scale_evidence": "1.9m source field x 256/2048; crop entirely inside one ceramic face, excluding grout",
+      "material_analogy": "glazed ceramic microstructure used for engineered ceramic coating; existing ship colors retained, not aerospace sample certification"
+    },
+    {
+      "id": "CarbonShield",
+      "source_color": "ParkerHeatShield.jpg",
+      "crop_px": [
+        320,
+        428,
+        576,
+        476
+      ],
+      "repeat_m": [
+        0.5,
+        0.09375
+      ],
+      "scale_evidence": "estimated authoring span, no calibrated physical ruler in photo",
+      "roughness_mean": 0.78,
+      "roughness_gain": 0.4,
+      "normal_xy_gain": 0,
+      "normal_evidence": "analytic flat fallback; no single-image RGB-to-normal inference",
+      "roughness_evidence": "photo luminance residual mapped to roughness as artistic estimate; not BRDF measurement",
+      "deillumination": "subtract GaussianBlur radius 6px; only high frequency photographic residual used",
+      "maps": {
+        "modulation": "Content/Star/Art/PhotoShip/Maps/CarbonShield_Modulation.png",
+        "roughness": "Content/Star/Art/PhotoShip/Maps/CarbonShield_Roughness.png",
+        "normal_dx": "Content/Star/Art/PhotoShip/Maps/CarbonShield_NormalDX.png"
+      }
+    },
+    {
+      "id": "FoilResponse",
+      "source_color": "CassiniHardware.jpg",
+      "crop_px": [
+        1028,
+        399,
+        1198,
+        581
+      ],
+      "repeat_m": [
+        0.24,
+        0.25694
+      ],
+      "scale_evidence": "estimated authoring span, no calibrated physical ruler in photo",
+      "roughness_mean": 0.34,
+      "roughness_gain": 0.16,
+      "normal_xy_gain": 0,
+      "normal_evidence": "analytic flat fallback; no single-image RGB-to-normal inference",
+      "roughness_evidence": "photo luminance residual mapped to roughness as artistic estimate; not BRDF measurement",
+      "deillumination": "subtract GaussianBlur radius 6px; only high frequency photographic residual used",
+      "maps": {
+        "modulation": "Content/Star/Art/PhotoShip/Maps/FoilResponse_Modulation.png",
+        "roughness": "Content/Star/Art/PhotoShip/Maps/FoilResponse_Roughness.png",
+        "normal_dx": "Content/Star/Art/PhotoShip/Maps/FoilResponse_NormalDX.png"
+      }
+    }
+  ],
+  "glass_invariant": {
+    "base_color_linear": [
+      0,
+      0,
+      0
+    ],
+    "transmission": 0.995,
+    "opacity": 0,
+    "two_sided": false,
+    "neutral": true
+  },
+  "photo_bindings": [
+    {
+      "id": "FoilFold",
+      "photo": "CassiniHardware.jpg",
+      "quad_px": [
+        [
+          1028,
+          399
+        ],
+        [
+          1197,
+          399
+        ],
+        [
+          1197,
+          580
+        ],
+        [
+          1028,
+          580
+        ]
+      ],
+      "role": "photo_reference_and_roughness_estimate_source",
+      "mesh_projection": false,
+      "derived_map_set": "FoilResponse",
+      "normal_from_rgb": false
+    },
+    {
+      "id": "RadiatorMirror",
+      "photo": "CassiniHardware.jpg",
+      "quad_px": [
+        [
+          907,
+          226
+        ],
+        [
+          1184,
+          226
+        ],
+        [
+          1184,
+          342
+        ],
+        [
+          907,
+          342
+        ]
+      ],
+      "role": "reference_only",
+      "mesh_projection": false
+    },
+    {
+      "id": "WhiteCoating",
+      "photo": "ParkerHeatShield.jpg",
+      "quad_px": [
+        [
+          390,
+          380
+        ],
+        [
+          979,
+          380
+        ],
+        [
+          979,
+          398
+        ],
+        [
+          390,
+          398
+        ]
+      ],
+      "role": "reference_only",
+      "mesh_projection": false
+    },
+    {
+      "id": "BlackShield",
+      "photo": "ParkerHeatShield.jpg",
+      "quad_px": [
+        [
+          320,
+          428
+        ],
+        [
+          575,
+          428
+        ],
+        [
+          575,
+          475
+        ],
+        [
+          320,
+          475
+        ]
+      ],
+      "role": "photo_reference_and_roughness_estimate_source",
+      "mesh_projection": false,
+      "derived_map_set": "CarbonShield",
+      "normal_from_rgb": false
+    }
+  ],
+  "uv_rule": "Preserve existing UVMap. Root must validate physical UV density per material face. Use actor-local coordinates/world-aligned texture with object origin subtraction for isotropic metal only. Fabric needs aligned UV; do not triplanar normal weave. No solar system float coordinates.",
+  "review": {
+    "fixed_runtime": "outputs/Star-Win64/Screenshots/cockpit.png",
+    "required_views": [
+      "same cockpit forward camera and exposure",
+      "seat 20cm oblique close-up",
+      "stick grip 15cm close-up",
+      "instrument metal trim 10cm with raking light",
+      "exterior ceramic/radiator front and edge",
+      "holdout cockpit side view"
+    ],
+    "current": "No new UE renders: root is exclusive UE writer"
+  }
+}

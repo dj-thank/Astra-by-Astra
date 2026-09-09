@@ -1,0 +1,11 @@
+// Actual Apollo17 RGB, already containing the source illumination.
+// Ground attributes are fixed camera ENU meters, not render-origin positions.
+float range=length(ClastVariation);
+float2 photoUV=float2(frac(atan2(ClastVariation.x,ClastVariation.y)/6.28318530718),
+    (25.0-degrees(atan2(ClastUV.y,max(range,0.001))))/45.0);
+float4 photo=Texture2DSample(FarPhotoTex,FarPhotoTexSampler,photoUV);
+float weight=photo.a*saturate(FarPhotoStrength)*(1.0-saturate(ClastUV.x));
+weight*=smoothstep(1500.0,2200.0,range);
+weight*=step(0.0,photoUV.y)*step(photoUV.y,1.0);
+// Exposure compensated display avoids lighting the photographed shadows twice.
+return float4(max(photo.rgb,0.0)*weight*max(FarPhotoGain,0.0)/max(EyeExposure,0.000001),weight);

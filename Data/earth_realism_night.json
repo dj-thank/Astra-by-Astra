@@ -1,0 +1,26 @@
+{
+  "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=VIIRS_Night_Lights&STYLES=&SRS=EPSG%3A4326&BBOX=27%2C25.466666666666665%2C35.53333333333333%2C34&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=FALSE&BGCOLOR=0x000000&TIME=2016-01-01",
+  "reference": "https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/",
+  "layer": "VIIRS_Night_Lights",
+  "year": 2016,
+  "dateMeaning": "Annual composite; WMS time is an index, not a single observation date",
+  "boundsWsen": [
+    27,
+    25.466666666666665,
+    35.53333333333333,
+    34
+  ],
+  "crs": "EPSG:4326",
+  "pixels": [
+    2048,
+    2048
+  ],
+  "sourceResolution": "NASA 2016 product: 500m nominal; WMS geographic sampling 1/240 degree",
+  "colorSpace": "sRGB display grayscale",
+  "units": "Display values 0-255, NOT calibrated physical radiance",
+  "alphaMeaning": "Opaque display on black. Transparent light opacity was composited by WMS, never used as geographic coverage",
+  "syntheticDetail": false,
+  "processing": "Original WMS PNG bytes; no local sharpening, upscaling or fabricated roads",
+  "sha256": "680b3079fbd0eb01334fd5ec119e6e775bbb66c8ebf01d70fa54766dd9c413fc",
+  "credit": "NASA Earth Observatory / NASA EOSDIS GIBS / Suomi NPP VIIRS"
+}

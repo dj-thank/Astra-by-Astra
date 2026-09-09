@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "source_manifest": "Data/photo_plumes_vacuum.json",
+  "source_texture": "Content/Star/Art/PhotoPlumes/T_VacuumPlumePhoto.png",
+  "source_axial": "Content/Star/Art/PhotoPlumes/T_VacuumPlumeAxial.png",
+  "photo_pixels_changed": false,
+  "authored": [
+    "warm core / cool halo color at FictionalTint=.75",
+    "bounded exposure-relative emission",
+    "6D length and 2.3D width geometry",
+    "azimuthal repetition and axial slices"
+  ],
+  "observation_not_claimed": [
+    "shock diamonds in vacuum",
+    "calibrated radiance",
+    "measured volumetric flow",
+    "photoreal GPU acceptance"
+  ],
+  "material": {
+    "define": "STAR_ENGINE_FX_V3=1",
+    "EyeExposure": "MaterialExpressionEyeAdaptation",
+    "DisplayRadiance_main": 6,
+    "DisplayRadiance_RCS": 1.2,
+    "FictionalTint": 0.75,
+    "LayerEnergy_plane": 0.16666666666666666,
+    "LayerEnergy_axial": 0.125,
+    "LayerEnergy_2plane_LOD": 0.5,
+    "ThrusterRadiance_main": 40,
+    "ThrusterRadiance_RCS": 8,
+    "Thrust": "raw shared spool; do not multiply by view weight",
+    "ViewAngleWeight": "separate opacity weight"
+  },
+  "geometry": {
+    "axis": "+X local exhaust, explicitly rotate to nozzle axis",
+    "units": "multiply coordinates by nozzle diameter in centimeters",
+    "planes": "Content/Star/Art/EngineFXV3/engine_plume_mesh.json",
+    "disks": "Content/Star/Art/EngineFXV3/engine_plume_disks.json",
+    "triangles_per_emitter": 544,
+    "screen_billboard": false
+  },
+  "validation": {
+    "off_exact_zero": "PASS",
+    "finite_and_bounded_emission": "PASS",
+    "mesh_indices_units": "PASS",
+    "source_hash": "PASS",
+    "lit_all_7_angles": "PASS",
+    "UE_shader_compile": "NOT_RUN",
+    "depth_occlusion": "NOT_RUN",
+    "gpu_time": "NOT_RUN"
+  }
+}

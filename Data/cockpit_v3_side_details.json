@@ -1,0 +1,155 @@
+{
+  "name": "SM_CockpitV3SideDetails",
+  "fbx": "Parts/SM_CockpitV3SideDetails.fbx",
+  "source_units": "meters",
+  "source_frame": {
+    "forward": "+X",
+    "right": "+Y",
+    "up": "+Z"
+  },
+  "location_ue_cm": [
+    0,
+    0,
+    0
+  ],
+  "rotation_ue_deg": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "bounds_m": {
+    "min": [
+      5.703654766082764,
+      -1.8836127519607544,
+      -0.014445655047893524
+    ],
+    "max": [
+      10.310020446777344,
+      1.8836126327514648,
+      1.9737588167190552
+    ]
+  },
+  "bounds_ue_cm": {
+    "min": [
+      570.3654766082764,
+      -188.36127519607544,
+      -1.4445655047893524
+    ],
+    "max": [
+      1031.0020446777344,
+      188.36126327514648,
+      197.37588167190552
+    ]
+  },
+  "triangles": 28934,
+  "materials": [
+    "M_CV3_AnodizedGraphite",
+    "M_CV3_BeadBlastedAlloy",
+    "M_CV3_Elastomer",
+    "M_CV3_WovenSeat",
+    "M_CV3_InsulationPhoto",
+    "M_CV3_EtchedLegends"
+  ],
+  "sha256": "66e975eb8a791c4938459ef15c9c21646dde73728711257195643e06ba1bac58",
+  "registered_shell_triangles": [
+    {
+      "vertices_m": [
+        [
+          5.48212194442749,
+          -1.5247442722320557,
+          2.06969952583313
+        ],
+        [
+          10.72705364227295,
+          -0.9540013670921326,
+          0.2098652422428131
+        ],
+        [
+          9.87093734741211,
+          -2.0069239139556885,
+          -0.20041263103485107
+        ]
+      ],
+      "normal": [
+        -0.3299020528793335,
+        0.5633903741836548,
+        -0.7574667930603027
+      ],
+      "construction": "Inner-facing existing cheek triangle with positive normal offset into cabin"
+    },
+    {
+      "vertices_m": [
+        [
+          5.48212194442749,
+          1.5247443914413452,
+          2.069699764251709
+        ],
+        [
+          10.72705364227295,
+          0.9540013074874878,
+          0.20986512303352356
+        ],
+        [
+          9.87093734741211,
+          2.0069239139556885,
+          -0.20041242241859436
+        ]
+      ],
+      "normal": [
+        -0.32990214228630066,
+        -0.5633901953697205,
+        -0.7574668526649475
+      ],
+      "construction": "Inner-facing existing cheek triangle with positive normal offset into cabin"
+    }
+  ],
+  "display_rays": {
+    "sample_count": 75,
+    "blocked": []
+  },
+  "sky_rays": {
+    "grid_count": 1891,
+    "new_mesh_hits": 320,
+    "previously_open_sky_occluded": []
+  },
+  "status": "LOCAL_GEOMETRY_PASS",
+  "reference": "NASA jsc2022e044970 construction: dark window surrounds, restrained insulation, removable equipment cassettes. Original ASTER 24 geometry inference.",
+  "existing_two_fbx": "not rewritten",
+  "remaining": "Actual UE lighting/material application and independent visual acceptance are root work.",
+  "render": {
+    "file": "Renders/side_details_front.png",
+    "camera_m": [
+      6,
+      0,
+      1.3
+    ],
+    "pitch_deg": -12,
+    "hfov_deg": 100,
+    "sha256": "9bc3fa4dde1d86fec98b6561d86b18e317788d33c4165ad70158d27ce81bc5a7"
+  },
+  "fbx_readback": {
+    "mesh_count": 1,
+    "triangles": 28934,
+    "bounds_m": {
+      "min": [
+        5.7036542892456055,
+        -1.8836143016815186,
+        -0.014445655047893524
+      ],
+      "max": [
+        10.310020446777344,
+        1.8836110830307007,
+        1.9737588167190552
+      ]
+    },
+    "finite": true,
+    "uv_present": true,
+    "triangle_match": true,
+    "bounds_match": true
+  }
+}

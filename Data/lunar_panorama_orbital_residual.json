@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_ORBITAL_RESIDUAL_CANDIDATE_NOT_ALBEDO_MEASUREMENT",
+  "sourcePath": ".\\work\\trees\\data\\work\\raw\\NAC_DTM_APOLLO17_MOSAIC_5M.TIF",
+  "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/EXTRAS/BROWSE/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_MOSAIC_5M.TIF",
+  "sourceSha256": "8e3a2dff013059278a58daed87570cb963e37de46ef0639c95afd3a434fc92d7",
+  "sourceBytes": 115919445,
+  "sourcePixels": [
+    9985,
+    11600
+  ],
+  "sourceObservationDate": "2010-07-28..2016-03-17; mosaic product",
+  "sourceCredit": "NASA/GSFC/Arizona State University; LROC team",
+  "sourcePixelSpacingMeters": 5,
+  "datum": "MOON_ME; planetocentric east-positive;1737400m sphere",
+  "texturePath": "Content/Star/Art/LunarPanorama/OrbitalResidual/apollo17_orbital_residual_confidence_8192_linear.png",
+  "sha256": "242cc3fdbe19da9686f1d8c87468bbbdc1bd79e2bc496b705fe05f3d3b198229",
+  "pixels": [
+    8192,
+    8192
+  ],
+  "geographicBounds": {
+    "westLongitudeDegrees": 29.905659225360438,
+    "eastLongitudeDegrees": 31.65791929677411,
+    "northLatitudeDegrees": 21.30346716191105,
+    "southLatitudeDegrees": 19.390749761336185
+  },
+  "metersPerTexelProjected": [
+    6.094970703125,
+    7.080078125
+  ],
+  "channels": {
+    "R": "signed residual encoded round(128+127*residual), residual clamped +/-0.32",
+    "G": "0..1 photometric confidence",
+    "B": "128 unused",
+    "A": "source/DTM support and 1.8..2.2km distance fade"
+  },
+  "shader": "multiplier = 1 + ((R*255-128)/127)*G*A*strength; sRGB=false; base-color multiplier before ground-photo blend",
+  "nearExclusionMeters": 1800,
+  "nearFullFadeMeters": 2200,
+  "estimate": "Assume display-coded mosaic, decode sRGB, confidence-weighted log high-pass sigma120m, gain0.28; NOT calibrated reflectance/albedo. Small baked shadow remains possible.",
+  "mask": "Shadow DN<=25, saturation DN>=253, nodata, DTM invalid, high radiometric gradients, low baseline support;3px hard support erosion.",
+  "limits": [
+    "One mosaic cannot uniquely separate illumination and albedo.",
+    "5m source cannot recreate submeter rocks or change silhouette.",
+    "Photo panorama alpha and original mosaic untouched.",
+    "Root owns UE import/material/cook/game comparison."
+  ],
+  "controls": {
+    "constantResidualMax": 0.0,
+    "shadowConfidenceMax": 0.0,
+    "nodataConfidenceMax": 0.0
+  },
+  "eastWindow": {
+    "pixelBox": [
+      6191,
+      4315,
+      7491,
+      5215
+    ],
+    "effectiveSupportFraction": 0.9970094017094017,
+    "multiplierStandardDeviation": 0.05185729550398815,
+    "multiplierPercentiles": [
+      0.8818897637795275,
+      0.9448818897637795,
+      0.9922494982244866,
+      1.0629921259842519,
+      1.1496062992125984
+    ]
+  },
+  "validation": {
+    "inner1800mPixelsChecked": 236182,
+    "innerAlphaMax": 0,
+    "boundsExactlyMatchFarTier": true,
+    "sourceOriginalHashStillMatches": true,
+    "fullPhotoAtlasUnchanged": true
+  },
+  "reviewImage": "Content/Star/Art/LunarPanorama/OrbitalResidual/east_residual_comparison.jpg"
+}

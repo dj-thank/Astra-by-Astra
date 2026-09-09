@@ -1,0 +1,180 @@
+[
+  {
+    "file": "BrushedAluminium.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Brushed_Aluminium.jpg",
+    "error": "403 observed 2026-09-06; acquisition stopped"
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\CassiniBlanket.jpeg",
+    "url": "https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/internal_resources/1493/Blanket.jpeg",
+    "sha256": "5f39e4c9722cfaf468d1ad738ec3349605f3dcce6546af153d5c8b6994c80c30",
+    "bytes": 212958
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\CassiniHardware.jpg",
+    "url": "https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/07/103_jpl-28369ec.jpg",
+    "sha256": "b0f7e0a74773ad1fdb382f06aabbb9514182826b09fa5a3cb4614c73b89d08c9",
+    "bytes": 265818
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\ParkerHeatShield.jpg",
+    "url": "https://www.nasa.gov/wp-content/uploads/2018/07/5d29486.jpg",
+    "sha256": "38b38d58a54675845960f1e517488319e636c2affd3b26cf222041e1053ff87e",
+    "bytes": 231539
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\ParkerHardware.jpg",
+    "url": "https://www.nasa.gov/wp-content/uploads/2018/07/41983266465_760f51c5a0_o.jpg",
+    "sha256": "b6bb4316b09e7b648fdfeb35aaea351a3eacb407fcbf7c7dc2f9b85a8326e383",
+    "bytes": 18716148
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\terlenka_Diffuse.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/terlenka/terlenka_diff_2k.png",
+    "sha256": "24b7f2ca4da270bed03873d319ae8ab3ec263c049946adcb6aa03cea9177e90d",
+    "bytes": 22854646
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\terlenka_Rough.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/terlenka/terlenka_rough_2k.png",
+    "sha256": "f3370498edba0c4e1523feece1b00bb6d2a292a0992ee273da6d27a1192bd0e5",
+    "bytes": 8121987
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\terlenka_nor_dx.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/terlenka/terlenka_nor_dx_2k.png",
+    "sha256": "1b74bd6acec597d39c83411e504818a5885511dfb826007f3071fbc02cef82c9",
+    "bytes": 22906196
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\rubber_tiles_Diffuse.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/rubber_tiles/rubber_tiles_diff_2k.png",
+    "sha256": "2667b95f98eea13aba05bad4ea346280ec05f5e984b0ecabcff9fa9569e61faa",
+    "bytes": 20476042
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\rubber_tiles_Rough.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/rubber_tiles/rubber_tiles_rough_2k.png",
+    "sha256": "4e48a018635a4d9de521055e57e96a752bf3d9012027711972eaa938bd6ddf79",
+    "bytes": 7587662
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\rubber_tiles_nor_dx.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/rubber_tiles/rubber_tiles_nor_dx_2k.png",
+    "sha256": "11f57c136cc36acfcf3dd4800dcc0d360f8d055cb4bdc584c534b9682a88ee4a",
+    "bytes": 23761787
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\interior_tiles_Diffuse.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/interior_tiles/interior_tiles_diff_2k.png",
+    "sha256": "ba67945e7fc597a5c88ab369e321d8e3a019d98b1674acc870de868f620b555a",
+    "bytes": 22023097
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\interior_tiles_Rough.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/interior_tiles/interior_tiles_rough_2k.png",
+    "sha256": "9935a19f05b704c8f2bed814e0d05210e9ea609a6b8572f07bdf067c03e3d5fe",
+    "bytes": 7288337
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\interior_tiles_nor_dx.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/interior_tiles/interior_tiles_nor_dx_2k.png",
+    "sha256": "e0b5d6ba53195cc60577c857623f8eb6c9f050a17c7bdade06371d02203b67bd",
+    "bytes": 19714488
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\OrionCockpit.jpg",
+    "url": "https://images-assets.nasa.gov/image/jsc2022e044163/jsc2022e044163~medium.jpg",
+    "sha256": "8046831a600ea80461159f7bc1a18eaedae31614343bb5e325ae551876f6f38d",
+    "bytes": 170697
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\ShuttleCockpit.jpg",
+    "url": "https://images-assets.nasa.gov/image/SSC-20000928-S068D-02/SSC-20000928-S068D-02~medium.jpg",
+    "sha256": "870effd9a61c4e509a39db19b89cfd7ff4c0dc47494d25bb19a44c5816fa2e8d",
+    "bytes": 206092
+  },
+  {
+    "file": "Content\\Star\\Art\\PhotoShip\\Sources\\ShuttleFlightDeck.jpg",
+    "url": "https://images-assets.nasa.gov/image/KSC-02PD-1422/KSC-02PD-1422~medium.jpg",
+    "sha256": "9c7084abf6e2d3d533e62590c0ad1e1a47aac5697aa3cce92cbac2fc5a472c2a",
+    "bytes": 202111
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Color.jpg",
+    "url": "https://ambientcg.com/get?file=Metal063_1K-JPG.zip",
+    "archive_member": "Metal063_1K-JPG_Color.jpg",
+    "sha256": "d4122954971c26b529614f39fb12310de00005d44ce103430c35132f61fca077",
+    "bytes": 1259638
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Displacement.jpg",
+    "url": "https://ambientcg.com/get?file=Metal063_1K-JPG.zip",
+    "archive_member": "Metal063_1K-JPG_Displacement.jpg",
+    "sha256": "81e1cb4c96d23890c7626d44b705656c54c095a44fd1c8d72242d5d2265ac817",
+    "bytes": 770082
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Metalness.jpg",
+    "url": "https://ambientcg.com/get?file=Metal063_1K-JPG.zip",
+    "archive_member": "Metal063_1K-JPG_Metalness.jpg",
+    "sha256": "1bd888a9fa307197fd5eaaa883561cfd8350ae634fce0d378e83b8e05632daf8",
+    "bytes": 737142
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_NormalDX.jpg",
+    "url": "https://ambientcg.com/get?file=Metal063_1K-JPG.zip",
+    "archive_member": "Metal063_1K-JPG_NormalDX.jpg",
+    "sha256": "f8047e9357a2a02be152f81e30dd5290e19f3ecc33b9dadfed9835d707a56c84",
+    "bytes": 343435
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_NormalGL.jpg",
+    "url": "https://ambientcg.com/get?file=Metal063_1K-JPG.zip",
+    "archive_member": "Metal063_1K-JPG_NormalGL.jpg",
+    "sha256": "51e521e2fafd01387216b52fce315e2f094a1fa6efab77a92e2c79870bb2df01",
+    "bytes": 343987
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Roughness.jpg",
+    "url": "https://ambientcg.com/get?file=Metal063_1K-JPG.zip",
+    "archive_member": "Metal063_1K-JPG_Roughness.jpg",
+    "sha256": "e83993283739d0a5d350ecd15cf82969aa59ec6e2293bcc6a14aea8a92ba283d",
+    "bytes": 731180
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_Color.jpg",
+    "url": "https://ambientcg.com/get?file=Plastic001_1K-JPG.zip",
+    "archive_member": "Plastic001_1K-JPG_Color.jpg",
+    "sha256": "313010300e23c8a18edfcbe7fdc0351dded3a2c23feaa352dbde0af99d681339",
+    "bytes": 740201
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_Displacement.jpg",
+    "url": "https://ambientcg.com/get?file=Plastic001_1K-JPG.zip",
+    "archive_member": "Plastic001_1K-JPG_Displacement.jpg",
+    "sha256": "69694ed6165088a4d7c5acbe366ee50a96d2fed459a1f99bbe0771b11cad6ba4",
+    "bytes": 444907
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_NormalDX.jpg",
+    "url": "https://ambientcg.com/get?file=Plastic001_1K-JPG.zip",
+    "archive_member": "Plastic001_1K-JPG_NormalDX.jpg",
+    "sha256": "e1cbb91258b65341b8035c2673ef23911f17c860e48d2e658433f24737f0fc04",
+    "bytes": 1690608
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_NormalGL.jpg",
+    "url": "https://ambientcg.com/get?file=Plastic001_1K-JPG.zip",
+    "archive_member": "Plastic001_1K-JPG_NormalGL.jpg",
+    "sha256": "444a36dbccaefc1786aa066fc3e1848e9328558a6789ba0c3b1f84a78dba2649",
+    "bytes": 1688379
+  },
+  {
+    "file": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_Roughness.jpg",
+    "url": "https://ambientcg.com/get?file=Plastic001_1K-JPG.zip",
+    "archive_member": "Plastic001_1K-JPG_Roughness.jpg",
+    "sha256": "c7861daf83f7de44b58bd19d91d0e737f760709f84df0898ccd91209376063c1",
+    "bytes": 664489
+  }
+]

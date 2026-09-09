@@ -1,0 +1,77 @@
+float radiusM=max(RadiusMeters,1.0);
+float outer=1.0+8000.0/radiusM;
+bool inside=length(CameraLocal)<outer;
+if((!inside && FaceSign<0.0)||(inside && FaceSign>0.0)) return float4(0,0,0,0);
+// STAR_CLOUD_PHOTO_VISIBILITY
+if(photoVisibility<0.001) return float4(0,0,0,0);
+float3 n=sm.UVToRH(UV);
+float3 ray=sm.SafeNormal(float3(dot(-ViewToCamera,AxisXUE),dot(-ViewToCamera,AxisYUE),dot(-ViewToCamera,AxisZUE)));
+float3 sun=sm.SafeNormal(SunDirectionLocal);
+float2 hit=sm.RaySphere(CameraLocal,ray,outer);
+float begin=max(hit.x,0.0),end=hit.y;
+float2 ground=sm.RaySphere(CameraLocal,ray,1.0);
+if(ground.x>=0.0) end=min(end,ground.x);
+if(end<=begin || length(CameraLocal)<0.99999) return float4(0,0,0,0);
+float2 dx=ddx(UV),dy=ddy(UV);
+dx.x-=round(dx.x);dy.x-=round(dy.x);
+float footprint=max(length(dx*float2(8192,4096)),length(dy*float2(8192,4096)));
+float lod=clamp(log2(max(footprint,1.0)),0.0,8.0);
+float detail=1.0-smoothstep(1000.0,4000.0,footprint*6.28318530718*radiusM/8192.0);
+float grazing=1.0-abs(dot(n,-ray));
+int count=(int)round(lerp(8.0,24.0,pow(saturate(grazing),4.0)));
+float stepR=(end-begin)/(float)count;
+float stepM=stepR*radiusM;
+float transmission=1.0;
+float3 scattered=0.0;
+float cosTheta=dot(ray,sun);
+float phase=0.65+0.35*(1.0-0.65*0.65)/pow(max(1.0+0.65*0.65-1.3*cosTheta,0.01),1.5);
+[loop] for(int i=0;i<24;++i)
+{
+    if(i>=count || transmission<0.003) break;
+    float3 p=CameraLocal+ray*(begin+(i+0.5)*stepR);
+    float density=sm.CloudDensity(CloudTex,CloudTexSampler,CloudDensityAtlas,CloudDensityAtlasSampler,
+        p,radiusM,CloudPhase,CloudOpacity,lod,detail);
+    if(density<1e-8) continue;
+    float stepAlpha=1.0-exp(-min(density*stepM,80.0));
+    float visibility=sm.SphereSunVisibility(p,sun,float3(0,0,0),1.0,SunAngularRadius)
+        *sm.SphereSunVisibility(p,sun,OccluderLocal,OccluderRadius,SunAngularRadius);
+    if(visibility>0.0001)
+    {
+        float3 radial=sm.SafeNormal(p);
+        float height=max((length(p)-1.0)*radiusM,0.0);
+        float3 optical=0.0;
+        if(EarthLUTEnabled>0.5)
+        {
+            float2 columns=EarthOpticalLUT.SampleLevel(EarthOpticalLUTSampler,
+                sm.EarthOpticalUV(height,dot(radial,sun),radiusM),0).rg*1e6;
+            optical=float3(5.802e-6,13.558e-6,33.1e-6)*columns.x+4.3956e-6*columns.y;
+        }
+        else
+        {
+            float2 atmosphere=sm.RaySphere(p,sun,1.0+100000.0/radiusM);
+            float ds=max(atmosphere.y,0.0)/12.0;
+            [loop] for(int k=0;k<12;++k)
+            {
+                float h=max((length(p+sun*((k+0.5)*ds))-1.0)*radiusM,0.0);
+                optical+=(float3(5.802e-6,13.558e-6,33.1e-6)*exp(-h/8000.0)
+                    +4.3956e-6*exp(-h/1200.0))*ds*radiusM;
+            }
+        }
+        float shadow=0.0;
+        [unroll] for(int j=0;j<3;++j)
+        {
+            float3 q=p+sun*((j+0.5)*3000.0/radiusM);
+            shadow+=sm.CloudDensity(CloudTex,CloudTexSampler,CloudDensityAtlas,CloudDensityAtlasSampler,
+                q,radiusM,CloudPhase,CloudOpacity,lod,0.0)*3000.0;
+        }
+        float solarCos=dot(radial,sun);
+        float fill=0.16*smoothstep(-0.025,0.22,solarCos)*(1.0-exp(-density*4500.0));
+        float3 lighting=(exp(-min(optical,80.0))*exp(-min(shadow,80.0))
+            *(0.2+0.8*max(solarCos,0.0))*phase+float3(0.55,0.72,1.0)*fill)*visibility;
+        scattered+=transmission*stepAlpha*lighting*0.96*max(SunRadiance,0.0);
+    }
+    transmission*=1.0-stepAlpha;
+}
+scattered*=lerp(float3(1,1,1),lerp(float3(1.05,0.9,1.15),float3(1.2,0.74,0.88),saturate(DreamSunset)),saturate(DreamStrength)*0.5);
+float alpha=saturate(1.0-transmission);
+return float4(scattered/max(alpha,1e-5),alpha*photoVisibility);

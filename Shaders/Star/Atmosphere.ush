@@ -1,0 +1,124 @@
+// Single scattering in meters. All intersection math uses normalized body radii.
+float radiusM = max(RadiusMeters,1.0);
+float3 axes = max(BodyAxes,0.0001);
+float3 shellAxes = axes + max(AtmosphereHeightMeters,1.0)/radiusM;
+bool inside = length(CameraLocal/shellAxes) < 1.0;
+// Front faces outside / back faces inside only, otherwise an entire ray integrates twice.
+if ((!inside && FaceSign < 0.0) || (inside && FaceSign > 0.0)) return float4(0,0,0,0);
+float3 ro = CameraLocal;
+float3 rd = sm.SafeNormal(float3(dot(-ViewToCamera,AxisXUE),dot(-ViewToCamera,AxisYUE),dot(-ViewToCamera,AxisZUE)));
+float3 sun = sm.SafeNormal(SunDirectionLocal);
+float2 shellHit = sm.RayEllipsoid(ro,rd,shellAxes);
+float start = max(shellHit.x,0.0), finish = shellHit.y;
+float2 groundHit = sm.RayEllipsoid(ro,rd,axes);
+if (groundHit.x >= 0.0) finish = min(finish,groundHit.x);
+// With an inside camera, the enclosing shell's back face lies behind opaque
+// ground. Hardware depth testing must be disabled for this integration pass.
+// Instead clip its physical ray segment to the closest rendered opaque surface.
+// UE SceneDepth and PixelDepth are linear view-Z in cm, not radial distances.
+// Their ratio removes the projection cosine; RenderRadiusCm removes proxy scale.
+if(SceneDepthCm>0.0 && PixelDepthCm>0.0 && PixelDistanceCm>0.0)
+{
+    float opaqueDistanceR=(SceneDepthCm/max(PixelDepthCm,0.001))
+        *PixelDistanceCm/max(RenderRadiusCm,1.0);
+    finish=min(finish,max(opaqueDistanceR,0.0));
+}
+// Invalid/underground cameras cannot accumulate the far atmosphere through the planet.
+if (length(ro/axes)<0.99999 || finish<=start) return float4(0,0,0,0);
+
+int viewCount = (int)clamp(ViewSteps,4.0,48.0);
+int sunCount = (int)clamp(SunSteps,2.0,16.0);
+// Looking down at terrain needs samples close to the dense lower atmosphere,
+// not evenly spaced samples in nearly empty space. Keep the limb path unchanged.
+bool focusedGround = EarthLUTEnabled>0.5 && groundHit.x>=0.0
+    && dot(-rd,sm.SafeNormal(ro+rd*groundHit.x))>0.4;
+if(focusedGround) viewCount=min(viewCount,16);
+float3 betaR = max(RayleighBeta,0.0)*max(DensityScale,0.0);
+float3 betaM = max(MieBeta,0.0)*max(DensityScale,0.0);
+float3 extinctionM = betaM*1.1;
+float3 opticalView = 0.0, scattered = 0.0;
+float cosTheta = clamp(dot(rd,sun),-1.0,1.0);
+float phaseR = 3.0*(1.0+cosTheta*cosTheta)/(16.0*3.14159265359);
+float g = clamp(MieAnisotropy,-0.9,0.9);
+float phaseM = (1.0-g*g)/(4.0*3.14159265359*pow(max(1.0+g*g-2.0*g*cosTheta,0.01),1.5));
+
+[loop] for (int i=0;i<48;++i)
+{
+    if (i>=viewCount) break;
+    float u0=(float)i/(float)viewCount, u1=(float)(i+1)/(float)viewCount;
+    float t0=start+(finish-start)*(focusedGround ? 2.0*u0-u0*u0 : u0);
+    float t1=start+(finish-start)*(focusedGround ? 2.0*u1-u1*u1 : u1);
+    float stepR=t1-t0;
+    float stepM=stepR*radiusM;
+    float3 p=ro+rd*((t0+t1)*0.5);
+    float altitude = max(sm.EllipsoidRadialAltitude(p,axes)*radiusM,0.0);
+    float densityR = exp(-altitude/max(RayleighScaleHeightMeters,1.0));
+    float densityM = exp(-altitude/max(MieScaleHeightMeters,1.0));
+    float3 localExtinction = betaR*densityR+extinctionM*densityM;
+    float3 segmentDepth = localExtinction*stepM;
+    float visibility = sm.EllipsoidSunVisibility(p,sun,axes,SunAngularRadius)
+                     * sm.SphereSunVisibility(p,sun,OccluderLocal,OccluderRadius,SunAngularRadius);
+    if (visibility>0.0001)
+    {
+        float2 sunHit = sm.RayEllipsoid(p,sun,shellAxes);
+        float sunStepR = max(sunHit.y,0.0)/(float)sunCount;
+        float3 opticalSun = 0.0;
+        if(EarthLUTEnabled>0.5 && abs(RayleighScaleHeightMeters-8000.0)<1.0 && abs(MieScaleHeightMeters-1200.0)<1.0 && abs(AtmosphereHeightMeters-100000.0)<1.0 && abs(radiusM-6371008.4)<100.0)
+        {
+            float2 lookup=sm.EarthOpticalUV(altitude,dot(sm.SafeNormal(p),sun),radiusM);
+            float2 columns=EarthOpticalLUT.SampleLevel(EarthOpticalLUTSampler,lookup,0).rg*1e6;
+            opticalSun=betaR*columns.x+extinctionM*columns.y;
+        }
+        else
+        {
+        [loop] for (int j=0;j<16;++j)
+        {
+            if (j>=sunCount) break;
+            float3 q = p+sun*(((float)j+0.5)*sunStepR);
+            float h = max(sm.EllipsoidRadialAltitude(q,axes)*radiusM,0.0);
+            opticalSun += (betaR*exp(-h/max(RayleighScaleHeightMeters,1.0))
+                         +extinctionM*exp(-h/max(MieScaleHeightMeters,1.0))) * sunStepR*radiusM;
+        }
+        }
+        // Integrate view extinction analytically within this constant-density segment.
+        // Midpoint exp(-tau/2)*ds loses energy as the step becomes optically thick.
+        // A Taylor branch preserves the zero-density limit without cancellation.
+        float3 depth = min(segmentDepth,80.0);
+        float3 thinIntegral = 1.0-depth*0.5+depth*depth/6.0;
+        float3 exactIntegral = (1.0-exp(-depth))/max(segmentDepth,1e-8);
+        float3 segmentIntegral = float3(
+            segmentDepth.x<0.001 ? thinIntegral.x : exactIntegral.x,
+            segmentDepth.y<0.001 ? thinIntegral.y : exactIntegral.y,
+            segmentDepth.z<0.001 ? thinIntegral.z : exactIntegral.z);
+        float3 attenuation = exp(-min(opticalView+opticalSun,80.0));
+        scattered += attenuation*(betaR*densityR*phaseR+betaM*densityM*phaseM)
+                   *stepM*segmentIntegral*visibility;
+    }
+    opticalView += segmentDepth;
+}
+float3 transmission = exp(-min(opticalView,80.0));
+float alpha = saturate(1.0-dot(transmission,float3(0.2126,0.7152,0.0722)));
+// UE straight-alpha blending multiplies emissive by opacity; undo that for the
+// already-integrated inscattering term. Background uses scalar extinction (documented).
+float3 outgoing = scattered*max(SunRadiance,0.0)*3.14159265359;
+// Explicit artistic treatment for the sunrise/sunset observation modes only.
+if(DreamStrength>0.001)
+{
+    float cameraHeight=max((length(ro)-1.0)*radiusM,0.0);
+    float closestT=clamp(-dot(ro,rd),start,finish);
+    float closestHeight=max((length(ro+rd*closestT)-1.0)*radiusM,0.0);
+    float elevation=dot(rd,sm.SafeNormal(ro));
+    float skyHeight=lerp(smoothstep(-0.025,0.42,elevation),smoothstep(0.0,60000.0,closestHeight),
+        smoothstep(80000.0,180000.0,cameraHeight));
+    float3 gold=lerp(float3(1.65,0.85,0.30),float3(1.85,0.48,0.22),saturate(DreamSunset));
+    float3 rose=lerp(float3(1.05,0.40,1.20),float3(1.45,0.24,0.78),saturate(DreamSunset));
+    float3 violet=lerp(float3(0.35,0.42,1.55),float3(0.48,0.25,1.35),saturate(DreamSunset));
+    float3 palette=lerp(gold,rose,smoothstep(0.02,0.50,skyHeight));
+    palette=lerp(palette,violet,smoothstep(0.35,0.95,skyHeight));
+    float luminance=dot(outgoing,float3(0.2126,0.7152,0.0722));
+    float3 colored=luminance*palette/max(dot(palette,float3(0.2126,0.7152,0.0722)),0.01);
+    outgoing=lerp(outgoing,colored,saturate(DreamStrength)*0.78);
+    float halo=exp(-(1.0-saturate(dot(rd,sun)))/0.0045)*saturate(alpha*3.0);
+    outgoing+=float3(1.0,0.56,0.28)*halo*max(SunRadiance,0.0)*0.015*saturate(DreamStrength);
+}
+return float4(outgoing/max(alpha,1e-5),alpha);

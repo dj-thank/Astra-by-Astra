@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "sources": {
+    "earth_day": {
+      "path": "Content/Star/Art/PhotoEarth/earth_day_16k.jpg",
+      "provenance": "Data/photo_earth_provenance.json",
+      "sha256": "24cf25f9da0e8c6b4e7df535de406e76ca0e85dde49ff9f5f5a2c1452b301916",
+      "size": [
+        16384,
+        8192
+      ],
+      "colorSpace": "sRGB",
+      "runtimeCompression": "BC7",
+      "neverStream": true
+    },
+    "earth_clouds": {
+      "path": "Content/Star/Textures/earth_clouds_8k.png",
+      "provenance": "Data/earth_clouds_source.json",
+      "sha256": "c94e0e15a54a873d5ffc68c49067b3337ae04e55b4f36d0cede59f2dee7cc7f2",
+      "size": [
+        8192,
+        4096
+      ],
+      "colorSpace": "linear scalar",
+      "runtimeCompression": "BC7",
+      "neverStream": true
+    },
+    "earth_night": {
+      "path": "Content/Star/Textures/earth_night_8k.jpg",
+      "provenance": "Data/manifest.json",
+      "sha256": "a0f222090a0eb627a434d38e1ab226f735ca8ae33312de46f1a71e54a0bb4110",
+      "size": [
+        8192,
+        4096
+      ],
+      "colorSpace": "sRGB",
+      "runtimeCompression": "BC7",
+      "neverStream": true
+    }
+  },
+  "rendering": {
+    "cloudLayerHeightMeters": 5000,
+    "cloudReliefProxyMeters": 2200,
+    "waterRoughness": 0.16,
+    "nightDisplayGain": 24,
+    "cloudOpacityScale": 0.98,
+    "cloudSourceIsCurrentWeather": false,
+    "cloudHeightAndReliefAreObserved": false,
+    "nightGainIsCalibratedRadiometry": false,
+    "sourcePixelValuesModified": false,
+    "sphereSegments": 512,
+    "sphereRings": 256,
+    "cloudSphereSegments": 512,
+    "cloudSphereRings": 256,
+    "atmosphereViewSteps": [
+      24,
+      48
+    ],
+    "atmosphereSunSteps": [
+      8,
+      16
+    ],
+    "atmosphereDetailBlendEarthRadii": [
+      1.12,
+      1.6
+    ],
+    "nightBlueBackgroundKey": {
+      "blueCoefficient": 0.75,
+      "smoothThreshold": 0.001,
+      "measuredEmissionSeparation": false
+    }
+  },
+  "limits": [
+    "Single optical cloud shell, not volumetric storm reconstruction.",
+    "Fixed archival composites, not live weather.",
+    "Regional MODIS photos retain their baked weather; the added cloud layer is suppressed over valid photo pixels.",
+    "Earth remains non-landable."
+  ]
+}

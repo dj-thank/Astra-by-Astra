@@ -1,0 +1,221 @@
+{
+  "schema": "star.earth-detail.v3",
+  "layer": "MODIS_Aqua_CorrectedReflectance_TrueColor",
+  "observation_date": "2025-09-06",
+  "retrieved_utc": "2026-09-06T16:05:07.453538+00:00",
+  "product": "Daily true-color corrected-reflectance visualization, bands 1-4-3",
+  "source_page": "https://gis.earthdata.nasa.gov/portal/home/item.html?id=7e2b03d9331b4df785f7c64959df8fd8",
+  "product_documentation": "https://github.com/nasa-gibs/worldview-options-eosdis/blob/master/common/config/metadata/modis/CorrectedReflectance.md",
+  "rights": "NASA Earth science data freely available; credit NASA/GSFC, MODIS Aqua, LANCE and GIBS",
+  "rights_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+  "texture": "Content/Star/Art/EarthDetailV3/T_EarthDetail_Andaman_Aqua_20250906_8K.png",
+  "sha256": "a4b0be42f90c045a9db0596f3b6c3d52dc819f22e598daf7c6b16978fb171bae",
+  "bytes": 45733387,
+  "width": 8192,
+  "height": 8192,
+  "bounds": {
+    "west": 88,
+    "south": 3,
+    "east": 104,
+    "north": 19
+  },
+  "crs": "EPSG:4326",
+  "datum": "WGS84 geographic; shader uses geographic coordinates on reference sphere",
+  "units": "degrees east/north; RGB display visualization, not calibrated reflectance",
+  "color_space": "sRGB interpreted display RGB; imported sRGB=true",
+  "pixel_registration": "pixel areas, north-up; first center lon88+16/16384 lat19-16/16384",
+  "grid_m_per_pixel_equator": 217.42088045561246,
+  "source_resolution_m": {
+    "red": 250,
+    "green": 500,
+    "blue": 500,
+    "gibs_finest_grid": 250
+  },
+  "nodata_fraction": 0.15279322862625122,
+  "alpha": "Exact RGB zero swath-gap exclusion, 12 native-pixel conservative exclusion then64px feather; NOT measured cloud mask or opacity",
+  "sources": [
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=88%2C15%2C92%2C19&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "c48e58f3ee30a21664aafebc375bf18f11d9d61b468f026a7a15f7d3907f5ff2",
+      "bytes": 3741174,
+      "bbox": [
+        88,
+        15,
+        92,
+        19
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=92%2C15%2C96%2C19&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "abeb47321f99c0009cf50ed7b1f2074adbe7c342ebbb8f3753528a254143c026",
+      "bytes": 6097757,
+      "bbox": [
+        92,
+        15,
+        96,
+        19
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=96%2C15%2C100%2C19&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "768cdb2b3ab14fcd1b613d73d9ffdd76fd623eb283283344af9e6155519519fc",
+      "bytes": 6461843,
+      "bbox": [
+        96,
+        15,
+        100,
+        19
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=100%2C15%2C104%2C19&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "19ce15415b65f71d8178f445c2bcd319d24b26ace9c00c94388bb15ae2d713c5",
+      "bytes": 5954859,
+      "bbox": [
+        100,
+        15,
+        104,
+        19
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=88%2C11%2C92%2C15&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "703f64d74d980e31f4787973b3ae709de6998f45cd80897f9ca58344331037eb",
+      "bytes": 1528166,
+      "bbox": [
+        88,
+        11,
+        92,
+        15
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=92%2C11%2C96%2C15&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "1b628faeacbe78480dd243dbf376dda613de5a46ab8be9e72d05541d2d089f37",
+      "bytes": 5340818,
+      "bbox": [
+        92,
+        11,
+        96,
+        15
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=96%2C11%2C100%2C15&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "58c96fbca35fca7a876fa541ebca48d4be1869331aba6da706ce4c2d078c4279",
+      "bytes": 5781077,
+      "bbox": [
+        96,
+        11,
+        100,
+        15
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=100%2C11%2C104%2C15&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "718e64add1751fec9d5216b00637b36d1d476473d3b36cca09219920cb245094",
+      "bytes": 4542159,
+      "bbox": [
+        100,
+        11,
+        104,
+        15
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=88%2C7%2C92%2C11&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "efee37c66f6cf241581deb6ea43b1a560239c7868b691cfe394f2fbe26256e33",
+      "bytes": 423589,
+      "bbox": [
+        88,
+        7,
+        92,
+        11
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=92%2C7%2C96%2C11&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "f65baf02d3033f8c970d616d4eff5c8ebb22800d2650b73000b545434129f013",
+      "bytes": 4601557,
+      "bbox": [
+        92,
+        7,
+        96,
+        11
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=96%2C7%2C100%2C11&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "454401f416d2c572e42840e1e9835c5dcd799290d4a583430a7d758d11015540",
+      "bytes": 5449109,
+      "bbox": [
+        96,
+        7,
+        100,
+        11
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=100%2C7%2C104%2C11&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "a7e1caecb1df1e1ca31821d26f510044c2331993c93f6f48d2d116bc1f0ed5a4",
+      "bytes": 5917396,
+      "bbox": [
+        100,
+        7,
+        104,
+        11
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=88%2C3%2C92%2C7&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "dd6a96b89ddeefb1ab541a98772807e7dfd79c1367b9832fa2e6f3319db03644",
+      "bytes": 457407,
+      "bbox": [
+        88,
+        3,
+        92,
+        7
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=92%2C3%2C96%2C7&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "9112f6b40456cdecca14c93b6006f2ef8b47b6a8169a84c77979dfbf289114a5",
+      "bytes": 3439961,
+      "bbox": [
+        92,
+        3,
+        96,
+        7
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=96%2C3%2C100%2C7&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "66c298fd51721a087f24a78ea186005a84bbcb9e706104c1b5f3692da2692021",
+      "bytes": 5253125,
+      "bbox": [
+        96,
+        3,
+        100,
+        7
+      ]
+    },
+    {
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Aqua_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=100%2C3%2C104%2C7&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-09-06",
+      "sha256": "f026e14227573f4b6c9c5a6782ec9915e59df2cbf20aa04c5f951d12f83690ca",
+      "bytes": 4559040,
+      "bbox": [
+        100,
+        3,
+        104,
+        7
+      ]
+    }
+  ],
+  "limitations": [
+    "Daily composite with baked cloud shading, atmospheric effects and ocean glint; not intrinsic surface albedo.",
+    "No cloud-height/opacity retrieval; clouds stay in registered sphere texture, no volumetric parallax.",
+    "Original RGB zero service gaps use underlying global map. No cross-date fill, no generated detail.",
+    "Global cloud/weather shading must be replaced, not painted over this regional composite.",
+    "4K GPU quality, mip residency and performance require root packaged-game verification."
+  ]
+}

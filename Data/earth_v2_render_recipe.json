@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "sourceProvenance": [
+    "Data/earth_clouds_source.json",
+    "Data/photo_earth_provenance.json",
+    "Data/earth_v2_pacific.json"
+  ],
+  "numericProvenance": "Data/earth_v2_numeric_textures.json",
+  "clouds": {
+    "method": "ray-marched optical density",
+    "baseMetres": 2000,
+    "maximumTopMetres": 8000,
+    "viewSteps": [
+      8,
+      24
+    ],
+    "sunShadowSamples": 3,
+    "densityPeriodMetres": 16000,
+    "heightIsMeasured": false,
+    "smallScaleDensityIsObserved": false,
+    "referenceCoverageIsCurrentWeather": false
+  },
+  "atmosphere": {
+    "sunOpticalDepth": "512x256 precomputed density columns",
+    "cameraRay": "actual world-space camera ray transformed into body-fixed frame",
+    "focusedGroundViewSteps": 16,
+    "focusedGroundMinimumViewCosine": 0.4,
+    "limbViewSteps": "existing 24..48 distance policy",
+    "focusedGroundReferenceMaximumRelativeRadianceError": 0.007702356359117612
+  },
+  "photo": {
+    "region": "Pacific; exact rectangle and source hashes in earth_v2_pacific.json",
+    "fadeAltitudeMetres": [
+      300000,
+      600000
+    ],
+    "sourceRGBPreserved": true,
+    "bakedCloudsAndGlint": true
+  },
+  "observation": {
+    "durationSeconds": 120,
+    "startAltitudeEarthRadii": 2.9,
+    "endAltitudeMetres": 180000,
+    "interpolation": "smoothstep time with exponential altitude",
+    "changesFlightState": false
+  },
+  "scope": "Local visual update; no Earth landing, live weather or measured cloud-volume claim.",
+  "dreamTwilight": {
+    "scope": [
+      "sunrise observation",
+      "sunset observation"
+    ],
+    "palette": "gold, rose, violet",
+    "softHalo": true,
+    "starsVisibleInTwilight": true,
+    "sunDisplayRadianceMultiplier": 4,
+    "bloomIntensity": {
+      "sunrise": 0.95,
+      "sunset": 1.15
+    },
+    "lensGhostIntensity": 0,
+    "resetOnObservationExit": true,
+    "physicalObservationClaim": false
+  }
+}

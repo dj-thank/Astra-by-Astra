@@ -1,0 +1,47 @@
+{
+  "retrieved_utc": "2026-09-06T16:20:00Z",
+  "sources": [
+    {
+      "id": "jsc2022e044970",
+      "image_url": "https://images-assets.nasa.gov/image/jsc2022e044970/jsc2022e044970~orig.jpg",
+      "catalog_url": "https://images.nasa.gov/details/jsc2022e044970",
+      "credit": "NASA",
+      "observation_date": "2016-05-11",
+      "description": "Orion Medium Fidelity Mockup at Johnson Space Center. Not ASTER 24. Construction reference plus one insulation pixel patch.",
+      "sha256": "39663e6b53567bde4ad9907d15bb8d517bc871e659473e84eb3b4338bb6e53e2",
+      "texture_crop_px": [
+        3020,
+        1980,
+        3100,
+        2180
+      ],
+      "texture_dimensions_px": [
+        80,
+        200
+      ],
+      "color_space": "sRGB",
+      "mapping": "insulation cushion only; camera lighting remains in pixels; no claim of measured albedo",
+      "license_basis": "NASA media usage guidelines; no visible people or NASA identifiers included in runtime texture",
+      "policy_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+    },
+    {
+      "id": "jsc2022e044162",
+      "image_url": "https://images-assets.nasa.gov/image/jsc2022e044162/jsc2022e044162~orig.jpg",
+      "credit": "NASA",
+      "observation_date": "2014-10-24",
+      "use": "reference only, no people/logos in runtime materials"
+    }
+  ],
+  "synthetic": [
+    "all geometry is original ASTER 24 design inference",
+    "roughness maps are calibrated artistic microfinish, not NASA measurements",
+    "cloth normal is original synthetic 0.8mm weave",
+    "only small insulation patch contains NASA pixels"
+  ],
+  "not_claimed": [
+    "replica of Orion",
+    "photoreal pass",
+    "game pass",
+    "measured surface properties"
+  ]
+}

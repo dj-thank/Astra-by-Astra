@@ -1,0 +1,24 @@
+{
+  "source": "https://tiles.maps.eox.at/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=s2cloudless&STYLES=&SRS=EPSG%3A4326&BBOX=91.5%2C10.5%2C94.5%2C13.5&WIDTH=4096&HEIGHT=4096&FORMAT=image%2Fpng",
+  "layerTitle": "Sentinel-2 cloudless layer for 2016 by EOX - 4326",
+  "license": "CC BY 4.0",
+  "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+  "terms": "https://cloudless.eox.at/documentation/license",
+  "credit": "EOxCloudless https://cloudless.eox.at by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016)",
+  "boundsWsen": [
+    91.5,
+    10.5,
+    94.5,
+    13.5
+  ],
+  "crs": "EPSG:4326",
+  "colorSpace": "sRGB",
+  "pixels": [
+    4096,
+    4096
+  ],
+  "sha256": "c60618522157d007da2f3258cb269b76bcd48b3c8811c3ac53f66513f4b84c37",
+  "processing": "Original WMS bytes from provider mosaic. Not a single observation date. Display water/land separation is heuristic in shader; not an observed land mask.",
+  "observation": "2016 layer; provider publication describes 2016 and 2017 inputs",
+  "retrievedUTC": "2026-09-08"
+}

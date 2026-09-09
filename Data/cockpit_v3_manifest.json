@@ -1,0 +1,264 @@
+{
+  "version": 3,
+  "status": "candidate_not_game_verified",
+  "source_units": "meters",
+  "source_frame": {
+    "forward": "+X",
+    "right": "+Y",
+    "up": "+Z"
+  },
+  "fbx_axis_forward": "X",
+  "fbx_axis_up": "Z",
+  "fbx_apply_unit_scale": true,
+  "fbx_scale_options": "FBX_SCALE_UNITS",
+  "import_uniform_scale": 1,
+  "model_parts": [
+    {
+      "name": "SM_CockpitV3InstrumentPanel",
+      "fbx": "Parts/SM_CockpitV3InstrumentPanel.fbx",
+      "location_m": [
+        0,
+        0,
+        0
+      ],
+      "location_ue_cm": [
+        0,
+        0,
+        0
+      ],
+      "rotation_ue_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 127296,
+      "materials": [
+        "M_CV3_PowderCoat",
+        "M_CV3_Elastomer",
+        "M_CV3_AnodizedGraphite",
+        "M_CV3_DisplayOff",
+        "M_CV3_BeadBlastedAlloy",
+        "M_CV3_EtchedLegends"
+      ]
+    },
+    {
+      "name": "SM_CockpitV3Interior",
+      "fbx": "Parts/SM_CockpitV3Interior.fbx",
+      "location_m": [
+        0,
+        0,
+        0
+      ],
+      "location_ue_cm": [
+        0,
+        0,
+        0
+      ],
+      "rotation_ue_deg": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 267892,
+      "materials": [
+        "M_CV3_PowderCoat",
+        "M_CV3_Elastomer",
+        "M_CV3_BeadBlastedAlloy",
+        "M_CV3_AnodizedGraphite",
+        "M_CV3_EtchedLegends",
+        "M_CV3_ServiceBlue",
+        "M_CV3_InsulationPhoto",
+        "M_CV3_WovenSeat",
+        "M_CV3_SafetyOchre"
+      ]
+    }
+  ],
+  "materials": {
+    "M_CV3_PowderCoat": {
+      "base_color_linear": [
+        0.38,
+        0.4,
+        0.37
+      ],
+      "metallic": 0,
+      "roughness": 0.58,
+      "roughness_texture": "Textures/Coat_Roughness.png"
+    },
+    "M_CV3_AnodizedGraphite": {
+      "base_color_linear": [
+        0.052,
+        0.064,
+        0.071
+      ],
+      "metallic": 0.72,
+      "roughness": 0.36,
+      "roughness_texture": "Textures/Graphite_Roughness.png"
+    },
+    "M_CV3_BeadBlastedAlloy": {
+      "base_color_linear": [
+        0.38,
+        0.42,
+        0.44
+      ],
+      "metallic": 0.94,
+      "roughness": 0.29,
+      "roughness_texture": "Textures/Alloy_Roughness.png"
+    },
+    "M_CV3_Elastomer": {
+      "base_color_linear": [
+        0.009,
+        0.013,
+        0.016
+      ],
+      "metallic": 0,
+      "roughness": 0.78
+    },
+    "M_CV3_WovenSeat": {
+      "base_color_linear": [
+        0.105,
+        0.123,
+        0.121
+      ],
+      "metallic": 0,
+      "roughness": 0.9,
+      "roughness_texture": "Textures/Cloth_Roughness.png",
+      "normal_texture": "Textures/Cloth_Normal.png",
+      "normal_strength": 0.22,
+      "normal_uv_repeat": 10
+    },
+    "M_CV3_EtchedLegends": {
+      "base_color_linear": [
+        0.69,
+        0.73,
+        0.7
+      ],
+      "metallic": 0,
+      "roughness": 0.57
+    },
+    "M_CV3_SafetyOchre": {
+      "base_color_linear": [
+        0.56,
+        0.28,
+        0.038
+      ],
+      "metallic": 0,
+      "roughness": 0.49
+    },
+    "M_CV3_ServiceBlue": {
+      "base_color_linear": [
+        0.014,
+        0.07,
+        0.16
+      ],
+      "metallic": 0,
+      "roughness": 0.48
+    },
+    "M_CV3_DisplayOff": {
+      "base_color_linear": [
+        0.001,
+        0.003,
+        0.004
+      ],
+      "metallic": 0,
+      "roughness": 0.28
+    },
+    "M_CV3_InsulationPhoto": {
+      "base_color_linear": [
+        0.32,
+        0.24,
+        0.1
+      ],
+      "metallic": 0,
+      "roughness": 0.84,
+      "base_color_texture": "Textures/OrionInsulation_BaseColor.png",
+      "photo_evidence": "NASA jsc2022e044970, gold insulation patch; lighting remains baked, roughness inferred"
+    }
+  },
+  "replace": {
+    "SM_CockpitInterior": "SM_CockpitV3Interior",
+    "SM_InstrumentPanel": "SM_CockpitV3InstrumentPanel"
+  },
+  "retain": [
+    "SM_CockpitShell",
+    "SM_CanopyGlass",
+    "SM_ControlStick",
+    "SM_Throttle"
+  ],
+  "camera_m": [
+    6,
+    0,
+    1.3
+  ],
+  "display_sockets": [
+    {
+      "location_m": [
+        6.838,
+        -0.88,
+        0.747
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "size_m": [
+        0.619,
+        0.312
+      ]
+    },
+    {
+      "location_m": [
+        6.838,
+        0,
+        0.747
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "size_m": [
+        0.619,
+        0.312
+      ]
+    },
+    {
+      "location_m": [
+        6.838,
+        0.88,
+        0.747
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "size_m": [
+        0.619,
+        0.312
+      ]
+    }
+  ],
+  "glass_contract": {
+    "base_color_linear": [
+      0.995,
+      0.995,
+      0.995
+    ],
+    "opacity": 0,
+    "two_sided": false,
+    "action": "do not edit glass material"
+  },
+  "new_geometry_original": true,
+  "scientific_observation": false
+}

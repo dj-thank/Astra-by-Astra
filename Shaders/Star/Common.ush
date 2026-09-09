@@ -1,0 +1,144 @@
+// Inlined at Custom-expression function scope. Methods take every input explicitly:
+// UE Custom inputs are not captured by local struct methods.
+struct StarMath
+{
+    // Nonlinear coordinates match EarthV2/build_numeric_textures.py exactly.
+    float2 EarthOpticalUV(float height, float mu, float radiusM)
+    {
+        height=clamp(height,0.0,100000.0);
+        float ratio=radiusM/(radiusM+height);
+        float low=-sqrt(saturate(1.0-ratio*ratio))-0.012;
+        float u=pow(saturate((mu-low)/(1.0-low)),1.0/3.0);
+        float v=sqrt(height/100000.0);
+        return (float2(u,v)*float2(511,255)+0.5)/float2(512,256);
+    }
+    float CloudNoise(Texture2D atlas, SamplerState samplerState, float3 position)
+    {
+        float3 voxel=frac(position)*64.0;
+        float z0=floor(voxel.z), z1=fmod(z0+1.0,64.0);
+        float2 tile0=float2(fmod(z0,8.0),floor(z0/8.0));
+        float2 tile1=float2(fmod(z1,8.0),floor(z1/8.0));
+        float2 pixel=voxel.xy+1.5;
+        float a=atlas.SampleLevel(samplerState,(tile0*66.0+pixel)/528.0,0).r;
+        float b=atlas.SampleLevel(samplerState,(tile1*66.0+pixel)/528.0,0).r;
+        return lerp(a,b,frac(voxel.z));
+    }
+    float CloudDensity(Texture2D weather, SamplerState weatherSampler,
+                       Texture2D atlas, SamplerState atlasSampler,
+                       float3 p,float radiusM,float phase,float opacity,float lod,float detail)
+    {
+        float height=(length(p)-1.0)*radiusM;
+        if(height<=2000.0 || height>=8000.0) return 0.0;
+        float2 uv=RHToUV(p);
+        uv.x=frac(uv.x+phase/6.28318530718);
+        float cover=saturate(weather.SampleLevel(weatherSampler,uv,lod).r);
+        float top=3000.0+5000.0*smoothstep(0.05,0.95,cover);
+        float t=(height-2000.0)/max(top-2000.0,1.0);
+        float profile=smoothstep(0.0,0.2,t)*(1.0-smoothstep(0.6,1.0,t));
+        if(profile<=0.0 || cover<0.001) return 0.0;
+        float shape=1.0;
+        if(detail>0.001)
+            shape=lerp(1.0,0.65+0.8*CloudNoise(atlas,atlasSampler,p*(radiusM/16000.0)),detail);
+        return OpticalDepth(cover,opacity)*profile*shape/max(0.7*(top-2000.0),1.0);
+    }
+    float3 SafeNormal(float3 p) { return p * rsqrt(max(dot(p, p), 1e-18)); }
+    float3 UVToRH(float2 uv)
+    {
+        float lon = (uv.x - 0.5) * 6.28318530718;
+        float lat = (0.5 - uv.y) * 3.14159265359;
+        float c = cos(lat);
+        return float3(c * cos(lon), c * sin(lon), sin(lat));
+    }
+    float2 RHToUV(float3 p)
+    {
+        p = SafeNormal(p);
+        return float2(frac(atan2(p.y, p.x) / 6.28318530718 + 0.5),
+                      acos(clamp(p.z, -1.0, 1.0)) / 3.14159265359);
+    }
+    // rd is unit. Closest-approach form avoids subtracting squared camera distance.
+    float2 RaySphere(float3 ro, float3 rd, float radius)
+    {
+        float centerT = -dot(ro, rd);
+        float3 closest = ro + rd * centerT;
+        float discriminant = radius * radius - dot(closest, closest);
+        if (discriminant < 0.0) return float2(1e20, -1e20);
+        float halfChord = sqrt(max(discriminant, 0.0));
+        return float2(centerT - halfChord, centerT + halfChord);
+    }
+    float SphereSunVisibility(float3 p, float3 lightDir, float3 center,
+                              float radius, float angularRadius)
+    {
+        if (radius <= 0.0) return 1.0;
+        float3 toCenter = center - p;
+        float along = dot(toCenter, lightDir);
+        if (along <= 0.0) return 1.0;
+        float perpendicular = length(toCenter - along * lightDir);
+        float penumbra = max(along * max(angularRadius, 0.0), 1e-5);
+        return smoothstep(radius - penumbra, radius + penumbra, perpendicular);
+    }
+    // Axes and distances use the same reference-body-radius units. Rescaling
+    // rd changes its length; divide the returned parameter to keep physical t.
+    float2 RayEllipsoid(float3 ro, float3 rd, float3 axes)
+    {
+        axes = max(axes,0.0001);
+        float3 scaledDirection = rd/axes;
+        float rate = max(length(scaledDirection),1e-8);
+        return RaySphere(ro/axes,scaledDirection/rate,1.0)/rate;
+    }
+    float EllipsoidRadialAltitude(float3 p, float3 axes)
+    {
+        // Radial altitude, not a claimed geodetic height or measured atmosphere.
+        float distance = length(p);
+        return distance-distance/max(length(p/max(axes,0.0001)),1e-8);
+    }
+    float EllipsoidSunVisibility(float3 p, float3 lightDir, float3 axes,float angularRadius)
+    {
+        axes = max(axes,0.0001);
+        // Exact central-ray silhouette in scaled space; small solar-disc
+        // penumbra remains a bounded approximation under anisotropic scaling.
+        float spread = max(axes.x,max(axes.y,axes.z))/min(axes.x,min(axes.y,axes.z));
+        return SphereSunVisibility(p/axes,SafeNormal(lightDir/axes),float3(0,0,0),1.0,angularRadius*spread);
+    }
+    float Hash(float3 p)
+    {
+        p = frac(p * 0.1031);
+        p += dot(p, p.yzx + 33.33);
+        return frac((p.x + p.y) * p.z);
+    }
+    float Noise(float3 p)
+    {
+        float3 i = floor(p), f = frac(p);
+        f = f * f * (3.0 - 2.0 * f);
+        float a = lerp(Hash(i), Hash(i + float3(1,0,0)), f.x);
+        float b = lerp(Hash(i + float3(0,1,0)), Hash(i + float3(1,1,0)), f.x);
+        float c = lerp(Hash(i + float3(0,0,1)), Hash(i + float3(1,0,1)), f.x);
+        float d = lerp(Hash(i + float3(0,1,1)), Hash(i + float3(1,1,1)), f.x);
+        return lerp(lerp(a,b,f.y), lerp(c,d,f.y), f.z);
+    }
+    float FBM(float3 p)
+    {
+        float value = 0.0, amplitude = 0.5333333;
+        [unroll] for (int i=0; i<4; ++i)
+        {
+            value += amplitude * Noise(p);
+            p = p * 2.03 + float3(7.1, 13.7, 3.9);
+            amplitude *= 0.5;
+        }
+        return value;
+    }
+    float Clouds(float3 p, float coverage, float phase)
+    {
+        // Synthetic weather reconstruction; not an observation or live weather.
+        float c = cos(phase), s = sin(phase);
+        p.xy = float2(c*p.x-s*p.y, s*p.x+c*p.y);
+        float latitudeBand = sin(p.z * 12.0 + 2.0 * p.x);
+        float3 warped = p * 7.0 + float3(latitudeBand, -latitudeBand, 0.0);
+        float n = FBM(warped);
+        return smoothstep(1.0-saturate(coverage), 1.18-saturate(coverage), n);
+    }
+    float OpticalDepth(float opacity, float scale)
+    {
+        return -log(max(1.0 - saturate(opacity), 0.0001)) * max(scale, 0.0);
+    }
+};
+StarMath sm;

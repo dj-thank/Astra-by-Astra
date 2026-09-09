@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "file": "ephemeris-2026.bin",
+  "sha256": "6aacecd6e1b4422f04d1b2d5bb40ddd485b5a0a5ea9645898c186cddbe256ad5",
+  "startUtc": "2026-01-01T00:00:00+00:00",
+  "endUtc": "2027-01-01T00:00:00+00:00",
+  "timeScale": "UTC (Horizons UT), leap-second conversion by NAIF0012 for SPICE orientation",
+  "basis": "ECLIPJ2000 right handed; meters",
+  "origin": "solar-system barycenter",
+  "bodyOrder": [
+    "sun",
+    "earth",
+    "moon",
+    "saturn"
+  ],
+  "bodyFixedFrames": {
+    "sun": "IAU_SUN",
+    "earth": "ITRF93",
+    "moon": "MOON_ME",
+    "saturn": "IAU_SATURN"
+  },
+  "sampleSeconds": 3600,
+  "count": 8761,
+  "interpolation": "cubic Hermite position using source velocity; shortest-arc quaternion SLERP",
+  "lightPropagation": "geometric, no light-time or aberration correction",
+  "earthOrientation": "ITRF93; source last datum 2026-08-06, prediction to 2026-11-02, extended prediction afterward. Historical error estimated <3 microradians; long-term predicted error may reach 5-6 milliradians. Interpolation residual is not absolute accuracy.",
+  "moonOrientation": "MOON_ME / DE421, retained mapping datum; Horizons positions use current solution.",
+  "kernelSources": [
+    {
+      "path": "Data\\provenance\\kernels\\naif0012.tls",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+    },
+    {
+      "path": "Data\\provenance\\kernels\\pck00011.tpc",
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1"
+    },
+    {
+      "path": "Data\\provenance\\kernels\\moon_pa_de421_1900-2050.bpc",
+      "sha256": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf"
+    },
+    {
+      "path": "Data\\provenance\\kernels\\moon_080317.tf",
+      "sha256": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993"
+    },
+    {
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/earth_1962_260806_2126_combined.bpc",
+      "acquiredUtc": "2026-09-08T22:57:59.879619+00:00",
+      "sha256": "cc87ad1a495cf598800ba403763d350f087ac0b97da9fec603278a3864c6a53e",
+      "bytes": 31318016
+    }
+  ],
+  "vectorSources": [
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A00%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%271+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:58:01.722473+00:00",
+      "sha256": "a14d6c571cbb7c5ea9b28e10b3b789e1d24c9a3592434b9f257b2d67af8bb86e",
+      "bytes": 1724345,
+      "body": "sun",
+      "frame": "ECLIPJ2000",
+      "origin": "solar-system barycenter",
+      "correction": "NONE",
+      "sourceUnits": "km and km/s; converted to SI"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A30%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%2731+d%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:58:02.723304+00:00",
+      "sha256": "24a3b514759e78a25ad1fdc511eec5c814ee500940c77080fe09879862efb79d",
+      "bytes": 9544,
+      "body": "sun",
+      "role": "independent half-hour position checks"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A00%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%271+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:59:22.924388+00:00",
+      "sha256": "cfa628a4761f2e02ef5cc42b34c9e9701b0efdc91e81e4ebe72d6ada45268f59",
+      "bytes": 1724899,
+      "body": "earth",
+      "frame": "ECLIPJ2000",
+      "origin": "solar-system barycenter",
+      "correction": "NONE",
+      "sourceUnits": "km and km/s; converted to SI"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A30%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%2731+d%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:59:24.085572+00:00",
+      "sha256": "22fec9417cad4bc538a2efd769a1f7322463d0dd46ca283e6a055b3d11fa5f0f",
+      "bytes": 10098,
+      "body": "earth",
+      "role": "independent half-hour position checks"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27301%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A00%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%271+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:59:26.200593+00:00",
+      "sha256": "a7069cb9fc7057fb3b2d60c32e0d48309367dbc61e9bbf8b8aa9d8783e88e94f",
+      "bytes": 1724462,
+      "body": "moon",
+      "frame": "ECLIPJ2000",
+      "origin": "solar-system barycenter",
+      "correction": "NONE",
+      "sourceUnits": "km and km/s; converted to SI"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27301%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A30%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%2731+d%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:59:27.394674+00:00",
+      "sha256": "4a83d031c50e5c7a620d95aa10fa28ce80309befada48db79b7de7da54993180",
+      "bytes": 9661,
+      "body": "moon",
+      "role": "independent half-hour position checks"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27699%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A00%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%271+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:59:29.452964+00:00",
+      "sha256": "4749a329246aca780adc5d203b8a5b7d032d2909dda896b33bd22bfb5fde9f8e",
+      "bytes": 1724364,
+      "body": "saturn",
+      "frame": "ECLIPJ2000",
+      "origin": "solar-system barycenter",
+      "correction": "NONE",
+      "sourceUnits": "km and km/s; converted to SI"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27699%27&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-01-01+00%3A30%3A00%27&STOP_TIME=%272027-01-01+00%3A00%3A00%27&STEP_SIZE=%2731+d%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&TIME_DIGITS=%27FRACSEC%27",
+      "acquiredUtc": "2026-09-08T22:59:30.734116+00:00",
+      "sha256": "e64a2eddc30cf0f71aedde8139256c03811b0e0c89cab6aac68f8366a8999799",
+      "bytes": 9563,
+      "body": "saturn",
+      "role": "independent half-hour position checks"
+    }
+  ],
+  "library": {
+    "spiceypy": "8.2.0",
+    "toolkit": "CSPICE_N0067"
+  },
+  "checks": [
+    {
+      "body": "sun",
+      "maxPositionErrorMeters": 7.546908568549861e-07,
+      "maxOrientationErrorDegrees": 2.6057383923947005e-11
+    },
+    {
+      "body": "earth",
+      "maxPositionErrorMeters": 0.0019066708581023208,
+      "maxOrientationErrorDegrees": 5.087320964249081e-08
+    },
+    {
+      "body": "moon",
+      "maxPositionErrorMeters": 0.013775219313096146,
+      "maxOrientationErrorDegrees": 1.6884992160581304e-07
+    },
+    {
+      "body": "saturn",
+      "maxPositionErrorMeters": 0.0014671466527174523,
+      "maxOrientationErrorDegrees": 1.7358673714320473e-09
+    }
+  ]
+}

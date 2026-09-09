@@ -1,0 +1,2 @@
+# Preserve acquired source bytes, including original line endings, for SHA-256 verification.
+* -text -whitespace

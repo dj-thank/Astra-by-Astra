@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_ASSET_CANDIDATE_NOT_RUNTIME_VALIDATED",
+  "sources": [
+    {
+      "id": "apollo17_lroc",
+      "path": "Content/Star/Textures/apollo17_ortho_5m.png",
+      "sha256": "bac8ea4fa0500b7f46fd674b282be7f6b2138bfc0ccab3ab3debce9898436e46",
+      "rawDistribution": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/EXTRAS/BROWSE/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_MOSAIC_5M.TIF",
+      "rawDistributionSha256": "8e3a2dff013059278a58daed87570cb963e37de46ef0639c95afd3a434fc92d7",
+      "observationDate": "2010-07-28..2016-03-17",
+      "credit": "NASA/GSFC/Arizona State University; LRO LROC team",
+      "pixelSpacingMeters": 5,
+      "sourceWindow": [
+        3535,
+        5547,
+        2800,
+        2400
+      ],
+      "datum": "MOON_ME; east longitude, planetocentric latitude; radius 1737400m"
+    },
+    {
+      "id": "as11_45_6705a",
+      "url": "https://data.lroc.im-ldi.com/data/35mm/AS11/raw/AS11-45-6705A.tif",
+      "sourcePage": "https://data.lroc.im-ldi.com/apollo/view?camera=A&image_name=AS11-45-6705",
+      "rawPath": "work/raw/AS11-45-6705A.tif",
+      "sha256": "97448acfae5df94b20514075a7f796695e9b1587dc49086deafeaa947799b015",
+      "observationDate": "1969-07-20",
+      "credit": "NASA/JSC/Arizona State University",
+      "rawImagePixels": [
+        3072,
+        2048
+      ],
+      "rights": "Unprocessed raw scan public domain; https://apollo.im-ldi.com/ABOUT_SCANS/index.html (Acceptable Use)",
+      "observedObject": "Apollo11 loose aggregate lunar soil; used as LUNAR analog, NOT Apollo17 site observation",
+      "fieldOfViewMeters": [
+        0.083,
+        0.072
+      ],
+      "scaleSource": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/images11.html",
+      "fieldBoundsPx": [
+        316,
+        0,
+        2738,
+        2048
+      ],
+      "cropBoxPx": [
+        650,
+        120,
+        1750,
+        1220
+      ],
+      "cropPhysicalSizeMeters": [
+        0.03769611890999174,
+        0.038671874999999994
+      ],
+      "runtimeSquareTileMeters": 0.03818088001175898,
+      "scaleUncertainty": "Approximate scan-margin identification and square sampling (~3% aspect); terrain not flat; no photogrammetric stereo calibration claimed"
+    }
+  ],
+  "regionalPhotometry": {
+    "method": "log high-pass sigma=24px (120m); residual gain .28 clamped +/- .32; shadow/saturation/strip-edge confidence",
+    "channels": {
+      "R": "0.5+0.5*estimated relative reflectance residual",
+      "G": "confidence, shadow/saturation suppressed",
+      "B": "0.5 unused",
+      "A": "DTM validity"
+    },
+    "limit": "Single-image de-lighting is non-unique; residual baked shadow remains possible. Global measured lunar albedo remains base. No ortho-derived normals."
+  },
+  "nearPhotometry": {
+    "method": "Linear grayscale; 28px low-frequency normalization, bounded residual; masked shadow/specular; 75px neutral border",
+    "normal": "Estimated image-gradient tangent relief; not measured stereo heights; no displacement",
+    "roughness": "Constant artistic dusty regolith .94; NOT measured from photograph",
+    "registration": "UV1 tangent chart in meters; lunar-analog tile, not geographic placement of Apollo11 clasts at Apollo17"
+  },
+  "runtimeResampling": {
+    "regional": "2800x2400 -> 4096x4096 normalized weighted bilinear residual/confidence; nearest zero-confidence support rejects invalid source pixels; bounds unchanged. Upsampling adds NO new observed detail; native source remains 5m.",
+    "soil": "1100x1100 -> 1024x1024 bilinear, same 38.180880mm tile; original observed crop preserved",
+    "normal": "Signed XYZ bilinear downsample then unit renormalization then UNORM encoding; no sRGB filtering"
+  },
+  "geographicBounds": {
+    "westLongitudeDegrees": 30.52603930572124,
+    "eastLongitudeDegrees": 31.017359974653573,
+    "northLatitudeDegrees": 20.388743042972354,
+    "southLatitudeDegrees": 19.993008408370667
+  },
+  "artifacts": [
+    {
+      "path": "Content/Star/Art/PhotoMoon/apollo17_photo_regional_4096_linear.png",
+      "sha256": "6dc16af7c3d1ef900237507a822f07f6b8f8130f8c03b015ff29fb4e02ab6599",
+      "pixels": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoMoon/apollo17_photo_regional_linear.png",
+      "sha256": "c941990058ff2191572e302e2b0981d0aeee5fa1a30a9e82b31692c7ef204a25",
+      "pixels": [
+        2800,
+        2400
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoMoon/apollo_soil_detail_1024_linear.png",
+      "sha256": "4e2c1a368afbabc57737f6e2e2a04aa130cce8a34b09f933c71d1b233f16a679",
+      "pixels": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoMoon/apollo_soil_detail_linear.png",
+      "sha256": "c4bc0751ea4a605bfb2b11f47a9f9b8850936e27f5f2eebf82ec01e416cb6647",
+      "pixels": [
+        1100,
+        1100
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoMoon/apollo_soil_normal_1024_dx.png",
+      "sha256": "c700f30ce9d399e540b2ad0bd0988a090a043e534d03904fbe893179d515c3ab",
+      "pixels": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoMoon/apollo_soil_normal_dx.png",
+      "sha256": "e37b2518835ec0ca4c0e3a94ee202e0616848752b959561cbe85d802d4d72dcd",
+      "pixels": [
+        1100,
+        1100
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoMoon/as11_6705a_observed_crop.png",
+      "sha256": "33603ff3ab29adda00f8e22be602dc2369bba1b437f9748e98ca0a6aff6d2b76",
+      "pixels": [
+        1100,
+        1100
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoMoon/source_comparison.png",
+      "sha256": "25ebab769c7e8a73cd4803265bd76aa3e21060b81e98ee6f231c1219418c7a0b",
+      "pixels": [
+        1600,
+        900
+      ]
+    }
+  ]
+}

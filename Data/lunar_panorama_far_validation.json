@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_FAR_TIER_CPU_VALIDATED_NOT_UE_COMPILED",
+  "runtimeSampling": {
+    "status": "PRODUCTION_SAMPLING_FUNCTIONS_CPU_PASS",
+    "exactFarGridSamples": 1708,
+    "nearBoundaryPairMaxDifferenceMeters": 2.45766207171982e-05,
+    "nearPointsCompared": 10201,
+    "maxOldToNewHeightChangeMeters": 386.20743760236
+  },
+  "transition": {
+    "interiorSamplesUnchanged": 9025,
+    "edgeSamples": 1176,
+    "maxOldToNewEdgeChangeMeters": 386.20743760236,
+    "meanOldToNewEdgeChangeMeters": 55.7000523465264,
+    "maxNewEdgeVsNative5mMeters": 0.473357345704244,
+    "meanNewEdgeVsNative5mMeters": 0.0386378007172978,
+    "maxBoundaryGradientJump": 4.54747350886464e-11
+  },
+  "nearHeightBinaryUnchanged": true,
+  "nearHeightSha256": "884c5e3936f735f66abc1b2ff76ae36c10b07550e9f8fdd38af62a0ffbde9fec",
+  "sourceNativeDtmSha256": "3f7b5bb5a5c2ca62a0227e9e9444cf354048d038fe624a49a08d9e13d473392e",
+  "residentBytes": 86878200,
+  "maxQuantizationErrorMeters": 0.125,
+  "summitChecks": [
+    {
+      "azimuthDegrees": 0,
+      "runtimeElevationDegrees": 14.1746451891,
+      "nativeElevationDegrees": 14.17166930563778,
+      "runtimePeakRangeMeters": 6400.0,
+      "nativePeakRangeMeters": 6450.0,
+      "elevationErrorDegrees": 0.002975883462219997
+    },
+    {
+      "azimuthDegrees": 20,
+      "runtimeElevationDegrees": 11.597549759,
+      "nativeElevationDegrees": 11.597314771084669,
+      "runtimePeakRangeMeters": 7700.0,
+      "nativePeakRangeMeters": 7700.0,
+      "elevationErrorDegrees": 0.00023498791533071994
+    },
+    {
+      "azimuthDegrees": 225,
+      "runtimeElevationDegrees": 11.256992175,
+      "nativeElevationDegrees": 11.258328212988806,
+      "runtimePeakRangeMeters": 11000.0,
+      "nativePeakRangeMeters": 11000.0,
+      "elevationErrorDegrees": 0.0013360379888052165
+    },
+    {
+      "azimuthDegrees": 240,
+      "runtimeElevationDegrees": 11.3134405876,
+      "nativeElevationDegrees": 11.313502653937679,
+      "runtimePeakRangeMeters": 11675.0,
+      "nativePeakRangeMeters": 11675.0,
+      "elevationErrorDegrees": 6.206633767824599e-05
+    },
+    {
+      "azimuthDegrees": 255,
+      "runtimeElevationDegrees": 7.54811854535,
+      "nativeElevationDegrees": 7.547843108302697,
+      "runtimePeakRangeMeters": 12050.0,
+      "nativePeakRangeMeters": 12050.0,
+      "elevationErrorDegrees": 0.00027543704730348395
+    },
+    {
+      "azimuthDegrees": 295,
+      "runtimeElevationDegrees": 3.65294777315,
+      "nativeElevationDegrees": 3.6528467060530962,
+      "runtimePeakRangeMeters": 12950.0,
+      "nativePeakRangeMeters": 12950.0,
+      "elevationErrorDegrees": 0.00010106709690393956
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "Source/Star/Runtime/StarDataCatalog.h",
+      "sha256": "f58f1a4291bba89beddf72f150dac8519e3bc3cc95e9ce864321505d4968193c"
+    },
+    {
+      "path": "Source/Star/Runtime/StarDataCatalog.cpp",
+      "sha256": "26faf8a82a4508405cb49a08a651a0d232f378a47ee8ef9d8903192e12ac0854"
+    }
+  ],
+  "limitations": [
+    "UE loader/compile/cook is root-owned and not executed here.",
+    "C++ shim compiles actual production sampling function bodies, not complete UE class.",
+    "Original5m interior preserved; existing300m edge now blends to10m far, then mask edge toLOLA.",
+    "Nodata edge falls back smoothly to coarse global LOLA; these blended elevations are not new observations."
+  ]
+}

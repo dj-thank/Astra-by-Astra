@@ -1,0 +1,20 @@
+name: Native tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Flight simulation
+        shell: pwsh
+        run: ./Tools/Simulation/Test-Native.ps1
+      - name: Audio routing
+        shell: pwsh
+        run: ./Tools/Audio/Test-Routing.ps1
+      - name: Content installation safety
+        shell: pwsh
+        run: python Tests/Release/test_content_setup.py

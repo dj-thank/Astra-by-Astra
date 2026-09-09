@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_ASSET_CANDIDATE_NOT_RUNTIME_VALIDATED",
+  "source": {
+    "id": "earth_day_bmng_september_2004",
+    "url": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+    "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+    "rawPath": "work/trees/data/work/raw/world.200409.3x21600x10800.jpg",
+    "receiptPath": "work/trees/data/work/raw/world.200409.3x21600x10800.jpg.receipt.json",
+    "receiptSha256": "943c9f7bed4d92e1ca4ea78b0cfeb7b18e307f383f45bcb047e704f3ca1e4abb",
+    "sha256": "7cf788e13a3a7b4a926b524f8f71d635c56a18c48ba0bfe35695b05a305db3f3",
+    "bytes": 22359549,
+    "pixels": [
+      21600,
+      10800
+    ],
+    "retrievedAt": "2026-09-06T03:07:30.203227+00:00",
+    "lastModified": "Tue, 16 Dec 2025 13:13:17 GMT",
+    "observationDate": "September 2004",
+    "units": "display RGB, not radiance",
+    "datum": "Earth geographic plate carree centered on 0 longitude; north at top",
+    "colorSpace": "sRGB display RGB",
+    "credit": "NASA Earth Observatory; Reto Stockli; MODIS science team"
+  },
+  "derived": {
+    "path": "Content/Star/Art/PhotoEarth/earth_day_16k.jpg",
+    "sha256": "24cf25f9da0e8c6b4e7df535de406e76ca0e85dde49ff9f5f5a2c1452b301916",
+    "bytes": 26528958,
+    "pixels": [
+      16384,
+      8192
+    ],
+    "format": "JPEG",
+    "jpegQuality": 96,
+    "chromaSubsampling": "4:4:4",
+    "colorSpace": "sRGB encoded display RGB; linear-light resize then sRGB encode; import UE sRGB=true",
+    "process": "sRGB decode, per-channel linear-light Lanczos resize from 21600x10800 to 16384x8192, sRGB encode, JPEG quality 96 4:4:4; no tone mapping, cloud synthesis, sharpening, georegistration, or invented resolution.",
+    "resamplingLimit": "POT/mip compatibility and improved source retention only; upsampling adds no observed detail."
+  },
+  "preservedExisting": {
+    "path": "Content/Star/Textures/earth_day_8k.jpg",
+    "sha256": "986af5a1d974d30da6e75d5d00ac583bdc1e262a81c66bdc7f84d205e982ec22",
+    "expectedSha256": "986af5a1d974d30da6e75d5d00ac583bdc1e262a81c66bdc7f84d205e982ec22",
+    "unchanged": true
+  },
+  "runtime": {
+    "textureKey": "earth_day",
+    "photoOverride": "Optional higher-resolution base-color candidate; root decides material instance binding after import readback.",
+    "lighting": "Keep existing Sun lighting, exposure, atmosphere, cloud/night layers, fixed epoch and physical Earth radius.",
+    "scientificLimit": "Historical cloud-free visual composite; source RGB is not calibrated reflectance or current weather."
+  },
+  "artifacts": [
+    {
+      "path": "Content/Star/Art/PhotoEarth/earth_day_16k.jpg",
+      "sha256": "24cf25f9da0e8c6b4e7df535de406e76ca0e85dde49ff9f5f5a2c1452b301916",
+      "pixels": [
+        16384,
+        8192
+      ],
+      "role": "runtime candidate"
+    },
+    {
+      "path": "Content/Star/Art/PhotoEarth/source_comparison.png",
+      "sha256": "3235259c79ca825a1b177d97c471b988359627497814797240b81e272caddfeb",
+      "pixels": [
+        1600,
+        520
+      ],
+      "role": "source/derived visual audit; not a game capture"
+    }
+  ],
+  "validation": {
+    "sourceHash": "PASS",
+    "sourceDimensions": "PASS",
+    "old8kUnchanged": "PASS",
+    "ueImportAndShaderCompile": "NOT_RUN_ROOT_OWNS_UE",
+    "gpuRender": "NOT_RUN_ROOT_OWNS_GPU",
+    "packagedGame": "NOT_RUN_ROOT_OWNS_PACKAGE"
+  }
+}

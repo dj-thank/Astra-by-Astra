@@ -1,0 +1,21 @@
+{
+  "tag": "v0.4.0-preview.1",
+  "archives": [
+    {
+      "name": "STAR-Content.zip",
+      "url": "https://github.com/dj-thank/STAR/releases/download/v0.4.0-preview.1/STAR-Content.zip",
+      "sha256": "96b06d08ca8b444d75b4d989146fde9112d424a7ada8aa2a3ff4705303eca2b6",
+      "bytes": 1860535017,
+      "files": 635
+    },
+    {
+      "name": "STAR-Art-Sources.zip",
+      "url": "https://github.com/dj-thank/STAR/releases/download/v0.4.0-preview.1/STAR-Art-Sources.zip",
+      "sha256": "863ed641b71ba168dd10d1e0652fbcedd693ca95e1c835ddafe2611467a068c4",
+      "bytes": 443287048,
+      "files": 79
+    }
+  ],
+  "notices": "THIRD_PARTY_NOTICES.md",
+  "engineDerivedMaterialExcluded": "Content/Star/Materials/M_VRPanel.uasset"
+}

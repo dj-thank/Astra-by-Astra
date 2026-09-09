@@ -1,0 +1,33 @@
+// Analytic photosphere: no fabricated surface photograph or solar corona.
+float3 towardCamera = sm.SafeNormal(CameraVector);
+float mu = saturate(dot(sm.SafeNormal(SurfaceNormal),towardCamera));
+// Normalize the linear limb profile to preserve disk-integrated energy.
+float limb = (0.4+0.6*mu)/0.8;
+float3 tint = 1.0;
+if (EarthRadiusMeters>0.0)
+{
+    // UE world unit directions -> RH Earth fixed unit directions. Positions
+    // arrive already relative to Earth in double precision / Earth radii.
+    float3 ray = sm.SafeNormal(float3(dot(-towardCamera,EarthAxisX),
+        dot(-towardCamera,EarthAxisY),dot(-towardCamera,EarthAxisZ)));
+    float2 hit = sm.RaySphere(EarthCameraLocal,ray,1.0+100000.0/EarthRadiusMeters);
+    float begin = max(hit.x,0.0), end = hit.y;
+    float2 ground = sm.RaySphere(EarthCameraLocal,ray,1.0);
+    if (ground.x>=0.0 && ground.x<end) tint = 0.0;
+    else if (end>begin)
+    {
+        float3 depth = 0.0;
+        float stepR = (end-begin)/48.0;
+        [loop] for(int i=0;i<48;++i)
+        {
+            float h = max((length(EarthCameraLocal+ray*(begin+(i+0.5)*stepR))-1.0)*EarthRadiusMeters,0.0);
+            depth += (float3(5.802e-6,13.558e-6,33.1e-6)*exp(-h/8000.0)
+                +float3(4.3956e-6,4.3956e-6,4.3956e-6)*exp(-h/1200.0))*stepR*EarthRadiusMeters;
+        }
+        float3 transmission = exp(-min(depth,80.0));
+        // The existing atmosphere composites scalar extinction on top. Apply
+        // only its missing chromatic ratio here, avoiding double extinction.
+        tint = transmission/max(dot(transmission,float3(0.2126,0.7152,0.0722)),1e-5);
+    }
+}
+return max(SunRadiance,0.0)*limb*tint;

@@ -1,0 +1,346 @@
+{
+  "schema_version": 2,
+  "candidate_id": "cassini_pds_rgb_global_4k_v2",
+  "state": "CANDIDATE_PENDING_ROOT_UE_MULTIVIEW",
+  "sources": [
+    {
+      "id": "pds_cassini_rgb_global_fits",
+      "source_url": "https://atmos.nmsu.edu/PDS/data/PDS4/co_iss_global-maps/data_derived/Cassini_ISS_RGB_Saturn_global_color_map_original.fits",
+      "path": "work/photo-pass/research/saturn_coverage/global_maps/data_derived/Cassini_ISS_RGB_Saturn_global_color_map_original.fits",
+      "bytes": 77829120,
+      "sha256": "32a62eca9b82255c7dd763ba0752cee1664ae73d5ec4d5d5260227deecd422af",
+      "observation_start": "2011-08-11T03:05:09.695Z",
+      "observation_stop": "2011-08-11T11:40:11.412Z",
+      "product_level": "Derived",
+      "instrument": "Cassini ISS RGB global color map",
+      "doi": "10.17189/rkkb-6y30"
+    },
+    {
+      "id": "pds_cassini_rgb_global_label",
+      "source_url": "https://atmos.nmsu.edu/PDS/data/PDS4/co_iss_global-maps/data_derived/Cassini_ISS_RGB_Saturn_global_color_map_original.xml",
+      "path": "work/photo-pass/research/saturn_coverage/global_maps/data_derived/Cassini_ISS_RGB_Saturn_global_color_map_original.xml",
+      "bytes": 10595,
+      "sha256": "0d1ab898d6811622688363c1fbe6ef4bd15541c8009a43ea5df6581f8e386a66",
+      "label_format": "PDS4 XML"
+    },
+    {
+      "id": "pds_cassini_rgb_image_information",
+      "source_url": "https://atmos.nmsu.edu/PDS/data/PDS4/co_iss_global-maps/data_derived/Image_Information/Saturn_ISS_RGB_global_map_inf-a.txt",
+      "path": "work/photo-pass/research/saturn_coverage/global_maps/image_information/Saturn_ISS_RGB_global_map_inf-a.txt",
+      "bytes": 2042,
+      "sha256": "5999c3da279c1ac393f407429cce37baaddd4a20a14d93a3840af36df58ad2e5",
+      "label_format": "ASCII source-image table"
+    },
+    {
+      "id": "pds_cassini_global_maps_archive",
+      "source_url": "https://atmos.nmsu.edu/PDS/data/PDS4/co_iss_global-maps.tar.gz",
+      "path": "work/photo-pass/research/saturn_coverage/co_iss_global-maps.tar.gz",
+      "bytes": 394868608,
+      "sha256": "b92655e58734f365cffeb9841a7bb6a049f6278d100058b4c36a7bea5cd97374",
+      "archive_sha256": "B92655E58734F365CFFEB9841A7BB6A049F6278D100058B4C36A7BEA5CD97374"
+    }
+  ],
+  "source_integrity": {
+    "fits_sha256": "32a62eca9b82255c7dd763ba0752cee1664ae73d5ec4d5d5260227deecd422af",
+    "fits_sha256_expected": "32A62ECA9B82255C7DD763BA0752CEE1664AE73D5EC4D5D5260227DEECD422AF",
+    "header": {
+      "SIMPLE": true,
+      "BITPIX": -32,
+      "NAXIS": 3,
+      "NAXIS1": 3601,
+      "NAXIS2": 1801,
+      "NAXIS3": 3,
+      "LAT_C": "-90:0.1:90",
+      "LON_W": "360.0:-0.1:0.0",
+      "RESOLUTI": 161,
+      "PHASE": 42.5,
+      "SUB_S_LA": 10.7,
+      "SUB_C_LA": 0.2,
+      "DATE-STA": "2011-08-11",
+      "DATE-STO": "2011-08-11"
+    },
+    "byte_order": "IEEE754MSBSingle (big-endian float32), FITS 3.0",
+    "axis_index_order": "Last Index Fastest; physical [Band, Sample, Line]",
+    "invalid_constant_from_xml": -999.9,
+    "invalid_constant_present_in_fits": 0,
+    "zero_triplets_are_unobserved": true,
+    "coordinate_samples": [
+      {
+        "source_column": 0,
+        "pds_west_deg": 360.0,
+        "runtime_east_deg": 0.0,
+        "runtime_u": 0.5
+      },
+      {
+        "source_column": 900,
+        "pds_west_deg": 270.0,
+        "runtime_east_deg": 90.0,
+        "runtime_u": 0.75
+      },
+      {
+        "source_column": 1800,
+        "pds_west_deg": 180.0,
+        "runtime_east_deg": -180.0,
+        "runtime_u": 0.0
+      },
+      {
+        "source_column": 2700,
+        "pds_west_deg": 90.0,
+        "runtime_east_deg": -90.0,
+        "runtime_u": 0.25
+      },
+      {
+        "source_column": 3600,
+        "pds_west_deg": 0.0,
+        "runtime_east_deg": 0.0,
+        "runtime_u": 0.5
+      }
+    ]
+  },
+  "body": {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_pds_rgb_body_4k.png",
+    "dimensions": [
+      4096,
+      2048
+    ],
+    "projection": "PDS equirectangular / plate carree",
+    "uv": "u=(east_positive_longitude_degrees+180)/360, v=(90-planetocentric_latitude_degrees)/180",
+    "coordinate_convention": {
+      "latitude": "planetocentric degrees, runtime v=0 north to v=1 south",
+      "pds_latitude": "line/sample row 0=-90, row 1800=+90; runtime vertically flips this order",
+      "pds_longitude": "Positive West; line/sample column 0=360, column 3600=0",
+      "runtime_longitude": "east-positive shader longitude = wrap(-PDS west longitude); west 0/360 maps to runtime 0",
+      "central_meridian": "PDS west 0/360 degrees is runtime 0 degrees at u=0.5; PDS west 180 degrees is runtime -180/+180 at u=0/1",
+      "periodic_reindex": "replace the released FITS boundary samples with the adjacent interior average, drop the duplicate endpoint, roll the 3600-column period by 1800 columns so west=180 starts at u=0, then append the first column",
+      "seam": "periodic west=180 endpoint is duplicated after reindex and equalized after 4K resize"
+    },
+    "shape": {
+      "equatorial_radius_km": 60268,
+      "polar_radius_km": 54364,
+      "axes_units": "km",
+      "datum": "Saturn 1-bar oblate axes from NAIF BODY699_RADII",
+      "pck_sources": [
+        {
+          "id": "cassini_pck_2005",
+          "path": "work/photo-pass/research/saturn_coverage/cpck10Jan2005.tpc",
+          "sha256": "122ae82a73de21744deb61a280e3806f507daa92e0e0f2acaae4ed59f4fab9b3"
+        },
+        {
+          "id": "generic_pck_00011",
+          "path": "work/photo-pass/research/saturn_coverage/pck00011.tpc",
+          "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1"
+        }
+      ]
+    },
+    "observed_mask": {
+      "path": "Content/Star/Art/PhotoSaturn/saturn_pds_observed_mask_4k.png",
+      "encoding": "binary L8: 255=all three RGB bands nonzero/observed, 0=unobserved or blank",
+      "source_resolution_fraction": 0.8234314269850084,
+      "source_intervals": [
+        {
+          "row_start": 0,
+          "row_end": 110,
+          "latitude_start_deg": -90.0,
+          "latitude_end_deg": -79.0,
+          "observed": false
+        },
+        {
+          "row_start": 111,
+          "row_end": 897,
+          "latitude_start_deg": -78.9000015258789,
+          "latitude_end_deg": -0.30000001192092896,
+          "observed": true
+        },
+        {
+          "row_start": 898,
+          "row_end": 906,
+          "latitude_start_deg": -0.20000000298023224,
+          "latitude_end_deg": 0.6000000238418579,
+          "observed": false
+        },
+        {
+          "row_start": 907,
+          "row_end": 953,
+          "latitude_start_deg": 0.699999988079071,
+          "latitude_end_deg": 5.300000190734863,
+          "observed": true
+        },
+        {
+          "row_start": 954,
+          "row_end": 1071,
+          "latitude_start_deg": 5.400000095367432,
+          "latitude_end_deg": 17.100000381469727,
+          "observed": false
+        },
+        {
+          "row_start": 1072,
+          "row_end": 1720,
+          "latitude_start_deg": 17.200000762939453,
+          "latitude_end_deg": 82.0,
+          "observed": true
+        },
+        {
+          "row_start": 1721,
+          "row_end": 1800,
+          "latitude_start_deg": 82.0999984741211,
+          "latitude_end_deg": 90.0,
+          "observed": false
+        }
+      ],
+      "runtime_use": "audit/coverage visualization only; do not multiply body albedo in the material"
+    },
+    "infill": {
+      "method": "linear interpolation of per-latitude median observed RGB in linear light; nearest observed profile at polar caps",
+      "synthetic_detail": false,
+      "unobserved_pixels_are_not_claimed_as_observed": true
+    },
+    "photometry": {
+      "source_values": "display RGB byte-equivalent values in a float32 FITS container, 0..255",
+      "output_color_space": "sRGB encoded RGB8 PNG; UE sRGB=true",
+      "processing": "decode source sRGB to linear for boundary repair, periodic reindex, infill and resize, then encode sRGB; no tone mapping or contrast enhancement",
+      "units": "display RGB; approximately 161 km/pixel in source map",
+      "scientific_limit": "Derived atmosphere map assembled from multiple Cassini ISS observations; not a static surface albedo or calibrated reflectance field"
+    },
+    "xml_scale_reconciliation": {
+      "declared_pixel_scale": "0.1 pixel/deg (label)",
+      "used_scale": "10.0 pixel/deg from 3601 samples over 360 degrees including both endpoints",
+      "reason": "FITS dimensions and LAT_C/LON_W coordinate strings are internally consistent; the XML scale value is treated as an inverse/label inconsistency and is not used for resampling"
+    }
+  },
+  "rings": {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_rings_rgba.png",
+    "uv": "u=(radiusMeters-innerRadiusMeters)/(outerRadiusMeters-innerRadiusMeters); v=0.5",
+    "inner_radius_m": 74268296.0,
+    "outer_radius_m": 140478768.0,
+    "binding": {
+      "source": "PIA05421",
+      "source_x_px": 512,
+      "radius_km": [
+        92000.0,
+        117580.0,
+        122170.0,
+        133590.0,
+        136775.0
+      ],
+      "source_y_px": [
+        180.0,
+        588.0,
+        627.0,
+        751.0,
+        792.0
+      ],
+      "method": "monotone PCHIP landmark registration, estimated not calibrated navigation",
+      "radial_uncertainty_km": 500
+    },
+    "rgb": "linear chromaticity normalized to luminance 0.55, removes source intensity/opacity; sRGB encoded",
+    "alpha": "bit-identical to existing UVIS-derived normal-opacity alpha; unchanged radii",
+    "unobserved": "Below 92000 km and above 136775 km retains existing VTAD color; 1km UVIS density is separate from 38km source image sampling; registration uncertainty dominates"
+  },
+  "legacy_candidate": {
+    "state": "CANDIDATE_PENDING_ROOT_UE_MULTIVIEW",
+    "body_path": "Content/Star/Art/PhotoSaturn/saturn_cassini_body_4k.png",
+    "photo_weight_path": "Content/Star/Art/PhotoSaturn/saturn_cassini_photo_weight_4k.png",
+    "direct_photo_weight_nonzero_fraction": 0.18730854988098145,
+    "artifacts_preserved": [
+      {
+        "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_body_4k.png",
+        "sha256": "be4023fea55ca3241cf30b82c65d8698d301a8c7111798c8b301a31c2913eb5d",
+        "bytes": 1006894,
+        "dimensions": [
+          4096,
+          2048
+        ]
+      },
+      {
+        "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_photo_weight_4k.png",
+        "sha256": "1f62eaa6094d700abbc8df1ae02ac47877e81bf294512cd000db9d1365b7e8e0",
+        "bytes": 51922,
+        "dimensions": [
+          4096,
+          2048
+        ]
+      },
+      {
+        "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_rings_rgba.png",
+        "sha256": "3ba50dae2d2a4034519449acfef4a589f4df5fa845c8b6620fda9a654d6fc8b0",
+        "bytes": 7662,
+        "dimensions": [
+          4096,
+          16
+        ]
+      },
+      {
+        "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_zonal_profile.png",
+        "sha256": "be5df64602857d46363005d2a3edf3d1c5e2fb17987363dc74c156e55f2aecd8",
+        "bytes": 4106,
+        "dimensions": [
+          64,
+          2048
+        ]
+      }
+    ],
+    "note": "Original PIA11141/PIA05421 candidate files remain unchanged; this PDS candidate is a separate asset."
+  },
+  "validation": {
+    "input_sha256_verified": true,
+    "fits_header_bytes": 2880,
+    "fits_shape_band_sample_line": [
+      3,
+      1801,
+      3601
+    ],
+    "fits_bitpix": -32,
+    "fits_bscale": 1.0,
+    "fits_bzero": 0.0,
+    "xml_invalid_constant": -999.9,
+    "xml_invalid_value_count": 0,
+    "source_zero_triplet_fraction": 0.17656857301499168,
+    "source_endpoint_max_8bit": 61,
+    "source_observed_fraction": 0.8234314269850084,
+    "source_unobserved_fraction": 0.17656857301499163,
+    "output_observed_fraction": 0.82373046875,
+    "output_unobserved_fraction": 0.17626953125,
+    "body_dimensions": [
+      4096,
+      2048
+    ],
+    "body_longitude_seam_max_8bit": 0,
+    "body_periodic_join_max_8bit": 8,
+    "mask_binary": true,
+    "legacy_direct_photo_weight_nonzero_fraction": 0.18730854988098145
+  },
+  "credits": {
+    "primary": "NASA/JPL/Caltech Cassini ISS; PDS Atmospheres Node",
+    "shape": "NASA/JPL NAIF",
+    "archive": "PDS CO-ISS Global Maps, DOI 10.17189/rkkb-6y30",
+    "policy": "https://www.jpl.nasa.gov/jpl-image-use-policy",
+    "credit_text": "Courtesy NASA/JPL-Caltech/Cassini ISS; PDS CO-ISS Global Maps; Saturn axes from NASA/JPL NAIF"
+  },
+  "artifacts": [
+    {
+      "path": "Content/Star/Art/PhotoSaturn/saturn_pds_rgb_body_4k.png",
+      "sha256": "b711f42a234100a8cb90397ed5fa3b3df8b129f8f750c3a31399882ac26aa912",
+      "bytes": 4305574,
+      "dimensions": [
+        4096,
+        2048
+      ]
+    },
+    {
+      "path": "Content/Star/Art/PhotoSaturn/saturn_pds_observed_mask_4k.png",
+      "sha256": "a292ca3e709b08b494fb899c16fef7d3e0d0d118e844801942422c161ff4e451",
+      "bytes": 12079,
+      "dimensions": [
+        4096,
+        2048
+      ]
+    }
+  ],
+  "gate_ceiling": {
+    "SOURCE_CHECKS_PASS": "CPU FITS/hash/UV/coverage/output checks are runnable by this script",
+    "DEVICE_PASS": "UNVERIFIED: physical display/device not exercised",
+    "PROVIDER_PASS": "NOT_APPLICABLE",
+    "PUBLIC_PASS": "UNVERIFIED: no publication performed",
+    "VISUAL_REVIEW": "UNVERIFIED: visual/runtime review required"
+  }
+}

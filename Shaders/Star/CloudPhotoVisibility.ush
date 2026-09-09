@@ -1,0 +1,23 @@
+float photoVisibility=1.0;
+// Registered regional RGB already includes weather. Suppress this added
+// deck there, respecting the photograph's alpha gaps and boundary feather.
+if (EarthDetailEnabled>0.5)
+{
+    float lon=(UV.x-0.5)*360.0, lat=(0.5-UV.y)*180.0;
+    float2 photoUV=float2((lon-EarthDetailWest)/max(EarthDetailEast-EarthDetailWest,0.001),
+        (EarthDetailNorth-lat)/max(EarthDetailNorth-EarthDetailSouth,0.001));
+    float edge=min(min(lon-EarthDetailWest,EarthDetailEast-lon),min(lat-EarthDetailSouth,EarthDetailNorth-lat));
+    float weight=smoothstep(0.0,max(EarthDetailFeatherDegrees,0.001),edge)
+        *saturate(EarthDetailTex.SampleGrad(EarthDetailTexSampler,saturate(photoUV),ddx(photoUV),ddy(photoUV)).a);
+    photoVisibility*=1.0-weight;
+}
+if(PacificEnabled>0.0)
+{
+    float lon=(UV.x-0.5)*360.0, lat=(0.5-UV.y)*180.0;
+    float2 photoUV=float2((lon-PacificWest)/max(PacificEast-PacificWest,0.001),
+        (PacificNorth-lat)/max(PacificNorth-PacificSouth,0.001));
+    float edge=min(min(lon-PacificWest,PacificEast-lon),min(lat-PacificSouth,PacificNorth-lat));
+    float weight=smoothstep(0.0,max(PacificFeatherDegrees,0.001),edge)
+        *saturate(PacificTex.SampleGrad(PacificTexSampler,saturate(photoUV),ddx(photoUV),ddy(photoUV)).a);
+    photoVisibility*=1.0-weight*saturate(PacificEnabled);
+}

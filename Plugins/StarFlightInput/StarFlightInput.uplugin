@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1.0",
+  "FriendlyName": "STAR Flight Input",
+  "Description": "Project-local SDL3 flight stick input, calibration and safe reconnect.",
+  "Category": "Input",
+  "CreatedBy": "STAR",
+  "CanContainContent": false,
+  "EnabledByDefault": true,
+  "SupportedTargetPlatforms": ["Win64"],
+  "Modules": [{"Name":"StarFlightInput","Type":"Runtime","LoadingPhase":"PreDefault","PlatformAllowList":["Win64"]}]
+}

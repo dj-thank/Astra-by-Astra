@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "preferred_runtime_candidate": "vacuum chemical",
+  "sources": [
+    {
+      "id": "iss066e125277",
+      "file": "Content/Star/Art/PhotoPlumes/Source/iss066e125277_original.jpg",
+      "sha256": "d47ffb82752ddce10c11c15305662aa76585a20d4f3c25bc8e8ce351c454dda0",
+      "url": "https://images-assets.nasa.gov/image/iss066e125277/iss066e125277~orig.jpg",
+      "page": "https://www.nasa.gov/image-article/plumes-from-spacex-cargo-dragons-draco-engines/",
+      "observation_date": "2022-01-23",
+      "credit": "NASA",
+      "license": "NASA US government media; no endorsement",
+      "observed": "Cargo Dragon Draco firings after ISS undocking",
+      "native_size": [
+        5568,
+        3712
+      ]
+    },
+    {
+      "id": "STS-51-OMS",
+      "file": "Content/Star/Art/PhotoPlumes/Source/engine_sts51_big.jpg",
+      "sha256": "e0246fea390105994de4776a822817da33dc04b9f0362fc098edf9dcca855daf",
+      "url": "https://apod.nasa.gov/apod/image/9803/engine_sts51_big.jpg",
+      "page": "https://apod.nasa.gov/apod/ap980308.html",
+      "observation_date": "STS-51, 1993-09; exact frame time unknown",
+      "publication_date": "1998-03-08",
+      "credit": "NASA, STS-51 Crew",
+      "license": "NASA US government media; no endorsement",
+      "usage": "visual reference only; not sampled into textures"
+    }
+  ],
+  "binding": {
+    "quad_TL_BL_BR_TR_px": [
+      1802.512968299712,
+      1631.3544668587897,
+      882.536023054755,
+      2139.4812680115274,
+      1096.4841498559078,
+      2449.7060518731987,
+      1920.1844380403459,
+      1791.8155619596541
+    ],
+    "source_axial_pixels_approx": 960,
+    "texture_dimensions": [
+      256,
+      512
+    ],
+    "nozzle_occluded": true,
+    "color_space": "source sRGB assumed; derived RGBA linear",
+    "intensity_units": "relative photographic exposure; not radiance",
+    "normalization_percentile": 99.5,
+    "normalization_linear_value": 0.1458091776393367
+  },
+  "observed": [
+    "white faint smooth divergent orbital chemical plume",
+    "no repeated atmospheric shock diamonds in sampled jet"
+  ],
+  "authored": [
+    "nozzle-relative 6D length and 3.5D max width",
+    "azimuthal repetition and cross-section reconstruction",
+    "edge/background subtraction; normalization; tail taper",
+    "spool-length and temporal pulse; not time-resolved source evidence"
+  ],
+  "not_claimed": [
+    "calibrated brightness",
+    "volume density reconstruction",
+    "realistic electric ion engine exhaust",
+    "photographically measured fictional engine dimensions"
+  ],
+  "runtime": {
+    "texture": "T_VacuumPlumePhoto.png",
+    "axial_texture": "T_VacuumPlumeAxial.png",
+    "mesh": "vacuum_plume_mesh.json",
+    "disks": "vacuum_plume_disks.json",
+    "api_change": false,
+    "prefer_main_two": true,
+    "RCS_recipe": "same photo with shorter 2D to 4D axis scale, individual pulse timing, no ambient smoke",
+    "brightness_recipe": "start main radiance 40, RCS 8 with existing LayerEnergy; artistic UE exposure starting values only; do not retain 800 by default"
+  },
+  "validation": {
+    "cpu_geometry_angles": [
+      0,
+      45,
+      80,
+      90
+    ],
+    "source_hashes": "PASS",
+    "native_resolution_limit": "960px jet; downsampled to 512px; no synthetic detail added",
+    "gpu": "NOT_RUN",
+    "residuals": [
+      "oblique plane lobes need UE occlusion/angle blending review",
+      "photo uses one exposure, not measured light output",
+      "static texture cannot reproduce real puff evolution"
+    ]
+  },
+  "files": {
+    "T_VacuumPlumePhoto.png": {
+      "sha256": "8e9205824bffa40cdd12da33d9a6eabb0fe63c8a52a13dc05c49df4274ecc6f0",
+      "bytes": 217522
+    },
+    "T_VacuumPlumeAxial.png": {
+      "sha256": "8e385ce9c8801ec2fffd40808fd00e219bc7ee9e4d0390d944821f268641a98c",
+      "bytes": 1492
+    },
+    "vacuum_plume_mesh.json": {
+      "sha256": "1b88f28fad233b73be3018437a084f17abe802e73dd3ea92bc407d0e1049cf53",
+      "bytes": 22616
+    },
+    "vacuum_plume_disks.json": {
+      "sha256": "0c18ba872ce5aa0af24669ba4b3ecb714483591ca55bd08fbce0ec70948e6c92",
+      "bytes": 9413
+    }
+  }
+}

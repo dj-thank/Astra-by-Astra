@@ -1,0 +1,158 @@
+// Inputs are listed in Tools/Unreal/Materials/create_materials.py.
+// Keep small patch coordinates in vertex UVs. Computing global UVs here avoids
+// half-precision vertex-UV quantization across a one-degree geographic patch.
+float2 localPatchUV=UV;
+float patchWater=0.0;
+float4 observedPatch=0.0;
+if(TerrainWaterOnly>0.5)
+{
+    UV=float2((TerrainPatchBounds.x+localPatchUV.x*TerrainPatchBounds.z)/360.0+0.5,
+        0.5-(TerrainPatchBounds.y+TerrainPatchBounds.z-localPatchUV.y*TerrainPatchBounds.z)/180.0);
+    patchWater=step(0.5,Texture2DSampleLevel(TerrainWaterMask,TerrainWaterMaskSampler,localPatchUV,0).r);
+    observedPatch=Texture2DSample(ObservedColor,ObservedColorSampler,localPatchUV);
+}
+float3 n = sm.UVToRH(UV);
+float3 axes = max(BodyAxes,0.0001);
+float3 surface = n*axes;
+// Non-uniformly stretched sphere parameter latitude is not planetocentric
+// latitude. Sample the PDS map at the physical position direction, while the
+// inverse-transpose normal controls illumination.
+float2 dayUV = float2(UV.x,sm.RHToUV(surface).y);
+n = sm.SafeNormal(n/axes);
+if(TerrainWaterOnly>0.5)
+    n=sm.SafeNormal(PatchNormal.rgb*2.0-1.0);
+float3 l = sm.SafeNormal(SunDirectionLocal);
+float3 v = sm.SafeNormal(CameraLocal - surface);
+float mu0 = max(dot(n, l), 0.0);
+float mu = max(dot(n, v), 0.0001);
+float visibility = sm.SphereSunVisibility(surface, l, OccluderLocal, OccluderRadius, SunAngularRadius);
+float3 albedo = max(Texture2DSample(DayTex, DayTexSampler, dayUV).rgb * AlbedoScale, 0.0);
+if(TerrainWaterOnly>0.5)albedo=lerp(max(observedPatch.rgb,0.0),albedo,patchWater);
+float3 result = 0.0;
+
+if (BodyType > 1.5)
+{
+    // Ring plane shadow at the sunward intersection, using the same radial map as M_Rings.
+    if (abs(l.z) > 1e-6)
+    {
+        float t = -surface.z/l.z;
+        float r = length((surface+l*t).xy);
+        if (t > 1e-5 && r >= RingInnerRadius && r <= RingOuterRadius)
+        {
+            float radialU = (r-RingInnerRadius)/max(RingOuterRadius-RingInnerRadius,0.001);
+            float opacity = Texture2DSampleLevel(RingTex, RingTexSampler, float2(radialU,0.5),0).a;
+            float tau = sm.OpticalDepth(opacity, RingOpacityScale);
+            visibility *= exp(-min(tau/max(abs(l.z),0.01),80.0));
+        }
+    }
+    // The NASA natural-color map provides bands; no painted direct-light addition.
+    result = albedo * mu0 * visibility * max(SunRadiance,0.0);
+}
+else if (BodyType > 0.5)
+{
+    // Lommel-Seeliger/Lambert mixture for rough regolith. Full-phase LS is disk-like,
+    // unlike a Lambert ball. AlbedoScale calibrates the provided lunar color product.
+    float ls = mu0 / max(mu0+mu,0.0001);
+    float phaseAngle = acos(clamp(dot(l,v),-1.0,1.0));
+    float gentlePhase = 0.82 + 0.18*exp(-phaseAngle/0.35);
+    float reflectance = lerp(mu0, 2.0*ls, 0.72) * gentlePhase;
+    result = albedo * reflectance * visibility * max(SunRadiance,0.0);
+}
+else
+{
+    float rawWater = Texture2DSample(WaterMaskTex, WaterMaskTexSampler, UV).r;
+    // Fallback is explicitly heuristic: blue/dark pixels of the NASA color map.
+    float blue = smoothstep(0.015,0.08, albedo.b - max(albedo.r,albedo.g)*0.8);
+    float dark = 1.0-smoothstep(0.08,0.25,dot(albedo,float3(0.2126,0.7152,0.0722)));
+    float water = TerrainWaterOnly>0.5 ? patchWater : lerp(blue*dark, rawWater, saturate(UseWaterMask));
+    float3 h = sm.SafeNormal(l+v);
+    float nh = saturate(dot(n,h)), vh = saturate(dot(v,h));
+    // GGX water BRDF and Schlick Fresnel. Finite roughness also bounds sun sparkle.
+    float a = max(WaterRoughness*WaterRoughness,0.0025);
+    float a2 = a*a;
+    // Positive-sum form preserves the narrow peak in float32 near nh=1.
+    // The alpha floor already bounds D; a larger denominator floor flattened it.
+    float denom = (1.0-nh*nh)+a2*nh*nh;
+    float D = a2 / max(3.14159265359*denom*denom,1e-16);
+    // Exact separable Smith masking for this GGX alpha. The Schlick k
+    // approximation suppressed grazing ocean glints even for nearly smooth water.
+    float GSun = 2.0*mu0/max(mu0+sqrt(a2+(1.0-a2)*mu0*mu0),1e-8);
+    float GView = 2.0*mu/max(mu+sqrt(a2+(1.0-a2)*mu*mu),1e-8);
+    float G = GSun*GView;
+    float fresnel = 0.02037 + 0.97963*pow(1.0-vh,5.0);
+    float specular = D*G*fresnel/max(4.0*mu0*mu,1e-5);
+    float3 ground = (albedo*(1.0-water*fresnel) + water*specular*3.14159265359) * mu0;
+
+    float clouds=0.0;
+    result=ground*visibility*max(SunRadiance,0.0);
+    if(CloudOpacity>0.000001)
+    {
+    float cloudRadius = 1.0 + max(CloudHeightMeters,0.0)/max(RadiusMeters,1.0);
+    float2 cloudSunHit = sm.RaySphere(n,l,cloudRadius);
+    float3 cloudShadowN = sm.SafeNormal(n+l*max(cloudSunHit.y,0.0));
+    float2 cloudShadowUV = sm.RHToUV(cloudShadowN);
+    cloudShadowUV.x = frac(cloudShadowUV.x + CloudPhase/6.28318530718);
+    float shadowClouds = (UseCloudTexture>0.5)
+        ? Texture2DSampleLevel(CloudTex,CloudTexSampler,cloudShadowUV,1).r
+        : sm.Clouds(cloudShadowN,CloudCoverage,CloudPhase);
+    // A separate cloud shell supplies the visible clouds. Its cast shadow
+    // stays on the ground, displaced using the same physical layer height.
+    float cloudShadow=exp(-min(sm.OpticalDepth(shadowClouds,CloudOpacity)/max(mu0,0.12),80.0));
+    ground *= CloudLayerEnabled>0.5 ? cloudShadow : 1.0-saturate(shadowClouds*CloudOpacity)*0.83;
+
+    float3 ray = -v;
+    float2 cloudViewHit = sm.RaySphere(CameraLocal,ray,cloudRadius);
+    float cloudT = max(cloudViewHit.x,0.0);
+    float3 cloudN = sm.SafeNormal(CameraLocal+ray*cloudT);
+    float2 cloudUV = sm.RHToUV(cloudN);
+    cloudUV.x = frac(cloudUV.x+CloudPhase/6.28318530718);
+    float2 cloudDX = ddx(cloudUV), cloudDY = ddy(cloudUV);
+    cloudDX.x -= round(cloudDX.x);
+    cloudDY.x -= round(cloudDY.x);
+    clouds = (UseCloudTexture>0.5)
+        ? CloudTex.SampleGrad(CloudTexSampler,cloudUV,cloudDX,cloudDY).r
+        : sm.Clouds(cloudN,CloudCoverage,CloudPhase);
+    // If the camera is under the weather shell, clouds are behind the camera/ground
+    // ray and must not be painted over the surface from a negative intersection.
+    clouds *= (cloudViewHit.x >= 0.0) ? 1.0 : 0.0;
+    clouds = saturate(clouds*CloudOpacity);
+    float cloudMu = max(dot(cloudN,l),0.0);
+    float cloudVis = sm.SphereSunVisibility(cloudN*cloudRadius,l,float3(0,0,0),1.0,SunAngularRadius)
+                   *sm.SphereSunVisibility(cloudN*cloudRadius,l,OccluderLocal,OccluderRadius,SunAngularRadius);
+    float3 cloudLight = float3(0.86,0.89,0.94)*cloudMu*cloudVis;
+    result = (CloudLayerEnabled>0.5 ? ground*visibility : lerp(ground*visibility,cloudLight,clouds))
+           * max(SunRadiance,0.0);
+    }
+    float nightMask = 1.0-smoothstep(-0.16,0.03,dot(n,l));
+    float3 nightRGB=max(Texture2DSample(NightTex,NightTexSampler,UV).rgb,0.0);
+    float luminanceWeight=0.0;
+    // This archived display composite includes a blue geographic background.
+    // A bounded color key keeps that background from emitting like city lights.
+    // This is a visual extraction, not calibrated nocturnal radiometry.
+    float cityMask=smoothstep(0.0,0.001,max(nightRGB.r,nightRGB.g)-0.75*nightRGB.b);
+    // Light-only grayscale has no colored geographical background to remove.
+    cityMask=lerp(cityMask,1.0,luminanceWeight);
+    result += nightRGB*cityMask*max(NightIntensity,0.0)*nightMask
+            *(CloudLayerEnabled>0.5 ? 1.0 : 1.0-clouds);
+}
+// Runtime enables this cap only where an actual lunar terrain patch covers it.
+// Keeping the orbital globe opaque here would hide negative-height DEM terrain.
+float mask = 1.0;
+if (BodyType>0.5 && BodyType<1.5 && TerrainHoleEnabled>0.5)
+{
+    float capDot = clamp(dot(n,sm.SafeNormal(TerrainHoleDirection)),-1.0,1.0);
+    mask = (capDot>clamp(TerrainHoleCos,-1.0,1.0)) ? 0.0 : 1.0;
+}
+if(BodyType<0.5 && EarthSurfaceEnabled>0.5)
+{
+    float lon=(dayUV.x-0.5)*360.0,lat=(0.5-dayUV.y)*180.0;
+    float dx=lon-EarthSurfaceBounds.x;
+    dx-=360.0*floor(dx/360.0);
+    float2 tileUV=float2(dx/EarthSurfaceBounds.z,(EarthSurfaceBounds.y+EarthSurfaceBounds.z-lat)/EarthSurfaceBounds.z);
+    if(all(tileUV>=0.0)&&all(tileUV<1.0))
+        mask*=1.0-step(0.5,Texture2DSampleLevel(EarthSurfaceMask,EarthSurfaceMaskSampler,tileUV,0).r);
+}
+if(TerrainWaterOnly>0.5)
+    mask*=max(patchWater,step(0.5,observedPatch.a));
+return float4(max(result,0.0),mask);
+

@@ -1,0 +1,21 @@
+{
+  "scope": "Display reconstruction only",
+  "observed": "NASA 2016 light-only 500m display product; original PNG unchanged",
+  "source": "Data/earth_realism_night.json",
+  "meanEnergy": "Normalized periodic emitter field; approximate after finite kernel and raster filtering",
+  "antialias": "Gaussian width includes pixel footprint; blend to original display field when subpixel",
+  "notObserved": [
+    "individual light positions",
+    "roads",
+    "buildings",
+    "light colors"
+  ],
+  "synthetic": "Jittered world-anchored normalized Gaussian emitter positions and warm/cool tint, 4096 cells across regional footprint",
+  "activeSyntheticEmitters": false,
+  "displayTint": [
+    1.0,
+    0.65,
+    0.3
+  ],
+  "decision": "Synthetic emitter experiment disabled after screenshot review: visible grain. Uniform tint is display styling, not observed light color."
+}

@@ -1,0 +1,45 @@
+// Opt-in integration: Custom node additional define STAR_PHOTO_PLUME=1.
+// Inputs added only for photo branch: TextureObject PlumePhoto, LayerEnergy.
+// T_PlumePhoto is LINEAR, straight alpha; texture address must clamp.
+// Thrust is the shared smoothed engine spool (0..1), not vessel velocity.
+// Prefer T_VacuumPlumePhoto (actual Draco orbital jet) for normal spaceflight.
+// The older T_PlumePhoto atmospheric shock-cell image is comparison only.
+#if STAR_PHOTO_PLUME
+float spool = saturate(Thrust);
+float lengthFraction = 0.18 + 0.82 * sqrt(spool);
+float axial = max(UV.y, 0.0) / max(lengthFraction, 0.001);
+float2 photoUV = float2(saturate(UV.x), saturate(axial));
+float4 photo = Texture2DSample(PlumePhoto, PlumePhotoSampler, photoUV);
+float tip = 1.0 - smoothstep(0.94, 1.0, axial);
+// Keep observed stationary cell positions; do not scroll shock cells like smoke.
+// Small temporal intensity modulation is authored, not measured source motion.
+float pulse = 1.0 + 0.025 * sin(PulsePhase * 11.0);
+float opacity = photo.a * tip * spool * (0.55 + 0.45 * spool);
+float3 tint = 0.9 + 0.1 * saturate(ThrusterColor);
+float3 emission = photo.rgb * tint * max(ThrusterRadiance, 0.0);
+#if STAR_ENGINE_FX_V3
+// EyeExposure is the material EyeAdaptation node (NOT PreExposure).
+// Bounded art direction for a fictional engine, not calibrated Draco radiance.
+// Separate view weight from spool: rotating the camera must not shorten the jet.
+float exposure = clamp(EyeExposure, 0.000001, 64.0);
+float target = max(DisplayRadiance, 0.0);
+float radiance = min(max(max(ThrusterRadiance, 0.0), target / exposure),
+    min(1.5 * target / exposure, 2000000.0));
+float radial = abs(UV.x * 2.0 - 1.0);
+float warmCore = exp(-6.0 * radial * radial) * (1.0 - 0.65 * saturate(axial));
+float3 authoredTint = lerp(float3(0.30, 0.52, 1.0), float3(1.0, 0.69, 0.34), warmCore);
+emission = photo.rgb * lerp(float3(1.0,1.0,1.0), authoredTint, saturate(FictionalTint)) * radiance;
+opacity *= saturate(ViewAngleWeight)*exp2(-3.0*saturate(axial));
+#endif
+// With 6 intersecting planes start at LayerEnergy=1/6, calibrate in UE exposure.
+// Photo RGB is normalized chroma; intensity lives only in opacity (no squaring).
+return float4(emission * pulse * max(LayerEnergy, 0.0), saturate(opacity));
+#else
+float axial = saturate(UV.y);
+float radial = abs(UV.x*2.0-1.0);
+float core = exp(-radial*radial*7.0)*(1.0-smoothstep(0.2,1.0,axial));
+float shock = 0.86+0.14*cos(axial*35.0-PulsePhase*4.0);
+float fade = core*shock*saturate(Thrust);
+float3 color = lerp(max(ThrusterColor,0.0),float3(0.8,0.92,1.0),core*0.45);
+return float4(color*max(ThrusterRadiance,0.0),saturate(fade));
+#endif

@@ -1,0 +1,3572 @@
+[
+  {
+    "path": "Content/Star/Art/CabinFinishV4/manifest.json",
+    "bytes": 11893,
+    "sha256": "27fdce2b9ae6bc01a3474c4838fb1cf931d324a4611dc4c66829f73418df828f"
+  },
+  {
+    "path": "Content/Star/Art/CabinFinishV4/SM_CabinFinishV4Support.fbx",
+    "bytes": 613388,
+    "sha256": "8d7c55a06b29b548066abb21b8afda81f6077b5336ddf59325d209fcc0e55eeb"
+  },
+  {
+    "path": "Content/Star/Art/CabinFinishV4/SM_CabinFinishV4Support.uasset",
+    "bytes": 395859,
+    "sha256": "00e7dd4f6d23842163dba19677d8ec4ad255e97bb394a27a039ba244dc4c26b0"
+  },
+  {
+    "path": "Content/Star/Art/CabinFinishV4/source_and_diagnosis.json",
+    "bytes": 2369,
+    "sha256": "565babd17d25a3b331ee82bdb33bdb433b9ae93949106b37be896867381e67eb"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/.gitattributes",
+    "bytes": 153,
+    "sha256": "5b458f40fc3170c11260602263b3d26f741ec5e033ee987bff392cdad3743276"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/export_validation.json",
+    "bytes": 3265,
+    "sha256": "781de26fe496e924b0abb95093ee7e00949f79f0d4d7136956fbed55e024aaf5"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/manifest.json",
+    "bytes": 4745,
+    "sha256": "78d458d1f57b1cb890f81ca93b015d65b21293a93164e4fee2a3983dc695de68"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/production_receipt.json",
+    "bytes": 1783,
+    "sha256": "73c2f71beee6b41a85b21942c7f462dbc45f933ed72688660b3c33500de17ab1"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/Review/new_close.png",
+    "bytes": 1217750,
+    "sha256": "669daa8dafe49cc5e8a19c097f19157eb01135f81e8753354922d36b4def96b9"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/Review/new_side.png",
+    "bytes": 1113440,
+    "sha256": "2e7ad330b522a6636196d495a0d9f18bcd0039b63e93edf255c4e03c7e9a94d1"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/Review/old_close.png",
+    "bytes": 1205149,
+    "sha256": "a73de2ddbd66a06e93edac39e449dbe4145f46d82f9ff72e0bbf187d191fc1eb"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/Review/old_side.png",
+    "bytes": 1093786,
+    "sha256": "990e3fd11f90aced07ec02c4e80266627a977651663ddd674cf45e758560cfc9"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/SM_ControlStick.fbx",
+    "bytes": 2024620,
+    "sha256": "473426b6cf891494f2212b2870a2a4cde3ac9e89a373400cc42f97e2cfb818c4"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/SM_ControlStick.glb",
+    "bytes": 1137288,
+    "sha256": "2d154c25ee9dd6794ac28b8d70158d501350df0547399560b323f3e5efcbb74f"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/SM_ControlStick.uasset",
+    "bytes": 1254570,
+    "sha256": "dce85cb12f7fe2e3858a5a0fa1d4d6e913f9739bb4040ce9b9d5eed431224eb3"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/STAR_ControlStickV4.blend",
+    "bytes": 975737,
+    "sha256": "8259e6211865c3214958fe555d838db691778e6fa5e90946f3513778f329adc0"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/ue_import_expectations.json",
+    "bytes": 538,
+    "sha256": "871c4ce4d227459355b2ca720e596242c1daf1709f25527db07dbafed591bb94"
+  },
+  {
+    "path": "Content/Star/Art/CockpitControlsV4/validation.json",
+    "bytes": 2727,
+    "sha256": "0325561be7b08b837f1ea4911673f152ac0d94ecfb8f67c383a7c69abfc0b2f4"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/artifact_validation_v04.json",
+    "bytes": 2583,
+    "sha256": "4c6aa9f0e7c48e29372fee356a76bf86fd4ad711b264793ff545370366202139"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/envelope_v04.json",
+    "bytes": 2137,
+    "sha256": "491d2461f6197b54e7a30962736c938cb1a851b0eb6a702f1838b83d26e8b9d0"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/manifest_v04.json",
+    "bytes": 7775,
+    "sha256": "5c1de2b406d1b9d8e0df8dad001fae0ce726a779cc794d79eb65eb123ec51561"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_AnodizedGraphite.uasset",
+    "bytes": 6487,
+    "sha256": "6370e1cde488912f36c6a3422aefcb37573aec1dce1668ecb7a6089f96ffd273"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_BeadBlastedAlloy.uasset",
+    "bytes": 6481,
+    "sha256": "2227582b369dda4a65ccd1f2f8c3dcfdddd877a4abaa44f3864bbd03a35d49f3"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_DisplayOff.uasset",
+    "bytes": 5640,
+    "sha256": "ff386845b13f575c93da215685b99ffaa2ba19888ff44a1d418c7ae11d127ee4"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_Elastomer.uasset",
+    "bytes": 5634,
+    "sha256": "51b789daebcb5f9a3858145a33e86f14150807f1f6f452588306b7eb647df2e7"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_EtchedLegends.uasset",
+    "bytes": 5658,
+    "sha256": "029043c73f61e1d9376ca841897f8e44f9ae9c5819db5be0aaf7e831b7acb4ce"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_InsulationPhoto.uasset",
+    "bytes": 6313,
+    "sha256": "a725ff3ffbd39905a45bc3b9189d1643b9b18c92ca8f2cb41a5e4d37f443c68b"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_PowderCoat.uasset",
+    "bytes": 6414,
+    "sha256": "778a652c01efb6d5f996d2cc4b9cf1b87a7eb9947f36a6064661e16e6e4d7c98"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_SafetyOchre.uasset",
+    "bytes": 5646,
+    "sha256": "d9f1df20840cbd019d23c3b9a0762a6c3d0a86331885f3abab3c88797c9239bf"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_ServiceBlue.uasset",
+    "bytes": 5646,
+    "sha256": "58bda041ecc948bcae9d4b0362973b47ba0f06beae13d576b651f14d25e550de"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Materials/M_CV3_WovenSeat.uasset",
+    "bytes": 8473,
+    "sha256": "dbb0d849e989bd01081a25bbac17f2aa783fe54c5f40e732c672995b5bde58f0"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Parts/SM_CockpitV3InstrumentPanel.fbx",
+    "bytes": 11881724,
+    "sha256": "12011fecfeed663ba9083f0f30632e60f95686db2c605336c4f14468b5b064cd"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Parts/SM_CockpitV3InstrumentPanel.uasset",
+    "bytes": 2832277,
+    "sha256": "ca3ba3518cfa26034e6cab89f516a3f0251588aabc30babe555ccd29dd354f7c"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Parts/SM_CockpitV3Interior.fbx",
+    "bytes": 19516268,
+    "sha256": "8e6f6ea1b43844f27cf4069cf6f67ddc8b8a1a21c09b2749a73d86ecbe6c6034"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Parts/SM_CockpitV3Interior.uasset",
+    "bytes": 5898440,
+    "sha256": "1e222aba5b9924fa5b03c4ff3fb969537c0e96fac373053267de05c512887a10"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Parts/SM_CockpitV3SideDetails.fbx",
+    "bytes": 693836,
+    "sha256": "66e975eb8a791c4938459ef15c9c21646dde73728711257195643e06ba1bac58"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Parts/SM_CockpitV3SideDetails.uasset",
+    "bytes": 603549,
+    "sha256": "2e63d6aaff500d36fae744ab0bdd2909366590bd3690f480d05825661c702b57"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/baseline_front.png",
+    "bytes": 1606072,
+    "sha256": "20ae1c243e14652da3c3ff6428e2163655c93d8d8c902f77ad5756685e80eb24"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/baseline_left.png",
+    "bytes": 1818204,
+    "sha256": "34536211098e349a6d9d53009860024124d7aa3a4f23b124ebbb29374bf082c2"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/baseline_rear.png",
+    "bytes": 1756865,
+    "sha256": "0603a6025d9e2d7522a7ccb53bac63f0ad80d05dd8c2f638285b9bf08db80ab7"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/baseline_right.png",
+    "bytes": 1807083,
+    "sha256": "a5232087169853a4ab8a8e320b6a13ba8ac44e8a051e04f48a69da31dd4a660d"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/candidate_front.png",
+    "bytes": 1613604,
+    "sha256": "80bbc53abf442447cd7a92e5e78ddf129089a13ee898adc7f002aca4eebcfc62"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/candidate_left.png",
+    "bytes": 1830753,
+    "sha256": "37d2561151bc04eb7e6fddf115c912f0d5e815cde25eb2deac3823e8ae9321c9"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/candidate_rear.png",
+    "bytes": 1760567,
+    "sha256": "3bec1c2b11a601be698d72d7e28660e95d654a30b737a54ba51258b42b37b15e"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/candidate_right.png",
+    "bytes": 1815206,
+    "sha256": "1189ffec7c289e42b6f4d381da123ea5dd0113123b5c2254c3a8a3f5cf18665d"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/index.html",
+    "bytes": 3249,
+    "sha256": "908fefeccacbefedbdaae4fc1faff51a0d74532f8cc6bf543f8c343d93aaa24f"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/render_receipts.json",
+    "bytes": 4108,
+    "sha256": "50ef24acbe73af31677f9785567def4d8870878e9dfeee69b60627aac6439537"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ReviewV04/review.json",
+    "bytes": 1770,
+    "sha256": "99f51d4c5322914b888985729544bcd2e3f0ab21ab1eebbf80870cd2bbdf4aba"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/STAR_CockpitV3.glb",
+    "bytes": 18278800,
+    "sha256": "36d7bfc36ebe084205e2b5b7a374bfb477cb0279db45b55c933f716447482b0d"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/tangent_diagnostic_v04.json",
+    "bytes": 1256,
+    "sha256": "dc341f1b5ef8ff99372d8788121da81e97f0412672ad816674bcf65397eaedc0"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Alloy_Roughness.png",
+    "bytes": 647897,
+    "sha256": "a15a5540e4fd92a39caa9863150b3ad1ff9856233b14218b3772d7d99fe8ed6d"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Alloy_Roughness.uasset",
+    "bytes": 663609,
+    "sha256": "fc025abbb47710ad77c9dd00b991df3860b16a303e0a3e07901aab0ce58577b1"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Cloth_Normal.png",
+    "bytes": 10536,
+    "sha256": "1c837503128f2ced27428be33374a23a7e60696ed57548c80d2986809a2b06b8"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Cloth_Normal.uasset",
+    "bytes": 17449,
+    "sha256": "3bea7e888cc1c5431aa10ae78a80fb94eef92176151ef6e98c4a1afde13f897f"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Cloth_Roughness.png",
+    "bytes": 622243,
+    "sha256": "69249eb3d4b205b23c25ce8537937338bdce8e1e2afeae10545460378422fb87"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Cloth_Roughness.uasset",
+    "bytes": 626722,
+    "sha256": "9ee95d9cdbd58d0bb36fd3d7341a20807255c509f87577f778c9f6359c60dbd8"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Coat_Roughness.png",
+    "bytes": 613594,
+    "sha256": "950047b2875d74fd8e2caaab3a6fcfc75965902b8d84be3efb88cd27b30e3bd2"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Coat_Roughness.uasset",
+    "bytes": 615037,
+    "sha256": "95043ebcbbd55c03e09fb64b017321c9e56b72ecbebdf95787e1e06ae0ffb486"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Graphite_Roughness.png",
+    "bytes": 592243,
+    "sha256": "010c2ebb90f4ff480425313e7e3a1477a6ece7be481a8808f71c55d2f3bd4235"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/Graphite_Roughness.uasset",
+    "bytes": 588367,
+    "sha256": "947b543014f81c4d4506442513153eeca717529d3b38c2d80fc7fc586591ac1f"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/OrionInsulation_BaseColor.png",
+    "bytes": 23487,
+    "sha256": "55366787b41aa0432ec0a7533980912ac4835524fac84b8d4caa254cd5ed6199"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/OrionInsulation_BaseColor.uasset",
+    "bytes": 29196,
+    "sha256": "1bfd4a4744a06f46bcf83151e03ec9b7c5bfd7e7656ab2bd4212af33f17c1e18"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Anodized_NormalGL.png",
+    "bytes": 124180,
+    "sha256": "a20aa62bb3412c394b4277568efefda9804c3fb7cad401dbc8ae1a6af35441d2"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Anodized_Roughness.png",
+    "bytes": 129465,
+    "sha256": "e271d8081eced7a63ef32463e48da628d535809d07fdb2a07b2545d15ef33799"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Machined_NormalGL.png",
+    "bytes": 91586,
+    "sha256": "7c4a0cb3c55167a31e3f8da4a6a3e800efe1402e6f0e91210cf5c743851c3719"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Machined_Roughness.png",
+    "bytes": 99862,
+    "sha256": "0abf6b7a1edfdc7bd1d32cdc13854029022bbf5b3eca987f464f04495be1909a"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_manufacturing_metadata.json",
+    "bytes": 2991,
+    "sha256": "08af634835fb3c0f179574b534a9050017668da05306dbe4ad1510b8796b483b"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Phenolic_NormalGL.png",
+    "bytes": 121097,
+    "sha256": "469030817b4cd458671d998822f1fb8a0f82797b472a5d425dd5b1ad49756f32"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Phenolic_Roughness.png",
+    "bytes": 117801,
+    "sha256": "b0fb3e95f213ce83daef4f2743e7ac679fc26efa063b7566dd5a5b981c4a5855"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Polymer_NormalGL.png",
+    "bytes": 115191,
+    "sha256": "f35f4731b86b1ac01507a59005f9e5191a873a565fd7909a56627f4b774b5f78"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Polymer_Roughness.png",
+    "bytes": 90397,
+    "sha256": "bfeaba1d9aa44edfc33814c40d9d24dd0d5ebef7d89bb637570f84a36d322333"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Powder_NormalGL.png",
+    "bytes": 115087,
+    "sha256": "f527239ace53151f918d5d576060f193b6c34b61d20350ad525dde2778c328b5"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/Textures/V04_Powder_Roughness.png",
+    "bytes": 101130,
+    "sha256": "c76c639911c7f2b0e8d3626e4d577be98e1a9f57fd61c1a16028fb2326d74e92"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/ue_import_expectations_v04.json",
+    "bytes": 792,
+    "sha256": "0afd7260fa1cb617d90cb7324f045db748e7d2e16c84b88128f90ed58230e789"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV3/validation_v04.json",
+    "bytes": 7097,
+    "sha256": "7eb43d796c376cc50977707514efde1e941bac7ea80b4949fd91f1beb8b01557"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_AnodizedGraphite.uasset",
+    "bytes": 8958,
+    "sha256": "324a93f2ece649d9c40dac40858f6140bb1abc866bf5a020da32c8a8fdc43297"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_BeadBlastedAlloy.uasset",
+    "bytes": 8958,
+    "sha256": "e318c205a8dc64fbdecb8ac6c88c5d8bd0ddab602b3a3bffa1ad03246286ae89"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_DisplayOff.uasset",
+    "bytes": 5640,
+    "sha256": "aafc510bcd832704e6162271bb95e75a295643b8eacaa43210917170b11e0f0d"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_Elastomer.uasset",
+    "bytes": 5634,
+    "sha256": "4e5c3de4430e80831b6516363bed58d44b0252ed84edf55f675279df677e2862"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_EtchedLegends.uasset",
+    "bytes": 5658,
+    "sha256": "240da38fa14771846ffe979792b76d1b06fc605c2375bd80c05d3342b854ec21"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_InsulationPhoto.uasset",
+    "bytes": 6313,
+    "sha256": "43ffcf0121f20702677d0934f91ba63970457dffa36b116807cb44df4f79b48e"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_PowderCoat.uasset",
+    "bytes": 8885,
+    "sha256": "869eb756dd7ba7239fea4931586945ce61a250b065869cd417a8c99a2d1ab98e"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_SafetyOchre.uasset",
+    "bytes": 5646,
+    "sha256": "2a27070d9de2bf894fb4befefd131fefc585bc464355c06e11a0b3b0d4bb792c"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_ServiceBlue.uasset",
+    "bytes": 5646,
+    "sha256": "2bf36f6219d801df3d379b5e6b3e5d6ca8808dbcf06362e14f5bde7461b8dcf4"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV3_WovenSeat.uasset",
+    "bytes": 8797,
+    "sha256": "ba4812b207608f9152920c4d677bb3afc5195dbef06c161b8dfe26fcd8f22fae"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV4_ControlPhenolic.uasset",
+    "bytes": 8923,
+    "sha256": "4ba0869d4f3ae715d7d3c9d5bf82f8dfba1d61ee52f1db63553624bc7796f3ce"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Materials/M_CV4_TexturedPolymer.uasset",
+    "bytes": 8919,
+    "sha256": "f36648db41d8ef40e3440f0d2b6cfe0c70ea276cdbdbf90a3c2722f503524574"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Parts/SM_CockpitV3InstrumentPanel.uasset",
+    "bytes": 6977782,
+    "sha256": "5de9d276810f2e7247bb4e7345f99d7d7b16eca386ed2b8531c9646121444ffc"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Parts/SM_CockpitV3Interior.uasset",
+    "bytes": 11511470,
+    "sha256": "0aba69b4d86c86cb2bf4ea9086f1fc1c414585909c84f62d86279843952ba511"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/Cloth_Normal.uasset",
+    "bytes": 17499,
+    "sha256": "90d4a34ef2181642375a8ea26579ad5b48aacbf4cfbd4c42e5751619e0736fe2"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/Cloth_Roughness.uasset",
+    "bytes": 626772,
+    "sha256": "7902cb2b1ef0bfd5447c24af1687c40230f7ee07cbc1acc3920e0ad7815dae14"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/OrionInsulation_BaseColor.uasset",
+    "bytes": 29246,
+    "sha256": "71b71acab0675d6006ab1d95b58c1160b1e45b61e8cbd14258f57955edb95fe5"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Anodized_NormalGL.uasset",
+    "bytes": 161948,
+    "sha256": "c4627b982132dbdd158cd2d8a315ab7b151bcd59d19ffd24891c077d8c88f796"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Anodized_Roughness.uasset",
+    "bytes": 138692,
+    "sha256": "b5b53e491488f259077b943a8d3b3025e7478beb1509fa1e624cff3bccc8f45d"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Machined_NormalGL.uasset",
+    "bytes": 117388,
+    "sha256": "eec47d0f79181e83813e8d12e3ff258aeb177dfe519336510988964de0d13b93"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Machined_Roughness.uasset",
+    "bytes": 119351,
+    "sha256": "0c620220714506b54454a855651d804b74b8c80c71553615f8b5a25f20e9069e"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Phenolic_NormalGL.uasset",
+    "bytes": 156451,
+    "sha256": "469cf63a37aa9c3aa825449586fa6f7e8688ed5eaf8fe436f29fd671907562e0"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Phenolic_Roughness.uasset",
+    "bytes": 131858,
+    "sha256": "e4966f0699b4cd2bd5f47a15d9296842dfb87ac3c9eee89748060d7eebe25957"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Polymer_NormalGL.uasset",
+    "bytes": 151455,
+    "sha256": "c867038ab583645a0b4592c011f38d4cdb7a3e0fbbce9bd497b599bfec4b7734"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Polymer_Roughness.uasset",
+    "bytes": 97864,
+    "sha256": "b2fd8ae96daed614ffb3d34a5fb6d0957c57799c57464f00d513f6aaa9c5fe95"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Powder_NormalGL.uasset",
+    "bytes": 149658,
+    "sha256": "634bb4f8e0da538c0b2548c6ec82f9028ccbaeb08b9ad0ea2e66c61c1efff4c4"
+  },
+  {
+    "path": "Content/Star/Art/CockpitV4/Textures/V04_Powder_Roughness.uasset",
+    "bytes": 109338,
+    "sha256": "73fb0a82d6f2b860b3d958319d6d5806a6159c078348ec2c87838c2d935839d5"
+  },
+  {
+    "path": "Content/Star/Art/EarthDetailV3/T_EarthDetail_Andaman_Aqua_20250906_8K.png",
+    "bytes": 45733387,
+    "sha256": "a4b0be42f90c045a9db0596f3b6c3d52dc819f22e598daf7c6b16978fb171bae"
+  },
+  {
+    "path": "Content/Star/Art/EarthDetailV3/T_EarthDetail_Andaman_Aqua_20250906_8K.uasset",
+    "bytes": 42790551,
+    "sha256": "0f8332ff12c3ba6322589206764ebb8334a4f3a7b0554ca1696dbe58d2caf0bc"
+  },
+  {
+    "path": "Content/Star/Art/EarthFlight/T_Andaman_Sentinel_2016_4K.png",
+    "bytes": 736395,
+    "sha256": "c60618522157d007da2f3258cb269b76bcd48b3c8811c3ac53f66513f4b84c37"
+  },
+  {
+    "path": "Content/Star/Art/EarthFlight/T_Andaman_Sentinel_2016_4K.uasset",
+    "bytes": 4956879,
+    "sha256": "987fa48161850a94107d463bda93df40a89995c520c5eb8fbc45913c34a86845"
+  },
+  {
+    "path": "Content/Star/Art/EarthFlight/T_Andaman_Terra_20250216.png",
+    "bytes": 2928937,
+    "sha256": "1ac2eee171689685743546fd70163e16deff23ac93e814d43465f631159a7598"
+  },
+  {
+    "path": "Content/Star/Art/EarthFlight/T_Andaman_Terra_20250216.uasset",
+    "bytes": 2385532,
+    "sha256": "c13a6d6a4462dd04a0d7626deb7ee9e148c32ac677236170942625e20ac0880a"
+  },
+  {
+    "path": "Content/Star/Art/EarthFlight/T_Cairo_VIIRS_2012.png",
+    "bytes": 1087799,
+    "sha256": "3775ee211a3aed0739db9ad635ade66044981ec1c412f0c2f832fac31c8c0b16"
+  },
+  {
+    "path": "Content/Star/Art/EarthFlight/T_Cairo_VIIRS_2012.uasset",
+    "bytes": 907230,
+    "sha256": "7bd8cd1120a6212d28b73e2bf68e37f631e8f7ae2b5e7d160ba9c264d38b442b"
+  },
+  {
+    "path": "Content/Star/Art/EarthRealism/Sources/Cairo_ISS2023_PublishedPanorama.jpg",
+    "bytes": 1922302,
+    "sha256": "fdbf8042daa86c5f860f1295e8a2d4a067ebd860875b0450e9b19ba161051f1c"
+  },
+  {
+    "path": "Content/Star/Art/EarthRealism/T_Cairo_ISS2023_Geographic_4K.png",
+    "bytes": 14665248,
+    "sha256": "56aebb51116db79b12e8a51237661aed8dc3e5f2daba7064fc3993b0c21586a6"
+  },
+  {
+    "path": "Content/Star/Art/EarthRealism/T_Cairo_ISS2023_Geographic_4K.uasset",
+    "bytes": 14163025,
+    "sha256": "bd83037e8c195512542ea9125d15e3bc2558ec6c50bc81fe04d3edf71dfff053"
+  },
+  {
+    "path": "Content/Star/Art/EarthRealism/T_Nile_NightLights2016_2K.png",
+    "bytes": 516137,
+    "sha256": "680b3079fbd0eb01334fd5ec119e6e775bbb66c8ebf01d70fa54766dd9c413fc"
+  },
+  {
+    "path": "Content/Star/Art/EarthRealism/T_Nile_NightLights2016_2K.uasset",
+    "bytes": 454255,
+    "sha256": "1e93e11e109e264f362eaa7cd6ffdcd6b675980d2c448f33e66040f7ae226f49"
+  },
+  {
+    "path": "Content/Star/Art/EarthRealism/T_Nile_NightLights2016_Smooth_2K.png",
+    "bytes": 581025,
+    "sha256": "889406f67a6a9992f002e312d5a86f2bcd6900a0638ef5edc03806d567480409"
+  },
+  {
+    "path": "Content/Star/Art/EarthRealism/T_Nile_NightLights2016_Smooth_2K.uasset",
+    "bytes": 510991,
+    "sha256": "f0dbf600e7312ccddd8a8c0aaf5d9151d308fc144a6978a23c52d918c58efcb2"
+  },
+  {
+    "path": "Content/Star/Art/EarthSurface/T_Andaman_Observed_8K.png",
+    "bytes": 18098069,
+    "sha256": "8975bbdf1829ee128646a30d9e894742c40dc1946d5b7b90ff434812dcaa6d37"
+  },
+  {
+    "path": "Content/Star/Art/EarthV2/T_CloudDensityAtlas.png",
+    "bytes": 170213,
+    "sha256": "2912219ddc4f54b47be70c71d9434bb0a073e553259eff860b2104dd124a7156"
+  },
+  {
+    "path": "Content/Star/Art/EarthV2/T_CloudDensityAtlas.uasset",
+    "bytes": 195842,
+    "sha256": "ce02eb287b54308135f555cc4ee9f8f0c041c830a21ae506b1d8c28562cdd53b"
+  },
+  {
+    "path": "Content/Star/Art/EarthV2/T_EarthOpticalDepth.exr",
+    "bytes": 270764,
+    "sha256": "5acc4127a67f18ea2e5b86011dc33accb277b459845b80e0c35ead54b3b0fbd4"
+  },
+  {
+    "path": "Content/Star/Art/EarthV2/T_EarthOpticalDepth.uasset",
+    "bytes": 283496,
+    "sha256": "4e85dc1a896583e4c4773b6cc562ee9ee66eb3349d68047aeb0b900bcfef789e"
+  },
+  {
+    "path": "Content/Star/Art/EarthV2/T_Pacific_Aqua_20250906_8K.png",
+    "bytes": 34097685,
+    "sha256": "1d10be16093d9351308b2984645ce4b036c479d5e8472ced4bf3cb33000ab3dc"
+  },
+  {
+    "path": "Content/Star/Art/EarthV2/T_Pacific_Aqua_20250906_8K.uasset",
+    "bytes": 30943777,
+    "sha256": "2489fd3ffed481ebbbd74f83c5ea570e6c6e742990f69d6f04183ce8d374e3c7"
+  },
+  {
+    "path": "Content/Star/Art/EngineFXV3/engine_plume_disks.json",
+    "bytes": 19793,
+    "sha256": "1a775e68eb5eabec85531d3777fa5f010feb50b8d425a91668ebac1df8bac68d"
+  },
+  {
+    "path": "Content/Star/Art/EngineFXV3/engine_plume_mesh.json",
+    "bytes": 22682,
+    "sha256": "e596b5ee259315b13f56edd2e97c7340c7c50f813f509247e29abdc258b09eda"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_CanopyGlass.uasset",
+    "bytes": 12394,
+    "sha256": "d62ed9b804ae93b8e07b146f94332705b887f98d53273f9c95e7ef28095153db"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_CeramicCold.uasset",
+    "bytes": 18989,
+    "sha256": "994c7bf807db6620afa348ebd0f109cc0d0b2524526fcbfd0ecb28b78cc9f3e6"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_CeramicCool.uasset",
+    "bytes": 16102,
+    "sha256": "a734700bfd8cd641a561c36fb75f05cda3c7383d7fc742ffd11ecbbe9f4ba2e2"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_CeramicIvory.uasset",
+    "bytes": 18515,
+    "sha256": "76c132712c98415c858c455d0de190ee7eea114ccf262847cb839a83ae92c00f"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_CeramicWarm.uasset",
+    "bytes": 18906,
+    "sha256": "d26148c4cfa1bbd439566a7b9e96bd614d4e5c49f41a7c35fd7c7f90b464babe"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_CockpitSoftTouch.uasset",
+    "bytes": 9425,
+    "sha256": "e906edfa80a6c5b7410a09819f905b9ec3bb2461f664314f83974ffea48704c5"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_DisplayBlack.uasset",
+    "bytes": 9139,
+    "sha256": "a01cecfbe811547ca1826e422bbf711b6d625e77549dc339a04a67e4d124e1c7"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_EtchedTitanium.uasset",
+    "bytes": 9628,
+    "sha256": "5f9ba29abe6e0f1c9f026caa477d199a6ad0bdb73960d6af2d34ea34fce81bdd"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_GraphiteStructure.uasset",
+    "bytes": 14888,
+    "sha256": "8b4b72033f87e37f08ab3ad8fc7f0bfb6a843caebe1121c71b8d59d0b9c23dc4"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_HeatBlue.uasset",
+    "bytes": 9768,
+    "sha256": "24a645c2bf158e3ed2660bf38a1cee76776d2b15abc68ae7e546491aaa017f0c"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_HeatCopper.uasset",
+    "bytes": 9758,
+    "sha256": "ef1091a14ca8194fdc3e58c5aedc3dbf6121484a24c309b2632558e4c1295899"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_HeatShield.uasset",
+    "bytes": 9102,
+    "sha256": "bed74e6ad2f9e1da17e05ed3b429d7da3801518b83b730fa027a99331efc3520"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_LabelWhite.uasset",
+    "bytes": 10872,
+    "sha256": "2f9213c1dd511d7365a72f3f0d9341e001c5fa796e1a378d2aa03f375eacb30f"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_MachinedAlloy.uasset",
+    "bytes": 15188,
+    "sha256": "9f9db1c118fa3eae490ef02fb991bf1d6ba157157840bf30c26f7af709c43c2e"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_MutedAmber.uasset",
+    "bytes": 10668,
+    "sha256": "ad09b53e72b190ec53bb007f33001dd61ea0dbd3a2dac15b9cd4666a91ac2b8b"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_NavigationGreen.uasset",
+    "bytes": 11824,
+    "sha256": "73d228cb8033a0af723ecc342d37e37e5161f7de190f2545dc7676e47ea0ee55"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_NavigationRed.uasset",
+    "bytes": 11933,
+    "sha256": "1ccb92c5c3e9a6534be429ccc5a2896c7573074a12d89ce5161e892fa7ddb246"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_NavigationWhite.uasset",
+    "bytes": 11449,
+    "sha256": "bff4ecaba58644246ccb8c0825df28eefe2e7deeac328d3cd033c3ca82474fe9"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_PhosphorIce.uasset",
+    "bytes": 11843,
+    "sha256": "b85746c9abc23d5831c36be11a0a2bacd933a19f03a1d5efa07ba68cdb34fdb0"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_SeatWoven.uasset",
+    "bytes": 13792,
+    "sha256": "89aaeb94a21a865491039ddebcd0e7a2fb81251f79e245ed65bc4cd7df33ffb9"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_ThermalFoil.uasset",
+    "bytes": 10386,
+    "sha256": "bb4888b59a4f865b935ae2f1e21f28ff347b57cfe6729295ed966d24055dd561"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Materials/M_Titanium.uasset",
+    "bytes": 15204,
+    "sha256": "9258e1fbafc124d61b5f1a5044af5c27b3475235334cf63fd01fd118ffa07e98"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_AftServiceBulkhead.fbx",
+    "bytes": 209900,
+    "sha256": "a0a44baaac48b76bf6cb87a284434934369a93f2cc5d872084a16f940fab58c9"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_AftServiceBulkhead.uasset",
+    "bytes": 279942,
+    "sha256": "503bdb025bc7b3bd5a861801e7321c6b0d5c15abb5ebca4a55e29415c9f6eda0"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_CanopyGlass.fbx",
+    "bytes": 29436,
+    "sha256": "9a78df33854fa4029665211b0a69b1c498cc6523ac471ca205b3badaf6a9bcfd"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_CanopyGlass.uasset",
+    "bytes": 33185,
+    "sha256": "8f74f3cf5ae500377858437226806a2996b191e1fe104075563c8b9bb3416592"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_CockpitInterior.fbx",
+    "bytes": 410572,
+    "sha256": "f72d956fdcd411343cb68fe0ff8bc2ddc923e6943ebb0fbdf4efe7d1eb019b3e"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_CockpitInterior.uasset",
+    "bytes": 449401,
+    "sha256": "0b28d58275c036ee638a2601a22a974609aa3ffe246853ba92638d82ec66b340"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_CockpitShell.fbx",
+    "bytes": 281900,
+    "sha256": "8b4cd6a51b2169fd2cc1f67d4dcc65f8c9245bff43c4881f1b87a423fdd80425"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_CockpitShell.uasset",
+    "bytes": 350929,
+    "sha256": "c5629fe1c48ecd47442460c92b9108cfa3ec6cf4e879a92e41da8f9549991205"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_ControlStick.fbx",
+    "bytes": 53612,
+    "sha256": "7484504d7ac939bf9b7aba803091d24699eef9cc29a4d9bd3b876cdffcdd3208"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_ControlStick.uasset",
+    "bytes": 63558,
+    "sha256": "790f5465557133b2a72afb3bccfb4e061dd706bd89eb2c5e8bc61fb5258c3823"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_EnginePort.fbx",
+    "bytes": 2609164,
+    "sha256": "dd858edf3a3d185eeb4c97574a6f75df927d30db11ca781adc05b49ac0667f9c"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_EnginePort.uasset",
+    "bytes": 2818556,
+    "sha256": "7dac7b12d452312f4367215530778e94861625b3424a2a26fa19472f2dc54846"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_EngineStarboard.fbx",
+    "bytes": 2608876,
+    "sha256": "7f082ae365f4f19992c973926fe0a3c2da2e4f85ec8dd394d36d76102094dfcd"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_EngineStarboard.uasset",
+    "bytes": 2822443,
+    "sha256": "b793685f82b8c91f0fdd625b1f8c76810d038fcb51d355c06fb91a8f81da5abd"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearBays.fbx",
+    "bytes": 58124,
+    "sha256": "ff4f5656cb921cf59ea5c24383726e283e5c8dd70bcd0c0cf270e2251a3bfbc6"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearBays.uasset",
+    "bytes": 61742,
+    "sha256": "11c96dd1f36ad0828b55f584475381eb648461f0351725bda8c65973cf61a3c5"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearNose.fbx",
+    "bytes": 393644,
+    "sha256": "209fec3fcdf90eddad237f28e244bc1cc970688131f0817f27c8cfda304d3deb"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearNose.uasset",
+    "bytes": 482092,
+    "sha256": "776433e9f40fda3013fe3d3d2be7ac1b4774f3547a4c5eae749fedb63e91e2a4"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearPort.fbx",
+    "bytes": 414940,
+    "sha256": "eb9f26f6a5f979bfcf751c6c5acdde02daedcccae71404c9d1c22fcd46e436a4"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearPort.uasset",
+    "bytes": 499258,
+    "sha256": "836f434594a8339076786f64b7f0260241a46502f6b0d9ed23b083457d3541e2"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearStarboard.fbx",
+    "bytes": 415244,
+    "sha256": "30346dd9631b5f10fab40b8b9134750a402a7a7447634ac6c2091edf0d5b2dc8"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_GearStarboard.uasset",
+    "bytes": 500515,
+    "sha256": "585f23c2578dce87b26aa42ed8c14ab5087a8b1ff8ed50f3695666dc08d1fc92"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_Heatshield.fbx",
+    "bytes": 182732,
+    "sha256": "53de5c1a672fef9f4cee7f67680da0dd78e771322b40504f6da203cad72be0e0"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_Heatshield.uasset",
+    "bytes": 195512,
+    "sha256": "4e2fcbf42ecad034e235ee1375fdf281f181b60c35e6110cb05bc6064f6f3903"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_HullCeramic.fbx",
+    "bytes": 1603356,
+    "sha256": "4a368b8d47b848de4044a798f33f95d12f988fb01bdc36891e715112110971b4"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_HullCeramic.uasset",
+    "bytes": 1699229,
+    "sha256": "78668fcf23caf504311b0ae1358ff7522283bfd7bd37ac53c42fd4c73348dc3e"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_HullMarkings.fbx",
+    "bytes": 421260,
+    "sha256": "b2af66e45c206e5485612d4da875c95e2e875c3792916ade8108d7a555fb3435"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_HullMarkings.uasset",
+    "bytes": 356602,
+    "sha256": "a275053ac6e3d7c7f83a31c4c2dfff7afd1d587b72a448d3df7b72e6ccca18c9"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_HullStructure.fbx",
+    "bytes": 118540,
+    "sha256": "dcfabade685d1cd8ccb84f335d29d7d2c9a0ef8172aea366e2bb9ddf46886896"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_HullStructure.uasset",
+    "bytes": 149114,
+    "sha256": "0365495cdfb92576d8ac8325ecabd6adc9d58e05dca16596df2ec3e9ad66e5f2"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_InstrumentPanel.fbx",
+    "bytes": 202316,
+    "sha256": "b07672a61f60b0ead20d2ae982ed1e45c187a75a8268fb416ddc8d7319992753"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_InstrumentPanel.uasset",
+    "bytes": 193714,
+    "sha256": "d9811460f6e0139ef76beede93155b96f0ab5f84e727c19a99a3eb40c26971d1"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_OutriggerPort.fbx",
+    "bytes": 80092,
+    "sha256": "5d19f08018129a0ad78c68542ab7b2042c1b520a573896bbdf2379e127e7b608"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_OutriggerPort.uasset",
+    "bytes": 87529,
+    "sha256": "9c8ab0f36dd53b3886dbdeb34e1dd3e0d66e2be0e394bb7f06ffadebd2376a09"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_OutriggerStarboard.fbx",
+    "bytes": 79852,
+    "sha256": "aeecb6bb73851f92a4e696227dfd066cd8b2a29f6ef21f0093cdc34df8f385de"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_OutriggerStarboard.uasset",
+    "bytes": 87182,
+    "sha256": "05e5ad4d8fdfcaaef45f656c15853661689222dafc4e1f1f8b3e721e82a8d120"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RadiatorPort.fbx",
+    "bytes": 842236,
+    "sha256": "a2f64c9c54e416d9a195d62ffeaffc4deadd58448a52ed2bf38dc04134a790f5"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RadiatorPort.uasset",
+    "bytes": 929933,
+    "sha256": "94d317f3e8b0a0085e8402c61b6f74b6ef0e7ea6115eb9d5404c6eacec5a73f3"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RadiatorStarboard.fbx",
+    "bytes": 843228,
+    "sha256": "97682284b827c8aca459752a31eaa78ec857fdc230d2e2c27cb1bbeb3eee17ce"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RadiatorStarboard.uasset",
+    "bytes": 933242,
+    "sha256": "c22e105745784418b133c2e74fbc6c5a2781b4563d2cca83169a5c036ce63c23"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_AftPort.fbx",
+    "bytes": 256700,
+    "sha256": "263b88bb947a585b08ed92e7fcfb22d46adda61f5f9961d9f2ed60cc78247c15"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_AftPort.uasset",
+    "bytes": 324011,
+    "sha256": "e7b1c8a77154db3ba4abd2ddb85cea8ce74d183d23d2f9353e2aba355763cfe4"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_AftStarboard.fbx",
+    "bytes": 257084,
+    "sha256": "a90f6ad5567261538d9fea3eda0e404c94c44255897b0f631eddf6fa88105278"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_AftStarboard.uasset",
+    "bytes": 325362,
+    "sha256": "ff919194911573560d4bf65ebdd8932ac35b1e744b3e4b6e2e5d85a16a93751e"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_ForePort.fbx",
+    "bytes": 257676,
+    "sha256": "d0db61fd512b5651b712c5a7fe3bc1faea47873407e9d75b484cd3345466ea07"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_ForePort.uasset",
+    "bytes": 327443,
+    "sha256": "8a287ef3a57d5210982de74e94070b7139a2af11c9dd440bbd9a6baa9caaf465"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_ForeStarboard.fbx",
+    "bytes": 257884,
+    "sha256": "48f9495264bd833109175e4d6938029c5ddde74101a47bbed883862aaba89a4b"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_RCS_ForeStarboard.uasset",
+    "bytes": 328566,
+    "sha256": "254eeb0fa1a268419740d29f003a306248a1c37559585d5c52d87a19202e9d3c"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_SciencePayload.fbx",
+    "bytes": 192988,
+    "sha256": "33b618eb88383b9e9202d8e242528cfaf98b7e1a1be8510fb72d536548b7ae12"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_SciencePayload.uasset",
+    "bytes": 270270,
+    "sha256": "16f50f6a4b2f953f1ac77d1e828039a80bfb7266792253398925d78610adae1c"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_ServiceModule.fbx",
+    "bytes": 561948,
+    "sha256": "afe643614da972fddb47cd44cbc0844cadbb8f9696b407e5ba8460bfcfc966a8"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_ServiceModule.uasset",
+    "bytes": 584015,
+    "sha256": "b829ff7f3e373d2a5b893cdfa1b3e3c4ab922b0e05e756b8aa6ebbf3306e97f8"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_Throttle.fbx",
+    "bytes": 32140,
+    "sha256": "be76cbaf486ab65d15cb0c66856dd17c6cbf6dc1b55af58607edcc28fa9b931d"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Parts/SM_Throttle.uasset",
+    "bytes": 30339,
+    "sha256": "d6605e0d38e31bad60eb8edd7c3c27dd2a6d6b0c8088790062033ae2a7819695"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/CeramicMicro_Normal.png",
+    "bytes": 1401037,
+    "sha256": "4bccd099dd4446099f8891e7da6b3254634a6cb242badc4ae239e70cde553e2f"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicCold_BaseColor.png",
+    "bytes": 968289,
+    "sha256": "8783a9975fcdbb23b8f3407f2936bb348312cfac3d37d09401df57b21b4acaad"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicCold_Metallic.png",
+    "bytes": 22609,
+    "sha256": "518e1cc86dd697cf4f04de69d877515badd98cae37e38d1b9e4f00c66309bfee"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicCold_Roughness.png",
+    "bytes": 757277,
+    "sha256": "9f0e2f98fae9dbc6b185721494b266d7752e6b37ded40e1a77bf860d4be1ce64"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicIvory_BaseColor.png",
+    "bytes": 968877,
+    "sha256": "14afaa02f74b01cffad0e2064b449ab4783febc03d38fcf899f9faed77436873"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicIvory_Metallic.png",
+    "bytes": 22608,
+    "sha256": "0b581c252e54d8a7b3c98efafcc76f7f5768dfef47055803fc8c931a2f55fdb6"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicIvory_Roughness.png",
+    "bytes": 757802,
+    "sha256": "f088cc14ea3d86b3bc1283f080c15ee11bbf88e5221101b47fdb618dfa684e53"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicWarm_BaseColor.png",
+    "bytes": 963161,
+    "sha256": "13f11877d3cf0e8b7359e3e3643d7d6b7946ce398c860304740ef16c3c5b146d"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicWarm_Metallic.png",
+    "bytes": 22609,
+    "sha256": "518e1cc86dd697cf4f04de69d877515badd98cae37e38d1b9e4f00c66309bfee"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/Paint_M_CeramicWarm_Roughness.png",
+    "bytes": 757969,
+    "sha256": "78eefa3db56c70505afc6383d94ed401e17137a4e536f431324b7f8444fc6edd"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbm/SeatWeave_Normal.png",
+    "bytes": 29654,
+    "sha256": "f9428d3796c51a2d08ff2db0014e69dc156415b16aef1ee958b9c9193bd37246"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.fbx",
+    "bytes": 13126364,
+    "sha256": "231482814f796fd513a60246528136b548bc2336959e4f8105fcd23c2e4e1420"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/STAR_Explorer_V2.glb",
+    "bytes": 33169920,
+    "sha256": "d182de2a4811bbea7570694e98232989225243fe923db60efb203165c0d6b2e1"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/CeramicMicro_BaseColor.png",
+    "bytes": 865147,
+    "sha256": "0efaa9d65c23376cf5046de955a53c26372f1912229dc7009f64116d1c28b176"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/CeramicMicro_Normal.png",
+    "bytes": 1401037,
+    "sha256": "4bccd099dd4446099f8891e7da6b3254634a6cb242badc4ae239e70cde553e2f"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/CeramicMicro_Normal.uasset",
+    "bytes": 1435993,
+    "sha256": "d885afe3ed398d6f5e39cd22a6d9162cc7b8786cd1a16cfef95889e257908f65"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/CeramicMicro_Roughness.png",
+    "bytes": 1152660,
+    "sha256": "ae9814eec70f27a03d963b9daf1dfad99dc522b5baf271055a7e6dae1a0af5fe"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/CeramicMicro_Roughness.uasset",
+    "bytes": 729869,
+    "sha256": "973593c6e5e2a48256be35aad449a5c75c9f1e1617afd77caaf237707a8229d9"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicCold_BaseColor.png",
+    "bytes": 968289,
+    "sha256": "8783a9975fcdbb23b8f3407f2936bb348312cfac3d37d09401df57b21b4acaad"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicCold_BaseColor.uasset",
+    "bytes": 913704,
+    "sha256": "20d20cb01cf76a26f9dcd352a3a671e2b551980e90b52947c828a624d8506cac"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicCold_Metallic.png",
+    "bytes": 22609,
+    "sha256": "518e1cc86dd697cf4f04de69d877515badd98cae37e38d1b9e4f00c66309bfee"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicCold_Metallic.uasset",
+    "bytes": 12426,
+    "sha256": "26bfdc5f14f85dd622dbb0d87f4400f346467c12a75ad7412acc5a705ba52741"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicCold_Roughness.png",
+    "bytes": 757277,
+    "sha256": "9f0e2f98fae9dbc6b185721494b266d7752e6b37ded40e1a77bf860d4be1ce64"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicCold_Roughness.uasset",
+    "bytes": 432994,
+    "sha256": "feb57ad4a963814714137f7ea43a93c5c20a329de6a804e20742ad0658d6e040"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicIvory_BaseColor.png",
+    "bytes": 968877,
+    "sha256": "14afaa02f74b01cffad0e2064b449ab4783febc03d38fcf899f9faed77436873"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicIvory_BaseColor.uasset",
+    "bytes": 898444,
+    "sha256": "76f02ff8dfdf2c3c7030f40bc2948cf106cb9eabfb5ecd460f1de55c9081b2e2"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicIvory_Metallic.png",
+    "bytes": 22608,
+    "sha256": "0b581c252e54d8a7b3c98efafcc76f7f5768dfef47055803fc8c931a2f55fdb6"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicIvory_Metallic.uasset",
+    "bytes": 12415,
+    "sha256": "e7ecb9362e2794ae7bcb02187c11823e0ab5db0730e40500b821af939cecbafb"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicIvory_Roughness.png",
+    "bytes": 757802,
+    "sha256": "f088cc14ea3d86b3bc1283f080c15ee11bbf88e5221101b47fdb618dfa684e53"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicIvory_Roughness.uasset",
+    "bytes": 432968,
+    "sha256": "db96da362bf45979dc5d325d48853d58a8f8ba648cc59155f0ca102a9576590f"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicWarm_BaseColor.png",
+    "bytes": 963161,
+    "sha256": "13f11877d3cf0e8b7359e3e3643d7d6b7946ce398c860304740ef16c3c5b146d"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicWarm_BaseColor.uasset",
+    "bytes": 895155,
+    "sha256": "a3e80b591f05e4265d2a4157d223c45482266068ff5a062e8a1d79a7b08a3e32"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicWarm_Metallic.png",
+    "bytes": 22609,
+    "sha256": "518e1cc86dd697cf4f04de69d877515badd98cae37e38d1b9e4f00c66309bfee"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicWarm_Metallic.uasset",
+    "bytes": 12426,
+    "sha256": "a7ce475e1b634ce5d698e61404f8458b1c9240a4d9f3769c444fdcbffee3b18f"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicWarm_Roughness.png",
+    "bytes": 757969,
+    "sha256": "78eefa3db56c70505afc6383d94ed401e17137a4e536f431324b7f8444fc6edd"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/Paint_M_CeramicWarm_Roughness.uasset",
+    "bytes": 433022,
+    "sha256": "441375f7f406d97ef95c20e16c337cf910d86148922c938da60f06cd924a01c4"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/SeatWeave_Normal.png",
+    "bytes": 29654,
+    "sha256": "f9428d3796c51a2d08ff2db0014e69dc156415b16aef1ee958b9c9193bd37246"
+  },
+  {
+    "path": "Content/Star/Art/ExplorerV2/Textures/SeatWeave_Normal.uasset",
+    "bytes": 13968,
+    "sha256": "77ad527882578221bb11c453b19ebf23bcbfcd9b23ef131a68f2d46a8d745263"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/checksums.json",
+    "bytes": 1612,
+    "sha256": "f4e974ae78da14c95f43eac3af269d1804d84d2595e6027f7d1454ff426d4c08"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Materials/M_CockpitSoftTouch_Cockpit.uasset",
+    "bytes": 34040,
+    "sha256": "cbdf94fab9155c1ceb81361e750aa6d3fbd301449f812eddd07c7b3c0d9b52b8"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Materials/M_EtchedTitanium_Cockpit.uasset",
+    "bytes": 16661,
+    "sha256": "be041040e9921f6ca60cb73f26506c0fa0dd292efccd5ed9b90eca486b548433"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Materials/M_MachinedAlloy_Cockpit.uasset",
+    "bytes": 16686,
+    "sha256": "06d6e9eec5a9de8c01e8a0022dc49a02fb349707440a2b242e4563a887d1aaca"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Materials/M_Titanium_Cockpit.uasset",
+    "bytes": 16925,
+    "sha256": "133f6a4442f3e2e575858bf0ae41b9299d08ff6745b947dfef99ce3bc731adea"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/SoftTouch_BaseColor.png",
+    "bytes": 68912,
+    "sha256": "86efca65a8e5dcd74b8dc9b5feee6209e6aaf043db26481c942748491fdc26c1"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/SoftTouch_NormalDX.png",
+    "bytes": 39247,
+    "sha256": "2d2829793bb501aefc61b5d1ba7e2451dbef735cff5b7f25faab6ff187d09b47"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/SoftTouch_NormalGL.png",
+    "bytes": 39297,
+    "sha256": "dc79b3437e074dc7b5a82e5699251313a464df2fa52b7d6b802e5923126ea0de"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/SoftTouch_Roughness.png",
+    "bytes": 24209,
+    "sha256": "f1c09e86635ab37058e33d3476fc7570880706195c8ea25ce7b93033ddc9fe7a"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Source_RubberTiles_Diffuse_2K.png",
+    "bytes": 20476042,
+    "sha256": "2667b95f98eea13aba05bad4ea346280ec05f5e984b0ecabcff9fa9569e61faa"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Source_RubberTiles_NormalGL_2K.png",
+    "bytes": 23762462,
+    "sha256": "029256b28982f1000218a8f18da9e99a8d180cbbf1d4e9487bdb2c9cf5f543fa"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Source_RubberTiles_Rough_2K.png",
+    "bytes": 7587662,
+    "sha256": "4e48a018635a4d9de521055e57e96a752bf3d9012027711972eaa938bd6ddf79"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Textures/SoftTouch_BaseColor.uasset",
+    "bytes": 81726,
+    "sha256": "1cf89c2a4e6c12281a6ddbc6acb690e06078176c0dc7abd4c6747188c19ec25e"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Textures/SoftTouch_NormalDX.uasset",
+    "bytes": 52640,
+    "sha256": "44d08cd3417fc44ac3a2c8ccf0697d15a70fcef6c8f44d47b57a9ce23a913e06"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Cockpit/Textures/SoftTouch_Roughness.uasset",
+    "bytes": 25007,
+    "sha256": "24d4ce2902feee4e73587cd21be552e2dd5495e1966493bcab6d289fb0950d05"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Lunar/lunar_detail_linear.png",
+    "bytes": 6618265,
+    "sha256": "f35dcc29c12afe58435026ec8b3495cc6813a1c898bf2539fe04af31ad68b748"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Lunar/lunar_detail_linear.uasset",
+    "bytes": 6270647,
+    "sha256": "c5aa94f20118059e7f5d1f16fe5faf6d61cfe8e76cc0e7557ae08517cc1dcc08"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Lunar/lunar_detail_normal_dx.png",
+    "bytes": 10973241,
+    "sha256": "da456c3137fd4f0175ec6427dd66f830701e35e1474a01a103cf32c2a7b82fc2"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Lunar/lunar_detail_normal_dx.uasset",
+    "bytes": 12927340,
+    "sha256": "96123a5e296944d1546d04028a86edd873637996c17aaa20e5cbeac49782102a"
+  },
+  {
+    "path": "Content/Star/Art/Lookdev/Lunar/provenance.json",
+    "bytes": 1952,
+    "sha256": "ed9c656de15df21d3680187b80b46351c8c0e3b6e5e96bfea286bca01e405348"
+  },
+  {
+    "path": "Content/Star/Art/LunarGroundV3/apollo17_meso_linear.png",
+    "bytes": 671552,
+    "sha256": "7c5fe113fc7797c6b21d7279ba842211f0f45fee35ab9466e5a9a084348a2ff5"
+  },
+  {
+    "path": "Content/Star/Art/LunarGroundV3/apollo17_meso_normal_dx.png",
+    "bytes": 749660,
+    "sha256": "3937602d1f4a1005d6d37ca0438d0789a6a54c356bfbaae432c5e7d98d880d89"
+  },
+  {
+    "path": "Content/Star/Art/LunarGroundV3/AS17-147-22501_observed_crop.png",
+    "bytes": 1742752,
+    "sha256": "646ef652159f69ca634b323a8fd8e44f72d16089c22de287811d77f327cca46b"
+  },
+  {
+    "path": "Content/Star/Art/LunarGroundV3/provenance.json",
+    "bytes": 2121,
+    "sha256": "7f6c2be6d331fae8ffc169c03da6ccc399c938b3b599dcef5bcfb0bb49707747"
+  },
+  {
+    "path": "Content/Star/Art/LunarGroundV3/T_Meso.uasset",
+    "bytes": 695254,
+    "sha256": "2dc284f0af274b0964353f35c85cb0b1227f2625800779fdeae14a1f54a8da4c"
+  },
+  {
+    "path": "Content/Star/Art/LunarGroundV3/T_MesoNormal.uasset",
+    "bytes": 884866,
+    "sha256": "8f64a8926a7d33f8273ef5f29c26f14b4164c36d4a20cad49db2e339154994ce"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/.gitattributes",
+    "bytes": 24,
+    "sha256": "a2df434d30dfb62b5c032e75a418cfe350841c3d65aafb055f0ca1d1b5ade48c"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/.gitignore",
+    "bytes": 9,
+    "sha256": "b6c19e2969a38fe7b15f489f774b32dfa7dde3be8eaf2bbfadf9b0f075458367"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/apollo17_full_region_photo_rgba.png",
+    "bytes": 25613980,
+    "sha256": "1cc3a8e6c35e60087f36c6d8367311b25d64dedc0e5f6494e9654534fe0f6af0"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/dem_horizon_full.npz",
+    "bytes": 116224,
+    "sha256": "a715c76f8fa6a0c6762a436b27e4dd16cb5cc052e5d93296f4d0f729d2a38e5f"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/north_comparison.jpg",
+    "bytes": 339680,
+    "sha256": "da01c8c2c6f76b0d0ea6737de988732877c747538294268b4fd3bddacdf0e8e2"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/north_independent.png",
+    "bytes": 701430,
+    "sha256": "c78eccc28445ca42bb0393dfb0b9b46988eba4a964f23aff5753135aaf14ddde"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/north_reference.png",
+    "bytes": 843715,
+    "sha256": "95e424d55ce09df693a29e20cd061f1abbe0b0d471cebfcf11c9695dd74c5a9d"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/northeast_comparison.jpg",
+    "bytes": 397250,
+    "sha256": "5ee5c09bbe363c67c1338a43c76b667ccd1205a61d00ad7f89b31fbd059e25b7"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/northeast_independent.png",
+    "bytes": 869797,
+    "sha256": "c859b708f0d66cfa6ba1c031840b0fdba77363c7f2233cbfd96f71fd5f5bbebd"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/northeast_reference.png",
+    "bytes": 682794,
+    "sha256": "e8ab92612adc831ffe8e3f78f4f38d14b37a3f2e7038fabb7bd438cdf74cd3a1"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southeast_comparison.jpg",
+    "bytes": 422832,
+    "sha256": "41af91c9fce913dbdd468c7dfc63ebfc66bd69b932455d66fa6a0dfa6387a1ce"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southeast_east100m.png",
+    "bytes": 569377,
+    "sha256": "181e6df7f41781d45f20c804f6db7b4667bd1c54347b5a6f17e3ab2470332879"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southeast_independent.png",
+    "bytes": 483663,
+    "sha256": "c4858707ef2f0efb2f1209f26709b26eb047996d0275a116471522d5999de15a"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southeast_reference.png",
+    "bytes": 480053,
+    "sha256": "405aa8cb6a829ea1f633314a49cbd2dfdc0a04ca97d2f1244253e25baa5a0eb6"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southwest_comparison.jpg",
+    "bytes": 321157,
+    "sha256": "f791df8cd9924ec52aa6ac381cbaf85eec3c4b9e8a4e77903ac59ea4f6fb6631"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southwest_east100m.png",
+    "bytes": 843901,
+    "sha256": "302418203dd1c1276b17f770288059ab9ef8cf38ecd4f2966fd6c98f1538fc38"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southwest_independent.png",
+    "bytes": 698014,
+    "sha256": "ffe6d5a065ffbf752159943f84fa4d5ee42bcc69701c496c2b2e94cb94b78777"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/southwest_reference.png",
+    "bytes": 725540,
+    "sha256": "a8f840755d969d13b46287c3cd87b4cf4f47e499b0ef54508cf1c4070e7e4825"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/west_comparison.jpg",
+    "bytes": 332052,
+    "sha256": "6eb7d02f0656d57e61e4e0273bde8116853bcd66f26d4f03e9fef800170a93b5"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/west_east100m.png",
+    "bytes": 567069,
+    "sha256": "ad567e03bcd134c6fa2b623fa20793327992f3056c2e48f14c6b4a0180bad209"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/west_independent.png",
+    "bytes": 561620,
+    "sha256": "5bc7fbc520bed11301b1422571cc8782145686a02d5b9d3a2f75a57289fc458e"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/Review/west_reference.png",
+    "bytes": 429924,
+    "sha256": "daf78173efb6f5fc772f0a14c76fe4782ea76c09ff1cc34d513f5b140a88f15b"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/FullRegion/T_Mountains.uasset",
+    "bytes": 25074549,
+    "sha256": "0aabdcf8055156161fab8c5cfcd05a1f21bafde120dcd0e322b7c443f44ea764"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/north_massif.mtl",
+    "bytes": 106,
+    "sha256": "74ca29a77bac072be435691f47918fa15f221cae5af570a506326584f613e329"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/north_massif_candidate.blend",
+    "bytes": 5518414,
+    "sha256": "92c94b0dfbde3ab327af2106eb10d8efbe412754bb61876cb222c5aeba79a74d"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/north_massif_candidate.glb",
+    "bytes": 14173616,
+    "sha256": "2cba814d047f0933686356ce0537d24273f43d018c3f0b4809a42b9f03a6c7ec"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/north_massif_measured_enu_m.obj",
+    "bytes": 7201204,
+    "sha256": "c2a4c59729e1ce242be5f5101aa5d02cc0aea69c5501cc4fc4bc79afc48ef1ea"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/north_massif_photo_projection_rgba.png",
+    "bytes": 6410496,
+    "sha256": "e121aa6a739255361a7e2a4c2bf5c6616f9c0920eca24fb3ece3801d5041a318"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/north_massif_projection_on_neutral.png",
+    "bytes": 2754054,
+    "sha256": "c92e02c32fe3f1f444ecd22390ff9aa6ce99ca6e9dd6120fb7af0d134b10bd1a"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/OrbitalResidual/apollo17_orbital_residual_confidence_8192_linear.png",
+    "bytes": 58360645,
+    "sha256": "242cc3fdbe19da9686f1d8c87468bbbdc1bd79e2bc496b705fe05f3d3b198229"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/OrbitalResidual/east_residual_comparison.jpg",
+    "bytes": 221672,
+    "sha256": "1bd6d8e3f4d16e51c451d96922b9c860667822486d194b681aa91c9632635c3e"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/OrbitalResidual/T_OrbitalResidual.uasset",
+    "bytes": 54917838,
+    "sha256": "d78646104d905c872239877b3ec6e3efe6626c3ea9082c5ee382b6bd152c46e5"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Registration/dem_horizon.npz",
+    "bytes": 87156,
+    "sha256": "73b629d990a2eb15694f86f231b58574b570bac4cc2abb34f106d5199e111f42"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/contact.jpg",
+    "bytes": 496044,
+    "sha256": "9b609537dff69ffb5051195f1ef200be5beea08f1b168db4408514d0ec4c9b67"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/east_100m.png",
+    "bytes": 797400,
+    "sha256": "cefcfe0adb4325d1c95824f49e0789826e1edd435984e17217e69cabbfff75fc"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/elevated_250m.png",
+    "bytes": 939023,
+    "sha256": "c189bcd2ad6759d2e5656ef3509b0e85b5c6f8d87019d521e9147e8d419e5ace"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/full_sequence_stitch.jpg",
+    "bytes": 1838182,
+    "sha256": "c22d0252cf5aaf89c3c66a0a0070d80a52cbd0d895e459d8afe34f816f13ca63"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/glb_readback.png",
+    "bytes": 819102,
+    "sha256": "2e7428445eec922ec5ab93ec7d96da5a3ea2483892176e44eff3effca85cc582"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/horizon_fit.png",
+    "bytes": 37830,
+    "sha256": "a0914e1555c6a3dd388aa744d0c426e9f8d3e4124695a17da21bb8abb31a580e"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/reference.png",
+    "bytes": 802228,
+    "sha256": "11fc6f2a93dc47f8097a180c3c15e56cdcde6211b4028e1997b2d4176e81ebee"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/sequence_stitch.jpg",
+    "bytes": 1147381,
+    "sha256": "a36a6a309a21c0eb0d31c5d387933d1753beab17a5918cb1788ae9215c48bdbc"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Review/west_100m.png",
+    "bytes": 806189,
+    "sha256": "0e5e76702ce140fe98b50fb21eb9b72d39fcf29431cfa3ee75606cd579497170"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22493HR.jpg",
+    "bytes": 1000105,
+    "sha256": "c899900c7bd09c534da5f8691f123efd66cfa516df5ff6eae7f564f3c3fd8b82"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22494HR.jpg",
+    "bytes": 928967,
+    "sha256": "74685de8301d8ed5453afa1d671a005e8ab804f93be8685879d9bb39848f4bda"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22495HR.jpg",
+    "bytes": 830641,
+    "sha256": "984d7643d2a04980370e9b30421ddac365d1e4025920eeb6cceb73799b8308a1"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22496HR.jpg",
+    "bytes": 1400382,
+    "sha256": "62c82b7ee89c3c9bfddbda983a9cab95bfcc1481afb532034e35af0b60baaf13"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22497HR.jpg",
+    "bytes": 1173710,
+    "sha256": "288b8b1b0fadcf7f214bc32baf4b00604b6ba95928579cf5ee601c636c5b358b"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22498HR.jpg",
+    "bytes": 920671,
+    "sha256": "c128a75958bdd217b39306865a114524ba57ea269a8e66cb237bb21cc904161b"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22499HR.jpg",
+    "bytes": 1528502,
+    "sha256": "a69d304d47e7470868bea0937a6674c16533b3c68619619eea35e07754698107"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22500HR.jpg",
+    "bytes": 1063162,
+    "sha256": "9878141942a9a26866ab53c84a02baab46df77da5cd4a723e980efada1cf35a4"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22501HR.jpg",
+    "bytes": 1705776,
+    "sha256": "12cbb75b26a6a1f95a351f005af37583d523c52c03adfd735b7b818f8e455375"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22502HR.jpg",
+    "bytes": 1257588,
+    "sha256": "51ed5d4e564699c26812cb39162a3f82b56529c4f25bec14d1a05e2cc8966b15"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22503HR.jpg",
+    "bytes": 1836503,
+    "sha256": "4f39777d0b709f863b96ae3154e203fcbfa392a4404979d170792732073c0822"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22504HR.jpg",
+    "bytes": 1765244,
+    "sha256": "c0658568944b962be91e9f7fbed32e730161fa1abcf23000784b5b038b04bd69"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22505HR.jpg",
+    "bytes": 1458361,
+    "sha256": "7f94bfe105dbebe63cce04de02a1565861d50cf310891be61f0e843bc8feaa45"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22506HR.jpg",
+    "bytes": 1523166,
+    "sha256": "641a428d5c28ff82d05fa139d995576a07bc042fbb96c9506714cf95db97b438"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22507HR.jpg",
+    "bytes": 1054775,
+    "sha256": "60da3e79689d59e3546ea917d00b5496ec85559d65de8813f43c520ac9bf938a"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22508HR.jpg",
+    "bytes": 1519571,
+    "sha256": "4b5bc2d30c25dcfe245b1b5258d990482364f3a68f0ed2252e87f737fadaa934"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22509HR.jpg",
+    "bytes": 988460,
+    "sha256": "06772e053725cf7332f03781cd5600c357bececdb07acca3e6ca7ff599394676"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22510HR.jpg",
+    "bytes": 963440,
+    "sha256": "e9f08a75ba5b562e215513b88678f330f668aa71aa3b4694fec2e63ac83a1efd"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22511HR.jpg",
+    "bytes": 1499883,
+    "sha256": "4ba58710a3fcc5660bc4403248dbc5f67211f30651183fb2d9622ca88a2d52ba"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22512HR.jpg",
+    "bytes": 1233181,
+    "sha256": "899d890274ffd0fe9d86533a9b949e4061dc526daff388438b0137c0a0609ff1"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22513HR.jpg",
+    "bytes": 1297249,
+    "sha256": "f3d975c7ac4aff98713205eb093f25f394d17db44fd8d6b646604087230e950b"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22514HR.jpg",
+    "bytes": 1199126,
+    "sha256": "5804de2b313075aef86c55f8c032a9d6a15ce8e8480359bc6d8c3e798e1068f1"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22515HR.jpg",
+    "bytes": 1272154,
+    "sha256": "5ea1fa93aa0c3e90515b3b220680b8066df9bc0d018d2f55f60da1d484ee154a"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22516HR.jpg",
+    "bytes": 1436031,
+    "sha256": "bf9e631fdd7703a17a966fc2a33a7641629df8c71f04a0e23de43f7d42a73eef"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22517HR.jpg",
+    "bytes": 1261897,
+    "sha256": "b6e88522770ff6e1badc0638c2de6fc358d9c3eb244f3079d9a83964539a48fc"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22518HR.jpg",
+    "bytes": 1070715,
+    "sha256": "dcf2f45e111fbf571f758a7d97faf6c846441ad7c70e7878866a74a65eb7f69a"
+  },
+  {
+    "path": "Content/Star/Art/LunarPanorama/Source/AS17-147-22519HR.jpg",
+    "bytes": 849659,
+    "sha256": "976afdf482141ecc5935508c76ae1253d39aadf53b2470ce42a689b52ce5dc0e"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/apollo17_far_hills_coverage_16k.png",
+    "bytes": 255939,
+    "sha256": "14053cc53d2645e1a62786e247329ff60bcbd8ee157bb643da50eafee68ad41e"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/apollo17_far_hills_photo_rgba_16k.png",
+    "bytes": 8347365,
+    "sha256": "872449b346e5cff77133620a2276271b04b7adebcb705ece7f8affa9cc2056f3"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/apollo17_far_hills_source_ids_16k.png",
+    "bytes": 117482,
+    "sha256": "3a77109678c9a4eb457712098f2231f74586757c33cf3fed7b6f4d37d95afb28"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/GroundPatch/AS17-147-22501_ground_patch_rgba.png",
+    "bytes": 282911,
+    "sha256": "fe25882d82df96f37102621c0f6751a69fa3a789c5294dc29932129f73c467b0"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/GroundPatch/placement.json",
+    "bytes": 4788,
+    "sha256": "78b0888ff59a3471a32cfd11a7e48f0e3597934b2ca8e9109ca7d4f36b5e94a0"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/registration_curve.json",
+    "bytes": 607088,
+    "sha256": "a5dcbda7279415ff22fbd1754860838f2eafc307f1c1c600118540f499f6a583"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/all_azimuth_original_photo.jpg",
+    "bytes": 604537,
+    "sha256": "97a6222fc3ecc0bd09fa3684db649f6e4fe1c55f26e6f28fc131006594a391eb"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/east_90_fov85_photo_view.jpg",
+    "bytes": 699815,
+    "sha256": "6a3591b1c0af8b1b28cd3e5f464f1bc512a7950aad1ba486b4fe790d888450c0"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/east_90_fov85_registered_layer.jpg",
+    "bytes": 53754,
+    "sha256": "ab60d70addf4a9711790936dea0c0c0f6f43d4dbb1488e2595d6c2891c2b0e59"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/east_missing_photo_view.jpg",
+    "bytes": 581516,
+    "sha256": "78d6577d8efb551e30cc29ef4ecb6f27ea15d300f4bd8cb8deb2270ab3062e9f"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/east_missing_registered_layer.jpg",
+    "bytes": 50272,
+    "sha256": "6343536342c4a2518b4ee31d0f48593d2fe4f54cbaa25c03cc4b80a5e388b09d"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/north_0_fov85_photo_view.jpg",
+    "bytes": 687276,
+    "sha256": "a4786d6f5095826d7c633fdec27219ff5d9a557c1a7417aac64a96735073626e"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/north_0_fov85_registered_layer.jpg",
+    "bytes": 198448,
+    "sha256": "93890a255d4c5af6e811cab05e264c85ad5c51a7d913b6112684754e8dfeeee9"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/north_photo_view.jpg",
+    "bytes": 618915,
+    "sha256": "ac9103a188bf203c0c0db48f63d8edd9ad25e3cd8ae991871cc902d66e4f26fe"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/north_registered_layer.jpg",
+    "bytes": 250693,
+    "sha256": "1b3f20198ec43604bfc21eaf8cd9bed876807056c84723fdfd95ea6b476bb62b"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/registered_far_hills_coverage.jpg",
+    "bytes": 205963,
+    "sha256": "1d9d15721c8d67e1a536c2f1ef7f179307b639a350d099a8dde41a3b9927cd74"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/southwest_photo_view.jpg",
+    "bytes": 490422,
+    "sha256": "b3fc0dc920053724ebd2d45409c50b1ebd3205e38eb6219f9e9293ca173e1ecd"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/Review/southwest_registered_layer.jpg",
+    "bytes": 119816,
+    "sha256": "e323b1cdba1f3c523dffb4e93cfc7d9927ad7a22e8226d116230507562d33005"
+  },
+  {
+    "path": "Content/Star/Art/LunarPhotoV4/T_FarHills.uasset",
+    "bytes": 8062934,
+    "sha256": "29e7669bde3c6441adde0d94bf72accfc4cb94a6d4e264e745b1d18dbe239e47"
+  },
+  {
+    "path": "Content/Star/Art/PhotoEarth/earth_day_16k.jpg",
+    "bytes": 26528958,
+    "sha256": "24cf25f9da0e8c6b4e7df535de406e76ca0e85dde49ff9f5f5a2c1452b301916"
+  },
+  {
+    "path": "Content/Star/Art/PhotoEarth/material_recipe.json",
+    "bytes": 904,
+    "sha256": "3d19653743c29ae197f96a21ade1147eb84a43575a6b5214026552ed7982150f"
+  },
+  {
+    "path": "Content/Star/Art/PhotoEarth/source_comparison.png",
+    "bytes": 499461,
+    "sha256": "3235259c79ca825a1b177d97c471b988359627497814797240b81e272caddfeb"
+  },
+  {
+    "path": "Content/Star/Art/PhotoEarth/T_EarthDay16K.uasset",
+    "bytes": 26533527,
+    "sha256": "979a066e44ff6fb8fdc7d66cf71a2a1b0697c38f8672da191be1e4f8afbf784b"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo17_photo_regional_4096_linear.png",
+    "bytes": 19395021,
+    "sha256": "6dc16af7c3d1ef900237507a822f07f6b8f8130f8c03b015ff29fb4e02ab6599"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo17_photo_regional_4096_linear.uasset",
+    "bytes": 18548821,
+    "sha256": "2e9abb8636f28ef8a4460cd68fb9c136f167c9a0c34455c6d7c4cc733ed21f37"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo17_photo_regional_linear.png",
+    "bytes": 10703635,
+    "sha256": "c941990058ff2191572e302e2b0981d0aeee5fa1a30a9e82b31692c7ef204a25"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo_soil_detail_1024_linear.png",
+    "bytes": 464370,
+    "sha256": "4e2c1a368afbabc57737f6e2e2a04aa130cce8a34b09f933c71d1b233f16a679"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo_soil_detail_1024_linear.uasset",
+    "bytes": 520097,
+    "sha256": "622804d421bbbd33f658a529618874eb642246232637555128c73b5343f3c454"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo_soil_detail_linear.png",
+    "bytes": 586360,
+    "sha256": "c4bc0751ea4a605bfb2b11f47a9f9b8850936e27f5f2eebf82ec01e416cb6647"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo_soil_normal_1024_dx.png",
+    "bytes": 948868,
+    "sha256": "c700f30ce9d399e540b2ad0bd0988a090a043e534d03904fbe893179d515c3ab"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo_soil_normal_1024_dx.uasset",
+    "bytes": 1156386,
+    "sha256": "55c90934dea1b9b51dfb53ef6ec75f31eaf1f3c053bb19bd11d430809229122f"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/apollo_soil_normal_dx.png",
+    "bytes": 1073396,
+    "sha256": "e37b2518835ec0ca4c0e3a94ee202e0616848752b959561cbe85d802d4d72dcd"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/as11_6705a_observed_crop.png",
+    "bytes": 1848615,
+    "sha256": "33603ff3ab29adda00f8e22be602dc2369bba1b437f9748e98ca0a6aff6d2b76"
+  },
+  {
+    "path": "Content/Star/Art/PhotoMoon/source_comparison.png",
+    "bytes": 856524,
+    "sha256": "25ebab769c7e8a73cd4803265bd76aa3e21060b81e98ee6f231c1219418c7a0b"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/plume_disks.json",
+    "bytes": 8752,
+    "sha256": "27bd9672f8c1a94d1f50ccf9772f9d5245aaa9e414bfb2e6c1422c927e782a57"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/plume_mesh.json",
+    "bytes": 25505,
+    "sha256": "c4afe8add917f2065818c0042a50aa2a808bd11e1e0942c97641faa65ff29058"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/Source/engine_sts51_big.jpg",
+    "bytes": 34175,
+    "sha256": "e0246fea390105994de4776a822817da33dc04b9f0362fc098edf9dcca855daf"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/Source/iss066e125277_original.jpg",
+    "bytes": 1435895,
+    "sha256": "d47ffb82752ddce10c11c15305662aa76585a20d4f3c25bc8e8ce351c454dda0"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/Source/shuttle.jpg",
+    "bytes": 440529,
+    "sha256": "82ee98d34b4e7d5d70a771319199210c084bed6afd8b99980fb5f9e337f919a7"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/T_PlumeAxial.png",
+    "bytes": 1854,
+    "sha256": "b418a24c1e0f29906875d6d92466efd59aa34092941ec0abcbd15142195108e8"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/T_PlumePhoto.png",
+    "bytes": 408048,
+    "sha256": "a4699977f701a48cf59f9afcbcd5d2d863071207bfef7ed8efccc588bfd2fac1"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/T_VacuumPlumeAxial.png",
+    "bytes": 1492,
+    "sha256": "8e385ce9c8801ec2fffd40808fd00e219bc7ee9e4d0390d944821f268641a98c"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/T_VacuumPlumeAxial.uasset",
+    "bytes": 6545,
+    "sha256": "b11078a27dc9437a0f543ff44ac76daf93b32722957b2beaa268f283404ac10e"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/T_VacuumPlumePhoto.png",
+    "bytes": 217522,
+    "sha256": "8e9205824bffa40cdd12da33d9a6eabb0fe63c8a52a13dc05c49df4274ecc6f0"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/T_VacuumPlumePhoto.uasset",
+    "bytes": 264824,
+    "sha256": "6a2a3096246cd0c3aa38131c57e31aa2ce760a0ee29ff37f07d196f039997dee"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/vacuum_plume_disks.json",
+    "bytes": 9413,
+    "sha256": "0c18ba872ce5aa0af24669ba4b3ecb714483591ca55bd08fbce0ec70948e6c92"
+  },
+  {
+    "path": "Content/Star/Art/PhotoPlumes/vacuum_plume_mesh.json",
+    "bytes": 22616,
+    "sha256": "1b88f28fad233b73be3018437a084f17abe802e73dd3ea92bc407d0e1049cf53"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_body_4k.png",
+    "bytes": 1006894,
+    "sha256": "be4023fea55ca3241cf30b82c65d8698d301a8c7111798c8b301a31c2913eb5d"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_photo_weight_4k.png",
+    "bytes": 51922,
+    "sha256": "1f62eaa6094d700abbc8df1ae02ac47877e81bf294512cd000db9d1365b7e8e0"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_rings_rgba.png",
+    "bytes": 7662,
+    "sha256": "3ba50dae2d2a4034519449acfef4a589f4df5fa845c8b6620fda9a654d6fc8b0"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_cassini_zonal_profile.png",
+    "bytes": 4106,
+    "sha256": "be5df64602857d46363005d2a3edf3d1c5e2fb17987363dc74c156e55f2aecd8"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_pds_observed_mask_4k.png",
+    "bytes": 12079,
+    "sha256": "a292ca3e709b08b494fb899c16fef7d3e0d0d118e844801942422c161ff4e451"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/saturn_pds_rgb_body_4k.png",
+    "bytes": 4305574,
+    "sha256": "b711f42a234100a8cb90397ed5fa3b3df8b129f8f750c3a31399882ac26aa912"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/Sources/PIA05421.jpg",
+    "bytes": 103866,
+    "sha256": "7a3f2b3089fcfc06daf6614cd126e8cacd5570e309f626c4a85acec2b72d3b19"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/Sources/PIA11141.jpg",
+    "bytes": 269918,
+    "sha256": "f612f0f92714a7beff22975367f41c3c9978d91358f70f997cb3e40b8f056870"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/Sources/PIA21345.jpg",
+    "bytes": 1548258,
+    "sha256": "873f3632ae059343ddc483cb73b641ecfac1faacced889d165908fab56072da3"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/T_SaturnCassiniRings.uasset",
+    "bytes": 11639,
+    "sha256": "1c7d27a1000e8118f1f149a4b96da7e7e37ae47f81d0c40b81f672ce4ded1a7c"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSaturn/T_SaturnPDSRGBBody.uasset",
+    "bytes": 4941509,
+    "sha256": "f657aa0eca1dc9ab26314bf4115dff1ca0698eb78a5a4ac811e32110a4e9bbeb"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/BlackShield_ReferenceCrop.png",
+    "bytes": 10759,
+    "sha256": "3b84ad63e70468433c6166d527bc16fcddee2cb76a97f721d2e77e913d5cf6db"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CarbonShield_Modulation.png",
+    "bytes": 3499,
+    "sha256": "d48a72f4473f66443ccc93574d27d5a790986d9058422adcc3a84195787a1166"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CarbonShield_NormalDX.png",
+    "bytes": 213,
+    "sha256": "b272c84c3f52f0a2b864d7bff373735e2363b977dab92dee9c5f83b6a2b3a7ed"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CarbonShield_PhotoCrop.png",
+    "bytes": 9040,
+    "sha256": "74e52520164e575d6ecbd197e1f7fb2fb7eefe1684f020a5d415a3b128e60fd4"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CarbonShield_Roughness.png",
+    "bytes": 4053,
+    "sha256": "1a0530d5b4567c0c55f9ab6c341b55e47c321606553c23f682c190e814b807fd"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CeramicCoat_Modulation.png",
+    "bytes": 37283,
+    "sha256": "3bea66b96e483ecf9613671e702026dc81f7162265fcfa443e251d6d44ec1974"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CeramicCoat_NormalDX.png",
+    "bytes": 33285,
+    "sha256": "c4cbdd475b5fc7c1893d4d61bda29254a2a4d14a2daf819b7354963afa20f0d4"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CeramicCoat_PhotoCrop.png",
+    "bytes": 103270,
+    "sha256": "1bb3a279e43a04698f5f0f86bf3a78d74b530ecf51258fbd0321e97a2be584e7"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/CeramicCoat_Roughness.png",
+    "bytes": 16149,
+    "sha256": "e83d747a57d97ec8263bc6134a0e0142f7850fa593fdb792c9ab4f00cc4e30a7"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/EtchedMetal_Modulation.png",
+    "bytes": 39428,
+    "sha256": "fa8d906af99ed15d0608c5835e69043899b65b9751c00fde7d800640fd7a04bc"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/EtchedMetal_NormalDX.png",
+    "bytes": 24381,
+    "sha256": "ed45a4592e58fd8505b13fb837e68828f57978388f3240b81536b41dd3490631"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/EtchedMetal_PhotoCrop.png",
+    "bytes": 120263,
+    "sha256": "1aa2efea89011c384cf0cb7a64b33f7ecf306f74f7fec710c5da5babbfe5cd8e"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/EtchedMetal_Roughness.png",
+    "bytes": 31800,
+    "sha256": "4ce8eeb939eb7cd2f2b61ef1a4cd6eaaf893d3f22f14d7f166834b763cd1e81d"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/FoilFold_ReferenceCrop.png",
+    "bytes": 63194,
+    "sha256": "c8782749f1ed89ce61b96988129099e906a9ccf0dfb25b88d54fc98bad1fe564"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/FoilResponse_Modulation.png",
+    "bytes": 16268,
+    "sha256": "346041c230329465cb7fad39686535344e26b71cc9e77b236804fd902d824425"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/FoilResponse_NormalDX.png",
+    "bytes": 497,
+    "sha256": "22be4a62607b07ecb3cb18c408733da3dd9ec6c6e112dff6a5f98f64d9659208"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/FoilResponse_PhotoCrop.png",
+    "bytes": 63194,
+    "sha256": "c8782749f1ed89ce61b96988129099e906a9ccf0dfb25b88d54fc98bad1fe564"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/FoilResponse_Roughness.png",
+    "bytes": 13361,
+    "sha256": "51484227df0632e2f64642ea6cf119af59218182113a1b33fb9f8f9a1ca208ca"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/RadiatorMirror_ReferenceCrop.png",
+    "bytes": 50363,
+    "sha256": "a23c2d693a0d15adb31a9e807afacc996e7a74add2bf6b6f945747fc09d57fa4"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SatinMetal_Modulation.png",
+    "bytes": 39428,
+    "sha256": "fa8d906af99ed15d0608c5835e69043899b65b9751c00fde7d800640fd7a04bc"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SatinMetal_NormalDX.png",
+    "bytes": 24381,
+    "sha256": "ed45a4592e58fd8505b13fb837e68828f57978388f3240b81536b41dd3490631"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SatinMetal_PhotoCrop.png",
+    "bytes": 120263,
+    "sha256": "1aa2efea89011c384cf0cb7a64b33f7ecf306f74f7fec710c5da5babbfe5cd8e"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SatinMetal_Roughness.png",
+    "bytes": 26204,
+    "sha256": "e9d8691c964f9b1ea35fa25013abe0398ed46eeb582bd099e8937d2b7caae9da"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SeatWeave_Modulation.png",
+    "bytes": 2716838,
+    "sha256": "3cd523667fa9e7467e56146f12bc3436813476ad770ba32d56be5cf5485a1ace"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SeatWeave_NormalDX.png",
+    "bytes": 7277700,
+    "sha256": "2d2520ba1a1793b6bd78d1c00f2bb0bc8fb4d3e01afcc11fcc0074f775e4decc"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SeatWeave_PhotoCrop.png",
+    "bytes": 8548100,
+    "sha256": "f1504fe32870182a71af79e5b4e9b1aac29da1fec9f84e1d1fbd32582ad59222"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SeatWeave_Roughness.png",
+    "bytes": 2706562,
+    "sha256": "95e262126449928b698effef5f560e0a854f8cc883120b20a8e86a0a4696f584"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SoftTouch_Modulation.png",
+    "bytes": 26902,
+    "sha256": "f5368fc53892a5981183523d83ac4516bc886009cd591c7a53620aa84c6a07d8"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SoftTouch_NormalDX.png",
+    "bytes": 39261,
+    "sha256": "0138866abfc738e113c3cd87e570dfa6ab005e9d63bf6b5f82896181bdd1ac23"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SoftTouch_PhotoCrop.png",
+    "bytes": 70045,
+    "sha256": "43566d8b55b445d5651982fd309527105b21dd7c2211ad0a0bf5e2de2e78f566"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/SoftTouch_Roughness.png",
+    "bytes": 24209,
+    "sha256": "f1c09e86635ab37058e33d3476fc7570880706195c8ea25ce7b93033ddc9fe7a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Maps/WhiteCoating_ReferenceCrop.png",
+    "bytes": 1063,
+    "sha256": "90bd8e7aae4bdc36bc73915c8df69f353892b54456fe76715c052d6bdd806d4d"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_CeramicCold_Photo.uasset",
+    "bytes": 33894,
+    "sha256": "14c02132f9cf02c093752985e522e288eb2f46ac16f59a51a433214ce3395797"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_CeramicCool_Photo.uasset",
+    "bytes": 33241,
+    "sha256": "68d42eed15597997c2eca339e115a42e6a221de9723a8e8581f92e2456395796"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_CeramicIvory_Photo.uasset",
+    "bytes": 33902,
+    "sha256": "69c187c414fa70ae828740cd46061761f5604d001651d349d45462ce7116e259"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_CeramicWarm_Photo.uasset",
+    "bytes": 33894,
+    "sha256": "43f274f3612cfc9241b9f53ef14971d0b4474cafe9f6788e552e2ec4f141f54c"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_CockpitSoftTouch_Photo.uasset",
+    "bytes": 33259,
+    "sha256": "d6f042d992fbd736c19bf4988625111487bc3fa7e32b74faf4d36f067c88f076"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_EtchedTitanium_Photo.uasset",
+    "bytes": 33288,
+    "sha256": "23b3c46ad58533f66d292442503eec6ba549018595728c8bbea742f3b2b84479"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_GraphiteStructure_Photo.uasset",
+    "bytes": 33283,
+    "sha256": "8d997795e85dc39fad7ce6752ccc28c8281ebd9ee3ea6296f5e60b19652b2e25"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_HeatBlue_Photo.uasset",
+    "bytes": 33246,
+    "sha256": "bf6ef6f706758b8a08ef5c3224c2ce60af5a052bad3e453dc00d7b07ad926a4f"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_HeatCopper_Photo.uasset",
+    "bytes": 33258,
+    "sha256": "38fea119bbd3850f474ce59eceb6398be30adbbf128653bbc39003a26a774c92"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_HeatShield_Photo.uasset",
+    "bytes": 33241,
+    "sha256": "c8e395a5088ad959d9c8ab76181f09361b93b616ab7c67a04d0a152940c80ee8"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_HeatShield_Photo_RoughnessOffsetMinus0040000.uasset",
+    "bytes": 33438,
+    "sha256": "e4890f7c9529e6b0e19a7c44ebd4e65dd7d38ddcd9b8af0c4b638497d528f49c"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_MachinedAlloy_Photo.uasset",
+    "bytes": 33276,
+    "sha256": "9002ff33687fbe57366d88bda1966be45ec17f184e3328736d60bba8d1f9a70f"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_MutedAmber_Photo.uasset",
+    "bytes": 33235,
+    "sha256": "d8e68de722c41b882a218a8c3ba30c9a7225769a3adf41cf18e1c87d0928209c"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_SeatWoven_Photo.uasset",
+    "bytes": 33217,
+    "sha256": "18e90ee675d74de8e5c3f0c5f3c269323b4d912cc87df4dccb87605a6e3d0780"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Materials/M_Titanium_Photo.uasset",
+    "bytes": 33246,
+    "sha256": "9d3586ea6dbcf571a4980617df3972cd1256e6dc6720c604b43ef949c959659a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/CassiniBlanket.jpeg",
+    "bytes": 212958,
+    "sha256": "5f39e4c9722cfaf468d1ad738ec3349605f3dcce6546af153d5c8b6994c80c30"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/CassiniHardware.jpg",
+    "bytes": 265818,
+    "sha256": "b0f7e0a74773ad1fdb382f06aabbb9514182826b09fa5a3cb4614c73b89d08c9"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/interior_tiles_Diffuse.png",
+    "bytes": 22023097,
+    "sha256": "ba67945e7fc597a5c88ab369e321d8e3a019d98b1674acc870de868f620b555a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/interior_tiles_nor_dx.png",
+    "bytes": 19714488,
+    "sha256": "e0b5d6ba53195cc60577c857623f8eb6c9f050a17c7bdade06371d02203b67bd"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/interior_tiles_Rough.png",
+    "bytes": 7288337,
+    "sha256": "9935a19f05b704c8f2bed814e0d05210e9ea609a6b8572f07bdf067c03e3d5fe"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Color.jpg",
+    "bytes": 1259638,
+    "sha256": "d4122954971c26b529614f39fb12310de00005d44ce103430c35132f61fca077"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Displacement.jpg",
+    "bytes": 770082,
+    "sha256": "81e1cb4c96d23890c7626d44b705656c54c095a44fd1c8d72242d5d2265ac817"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Metalness.jpg",
+    "bytes": 737142,
+    "sha256": "1bd888a9fa307197fd5eaaa883561cfd8350ae634fce0d378e83b8e05632daf8"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_NormalDX.jpg",
+    "bytes": 343435,
+    "sha256": "f8047e9357a2a02be152f81e30dd5290e19f3ecc33b9dadfed9835d707a56c84"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_NormalGL.jpg",
+    "bytes": 343987,
+    "sha256": "51e521e2fafd01387216b52fce315e2f094a1fa6efab77a92e2c79870bb2df01"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Metal063/Metal063_1K-JPG_Roughness.jpg",
+    "bytes": 731180,
+    "sha256": "e83993283739d0a5d350ecd15cf82969aa59ec6e2293bcc6a14aea8a92ba283d"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/OrionCockpit.jpg",
+    "bytes": 170697,
+    "sha256": "8046831a600ea80461159f7bc1a18eaedae31614343bb5e325ae551876f6f38d"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/ParkerHardware.jpg",
+    "bytes": 18716148,
+    "sha256": "b6bb4316b09e7b648fdfeb35aaea351a3eacb407fcbf7c7dc2f9b85a8326e383"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/ParkerHeatShield.jpg",
+    "bytes": 231539,
+    "sha256": "38b38d58a54675845960f1e517488319e636c2affd3b26cf222041e1053ff87e"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_Color.jpg",
+    "bytes": 740201,
+    "sha256": "313010300e23c8a18edfcbe7fdc0351dded3a2c23feaa352dbde0af99d681339"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_Displacement.jpg",
+    "bytes": 444907,
+    "sha256": "69694ed6165088a4d7c5acbe366ee50a96d2fed459a1f99bbe0771b11cad6ba4"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_NormalDX.jpg",
+    "bytes": 1690608,
+    "sha256": "e1cbb91258b65341b8035c2673ef23911f17c860e48d2e658433f24737f0fc04"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_NormalGL.jpg",
+    "bytes": 1688379,
+    "sha256": "444a36dbccaefc1786aa066fc3e1848e9328558a6789ba0c3b1f84a78dba2649"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/Plastic001/Plastic001_1K-JPG_Roughness.jpg",
+    "bytes": 664489,
+    "sha256": "c7861daf83f7de44b58bd19d91d0e737f760709f84df0898ccd91209376063c1"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/rubber_tiles_Diffuse.png",
+    "bytes": 20476042,
+    "sha256": "2667b95f98eea13aba05bad4ea346280ec05f5e984b0ecabcff9fa9569e61faa"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/rubber_tiles_nor_dx.png",
+    "bytes": 23761787,
+    "sha256": "11f57c136cc36acfcf3dd4800dcc0d360f8d055cb4bdc584c534b9682a88ee4a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/rubber_tiles_Rough.png",
+    "bytes": 7587662,
+    "sha256": "4e48a018635a4d9de521055e57e96a752bf3d9012027711972eaa938bd6ddf79"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/ShuttleCockpit.jpg",
+    "bytes": 206092,
+    "sha256": "870effd9a61c4e509a39db19b89cfd7ff4c0dc47494d25bb19a44c5816fa2e8d"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/ShuttleFlightDeck.jpg",
+    "bytes": 202111,
+    "sha256": "9c7084abf6e2d3d533e62590c0ad1e1a47aac5697aa3cce92cbac2fc5a472c2a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/terlenka_Diffuse.png",
+    "bytes": 22854646,
+    "sha256": "24b7f2ca4da270bed03873d319ae8ab3ec263c049946adcb6aa03cea9177e90d"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/terlenka_nor_dx.png",
+    "bytes": 22906196,
+    "sha256": "1b74bd6acec597d39c83411e504818a5885511dfb826007f3071fbc02cef82c9"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Sources/terlenka_Rough.png",
+    "bytes": 8121987,
+    "sha256": "f3370498edba0c4e1523feece1b00bb6d2a292a0992ee273da6d27a1192bd0e5"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/CarbonShield_Modulation.uasset",
+    "bytes": 8264,
+    "sha256": "fc6ca44bb3d04955ca6068f914dbf3e6745fe8e67883d34fce32a91b03e5de43"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/CarbonShield_NormalDX.uasset",
+    "bytes": 5397,
+    "sha256": "c24e5ea2879ca68c38d885f403b3c5baf53fd6215287c0fd90e3ba3b324b7539"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/CarbonShield_Roughness.uasset",
+    "bytes": 8808,
+    "sha256": "9c37a0659c0f0de8ac5582a7548c5b910fe5c5c8fd41384f34331d5fa101dacb"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/CeramicCoat_Modulation.uasset",
+    "bytes": 40242,
+    "sha256": "b39625dc025d76f708821c6be96e84ab140240560366b2a825e72787cf807472"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/CeramicCoat_NormalDX.uasset",
+    "bytes": 45205,
+    "sha256": "1fa03bffd20a37677f50b5ddc37ede1190b668c1839a8154afc33a5365949c12"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/CeramicCoat_Roughness.uasset",
+    "bytes": 18597,
+    "sha256": "1435fa6459b8d769362dec600345ba5ac4212abde231ecd10a1db742ba2a053a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/EtchedMetal_Modulation.uasset",
+    "bytes": 43745,
+    "sha256": "39c2ab8ff6cbb92472819fbc30406e347ee35b60f857e8b6e6948879a0298310"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/EtchedMetal_NormalDX.uasset",
+    "bytes": 33718,
+    "sha256": "c8e5c1117ae4d78009d319afd36a8551bef71dfcb32f45a29bf86c90b9269fd2"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/EtchedMetal_Roughness.uasset",
+    "bytes": 33187,
+    "sha256": "df81589d8de0e7a858419be3c09f15c67afbea989e59ebf1725ad8fe3162c388"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/FoilResponse_Modulation.uasset",
+    "bytes": 22240,
+    "sha256": "24d3294e0b7ad0d6875a11b30df9586198d85e18972fad015dbf8ce0a4ef2250"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/FoilResponse_NormalDX.uasset",
+    "bytes": 5398,
+    "sha256": "2888df8f434f5a12774e96012c06aee73a471a248a940f0b5b03b7212eb36ab6"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/FoilResponse_Roughness.uasset",
+    "bytes": 18808,
+    "sha256": "1d519d79edacc56390648afc4f41fa92cdc161142e47fc3958e8777206bb2a69"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SatinMetal_Modulation.uasset",
+    "bytes": 43738,
+    "sha256": "3a3b04abaa90729a057f7730480bf2d0b9cd676cc0ba3b060fa9ff8a95e15c39"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SatinMetal_NormalDX.uasset",
+    "bytes": 33711,
+    "sha256": "b31bc82d2502fd075ace02fd5a4a998094365bc502367d6186931b4417c6ca65"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SatinMetal_Roughness.uasset",
+    "bytes": 27603,
+    "sha256": "8524ca5055fca8c86664ed4dfd05215f6ba5961969dbaff5ed56cf581b6d05bf"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SeatWeave_Modulation.uasset",
+    "bytes": 2880743,
+    "sha256": "f7c0d31c9eaebf25ee24ac6935c4db0a551af383f1bcc8a547e5ad9c1ce53789"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SeatWeave_NormalDX.uasset",
+    "bytes": 7320064,
+    "sha256": "f1a283d562607aaed6487c013d64e28200eeaecc23877ca4a7fd501a1b81522a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SeatWeave_Roughness.uasset",
+    "bytes": 2831968,
+    "sha256": "a663b15f92aed1ea681737050945d9842003e0e6f91dedc95892e18a2e4a0a5c"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SoftTouch_Modulation.uasset",
+    "bytes": 28095,
+    "sha256": "9325eed725d19503665c78ecbc6c18fd9e7a3cbef3a8bec81cb962bff7be3938"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SoftTouch_NormalDX.uasset",
+    "bytes": 51374,
+    "sha256": "198fe2b0d2bdf20e3a1de152628a501908ecd207ac1aa891c3cd1f5b2c5116c1"
+  },
+  {
+    "path": "Content/Star/Art/PhotoShip/Textures/SoftTouch_Roughness.uasset",
+    "bytes": 25420,
+    "sha256": "cf5bc8bf63c3960aa4750d96dc57421e246b640e7de499357ddb01a498521e88"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSky/material_recipe.json",
+    "bytes": 1889,
+    "sha256": "72b1d65a44c5221d2400dc6debcc40eab43537e8397cbc4322c058196dfd4c73"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSky/source_comparison.png",
+    "bytes": 791492,
+    "sha256": "2902c342b1183702c83cda0a254edb1e9e441ca7cc4ca5597bd83656bd0d344a"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSky/stars_photo_8k.png",
+    "bytes": 46628761,
+    "sha256": "b38f4d66ebd376051fce87422dec59166df398e365c9b83a87dd6ecf35500a60"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSky/T_PhotoSky.uasset",
+    "bytes": 48015979,
+    "sha256": "ddd1cb9af369f40899caa8b26b369559194036c60f3617dc6c3667f90b5a33da"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSkyV3/eso_diffuse_8k.png",
+    "bytes": 7430932,
+    "sha256": "4824b6940ddaced925d044ebb1c89953c0d315949443ed2881f9106e2e7500f2"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSkyV3/hiptyc_2020_16k.exr",
+    "bytes": 71265298,
+    "sha256": "bd12d36e3e32ba75e61bd501aca25675f70250dce50fcfb880f22b9b6229725c"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSkyV3/T_BrightStars16K.uasset",
+    "bytes": 52644474,
+    "sha256": "3149c79f43da5269c0ca065c0afbc14fd4caf7c66d5ef4de4ec3b03e26ffebc7"
+  },
+  {
+    "path": "Content/Star/Art/PhotoSkyV3/T_Diffuse8K.uasset",
+    "bytes": 9164900,
+    "sha256": "37bbef221f66fb0c905a7da3840514e80609272032daa49e10805f9ca391982b"
+  },
+  {
+    "path": "Content/Star/Audio/audio-manifest.json",
+    "bytes": 13813,
+    "sha256": "8d5c68aff5e7e64e5175e38e938a28950b1ad1e781f6f31b074291f3e59f2ce5"
+  },
+  {
+    "path": "Content/Star/Audio/Source/BGM_DEEP_CRUISE.wav",
+    "bytes": 12288044,
+    "sha256": "48f70dcd2f834d493a5742f2280cdac5c0711cca5cef7886ca71e8451dc0ebf5"
+  },
+  {
+    "path": "Content/Star/Audio/Source/BGM_EARTH_SUNRISE.wav",
+    "bytes": 12288044,
+    "sha256": "3775c27682a585f9bf1da6833d2f2820aa2840acf210b5b03d9255119e64ac3e"
+  },
+  {
+    "path": "Content/Star/Audio/Source/BGM_MOON_APPROACH.wav",
+    "bytes": 12288044,
+    "sha256": "fd5f93d72eea9105992207bd38693822dafb99a62f589c6f8958c68f196e4de3"
+  },
+  {
+    "path": "Content/Star/Audio/Source/BGM_MOON_SURFACE.wav",
+    "bytes": 12288044,
+    "sha256": "0803bcc8cb18ce2fc534a41f062bdabc44784d4d933fc022ea7543846128e336"
+  },
+  {
+    "path": "Content/Star/Audio/Source/BGM_SATURN_RINGS.wav",
+    "bytes": 12288044,
+    "sha256": "56195ceaeca5860cb2aac90b653b999ea6255cf4f576cd37adf808affa0158e3"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_CABIN_LIFE_LOW.wav",
+    "bytes": 2304044,
+    "sha256": "d15b1caff557b7d3ce6383404e48ca13f21d8eba080360129fa72a9f083c38ba"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_CABIN_LIFE_MID.wav",
+    "bytes": 2304044,
+    "sha256": "7594c7fb9173f4dec9a4aa7537c927a5b012f62336beafaf5464ec3fd5664e07"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_CONTROL_ROCKER.wav",
+    "bytes": 38444,
+    "sha256": "c26b3f638c2fb5d479d7fe897ba0fbc8de608c56199f8821434ab2ed1809968b"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_CRUISE_BED.wav",
+    "bytes": 2304044,
+    "sha256": "ca2f065c41ece0e8bc5d3a9694e37893acb408f9ddc7d7ab8f7a3721fc707d63"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_CRUISE_CHARGE.wav",
+    "bytes": 403244,
+    "sha256": "f24840a78aa8a24be069b1016cc2df03dded150659cde9d462bd20f1c1069bc9"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_CRUISE_DISENGAGE.wav",
+    "bytes": 307244,
+    "sha256": "1450a5316fb2a2559f58d7d5e199473974d5f83dc696c45246ed7562504a8722"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_CRUISE_ENGAGE.wav",
+    "bytes": 249644,
+    "sha256": "b08d9e53777987aaa0e14162e97f67900527d4d2d4879760c344337e0fcf1c94"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_ENGINE_IDLE.wav",
+    "bytes": 2304044,
+    "sha256": "8e629f694b3eb03c155a4b60b82e2fb2b387136aa8d906b98b80b2cd3baa81b5"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_ENGINE_SPOOL_DOWN.wav",
+    "bytes": 288044,
+    "sha256": "631f9ab4f17e4433d8e3ec397c87fb09a895c65ccbe5394795fb1b83a6729146"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_ENGINE_SPOOL_UP.wav",
+    "bytes": 288044,
+    "sha256": "f383901d82fec9eb40d2ff4afea38e1c44b23398f260b26a893dac1f6a4ef47c"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_ENGINE_THRUST_HIGH.wav",
+    "bytes": 2304044,
+    "sha256": "d97ce1faed837c8ad6d59e40b13485bcc7373a8b9eaa331ada69cb7650398d14"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_ENGINE_THRUST_LOW.wav",
+    "bytes": 2304044,
+    "sha256": "56d2f8c5b5b72e3216fc0ebfecb5bef613e8c19e28d871ea5f35b31cb36b6063"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_ENGINE_THRUST_MID.wav",
+    "bytes": 2304044,
+    "sha256": "fadb5fa8deebf4b0a7e7e33378cf455c323d48028cf7c327612576a63738be45"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_COOLING_RELAY.wav",
+    "bytes": 115244,
+    "sha256": "a65e8b7b13259a3ddfef691cd69caea7b29f7e18c85d6d0290501787fea3ef1a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_FOOTSTEP_REGOLITH_1.wav",
+    "bytes": 88364,
+    "sha256": "f39a51c328c8d241d0aa7d9dc341230829b13273232e7dc507e26ebd8b6c58eb"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_FOOTSTEP_REGOLITH_2.wav",
+    "bytes": 88364,
+    "sha256": "9e25e912a469cb7e81b5a9705657c76a07cf6752bfabad4ca44b3cc0a1f42dbb"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_FOOTSTEP_REGOLITH_3.wav",
+    "bytes": 88364,
+    "sha256": "e38094acb6b7f0580070e6a7e4dd2085e999eec2043859d16651f9a7c5e8f8be"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_FOOTSTEP_REGOLITH_4.wav",
+    "bytes": 88364,
+    "sha256": "d8d26851f74b56cb5c2542b7f68a97b57cabe2b15de8bb200e021574c759a3f0"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_HATCH_CLOSE.wav",
+    "bytes": 364844,
+    "sha256": "9cf95e9fc21930cbb7d4194b79ae418ac1b2fa567fde211615a2b2f2aab3b20a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_HATCH_LATCH.wav",
+    "bytes": 134444,
+    "sha256": "d4e658ea109ea9e3933cdce5a437197973362263dab7fd6432a4d0dd30d5e864"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_HATCH_OPEN.wav",
+    "bytes": 364844,
+    "sha256": "9cf95e9fc21930cbb7d4194b79ae418ac1b2fa567fde211615a2b2f2aab3b20a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_PUSH_OFF.wav",
+    "bytes": 88364,
+    "sha256": "7da85540541aa8f5b776ac2ceddff749e233e2968adf440505439334e25a48ea"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_RADIO_EQUIP.wav",
+    "bytes": 115244,
+    "sha256": "a65e8b7b13259a3ddfef691cd69caea7b29f7e18c85d6d0290501787fea3ef1a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_SUIT_COOLING.wav",
+    "bytes": 2304044,
+    "sha256": "e567af9a3c4fa1ed1ce41522d496fa8c642ad102b0718e5e1fd0429a86ea5db2"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_SUIT_FAN.wav",
+    "bytes": 2304044,
+    "sha256": "181059c77ae937a6ae58fd270f0026cdc82988239983d5dcb866f5e98809e4b6"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_SUIT_LATCH.wav",
+    "bytes": 115244,
+    "sha256": "a65e8b7b13259a3ddfef691cd69caea7b29f7e18c85d6d0290501787fea3ef1a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_SUIT_VALVE.wav",
+    "bytes": 153644,
+    "sha256": "a8f81360a67512208e9c93a6a82ef1c87a75ba32d8a544943bcaeaf91253146b"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_TETHER_ATTACH.wav",
+    "bytes": 115244,
+    "sha256": "a65e8b7b13259a3ddfef691cd69caea7b29f7e18c85d6d0290501787fea3ef1a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_TETHER_DETACH.wav",
+    "bytes": 115244,
+    "sha256": "a65e8b7b13259a3ddfef691cd69caea7b29f7e18c85d6d0290501787fea3ef1a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_THRUSTER_PULSE.wav",
+    "bytes": 76844,
+    "sha256": "303af809eb1ddf2a24d1b1a033451860592c2bfc810be17f995d8acc8f906f70"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_EVA_TOOL_GRIP.wav",
+    "bytes": 115244,
+    "sha256": "a65e8b7b13259a3ddfef691cd69caea7b29f7e18c85d6d0290501787fea3ef1a"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_GEAR_DEPLOY.wav",
+    "bytes": 278444,
+    "sha256": "b12fcb94cfe99e41a03e52ba77c2aa26ff3706e57eb08421afb07b670ad939c0"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_GEAR_HYDRAULIC_PRESSURE.wav",
+    "bytes": 230444,
+    "sha256": "c79d5ca17849ec1942a746c457de73aa54ac50151d7d8f454d08a6456f923ae4"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_GEAR_STOW.wav",
+    "bytes": 278444,
+    "sha256": "fa58521cfb8a73b9be684bf96b12a310416fc7a848529f820b164182ba64a0e4"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_RCS_ATTITUDE_CLUSTER.wav",
+    "bytes": 69164,
+    "sha256": "d39c40c49c1510f081cde3365e80f7935a199847b7c93154fb9099c7bdbffaab"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_SCAN_COMPLETE.wav",
+    "bytes": 138284,
+    "sha256": "e3f9a96d53ec5fc67b86f8614880e4cdd001af186aba7c279b88688c7294266d"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_SCAN_START.wav",
+    "bytes": 86440,
+    "sha256": "b0f8ee876eda2e83db1ccc6e5ed16d60d875d96477f93b99860e44ee18fcf886"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_TOUCHDOWN_LIGHT.wav",
+    "bytes": 230444,
+    "sha256": "1935b3e3884c042c63729f7b8a30ccad4494aa81e6f69c41e565ca603ac2322b"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_WARN_CAUTION.wav",
+    "bytes": 157484,
+    "sha256": "51e3f9b025ed2183283f3f63e188d4c4609270e232e4111d8742b38e9ba884a7"
+  },
+  {
+    "path": "Content/Star/Audio/Source/SFX_WARN_COLLISION.wav",
+    "bytes": 157484,
+    "sha256": "66560f576cae2ff927b6ade39d8607d6bebde7f9c57e9dd006adf4fb4b467fe3"
+  },
+  {
+    "path": "Content/Star/Audio/SW_BGM_DEEP_CRUISE.uasset",
+    "bytes": 3761407,
+    "sha256": "158b8b5840411d5fd389e8854ccdf9d0b844dd617a842c15d6a9828b3616b9b3"
+  },
+  {
+    "path": "Content/Star/Audio/SW_BGM_EARTH_SUNRISE.uasset",
+    "bytes": 5346403,
+    "sha256": "55cb9f1a7e6a8db6605709f578ddd8659e7a16103c7d92ea9d4937f7b995ae57"
+  },
+  {
+    "path": "Content/Star/Audio/SW_BGM_MOON_APPROACH.uasset",
+    "bytes": 4314505,
+    "sha256": "f277b8988880d2e898f34a03ca48e2cfa371b45ddd959e739a76a8133244495c"
+  },
+  {
+    "path": "Content/Star/Audio/SW_BGM_MOON_SURFACE.uasset",
+    "bytes": 3441430,
+    "sha256": "fb44fca3c5c521adbfeab76c7b3d34630f4585e07598582f72153f7657568d81"
+  },
+  {
+    "path": "Content/Star/Audio/SW_BGM_SATURN_RINGS.uasset",
+    "bytes": 4868366,
+    "sha256": "a20763263e9608c27179231730c9fe7a41204949b5181a2398cb004ec8649969"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_CABIN_LIFE_LOW.uasset",
+    "bytes": 857686,
+    "sha256": "c9c20381bd5c46e84cf9451b41274d8f02473029baf93e0f4b2ac91a33ba8be7"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_CABIN_LIFE_MID.uasset",
+    "bytes": 1173839,
+    "sha256": "9d7bc7cf6fd7242f2000f438dc957ee76d4bee109be91a8e137365c7f6e7a69f"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_CONTROL_ROCKER.uasset",
+    "bytes": 12385,
+    "sha256": "0253d6c612d6880e08e33d60457556eeae99b1356d8203e5b59e0d85dff26857"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_CRUISE_BED.uasset",
+    "bytes": 21959,
+    "sha256": "9769a0a1c4b211ab4212570fa1406b91038d18e442dee6c846af4f761768a5f8"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_CRUISE_CHARGE.uasset",
+    "bytes": 204568,
+    "sha256": "25d02fe80cc95bf986b3e4d703d669ac0325b88638dd2fdb7a34b154167103cf"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_CRUISE_DISENGAGE.uasset",
+    "bytes": 155180,
+    "sha256": "6af17a82116012a4bc30e5b71900175cdff006a3ab6f98df73b8aa5156c65afd"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_CRUISE_ENGAGE.uasset",
+    "bytes": 128203,
+    "sha256": "9cdae910fc927a964a563defce7a601958e0d904a1d9333ce9f11f2cfc999c41"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_ENGINE_IDLE.uasset",
+    "bytes": 11198,
+    "sha256": "1f4d096468d247520de12b14f908d0d89db80ae01679d6272e5e552ac8e2caad"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_ENGINE_SPOOL_DOWN.uasset",
+    "bytes": 51372,
+    "sha256": "61db9cb8c442865d7b752999428ef84c137396e91ed3ece0534a120dc5a8a567"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_ENGINE_SPOOL_UP.uasset",
+    "bytes": 101423,
+    "sha256": "e33f92386d162b2beea892b79058c17fc9f52891725320f42c97aa2b62161630"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_ENGINE_THRUST_HIGH.uasset",
+    "bytes": 1069945,
+    "sha256": "f9c68781243280105bbf803d8cd9843cb3edd3b0f900a57a93a3c49f8950bfdd"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_ENGINE_THRUST_LOW.uasset",
+    "bytes": 753304,
+    "sha256": "fa59215f61eef6de0362498d8d56f8fc0abf4e63a3af29edb876eb5265254a79"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_ENGINE_THRUST_MID.uasset",
+    "bytes": 77196,
+    "sha256": "0860a639237126f2ba98a35a0d4d117752c68da2a2aabb23cb01b62964000f98"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_COOLING_RELAY.uasset",
+    "bytes": 51425,
+    "sha256": "0e3af6f4e6ad0e6c3feee8c11bd322c1b9af2826d502043ec9bf345cdad89b2d"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_FOOTSTEP_REGOLITH_1.uasset",
+    "bytes": 40560,
+    "sha256": "9bdadd2a06eeea90686fb3395162e28972bdd7b8453e45fe2e97b5975826948c"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_FOOTSTEP_REGOLITH_2.uasset",
+    "bytes": 40134,
+    "sha256": "e13163f190dd9821448bf9698738f68a5390ba857fa258d9e60546eab8f74c58"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_FOOTSTEP_REGOLITH_3.uasset",
+    "bytes": 40020,
+    "sha256": "9cddb62c89b0a961ed3f6b4baaa995c191e757cd100ad7eb47083f9769da54e0"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_FOOTSTEP_REGOLITH_4.uasset",
+    "bytes": 39714,
+    "sha256": "90dc0e15caaa969d6893f21cf1ec220bfeddd2c3dc4a69bcf59e0262329fc2e3"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_HATCH_CLOSE.uasset",
+    "bytes": 198224,
+    "sha256": "c46284b04fb095ab5529fce82f96030ae62407b7e0cd21b7cb29950baf88014f"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_HATCH_LATCH.uasset",
+    "bytes": 75429,
+    "sha256": "b438169ed0f14b01330ab64aa3f1d9926b6677a7c5cf0317346bc0160d1d1d11"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_HATCH_OPEN.uasset",
+    "bytes": 198218,
+    "sha256": "31a5081ad4126a56278674ddea408d77fa3f185883b217cc05dde4720b705b3f"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_PUSH_OFF.uasset",
+    "bytes": 39568,
+    "sha256": "308e83af768e95b40feb47f5ac65893272bbffdf675b1b6059056dfeb8217f8e"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_RADIO_EQUIP.uasset",
+    "bytes": 51413,
+    "sha256": "cca1f7e7a3e564a260f285befba3b8a092d6b5ce42bba2a9f132b7aab6f0cf5e"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_SUIT_COOLING.uasset",
+    "bytes": 808624,
+    "sha256": "76277ffe9022c5d634d6f3f3e60a0a8d8d9d1f3168be289e44c853a685838d5c"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_SUIT_FAN.uasset",
+    "bytes": 1197545,
+    "sha256": "aa6216806ec02fc8f1de9f0f7b1375821c5f3c5498aca97553da73effc083ff5"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_SUIT_LATCH.uasset",
+    "bytes": 51407,
+    "sha256": "2dba069c520669b4e2c51c4843dc098b0b24d991eb66bff44cbb769a91bf0bc4"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_SUIT_VALVE.uasset",
+    "bytes": 61626,
+    "sha256": "d902bd6afb251116ef5ae39ef25f7b65f8435200c66b08c3aa1b747076481ad2"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_TETHER_ATTACH.uasset",
+    "bytes": 51425,
+    "sha256": "fe01b743afa8e71f104251fc2e733e64c55a1b59c49c3ebc23ce26b632d8a10d"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_TETHER_DETACH.uasset",
+    "bytes": 51425,
+    "sha256": "767b64d1ad7b7e5fd6452a5dcb9bd4ebf65215fcdadaa8c7a201c3ed09afd0f8"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_THRUSTER_PULSE.uasset",
+    "bytes": 38660,
+    "sha256": "d2eb534c8ba78fb068b0bc3fa77d205a6c02d2c74ebf01f97b6e279a88e40e67"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_EVA_TOOL_GRIP.uasset",
+    "bytes": 51401,
+    "sha256": "f75e004a1c5a669e4857634b72d41fef88ec279886ea14fb9c1141373c0c12cb"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_GEAR_DEPLOY.uasset",
+    "bytes": 13926,
+    "sha256": "12c0bfb131b2cc4042371f1c48ae296c677bc0a1b18f2fc1dcda8765a081024e"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_GEAR_HYDRAULIC_PRESSURE.uasset",
+    "bytes": 14243,
+    "sha256": "111227fe48ea9f75fcceb35f53f38a8b5b492c28b8d775f264b2a43c754a0e0d"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_GEAR_STOW.uasset",
+    "bytes": 15714,
+    "sha256": "d1f46c7c988f30962ff07f4a025c1eebc13fa5a3f3fef391d0925c69695bc880"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_RCS_ATTITUDE_CLUSTER.uasset",
+    "bytes": 33485,
+    "sha256": "957038850a941e88b420f57cb80a02852c22d651735f24c210f500100261712e"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_SCAN_COMPLETE.uasset",
+    "bytes": 32156,
+    "sha256": "2936383a0fa30b167de5bc43ad3a862b178d011c292541d55274326545daab41"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_SCAN_START.uasset",
+    "bytes": 27872,
+    "sha256": "0ed4cb6b80cd2c9ce01e3e1d7f6650de642a8a219e9bb98830dedf62c364d8a5"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_TOUCHDOWN_LIGHT.uasset",
+    "bytes": 20812,
+    "sha256": "ee2f61f7cc1536b97096ff5626676016ee24509c01cfdafba918df3bc1a50ec4"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_WARN_CAUTION.uasset",
+    "bytes": 50619,
+    "sha256": "3833023713b82c38a6c64a9a4ca7762ad62d8d0a8ec7a1dd0b7db6f4be78edc0"
+  },
+  {
+    "path": "Content/Star/Audio/SW_SFX_WARN_COLLISION.uasset",
+    "bytes": 50393,
+    "sha256": "fb1b15627a2da91c8e0744e5734d8a2f03b772e13251bccc2c3d996e7e28c7d6"
+  },
+  {
+    "path": "Content/Star/Data/andaman-dsm-f32.bin",
+    "bytes": 207360000,
+    "sha256": "2390c6f9293ae009bb36eeb1671b25b8985451f745ea381979b1ba7c4d9d03ba"
+  },
+  {
+    "path": "Content/Star/Data/andaman-dsm.json",
+    "bytes": 5920,
+    "sha256": "cf6b0ae7c855a14e3813f0a3acbda6fbbb8e3f5b3e50965c7b2c71c2f908aeb0"
+  },
+  {
+    "path": "Content/Star/Data/apollo17.json",
+    "bytes": 2096,
+    "sha256": "48ee6a7e8afad3ea43e4412d16b252029a0dff3d8ad84f324ba8c7ba94535bd9"
+  },
+  {
+    "path": "Content/Star/Data/apollo17_far.json",
+    "bytes": 2409,
+    "sha256": "d0ffa684787195b3a3b55deba44156ca0328abf2344d19c9b4dd0fa60bbd6896"
+  },
+  {
+    "path": "Content/Star/Data/apollo17_far_confidence_u8.bin",
+    "bytes": 28959400,
+    "sha256": "964cb9564af7bc98212371a26f899995590a9bf9035d95bf89d6ed2d0869441d"
+  },
+  {
+    "path": "Content/Star/Data/apollo17_far_height_i16.bin",
+    "bytes": 57918800,
+    "sha256": "5cf748ff7ecadb570e086a4d84863cbc110cf15e27ed14d8e90bfa9c41114103"
+  },
+  {
+    "path": "Content/Star/Data/apollo17_height_f32.bin",
+    "bytes": 26880000,
+    "sha256": "884c5e3936f735f66abc1b2ff76ae36c10b07550e9f8fdd38af62a0ffbde9fec"
+  },
+  {
+    "path": "Content/Star/Data/apollo17_valid_u8.bin",
+    "bytes": 6720000,
+    "sha256": "88a0c8cf6430396899ca3b80f2fa998da02394d3292b93baf47969ef265a4fd5"
+  },
+  {
+    "path": "Content/Star/Data/bodies.json",
+    "bytes": 13779,
+    "sha256": "d7684c9541457adeac1f5d10025b0b7adf4cf33e00d002d07383b30797fd1a66"
+  },
+  {
+    "path": "Content/Star/Data/credits_ja.json",
+    "bytes": 4459,
+    "sha256": "2cc1bf5d0b2978c45b06833ad1f25f23957192ce771b02a88fd6750b83776099"
+  },
+  {
+    "path": "Content/Star/Data/ephemeris-2026.bin",
+    "bytes": 2803552,
+    "sha256": "6aacecd6e1b4422f04d1b2d5bb40ddd485b5a0a5ea9645898c186cddbe256ad5"
+  },
+  {
+    "path": "Content/Star/Data/ephemeris-2026.json",
+    "bytes": 8662,
+    "sha256": "bf0e1525d55f0cfb1c6e5f06e113f36ea19424912d11292a27b6d45ad6fca5ca"
+  },
+  {
+    "path": "Content/Star/Data/moon_ldem_16.json",
+    "bytes": 1095,
+    "sha256": "d82005ce048f5423aa6351d9d42874e3bb4e4f4e279222c17e988be85718cb45"
+  },
+  {
+    "path": "Content/Star/Data/moon_ldem_16_i16.bin",
+    "bytes": 33177600,
+    "sha256": "d49ad4d79daf9070164e6a28b9a771ce969a236f2f830cf3041d4b5518ae6a66"
+  },
+  {
+    "path": "Content/Star/Data/runtime_assets.json",
+    "bytes": 7583,
+    "sha256": "09afd12f542a77e21811c78d08a9cb00c1cffa7533982a9224a43b5658b4b78f"
+  },
+  {
+    "path": "Content/Star/Data/saturn_ring_profile.csv",
+    "bytes": 1827477,
+    "sha256": "74d5af616a0afed14944a1ffafbf263e2847f0ff4b27744d4d6d6fae7c33bab3"
+  },
+  {
+    "path": "Content/Star/Data/saturn_rings.json",
+    "bytes": 642,
+    "sha256": "c309c553b1984cc78041f7091c96699ea52111e90872c1167f8ba0bcd0cb5fb9"
+  },
+  {
+    "path": "Content/Star/Data/ship_nozzles.json",
+    "bytes": 4191,
+    "sha256": "46180fb96b31d5e3675596745cf20a55279132c64549a72ad286a11a3b77dae4"
+  },
+  {
+    "path": "Content/Star/Data/sky_mapping.json",
+    "bytes": 643,
+    "sha256": "31d13fda8794ed4e16828ed7b72bdb74358ec0b419da0404c7917269e20d4bfe"
+  },
+  {
+    "path": "Content/Star/Maps/L_SolarSystem.umap",
+    "bytes": 8855,
+    "sha256": "664d51a38f56bea1edd0fc105385f1a41571553bfbae080de585236f456de939"
+  },
+  {
+    "path": "Content/Star/Materials/M_Atmosphere.uasset",
+    "bytes": 40050,
+    "sha256": "247212862970a441ca4aefa425d256e99a35d187a437c685ca86ea4c31729cfa"
+  },
+  {
+    "path": "Content/Star/Materials/M_Clouds.uasset",
+    "bytes": 42906,
+    "sha256": "6a12974df0439850d30fb2cfa864d90dfed698f3930622ede7024c1df4dfe72e"
+  },
+  {
+    "path": "Content/Star/Materials/M_CloudsSurface.uasset",
+    "bytes": 42799,
+    "sha256": "29dd0d01fb198e1f49954945420657dfaaf371ce480f29c1990cf0129ddfaec9"
+  },
+  {
+    "path": "Content/Star/Materials/M_ObservedEarth.uasset",
+    "bytes": 6120,
+    "sha256": "3edb932264599535172920f7ccd1bb5f48813c6e08ff7ddd8938c9cc242dbd84"
+  },
+  {
+    "path": "Content/Star/Materials/M_Planet.uasset",
+    "bytes": 67135,
+    "sha256": "6bd2edc41134c995cd2f6aa0a0d6d0c773594504c1adc790203078d2cb3fb2d2"
+  },
+  {
+    "path": "Content/Star/Materials/M_Rings.uasset",
+    "bytes": 22990,
+    "sha256": "07f22f35e8be6afb242fb62d0277d0d47ec39db430f8a7cc60e9eeba8fd4baa6"
+  },
+  {
+    "path": "Content/Star/Materials/M_Stars.uasset",
+    "bytes": 20595,
+    "sha256": "359630eef1826b0c3cda81e9eac1281262989cbaa9f2e189ebd5ff59acb2a524"
+  },
+  {
+    "path": "Content/Star/Materials/M_Sun.uasset",
+    "bytes": 17984,
+    "sha256": "c4b9984022655858a7a497aca1816d88380d2c833ba850e5be0bb276f71a248e"
+  },
+  {
+    "path": "Content/Star/Materials/M_Surface.uasset",
+    "bytes": 57254,
+    "sha256": "b9c8fe0d86b52ee3eaa0028b34dd00c5a301af5bbf11e9d96eb1c37923b21d99"
+  },
+  {
+    "path": "Content/Star/Materials/M_Thruster.uasset",
+    "bytes": 21432,
+    "sha256": "d2de2b93a1d377e960f4fec0130379f73082071d39b6d91895c4936eadb97f5c"
+  },
+  {
+    "path": "Content/Star/Materials/M_ThrusterAxial.uasset",
+    "bytes": 14948,
+    "sha256": "d84a5f713e5d2cefaf9866686fff2a53272172ed4c05dc5263812240b61a33a5"
+  },
+  {
+    "path": "Content/Star/Materials/MI_Earth.uasset",
+    "bytes": 15753,
+    "sha256": "8353fc43263c2cd042286be0c8ee3f4a4ab114a30a32b01e38f0be0a453a55ef"
+  },
+  {
+    "path": "Content/Star/Materials/MI_Moon.uasset",
+    "bytes": 4972,
+    "sha256": "4a75d62c2e3afba463ff31f2330cc08b0a5b73d8f43579f33bc9762f9b23c154"
+  },
+  {
+    "path": "Content/Star/Materials/MI_Saturn.uasset",
+    "bytes": 5880,
+    "sha256": "73ad0fdc57232c619abb1251474192382fcc3de427d4cf3bca1eed3135157b00"
+  },
+  {
+    "path": "Content/Star/Textures/apollo17_ortho_5m.png",
+    "bytes": 6552618,
+    "sha256": "bac8ea4fa0500b7f46fd674b282be7f6b2138bfc0ccab3ab3debce9898436e46"
+  },
+  {
+    "path": "Content/Star/Textures/apollo17_ortho_5m.uasset",
+    "bytes": 4804031,
+    "sha256": "6e0707a81ecfc8fbed2880ddf418694d7862ba62b1b54564eaba606c9c5236cc"
+  },
+  {
+    "path": "Content/Star/Textures/earth_clouds_8k.png",
+    "bytes": 19108959,
+    "sha256": "c94e0e15a54a873d5ffc68c49067b3337ae04e55b4f36d0cede59f2dee7cc7f2"
+  },
+  {
+    "path": "Content/Star/Textures/earth_clouds_8k.uasset",
+    "bytes": 23092002,
+    "sha256": "552296d3edc8fc75c7945da1942aa945aa6a5b583f239867e294179cdb491cee"
+  },
+  {
+    "path": "Content/Star/Textures/earth_day_8k.jpg",
+    "bytes": 7781154,
+    "sha256": "986af5a1d974d30da6e75d5d00ac583bdc1e262a81c66bdc7f84d205e982ec22"
+  },
+  {
+    "path": "Content/Star/Textures/earth_day_8k.uasset",
+    "bytes": 7790813,
+    "sha256": "ddf53e8b75ec1448088ab56457ce36dffda280dfcd751236e23b1deda045d973"
+  },
+  {
+    "path": "Content/Star/Textures/earth_night_8k.jpg",
+    "bytes": 6873882,
+    "sha256": "a0f222090a0eb627a434d38e1ab226f735ca8ae33312de46f1a71e54a0bb4110"
+  },
+  {
+    "path": "Content/Star/Textures/earth_night_8k.uasset",
+    "bytes": 6882468,
+    "sha256": "bd87c419f067102a43b230095fe21e1e3f30c6126e85f27a0f9979b88d4c4e34"
+  },
+  {
+    "path": "Content/Star/Textures/moon_albedo_8k.png",
+    "bytes": 173257327,
+    "sha256": "564c8df6d1fecfea2d60b35aa68ec5f3152888cead66d48a0c16a9bf67651262"
+  },
+  {
+    "path": "Content/Star/Textures/moon_albedo_8k.uasset",
+    "bytes": 151147828,
+    "sha256": "e41a3532302ecd7fa293cd37639ce82692051f5cbcdc374ccc6f1387f1f7a89d"
+  },
+  {
+    "path": "Content/Star/Textures/saturn_body_reference.png",
+    "bytes": 4506599,
+    "sha256": "cf764ad31c1637636069dd9250a84e5b1351eaa89050fcc7478c877da407c8a0"
+  },
+  {
+    "path": "Content/Star/Textures/saturn_body_reference.uasset",
+    "bytes": 5921116,
+    "sha256": "d4e67d3104434419c9714f5bfc8ae4efe9a056320ad7b2510973b30f988f275d"
+  },
+  {
+    "path": "Content/Star/Textures/saturn_cassini_PIA05389.jpg",
+    "bytes": 36983,
+    "sha256": "a9f4c997ec0515b022f4208e32053bf7b83985d6dc6306b2a9dfa5a7bbf2ecfc"
+  },
+  {
+    "path": "Content/Star/Textures/saturn_cassini_PIA05389.uasset",
+    "bytes": 45538,
+    "sha256": "a0820455840bcb7cb0dbbc7224c62cabd7809fc8426b4dbd0c3c6330d6e529ed"
+  },
+  {
+    "path": "Content/Star/Textures/saturn_rings_rgba.png",
+    "bytes": 8588,
+    "sha256": "32d9f2a6541914ad04a573e0a4413195e1501c7a7ee222705ea2965bc611753c"
+  },
+  {
+    "path": "Content/Star/Textures/saturn_rings_rgba.uasset",
+    "bytes": 14781,
+    "sha256": "52b2a96fb4395a24778adeeb67dcfc0e7af44cc2d5c836c0ea8da55da35f482f"
+  },
+  {
+    "path": "Content/Star/Textures/stars_icrf_j2000_8k.exr",
+    "bytes": 130530278,
+    "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4"
+  },
+  {
+    "path": "Content/Star/Textures/stars_icrf_j2000_8k.uasset",
+    "bytes": 123214198,
+    "sha256": "25b90c966d7ec2c8f4e184f7798d11089673dfc6fedec681506b15fe635fc545"
+  },
+  {
+    "path": "Content/Star/UI/Fonts/CREDITS.txt",
+    "bytes": 497,
+    "sha256": "794974b5af70b778072fe92d805395314c8a91acbe1a0dc0bc3b5ed36c411eaf"
+  },
+  {
+    "path": "Content/Star/UI/Fonts/NotoSansCJKjp-Regular.otf",
+    "bytes": 16467736,
+    "sha256": "68a3fc98800b2a27b371f2fb79991daf3633bd89309d4ffaa6946fd587f375b5"
+  },
+  {
+    "path": "Content/Star/UI/Fonts/NotoSansJP.uasset",
+    "bytes": 3048,
+    "sha256": "4a6caa6afe0660e5e23a19aaecb97e538c06512d1605771fb694768a25b9180e"
+  },
+  {
+    "path": "Content/Star/UI/Fonts/NotoSansJP_Regular.uasset",
+    "bytes": 16471473,
+    "sha256": "bab748c8baec0ae4a4c847f21c4eea69b6dec624cc583d0675304913e87b7678"
+  },
+  {
+    "path": "Content/Star/UI/Fonts/OFL.txt",
+    "bytes": 4301,
+    "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/.gitignore",
+    "bytes": 64,
+    "sha256": "217d28a9d17d32ed24e83019c86cb478985c6c31c215b8b789a6470f4966dd19"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/build-process.json",
+    "bytes": 365,
+    "sha256": "32309923284020522c8eadf8436f60c08957e1581b3774382901e03c06f81f55"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/critique.json",
+    "bytes": 2922,
+    "sha256": "b81a0dbf88d606ff01ae036ccdcb8724b160a24c082c90e46f923c8ea803428b"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/glb_render_receipt.json",
+    "bytes": 1196,
+    "sha256": "fb190c4f0c9e4ade56f891c7554bfb8287fb40985adfe663229d32f19a1be14b"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/manifest.json",
+    "bytes": 4950,
+    "sha256": "f5c59817050ba6695a3828a3b51ef35ef8260bc4f9e5b2e72f6c99cf22c0a49d"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/References/orion-cockpit.jpg",
+    "bytes": 1511558,
+    "sha256": "675ad2d04f4620072b4a46ca0e0a0e89373805c9f94972ed75c107698a7b468c"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/References/orion-interior.jpg",
+    "bytes": 5579260,
+    "sha256": "39663e6b53567bde4ad9907d15bb8d517bc871e659473e84eb3b4338bb6e53e2"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/render_glb-process.json",
+    "bytes": 369,
+    "sha256": "e5a55fb73aad1008361329ffd4f2cfc3c9ea3c9a54bb1de5e75d0a396c438d97"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/render_receipts.json",
+    "bytes": 1328,
+    "sha256": "04ed5291bdf32e86cbef55be52bafc10b78764357a964907233d444f00e854da"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/Renders/front.png",
+    "bytes": 1681091,
+    "sha256": "09754045c7a82c1f09b8a830f6c163e1e8d8e8849e26c4f3fafab4f623efd083"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/Renders/glb_side.png",
+    "bytes": 1706550,
+    "sha256": "8727215041de2a0ce7fce08f4dfb11b80fc3c9486510da622bdeba7e8141b62b"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/Renders/holdout.png",
+    "bytes": 1741753,
+    "sha256": "983147bf2ff92e8e1db13ad9f4713e9780e53ddbeb8b3349ff43ceef3f844862"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/Renders/rear.png",
+    "bytes": 1739242,
+    "sha256": "7f8c5fd517e2a168c5e0634bc8989f23a52c59aff91dea9a2313219b73a50eae"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/Renders/side.png",
+    "bytes": 1702139,
+    "sha256": "4022c5924dea14b22f51c8b27f3cb8b607322a4c55ea392686295dfbd1fb4d89"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/Renders/side_details_front.png",
+    "bytes": 1600577,
+    "sha256": "9bc3fa4dde1d86fec98b6561d86b18e317788d33c4165ad70158d27ce81bc5a7"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/scene.json",
+    "bytes": 3907,
+    "sha256": "45402d4e6c0dc8f4c0fcd4e177f57c1c81c0753806a3fd2ff6cb7c7a161ec275"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/side-details-process.json",
+    "bytes": 356,
+    "sha256": "355d89c54573ca2c7f53c2b9910016da5e623390dd8c16540ed30208c0a2da3c"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/side_probe.json",
+    "bytes": 39728,
+    "sha256": "540b9bd6fd6a9d64ecf8cc9a4b39b3f5bfd680b80f4f0aee32d237def39b1a7a"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/STAR_CockpitV3.blend",
+    "bytes": 15042038,
+    "sha256": "cb401dccd0add795a76f0e1e737673a1bc4d4b9e648fd7c645a65648079dd07d"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/STAR_CockpitV3SideDetails.blend",
+    "bytes": 15475445,
+    "sha256": "d56d317f7ba5987179acf93a245878c94bd89909207eea7db9042cfc2dffae55"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/ue_import_readback.json",
+    "bytes": 1775,
+    "sha256": "18f2355b64d109b36cb87d9d7b79d21b350de62e9541762722137d9cf28a723d"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/validate-process.json",
+    "bytes": 368,
+    "sha256": "4afc356e6b655aeed7a65237f7d38065b87bed80e2c40795340c5f78cdbb42d7"
+  },
+  {
+    "path": "Art/Explorer/CockpitV3/validation.json",
+    "bytes": 1943,
+    "sha256": "8d32a32ee6f7d07b480f7e0e413061b44e928acfd0140301a5eefa5796913b81"
+  },
+  {
+    "path": "Art/Explorer/V1/archive_checksums.json",
+    "bytes": 698,
+    "sha256": "5c20b963a2f708a43a63658f1b2d95bcb132a726ba5112645abba61e0b1e08fe"
+  },
+  {
+    "path": "Art/Explorer/V1/art_manifest.json",
+    "bytes": 38090,
+    "sha256": "7e5f90324130c9f85b3c717c4a8aee78bfae6e1bb794105b28a125cc3869f36a"
+  },
+  {
+    "path": "Art/Explorer/V1/blender-build-process.json",
+    "bytes": 367,
+    "sha256": "6408e950654478b096af838b5452ea0ca817bb730fdfbf8455c9b7d04a77c688"
+  },
+  {
+    "path": "Art/Explorer/V1/build_explorer.py",
+    "bytes": 46654,
+    "sha256": "7e7da2d9c458543f4a98a6da581ab9148de7a502236509706bd007ae0a21fea0"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_AftServiceBulkhead.fbx",
+    "bytes": 393964,
+    "sha256": "d49dee31be4962e90535bef798c9b4387b7bb176487315e611b6e9b30c2e3a22"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_CanopyGlass.fbx",
+    "bytes": 29324,
+    "sha256": "f14312cdd277f9f3210339ce405511af8e4b71e8c332833bc63c338f57d8ce01"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_CockpitInterior.fbx",
+    "bytes": 409692,
+    "sha256": "8135747d5933b75b525e6d4797314376923f2eea2f2c374e96b464cdf4662604"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_CockpitShell.fbx",
+    "bytes": 97228,
+    "sha256": "90201ec34b217eb277bf9ca3eb047adf8e9488a517208a51384aadbdf229788d"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_ControlStick.fbx",
+    "bytes": 53564,
+    "sha256": "223409c049dd6574acdc3459b348dc634f56126aca5647ecb82c4487b2264877"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_EnginePort.fbx",
+    "bytes": 116748,
+    "sha256": "7f38481f34ecb72c48246e77ae2689bd5f4e59bdc9fe9b5b67ff7076d5f3abed"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_EngineStarboard.fbx",
+    "bytes": 117148,
+    "sha256": "fa46bbaa85831e438b375da38e902ae640abda6038fbd7ffbaaef7639e6c5d15"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_GearBays.fbx",
+    "bytes": 47468,
+    "sha256": "6b65ebee5931c70557dd1e85469e55350ebab28e88a5e64e00611261c533cc46"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_GearNose.fbx",
+    "bytes": 146428,
+    "sha256": "9e7bb67de69a98fb280c633ba7bb63da953c98b303821459d498c3661d43f745"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_GearPort.fbx",
+    "bytes": 151020,
+    "sha256": "f1d5791679982edd6c3321f27096685e0771d8fd758285a70ec7fc1c8d25b1e7"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_GearStarboard.fbx",
+    "bytes": 150876,
+    "sha256": "89e0cf22d584649fa19fccec4568eb90f240a4e62f9b486d8436ce82712834ad"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_Heatshield.fbx",
+    "bytes": 163244,
+    "sha256": "23b316d0316ea6bb96bc8574e66d6288cc2d767aa23e276541f6af454094cd4a"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_HullCeramic.fbx",
+    "bytes": 1213900,
+    "sha256": "91b2a5e731d37b1393110beeaa905063c3631d1c725182ebde514cd56226a6bf"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_HullMarkings.fbx",
+    "bytes": 337564,
+    "sha256": "26c53bf8d3926ffb4d146c968a633c4b8a7ce4282b223b92fce824224d79e444"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_HullStructure.fbx",
+    "bytes": 39260,
+    "sha256": "70b784f35d4291569ce63443b7fac7f8e659aeb8947b75a522da1d0165727ee2"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_InstrumentPanel.fbx",
+    "bytes": 202316,
+    "sha256": "6052ba2ecc67f421c28ec0feb6d6dc392708dae6879e8c45c21fd4762d409f1f"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_OutriggerPort.fbx",
+    "bytes": 481516,
+    "sha256": "c399e555a680fc17d7e48a28f0d9911142a5c98334bba726d5fc8d1aa4cc91b8"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_OutriggerStarboard.fbx",
+    "bytes": 481628,
+    "sha256": "dd58a7418f4d692891e3852adb5cad732a8e3bf7efdc1f956dcbb9a45af72165"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_RadiatorPort.fbx",
+    "bytes": 374844,
+    "sha256": "4d99034534304f608137ecf3baa780850ac987a83ded9ba1854a8dc85d327ea0"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_RadiatorStarboard.fbx",
+    "bytes": 374604,
+    "sha256": "b86ddf8e837e24f656f762448e547a1e29ea2f076516881eeeb81e3914871d6c"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_RCS_AftPort.fbx",
+    "bytes": 259228,
+    "sha256": "77749d870d0bb170820b49c9988164bad1f2ff98290d268cab8a33632b006c62"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_RCS_AftStarboard.fbx",
+    "bytes": 259340,
+    "sha256": "5e634137e693cd9204f7399dc94d156d89e1bb9b913875a1b9d7161f4d3434e8"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_RCS_ForePort.fbx",
+    "bytes": 259548,
+    "sha256": "87bac6f0fce1a7e48c6b821923c93aac7624920e355c314e5e931fac94af3a0f"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_RCS_ForeStarboard.fbx",
+    "bytes": 259324,
+    "sha256": "0db547d5161218a5a13725b40eed3d709722b236878b333eca25ec05f9f76081"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_SciencePayload.fbx",
+    "bytes": 298396,
+    "sha256": "bdf661da5d101974f6c1f82fbb59fe095f407b07725387b5563bd28954f81b01"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_ServiceModule.fbx",
+    "bytes": 272236,
+    "sha256": "c63806d34efc38e9bd63d9cb63ba9467ad80ebb2077e35da87e25284be7470b4"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Parts/SM_Throttle.fbx",
+    "bytes": 32140,
+    "sha256": "f5889a7347470032c03715c0bca50900641f9a03e5a0bc4055872ec0bd11c527"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/STAR_Explorer.fbm/CeramicMicro_Normal.png",
+    "bytes": 1401037,
+    "sha256": "4bccd099dd4446099f8891e7da6b3254634a6cb242badc4ae239e70cde553e2f"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/STAR_Explorer.fbm/SeatWeave_Normal.png",
+    "bytes": 29654,
+    "sha256": "f9428d3796c51a2d08ff2db0014e69dc156415b16aef1ee958b9c9193bd37246"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/STAR_Explorer.fbx",
+    "bytes": 6505164,
+    "sha256": "6c4d20edd28f37dbdc6efdbe126bb36d3c7693642659ecb721939ef1ef52e040"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/STAR_Explorer.glb",
+    "bytes": 18375916,
+    "sha256": "3d7a15a9a2c860d54506814dcac94c0721ac285e954b70d30cdc55b7fcb939cd"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Textures/CeramicMicro_BaseColor.png",
+    "bytes": 865147,
+    "sha256": "0efaa9d65c23376cf5046de955a53c26372f1912229dc7009f64116d1c28b176"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Textures/CeramicMicro_Normal.png",
+    "bytes": 1401037,
+    "sha256": "4bccd099dd4446099f8891e7da6b3254634a6cb242badc4ae239e70cde553e2f"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Textures/CeramicMicro_Roughness.png",
+    "bytes": 1152660,
+    "sha256": "ae9814eec70f27a03d963b9daf1dfad99dc522b5baf271055a7e6dae1a0af5fe"
+  },
+  {
+    "path": "Art/Explorer/V1/Export/Textures/SeatWeave_Normal.png",
+    "bytes": 29654,
+    "sha256": "f9428d3796c51a2d08ff2db0014e69dc156415b16aef1ee958b9c9193bd37246"
+  },
+  {
+    "path": "Art/Explorer/V1/STAR_Explorer.blend",
+    "bytes": 6761040,
+    "sha256": "8476b6fb7fc875ee79945eac78c0314dcb4e5f4df7e2b5659b9e50c3fd098452"
+  },
+  {
+    "path": "Art/Explorer/V1/validate_explorer.py",
+    "bytes": 5808,
+    "sha256": "fb5b35b2cb193767bef7c6abd898121f6f939d97c4c57adf5c264b1ade4d30ec"
+  },
+  {
+    "path": "Art/Explorer/V1/validation.json",
+    "bytes": 2971,
+    "sha256": "71d810c50655ea10470c75d4025339a476506af665cbe9da7171300115cb82f0"
+  },
+  {
+    "path": "Art/Explorer/V2/art_manifest.json",
+    "bytes": 41072,
+    "sha256": "27da2c102ed4b4d92b072bf865789366bfc6d127dcbf960f122e7412571fb289"
+  },
+  {
+    "path": "Art/Explorer/V2/explorer-v2-concept.png",
+    "bytes": 2158282,
+    "sha256": "dc86a2f3f0dd68df8e915767d4bb236db35f3e0533b4294ae2e7ee40d36e11b5"
+  },
+  {
+    "path": "Art/Explorer/V2/explorer-v2-prompt.txt",
+    "bytes": 2553,
+    "sha256": "ac59214f0a3e114a25695c3014447be140cd484947a74a2d36dfab4d02981582"
+  },
+  {
+    "path": "Art/Explorer/V2/STAR_Explorer_V2.blend",
+    "bytes": 16808912,
+    "sha256": "f3962d22f6c9f61911f575e73a5b28a66e7bef15c09b854cb9581b90f7f8f8b3"
+  },
+  {
+    "path": "Art/Explorer/V2/validation.json",
+    "bytes": 2996,
+    "sha256": "dba04e1811b7604087ed77087a2180307bb4f82eadc41f16f1f0cd9c43e6fb7b"
+  }
+]

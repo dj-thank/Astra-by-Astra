@@ -1,0 +1,63 @@
+// Sky mesh uses ecliptic J2000 UV. NASA map RA increases to the left.
+// Both faces render the same direction; only the inward face is visible from center.
+//
+// StarTex is the original NASA ICRF/J2000 catalogue. Enhanced mode replaces it
+// with cosmetic ESO diffuse light in approximate Galactic CAR and the 16K
+// bright-star catalogue. Compact photograph stars are suppressed in that
+// diffuse input, so the resolved bright catalogue is drawn only once.
+float3 ec = sm.UVToRH(UV);
+float obliquity = 23.439291111*3.14159265359/180.0;
+float3 eq = float3(ec.x, cos(obliquity)*ec.y-sin(obliquity)*ec.z,
+                         sin(obliquity)*ec.y+cos(obliquity)*ec.z);
+
+// IAU J2000 equatorial -> Galactic rotation, generated with
+// SPICE pxform('J2000','GALACTIC',0) (CSPICE_N0067). This is used only to
+// register a photographic panorama; it is not star astrometry.
+float3 gal = float3(
+    dot(float3(-0.0548755393957425,-0.873437104727596,-0.483834991770025),eq),
+    dot(float3( 0.494109453627744,-0.444829594297575, 0.746982248699892),eq),
+    dot(float3(-0.867666135683374,-0.198076389613020, 0.455983794521420),eq));
+
+// Original catalogue mapping. Longitude wrapping must not select the coarsest
+// mip along the RA=180 seam.
+float2 starUV = float2(frac((3.14159265359-atan2(eq.y,eq.x))/6.28318530718),
+                       acos(clamp(eq.z,-1.0,1.0))/3.14159265359);
+float2 gradientX = ddx(starUV), gradientY = ddy(starUV);
+gradientX.x -= round(gradientX.x);
+gradientY.x -= round(gradientY.x);
+
+// The 6000x3000 ESO source uses pixel-centre anchors (x=3050,y=1475):
+//   l=(3050-(x+0.5))*360/6000, b=(1475-(y+0.5))*180/3000.
+// Keep the one-degree-level CAR registration limitation explicit in the
+// provenance; this branch is a visual alignment, never a measured catalogue.
+float galacticLongitude = atan2(gal.y,gal.x);
+float galacticLatitude = asin(clamp(gal.z,-1.0,1.0));
+float2 photoUV = float2(frac(3050.0/6000.0-galacticLongitude/6.28318530718),
+                        1475.0/3000.0-galacticLatitude/3.14159265359);
+photoUV.y = saturate(photoUV.y);
+float2 photoGradientX = ddx(photoUV), photoGradientY = ddy(photoUV);
+photoGradientX.x -= round(photoGradientX.x);
+photoGradientY.x -= round(photoGradientY.x);
+
+float3 skyColor = max(StarTex.SampleGrad(StarTexSampler,starUV,gradientX,gradientY).rgb,0.0)
+                  * max(StarIntensity,0.0);
+if (EnhancedStars > 0.5)
+{
+    // EyeExposure is the positive exposure multiplier supplied by L2. Use its
+    // reciprocal so a bright, eye-adapted body view does not darken the faint
+    // panorama a second time. Bound the reciprocal for numeric safety across
+    // the full eye-adaptation range; root tunes PhotoSkyIntensity in UE/GPU.
+    float eyeCompensation = clamp(1.0/max(EyeExposure,1e-6),1e-3,1e6);
+    skyColor = max(PhotoSkyTex.SampleGrad(PhotoSkyTexSampler,photoUV,
+                                      photoGradientX,photoGradientY).rgb,0.0)
+           * max(PhotoSkyIntensity,0.0) * eyeCompensation;
+    if(ResolvedStarsEnabled>0.5)
+    {
+        // This branch uses a compact-star-suppressed photographic diffuse map.
+        // Add the original 16K Hipparcos/Tycho catalogue only once, in ICRF.
+        float3 sharp=max(BrightStarTex.SampleGrad(BrightStarTexSampler,starUV,gradientX,gradientY).rgb,0.0);
+        skyColor+=sharp*max(ResolvedStarIntensity,0.0)*eyeCompensation;
+    }
+}
+
+return skyColor;

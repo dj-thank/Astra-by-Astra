@@ -1,0 +1,66 @@
+// Observed LROC Apollo17 regional photo + Apollo ALSCC lunar soil analog.
+// Photo products, physical scale and photometric limitations: Data/photo_moon_provenance.json.
+// UV1 is stable tangent-plane meters. Never use camera/world coordinates here.
+float2 detailUV = DetailUV * max(DetailScale,0.001);
+float footprint = max(length(ddx(detailUV)),length(ddy(detailUV)));
+// The mip chain already filters individual grains. Preserve resolved aggregate
+// contrast until a pixel covers a quarter tile; disappear at a whole tile.
+// Old 0.08 cutoff erased the only near detail at just 3mm/pixel.
+float fade = 1.0-smoothstep(0.25,1.0,footprint);
+float2 scan = Texture2DSample(DetailTex,DetailTexSampler,detailUV).rg;
+float3 base = Texture2DSample(DayTex,DayTexSampler,UV).rgb*max(AlbedoScale,0.0);
+// UV0 is the existing spherical geographic chart, not a camera projection.
+// Bounds are PIXEL OUTER EDGES from the same 5m DTM/orthophoto source window.
+float longitude = frac(UV.x)*360.0-180.0;
+float latitude = 90.0-UV.y*180.0;
+float2 regionalUV = float2((longitude-30.52603930572124)/0.491320668932333,
+                          (20.388743042972354-latitude)/0.395734634601687);
+float2 edgeDistance = min(regionalUV,1.0-regionalUV);
+float regionEdge = smoothstep(0.0,0.025,min(edgeDistance.x,edgeDistance.y));
+float4 regional = Texture2DSample(RegionalTex,RegionalTexSampler,saturate(regionalUV));
+// Do not multiply raw shaded orthophoto into lit material. R is a bounded
+// estimated de-lit residual; G masks deep source shadows, clipping and joins.
+base *= 1.0+(regional.r*2.0-1.0)*regional.g*regional.a*regionEdge*saturate(RegionalStrength);
+// Apollo mountain photographs registered to the measured terrain (not skybox).
+// Retain local photographic contrast, not the archival exposure/color cast.
+// This is an artistic de-light estimate, not measured albedo.
+float2 mountainUV=float2((longitude-29.905659225360438)/1.752260071413672,
+    (21.30346716191105-latitude)/1.912717400574865);
+float2 mountainEdge=min(mountainUV,1.0-mountainUV);
+float mountainMask=smoothstep(0.0,0.005,min(mountainEdge.x,mountainEdge.y));
+float4 orbital=Texture2DSample(OrbitalTex,OrbitalTexSampler,saturate(mountainUV));
+// Neutral byte is exactly 128. This is a masked de-light estimate from LROC,
+// not measured albedo; the source excludes the inner 1.8km surface.
+float orbitalResidual=(orbital.r*255.0-128.0)/127.0;
+base*=1.0+orbitalResidual*orbital.g*orbital.a*mountainMask*OrbitalStrength;
+float4 mountain=Texture2DSample(MountainTex,MountainTexSampler,saturate(mountainUV));
+float4 mountainBroad=Texture2DSampleLevel(MountainTex,MountainTexSampler,saturate(mountainUV),6.0);
+float mountainLuma=dot(mountain.rgb,float3(0.2126,0.7152,0.0722));
+float broadLuma=dot(mountainBroad.rgb,float3(0.2126,0.7152,0.0722));
+// Fade well inside partially covered projection edges: a hard photograph mask
+// otherwise draws triangles across the measured mountain's continuous surface.
+float photoConfidence=smoothstep(0.2,0.95,min(mountain.a,mountainBroad.a))*mountainMask;
+float photoResidual=clamp(mountainLuma/max(broadLuma,0.04)-1.0,-0.25,0.25);
+base*=1.0+photoResidual*photoConfidence*saturate(MountainStrength)*MountainGain;
+// R is a mean-relative, bounded LINEAR reflectance modulation, not sRGB color.
+base *= 1.0 + (scan.r*2.0-1.0)*saturate(DetailStrength)*fade;
+// Actual Apollo17 photo residual at an estimated art scale, NOT geographic or
+// measured relief. Separate from the physically scaled 38mm ALSCC microtile.
+float2 mesoUV = DetailUV*max(MesoScale,0.001);
+float mesoFootprint = max(length(ddx(mesoUV)),length(ddy(mesoUV)));
+float mesoFade = 1.0-smoothstep(0.15,0.75,mesoFootprint);
+float2 meso = Texture2DSample(MesoTex,MesoTexSampler,mesoUV).rg;
+float2 alternateUV=float2(-mesoUV.y,mesoUV.x)*1.137+float2(0.371,0.618);
+float2 mesoAlternate=Texture2DSample(MesoTex,MesoTexSampler,alternateUV).rg;
+meso=lerp(meso,0.5*(meso+mesoAlternate),saturate(MesoBlendStrength));
+base *= 1.0+(meso.r*2.0-1.0)*saturate(MesoStrength)*mesoFade;
+// Roughness variation is deliberately conservative for dusty regolith.
+float roughness = clamp(SurfaceRoughness+(scan.g-0.5)*0.12*fade+(meso.g-0.5)*0.1*mesoFade,0.75,1.0);
+// UV2/3 are reconstructed-clast attributes, not a lunar observation. Ground
+// vertices have mask zero. Use coherent per-rock variation instead of painting
+// the same regolith pattern over both loose soil and broken rock faces.
+float clastMask=saturate(ClastUV.x)*saturate(ClastStyleStrength);
+float clastTone=lerp(0.78,1.08,saturate(ClastVariation.x));
+base*=lerp(1.0,clastTone,clastMask);
+roughness=lerp(roughness,lerp(0.86,0.96,saturate(ClastVariation.x)),clastMask);
+return float4(saturate(base),roughness);

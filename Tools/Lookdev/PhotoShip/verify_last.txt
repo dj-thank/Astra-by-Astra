@@ -1,0 +1,67 @@
+{
+  "status": "LOCAL_IMAGE_DATA_PASS",
+  "image_hashes_verified": 59,
+  "publisher_md5_verified": [
+    "terlenka_Diffuse.png",
+    "terlenka_Rough.png",
+    "terlenka_nor_dx.png",
+    "rubber_tiles_Diffuse.png",
+    "rubber_tiles_Rough.png",
+    "rubber_tiles_nor_dx.png",
+    "interior_tiles_Diffuse.png",
+    "interior_tiles_Rough.png",
+    "interior_tiles_nor_dx.png"
+  ],
+  "material_coverage": 22,
+  "assigned_opaque_photo_map_candidates": 14,
+  "unassigned_foil_candidate": 1,
+  "preserved_functional_families": 7,
+  "unique_map_sets": 7,
+  "stats": [
+    {
+      "id": "SeatWeave",
+      "roughness_min": 0.7137254901960784,
+      "roughness_max": 0.9254901960784314,
+      "normal_max_length_error": 0.0048020036369751384
+    },
+    {
+      "id": "SoftTouch",
+      "roughness_min": 0.615686274509804,
+      "roughness_max": 0.6666666666666666,
+      "normal_max_length_error": 0.0035155428935378374
+    },
+    {
+      "id": "SatinMetal",
+      "roughness_min": 0.3058823529411765,
+      "roughness_max": 0.35294117647058826,
+      "normal_max_length_error": 1.5378582249425676e-05
+    },
+    {
+      "id": "EtchedMetal",
+      "roughness_min": 0.4745098039215686,
+      "roughness_max": 0.5568627450980392,
+      "normal_max_length_error": 1.5378582249425676e-05
+    },
+    {
+      "id": "CeramicCoat",
+      "roughness_min": 0.41568627450980394,
+      "roughness_max": 0.44313725490196076,
+      "normal_max_length_error": 0.00044588290871039327
+    },
+    {
+      "id": "CarbonShield",
+      "roughness_min": 0.7647058823529411,
+      "roughness_max": 0.803921568627451,
+      "normal_max_length_error": 1.5378582249425676e-05
+    },
+    {
+      "id": "FoilResponse",
+      "roughness_min": 0.2901960784313726,
+      "roughness_max": 0.4392156862745098,
+      "normal_max_length_error": 1.5378582249425676e-05
+    }
+  ],
+  "runtime": "NOT_RUN",
+  "independent_visual_review": "ROOT_PENDING",
+  "baseline_sha256": "c93b90779aa545c8943e23a70f1a6d3caef1aa4c5ecbce4de8ea246c79697144"
+}

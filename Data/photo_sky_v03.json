@@ -1,0 +1,22 @@
+{
+  "status": "SOURCE_PROCESSED_NOT_GPU_VERIFIED",
+  "source_url": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/hiptyc_2020_16k.exr",
+  "source_page": "https://svs.gsfc.nasa.gov/4851/",
+  "credits": "NASA/Goddard Scientific Visualization Studio/Ernie Wright; ESO/S. Brunier CC BY 4.0",
+  "catalogue": "Hipparcos-2 and Tycho-2 bright-star map, 2020 product; catalogue visualization, not a photograph",
+  "frame": "ICRF/J2000, RA increases left",
+  "color_space": "EXR linear HALF RGB; diffuse PNG sRGB",
+  "stars_size": [
+    16384,
+    8192
+  ],
+  "stars_sha256": "bd12d36e3e32ba75e61bd501aca25675f70250dce50fcfb880f22b9b6229725c",
+  "diffuse_source_sha256": "b38f4d66ebd376051fce87422dec59166df398e365c9b83a87dd6ecf35500a60",
+  "diffuse_sha256": "4824b6940ddaced925d044ebb1c89953c0d315949443ed2881f9106e2e7500f2",
+  "diffuse_processing": "9px morphological opening then 1px Gaussian; estimated separation, not an observed starless sky",
+  "limitations": [
+    "ESO diffuse registration remains approximate at degree scale",
+    "display intensity is artistic, not radiometric",
+    "broad unresolved light remains in the diffuse layer"
+  ]
+}

@@ -1,0 +1,1015 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "path": "Content/Star/Textures/moon_albedo_8k.png",
+      "sha256": "564c8df6d1fecfea2d60b35aa68ec5f3152888cead66d48a0c16a9bf67651262",
+      "bytes": 173257327,
+      "sources": [
+        {
+          "id": "moon_albedo",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_16bit_srgb_8k.tif",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_16bit_srgb_8k.tif",
+          "retrievedAt": "2026-09-06T03:06:27.571148+00:00",
+          "bytes": 243289792,
+          "sha256": "db7808e878b6a55eb409bb231eab8deb477f84b5c9d7396d76ff73e5d54992d9",
+          "lastModified": "Wed, 03 Dec 2025 19:55:35 GMT",
+          "contentType": "image/tiff"
+        }
+      ],
+      "observationDate": "LROC composite; visual map produced December 2025",
+      "units": "normalized display RGB",
+      "datum": "Moon mean Earth/polar axis; plate carree centered 0 longitude",
+      "colorSpace": "sRGB encoded; UE sRGB=true; PNG RGB16",
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "process": "Lossless TIFF uint16 RGB to PNG uint16 RGB. No gamma transform or synthetic detail.",
+      "scientificLimit": "NASA aesthetic adaptation, white balance/exposure adjustment and polar inpainting; not raw scientific albedo.",
+      "credit": "NASA Scientific Visualization Studio; Ernie Wright; NASA/GSFC/Arizona State University; LRO LROC/LOLA"
+    },
+    {
+      "path": "Content/Star/Data/moon_ldem_16_i16.bin",
+      "sha256": "d49ad4d79daf9070164e6a28b9a771ce969a236f2f830cf3041d4b5518ae6a66",
+      "bytes": 33177600,
+      "sources": [
+        {
+          "id": "moon_dem",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+          "retrievedAt": "2026-09-06T03:04:46.445330+00:00",
+          "bytes": 33201026,
+          "sha256": "45a2b32d56e81ed30db07fead8abc842b249b6511219d9ca2c53f81bc2dc5d62",
+          "lastModified": "Wed, 05 Jun 2019 20:21:01 GMT",
+          "contentType": "image/tiff"
+        }
+      ],
+      "observationDate": "LOLA gridded data as of spring 2019",
+      "units": "signed half meters above 1737400m sphere",
+      "datum": "Moon ME, planetocentric east longitude",
+      "colorSpace": "not applicable; numeric signed int16",
+      "process": "Subtract 20000 in signed int32 then cast little-endian int16 without resampling.",
+      "credit": "NASA/GSFC/MIT; LRO LOLA; NASA Scientific Visualization Studio"
+    },
+    {
+      "path": "Content/Star/Data/moon_ldem_16.json",
+      "sha256": "d82005ce048f5423aa6351d9d42874e3bb4e4f4e279222c17e988be85718cb45",
+      "bytes": 1095,
+      "sources": [
+        {
+          "id": "moon_dem",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+          "retrievedAt": "2026-09-06T03:04:46.445330+00:00",
+          "bytes": 33201026,
+          "sha256": "45a2b32d56e81ed30db07fead8abc842b249b6511219d9ca2c53f81bc2dc5d62",
+          "lastModified": "Wed, 05 Jun 2019 20:21:01 GMT",
+          "contentType": "image/tiff"
+        }
+      ],
+      "observationDate": "spring 2019",
+      "units": "meters/degrees",
+      "datum": "Moon ME",
+      "colorSpace": "not applicable",
+      "process": "Explicit lossless decoding/georeferencing metadata.",
+      "credit": "NASA/GSFC/MIT; LRO LOLA"
+    },
+    {
+      "path": "Content/Star/Textures/earth_day_8k.jpg",
+      "sha256": "986af5a1d974d30da6e75d5d00ac583bdc1e262a81c66bdc7f84d205e982ec22",
+      "bytes": 7781154,
+      "sources": [
+        {
+          "id": "earth_day",
+          "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+          "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+          "retrievedAt": "2026-09-06T03:07:30.203227+00:00",
+          "bytes": 22359549,
+          "sha256": "7cf788e13a3a7b4a926b524f8f71d635c56a18c48ba0bfe35695b05a305db3f3",
+          "lastModified": "Tue, 16 Dec 2025 13:13:17 GMT",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "observationDate": "September 2004",
+      "units": "display RGB, not radiance",
+      "datum": "Earth geographic plate carree centered 0 longitude; north at top",
+      "colorSpace": "assumed sRGB display encoding; resized in linear light; UE sRGB=true",
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "process": "sRGB decode, per-channel Lanczos resize to 8192x4096, sRGB encode, JPEG quality96 no chroma subsampling.",
+      "scientificLimit": "Historical cloud-free visual composite. Night image includes dim land/ocean/ice background; not a pure city-emission mask.",
+      "credit": "NASA Earth Observatory; Reto Stockli; MODIS science team"
+    },
+    {
+      "path": "Content/Star/Textures/earth_night_8k.jpg",
+      "sha256": "a0f222090a0eb627a434d38e1ab226f735ca8ae33312de46f1a71e54a0bb4110",
+      "bytes": 6873882,
+      "sources": [
+        {
+          "id": "earth_night",
+          "sourceUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79765/dnb_land_ocean_ice.2012.13500x6750.jpg",
+          "resolvedUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79765/dnb_land_ocean_ice.2012.13500x6750.jpg",
+          "retrievedAt": "2026-09-06T03:04:55.080489+00:00",
+          "bytes": 7813537,
+          "sha256": "43b8c6cb6fdab028cb24478e431022df2e01fc62b39e5a01be004d4130cc01f2",
+          "lastModified": "Tue, 27 Nov 2012 23:29:23 GMT",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "observationDate": "April and October 2012",
+      "units": "display RGB, not radiance",
+      "datum": "Earth geographic plate carree centered 0 longitude; north at top",
+      "colorSpace": "assumed sRGB display encoding; resized in linear light; UE sRGB=true",
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "process": "sRGB decode, per-channel Lanczos resize to 8192x4096, sRGB encode, JPEG quality96 no chroma subsampling.",
+      "scientificLimit": "Historical cloud-free visual composite. Night image includes dim land/ocean/ice background; not a pure city-emission mask.",
+      "credit": "NASA Earth Observatory; NOAA NGDC; Suomi NPP VIIRS"
+    },
+    {
+      "path": "Content/Star/Textures/stars_icrf_j2000_8k.exr",
+      "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4",
+      "bytes": 130530278,
+      "sources": [
+        {
+          "id": "stars",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+          "retrievedAt": "2026-09-06T03:05:14.226088+00:00",
+          "bytes": 130530278,
+          "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4",
+          "lastModified": "Wed, 12 Aug 2020 16:16:43 GMT",
+          "contentType": "image/aces"
+        }
+      ],
+      "observationDate": "catalog composite released 2020-09-09",
+      "units": "relative HDR linear RGB",
+      "datum": "ICRF/J2000 equatorial celestial coordinates; RA increases left; 0h at image center",
+      "colorSpace": "linear half-float OpenEXR; UE sRGB=false",
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "process": "Byte-preserved EXR; no tone mapping.",
+      "credit": "NASA Scientific Visualization Studio; Ernie Wright; Hipparcos-2, Tycho-2, Gaia DR2 and supplementary catalogues",
+      "scientificLimit": "All bright stars already included. Do not add a separate bright-star layer on top."
+    },
+    {
+      "path": "Content/Star/Textures/saturn_body_reference.png",
+      "sha256": "cf764ad31c1637636069dd9250a84e5b1351eaa89050fcc7478c877da407c8a0",
+      "bytes": 4506599,
+      "sources": [
+        {
+          "id": "saturn_glb",
+          "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "retrievedAt": "2026-09-06T03:04:55.591416+00:00",
+          "bytes": 5476584,
+          "sha256": "8dbfde533b13e938408d8aded1d1ce48a084806233f67775371d83013dba7d38",
+          "lastModified": "Sat, 19 Oct 2024 04:18:18 GMT",
+          "contentType": "model/gltf-binary"
+        }
+      ],
+      "observationDate": "NASA VTAD model released 2019; texture observation dates not supplied",
+      "units": "display RGB",
+      "datum": "Body-fixed equator/north aligned; prime-meridian registration not supplied by NASA asset",
+      "colorSpace": "sRGB base color; UE sRGB=true",
+      "dimensions": [
+        4096,
+        2048
+      ],
+      "process": "Reproject NASA cube atlas to equirectangular using actual model vertices and UV coordinates; bilinear sample.",
+      "scientificLimit": "NASA visualization asset; not a radiometrically calibrated Cassini albedo product.",
+      "credit": "NASA Visualization Technology Applications and Development (VTAD)"
+    },
+    {
+      "path": "Content/Star/Data/saturn_ring_profile.csv",
+      "sha256": "74d5af616a0afed14944a1ffafbf263e2847f0ff4b27744d4d6d6fae7c33bab3",
+      "bytes": 1827477,
+      "sources": [
+        {
+          "id": "rings_profile",
+          "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "retrievedAt": "2026-09-06T03:07:33.420322+00:00",
+          "bytes": 8591847,
+          "sha256": "617453b73574f9314373cc998e393472b0232c1fe7b2f2f56ec057b6ff05786d",
+          "lastModified": "Thu, 19 Nov 2020 04:41:15 GMT",
+          "contentType": "text/plain"
+        },
+        {
+          "id": "rings_label",
+          "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+          "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+          "retrievedAt": "2026-09-06T03:28:24.877274+00:00",
+          "bytes": 12010,
+          "sha256": "b9dab44981775c044f4416f2613a5860e99a5b1901c31dbda28d6f30f04fb5d6",
+          "lastModified": "Fri, 27 Nov 2020 06:27:40 GMT",
+          "transferContentEncoding": "gzip",
+          "contentType": "text/plain"
+        }
+      ],
+      "observationDate": "2005-05-19T05:33:44.995..14:25:12.667",
+      "units": "meters, dimensionless optical depth, bit flags",
+      "datum": "Saturn equatorial plane, Cassini UVIS 126 Tau egress; PDS CO-SR-UVIS-HSP-2/4-OCC-V3.0",
+      "colorSpace": "not applicable",
+      "process": "Retain radius, measured tau, detection ceiling and flags; km converted to meters without resampling.",
+      "scientificLimit": "Single stellar occultation; negative optical depth can be noise; opaque regions are measurement-limited.",
+      "credit": "NASA PDS Ring-Moon Systems Node; Cassini UVIS team; Joshua E. Colwell"
+    },
+    {
+      "path": "Content/Star/Textures/saturn_rings_rgba.png",
+      "sha256": "32d9f2a6541914ad04a573e0a4413195e1501c7a7ee222705ea2965bc611753c",
+      "bytes": 8588,
+      "sources": [
+        {
+          "id": "saturn_glb",
+          "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "retrievedAt": "2026-09-06T03:04:55.591416+00:00",
+          "bytes": 5476584,
+          "sha256": "8dbfde533b13e938408d8aded1d1ce48a084806233f67775371d83013dba7d38",
+          "lastModified": "Sat, 19 Oct 2024 04:18:18 GMT",
+          "contentType": "model/gltf-binary"
+        },
+        {
+          "id": "rings_profile",
+          "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "retrievedAt": "2026-09-06T03:07:33.420322+00:00",
+          "bytes": 8591847,
+          "sha256": "617453b73574f9314373cc998e393472b0232c1fe7b2f2f56ec057b6ff05786d",
+          "lastModified": "Thu, 19 Nov 2020 04:41:15 GMT",
+          "contentType": "text/plain"
+        },
+        {
+          "id": "rings_label",
+          "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+          "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+          "retrievedAt": "2026-09-06T03:28:24.877274+00:00",
+          "bytes": 12010,
+          "sha256": "b9dab44981775c044f4416f2613a5860e99a5b1901c31dbda28d6f30f04fb5d6",
+          "lastModified": "Fri, 27 Nov 2020 06:27:40 GMT",
+          "transferContentEncoding": "gzip",
+          "contentType": "text/plain"
+        }
+      ],
+      "observationDate": "color: unspecified NASA VTAD model; optical depth: 2005-05-19",
+      "units": "RGB display color; alpha dimensionless",
+      "datum": "Saturn equatorial plane; u=(r-innerRadius)/(outerRadius-innerRadius)",
+      "colorSpace": "RGB sRGB; alpha linear; UE sRGB=true",
+      "dimensions": [
+        4096,
+        16
+      ],
+      "process": "Preserve NASA radial strip RGB; interpolate UVIS optical depth to strip radii; alpha=1-exp(-clamp(tau,0,maxDetectableTau)).",
+      "scientificLimit": "Visualization combines sources. Alpha is a normal-incidence approximation, not view-dependent scattering. No measured particle coordinates.",
+      "credit": "NASA VTAD; NASA PDS Ring-Moon Systems Node; Cassini UVIS team"
+    },
+    {
+      "path": "Content/Star/Textures/saturn_cassini_PIA05389.jpg",
+      "sha256": "a9f4c997ec0515b022f4208e32053bf7b83985d6dc6306b2a9dfa5a7bbf2ecfc",
+      "bytes": 36983,
+      "sources": [
+        {
+          "id": "saturn_reference",
+          "sourceUrl": "https://images-assets.nasa.gov/image/PIA05389/PIA05389~orig.jpg",
+          "resolvedUrl": "https://images-assets.nasa.gov/image/PIA05389/PIA05389~orig.jpg",
+          "retrievedAt": "2026-09-06T03:11:40.130001+00:00",
+          "bytes": 36983,
+          "sha256": "a9f4c997ec0515b022f4208e32053bf7b83985d6dc6306b2a9dfa5a7bbf2ecfc",
+          "lastModified": "Fri, 17 Feb 2017 02:21:21 GMT",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "observationDate": "2004-03-27",
+      "units": "display RGB",
+      "datum": "Cassini camera view; not an albedo map",
+      "colorSpace": "display RGB",
+      "process": "Byte-preserved official natural-color reference.",
+      "credit": "NASA/JPL/Space Science Institute"
+    },
+    {
+      "path": "Content/Star/Data/apollo17_height_f32.bin",
+      "sha256": "884c5e3936f735f66abc1b2ff76ae36c10b07550e9f8fdd38af62a0ffbde9fec",
+      "bytes": 26880000,
+      "sources": [
+        {
+          "id": "apollo17_dem",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "retrievedAt": "2026-09-06T03:07:53.576646+00:00",
+          "bytes": 463397471,
+          "sha256": "3f7b5bb5a5c2ca62a0227e9e9444cf354048d038fe624a49a08d9e13d473392e",
+          "lastModified": "Fri, 14 Aug 2026 18:27:01 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_label",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "retrievedAt": "2026-09-06T03:27:01.023382+00:00",
+          "bytes": 3652,
+          "sha256": "b5ba3ece9ec66486df1a7bedce0bf2e610f8e4a4a96c174cdc36534446c58c25",
+          "lastModified": "Fri, 14 Aug 2026 18:26:56 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_readme",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "retrievedAt": "2026-09-06T03:27:01.098908+00:00",
+          "bytes": 9567,
+          "sha256": "84eefc7ab0bad79620ee7616861c8debc637c9d78bd3b6c020a495973e3d8e98",
+          "lastModified": "Fri, 14 Aug 2026 18:26:55 GMT",
+          "contentType": "binary/octet-stream"
+        }
+      ],
+      "observationDate": "2010-07-28T19:35:36..2016-03-17T19:55:14; product2020-10-13",
+      "units": "meters/validity/georeferencing",
+      "datum": "Moon ME, 1737400m sphere, planetocentric east-longitude",
+      "colorSpace": "not applicable",
+      "process": "Native 5m crop window 3535,5547,2800,2400; exact samples; explicit invalid mask, no invented terrain.",
+      "credit": "NASA/GSFC/Arizona State University; LRO LROC team; Mark Robinson"
+    },
+    {
+      "path": "Content/Star/Data/apollo17_valid_u8.bin",
+      "sha256": "88a0c8cf6430396899ca3b80f2fa998da02394d3292b93baf47969ef265a4fd5",
+      "bytes": 6720000,
+      "sources": [
+        {
+          "id": "apollo17_dem",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "retrievedAt": "2026-09-06T03:07:53.576646+00:00",
+          "bytes": 463397471,
+          "sha256": "3f7b5bb5a5c2ca62a0227e9e9444cf354048d038fe624a49a08d9e13d473392e",
+          "lastModified": "Fri, 14 Aug 2026 18:27:01 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_label",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "retrievedAt": "2026-09-06T03:27:01.023382+00:00",
+          "bytes": 3652,
+          "sha256": "b5ba3ece9ec66486df1a7bedce0bf2e610f8e4a4a96c174cdc36534446c58c25",
+          "lastModified": "Fri, 14 Aug 2026 18:26:56 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_readme",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "retrievedAt": "2026-09-06T03:27:01.098908+00:00",
+          "bytes": 9567,
+          "sha256": "84eefc7ab0bad79620ee7616861c8debc637c9d78bd3b6c020a495973e3d8e98",
+          "lastModified": "Fri, 14 Aug 2026 18:26:55 GMT",
+          "contentType": "binary/octet-stream"
+        }
+      ],
+      "observationDate": "2010-07-28T19:35:36..2016-03-17T19:55:14; product2020-10-13",
+      "units": "meters/validity/georeferencing",
+      "datum": "Moon ME, 1737400m sphere, planetocentric east-longitude",
+      "colorSpace": "not applicable",
+      "process": "Native 5m crop window 3535,5547,2800,2400; exact samples; explicit invalid mask, no invented terrain.",
+      "credit": "NASA/GSFC/Arizona State University; LRO LROC team; Mark Robinson"
+    },
+    {
+      "path": "Content/Star/Data/apollo17.json",
+      "sha256": "48ee6a7e8afad3ea43e4412d16b252029a0dff3d8ad84f324ba8c7ba94535bd9",
+      "bytes": 2096,
+      "sources": [
+        {
+          "id": "apollo17_dem",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "retrievedAt": "2026-09-06T03:07:53.576646+00:00",
+          "bytes": 463397471,
+          "sha256": "3f7b5bb5a5c2ca62a0227e9e9444cf354048d038fe624a49a08d9e13d473392e",
+          "lastModified": "Fri, 14 Aug 2026 18:27:01 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_label",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "retrievedAt": "2026-09-06T03:27:01.023382+00:00",
+          "bytes": 3652,
+          "sha256": "b5ba3ece9ec66486df1a7bedce0bf2e610f8e4a4a96c174cdc36534446c58c25",
+          "lastModified": "Fri, 14 Aug 2026 18:26:56 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_readme",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "retrievedAt": "2026-09-06T03:27:01.098908+00:00",
+          "bytes": 9567,
+          "sha256": "84eefc7ab0bad79620ee7616861c8debc637c9d78bd3b6c020a495973e3d8e98",
+          "lastModified": "Fri, 14 Aug 2026 18:26:55 GMT",
+          "contentType": "binary/octet-stream"
+        }
+      ],
+      "observationDate": "2010-07-28T19:35:36..2016-03-17T19:55:14; product2020-10-13",
+      "units": "meters/validity/georeferencing",
+      "datum": "Moon ME, 1737400m sphere, planetocentric east-longitude",
+      "colorSpace": "not applicable",
+      "process": "Native 5m crop window 3535,5547,2800,2400; exact samples; explicit invalid mask, no invented terrain.",
+      "credit": "NASA/GSFC/Arizona State University; LRO LROC team; Mark Robinson"
+    },
+    {
+      "path": "Content/Star/Textures/apollo17_ortho_5m.png",
+      "sha256": "bac8ea4fa0500b7f46fd674b282be7f6b2138bfc0ccab3ab3debce9898436e46",
+      "bytes": 6552618,
+      "sources": [
+        {
+          "id": "apollo17_ortho",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/EXTRAS/BROWSE/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_MOSAIC_5M.TIF",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/EXTRAS/BROWSE/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_MOSAIC_5M.TIF",
+          "retrievedAt": "2026-09-06T03:07:41.904212+00:00",
+          "bytes": 115919445,
+          "sha256": "8e3a2dff013059278a58daed87570cb963e37de46ef0639c95afd3a434fc92d7",
+          "lastModified": "Fri, 14 Aug 2026 18:29:06 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_dem",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+          "retrievedAt": "2026-09-06T03:07:53.576646+00:00",
+          "bytes": 463397471,
+          "sha256": "3f7b5bb5a5c2ca62a0227e9e9444cf354048d038fe624a49a08d9e13d473392e",
+          "lastModified": "Fri, 14 Aug 2026 18:27:01 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_label",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+          "retrievedAt": "2026-09-06T03:27:01.023382+00:00",
+          "bytes": 3652,
+          "sha256": "b5ba3ece9ec66486df1a7bedce0bf2e610f8e4a4a96c174cdc36534446c58c25",
+          "lastModified": "Fri, 14 Aug 2026 18:26:56 GMT",
+          "contentType": "binary/octet-stream"
+        },
+        {
+          "id": "apollo17_readme",
+          "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+          "retrievedAt": "2026-09-06T03:27:01.098908+00:00",
+          "bytes": 9567,
+          "sha256": "84eefc7ab0bad79620ee7616861c8debc637c9d78bd3b6c020a495973e3d8e98",
+          "lastModified": "Fri, 14 Aug 2026 18:26:55 GMT",
+          "contentType": "binary/octet-stream"
+        }
+      ],
+      "observationDate": "2010-07-28..2016-03-17",
+      "units": "display grayscale",
+      "datum": "Same georeferenced source pixel window as apollo17_height_f32.bin",
+      "colorSpace": "display grayscale; UE sRGB=true",
+      "process": "Exact 5m crop; copy grayscale into RGB; alpha from valid DTM mask.",
+      "scientificLimit": "Brightness-equalized browse orthomosaic with baked lighting; not raw albedo.",
+      "credit": "NASA/GSFC/Arizona State University; LRO LROC"
+    },
+    {
+      "path": "Content/Star/Data/bodies.json",
+      "sha256": "d7684c9541457adeac1f5d10025b0b7adf4cf33e00d002d07383b30797fd1a66",
+      "bytes": 13779,
+      "sources": [
+        {
+          "id": "pck00011.tpc",
+          "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+          "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+          "retrievedAt": "2026-09-06T03:11:40.745116+00:00",
+          "bytes": 131226,
+          "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+          "lastModified": "Tue, 27 Dec 2022 16:28:50 GMT",
+          "contentType": "text/plain; charset=UTF-8"
+        },
+        {
+          "id": "naif0012.tls",
+          "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+          "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+          "retrievedAt": "2026-09-06T03:11:40.456561+00:00",
+          "bytes": 5257,
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+          "lastModified": "Fri, 15 Jul 2016 00:00:37 GMT",
+          "contentType": "text/plain; charset=UTF-8"
+        },
+        {
+          "id": "moon_pa_de421_1900-2050.bpc",
+          "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+          "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+          "retrievedAt": "2026-09-06T03:11:42.801059+00:00",
+          "bytes": 1770496,
+          "sha256": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+          "lastModified": "Wed, 19 Mar 2008 04:51:40 GMT",
+          "contentType": null
+        },
+        {
+          "id": "moon_080317.tf",
+          "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+          "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+          "retrievedAt": "2026-09-06T03:11:41.892393+00:00",
+          "bytes": 21437,
+          "sha256": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993",
+          "lastModified": "Thu, 18 Jul 2013 10:07:49 GMT",
+          "contentType": "text/plain; charset=UTF-8"
+        }
+      ],
+      "observationDate": "2026-09-19T00:00:00Z; JPL geometric ephemerides and SPICE orientation",
+      "units": "meters, meters/second, dimensionless rotation matrix",
+      "datum": "SSB origin; ecliptic J2000; MOON_ME and IAU body-fixed frames",
+      "colorSpace": "not applicable",
+      "process": "Selected an Apollo 17 daylight start using Tools/Data/select_epoch.py; all four body vectors and orientations share the selected epoch. Evidence in Data/epoch_selection.json.",
+      "credit": "NASA/JPL/NAIF and original data teams; see credits_ja.json",
+      "horizonsSources": [
+        {
+          "path": "Data/epoch_selection.json",
+          "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+          "sourceJsonPointer": "/horizonsResponses/sun/rawResponseUtf8",
+          "sourceResponseSha256": "c9fe8f3012f174790e05483ab3db608f22a1efea2c47c5330ad76c511bbf5938",
+          "requestParameters": {
+            "format": "json",
+            "CENTER": "'500@0'",
+            "EPHEM_TYPE": "'VECTORS'",
+            "TIME_TYPE": "'UT'",
+            "START_TIME": "'2026-09-07 00:00:00'",
+            "STOP_TIME": "'2026-10-06 00:00:00'",
+            "STEP_SIZE": "'12 h'",
+            "REF_SYSTEM": "'ICRF'",
+            "REF_PLANE": "'ECLIPTIC'",
+            "OUT_UNITS": "'KM-S'",
+            "VEC_TABLE": "'2'",
+            "VEC_CORR": "'NONE'",
+            "CSV_FORMAT": "'YES'",
+            "OBJ_DATA": "'YES'",
+            "COMMAND": "'10'"
+          },
+          "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-07+00%3A00%3A00%27&STOP_TIME=%272026-10-06+00%3A00%3A00%27&STEP_SIZE=%2712+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%2710%27",
+          "observationDate": "2026-09-19T00:00:00Z",
+          "sourceUnits": "KM-S; converted to meters and meters/second"
+        },
+        {
+          "path": "Data/epoch_selection.json",
+          "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+          "sourceJsonPointer": "/horizonsResponses/moon/rawResponseUtf8",
+          "sourceResponseSha256": "ae8bd3678a375c40d47b74d24b4f3fe726fc86b56d0cb5a57a8eeacf0e4351a9",
+          "requestParameters": {
+            "format": "json",
+            "CENTER": "'500@0'",
+            "EPHEM_TYPE": "'VECTORS'",
+            "TIME_TYPE": "'UT'",
+            "START_TIME": "'2026-09-07 00:00:00'",
+            "STOP_TIME": "'2026-10-06 00:00:00'",
+            "STEP_SIZE": "'12 h'",
+            "REF_SYSTEM": "'ICRF'",
+            "REF_PLANE": "'ECLIPTIC'",
+            "OUT_UNITS": "'KM-S'",
+            "VEC_TABLE": "'2'",
+            "VEC_CORR": "'NONE'",
+            "CSV_FORMAT": "'YES'",
+            "OBJ_DATA": "'YES'",
+            "COMMAND": "'301'"
+          },
+          "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-07+00%3A00%3A00%27&STOP_TIME=%272026-10-06+00%3A00%3A00%27&STEP_SIZE=%2712+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27301%27",
+          "observationDate": "2026-09-19T00:00:00Z",
+          "sourceUnits": "KM-S; converted to meters and meters/second"
+        },
+        {
+          "path": "Data/epoch_selection.json",
+          "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+          "sourceJsonPointer": "/horizonsResponses/earth/rawResponseUtf8",
+          "sourceResponseSha256": "2e516b7b5ea7d9a305b9ccdb0b8b835361aa116d3496038247e27e34204ac247",
+          "requestParameters": {
+            "format": "json",
+            "CENTER": "'500@0'",
+            "EPHEM_TYPE": "'VECTORS'",
+            "TIME_TYPE": "'UT'",
+            "START_TIME": "'2026-09-19 00:00:00'",
+            "STOP_TIME": "'2026-09-19 00:01:00'",
+            "STEP_SIZE": "'1 min'",
+            "REF_SYSTEM": "'ICRF'",
+            "REF_PLANE": "'ECLIPTIC'",
+            "OUT_UNITS": "'KM-S'",
+            "VEC_TABLE": "'2'",
+            "VEC_CORR": "'NONE'",
+            "CSV_FORMAT": "'YES'",
+            "OBJ_DATA": "'YES'",
+            "COMMAND": "'399'"
+          },
+          "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-19+00%3A00%3A00%27&STOP_TIME=%272026-09-19+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27399%27",
+          "observationDate": "2026-09-19T00:00:00Z",
+          "sourceUnits": "KM-S; converted to meters and meters/second"
+        },
+        {
+          "path": "Data/epoch_selection.json",
+          "sha256": "ee3a3e5416af02a681f565bc197f5367500a194f1ba7cddaf6eeb7ebe07faf20",
+          "sourceJsonPointer": "/horizonsResponses/saturn/rawResponseUtf8",
+          "sourceResponseSha256": "b4f79a7cc647fca18dfa50037574658ab41db3724107b20d4abf4724908a7654",
+          "requestParameters": {
+            "format": "json",
+            "CENTER": "'500@0'",
+            "EPHEM_TYPE": "'VECTORS'",
+            "TIME_TYPE": "'UT'",
+            "START_TIME": "'2026-09-19 00:00:00'",
+            "STOP_TIME": "'2026-09-19 00:01:00'",
+            "STEP_SIZE": "'1 min'",
+            "REF_SYSTEM": "'ICRF'",
+            "REF_PLANE": "'ECLIPTIC'",
+            "OUT_UNITS": "'KM-S'",
+            "VEC_TABLE": "'2'",
+            "VEC_CORR": "'NONE'",
+            "CSV_FORMAT": "'YES'",
+            "OBJ_DATA": "'YES'",
+            "COMMAND": "'699'"
+          },
+          "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-19+00%3A00%3A00%27&STOP_TIME=%272026-09-19+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27699%27",
+          "observationDate": "2026-09-19T00:00:00Z",
+          "sourceUnits": "KM-S; converted to meters and meters/second"
+        }
+      ],
+      "epochSelectionEvidence": "Data/epoch_selection.json"
+    },
+    {
+      "path": "Content/Star/Data/sky_mapping.json",
+      "sha256": "31d13fda8794ed4e16828ed7b72bdb74358ec0b419da0404c7917269e20d4bfe",
+      "bytes": 643,
+      "sources": [
+        {
+          "id": "stars",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+          "retrievedAt": "2026-09-06T03:05:14.226088+00:00",
+          "bytes": 130530278,
+          "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4",
+          "lastModified": "Wed, 12 Aug 2020 16:16:43 GMT",
+          "contentType": "image/aces"
+        }
+      ],
+      "observationDate": "catalog composite 2020",
+      "units": "radians/degrees, unit vectors",
+      "datum": "ecliptic J2000 to equatorial ICRF/J2000",
+      "colorSpace": "not applicable",
+      "process": "IAU J2000 mean obliquity rotation plus inward celestial equirectangular UV convention.",
+      "credit": "NASA/JPL/NAIF and original data teams; see credits_ja.json"
+    },
+    {
+      "path": "Content/Star/Data/saturn_rings.json",
+      "sha256": "c309c553b1984cc78041f7091c96699ea52111e90872c1167f8ba0bcd0cb5fb9",
+      "bytes": 642,
+      "sources": [
+        {
+          "id": "saturn_glb",
+          "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "retrievedAt": "2026-09-06T03:04:55.591416+00:00",
+          "bytes": 5476584,
+          "sha256": "8dbfde533b13e938408d8aded1d1ce48a084806233f67775371d83013dba7d38",
+          "lastModified": "Sat, 19 Oct 2024 04:18:18 GMT",
+          "contentType": "model/gltf-binary"
+        },
+        {
+          "id": "rings_profile",
+          "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "retrievedAt": "2026-09-06T03:07:33.420322+00:00",
+          "bytes": 8591847,
+          "sha256": "617453b73574f9314373cc998e393472b0232c1fe7b2f2f56ec057b6ff05786d",
+          "lastModified": "Thu, 19 Nov 2020 04:41:15 GMT",
+          "contentType": "text/plain"
+        },
+        {
+          "id": "rings_label",
+          "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+          "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+          "retrievedAt": "2026-09-06T03:28:24.877274+00:00",
+          "bytes": 12010,
+          "sha256": "b9dab44981775c044f4416f2613a5860e99a5b1901c31dbda28d6f30f04fb5d6",
+          "lastModified": "Fri, 27 Nov 2020 06:27:40 GMT",
+          "transferContentEncoding": "gzip",
+          "contentType": "text/plain"
+        }
+      ],
+      "observationDate": "2005-05-19 optical-depth observation; NASA VTAD model2019",
+      "units": "meters, dimensionless tau",
+      "datum": "Saturn equatorial plane",
+      "colorSpace": "not applicable",
+      "process": "Extract source mesh radial bounds using60268000m equatorial reference radius; publish radial UV mapping.",
+      "credit": "NASA/JPL/NAIF and original data teams; see credits_ja.json"
+    },
+    {
+      "path": "Content/Star/Data/credits_ja.json",
+      "sha256": "d127ca83be6fa11bb547b23f8ca2f2255998313d6dc811483b8b1d1a2838a520",
+      "bytes": 1017,
+      "sources": [
+        {
+          "id": "moon_albedo",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_16bit_srgb_8k.tif",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_16bit_srgb_8k.tif",
+          "retrievedAt": "2026-09-06T03:06:27.571148+00:00",
+          "bytes": 243289792,
+          "sha256": "db7808e878b6a55eb409bb231eab8deb477f84b5c9d7396d76ff73e5d54992d9",
+          "lastModified": "Wed, 03 Dec 2025 19:55:35 GMT",
+          "contentType": "image/tiff"
+        },
+        {
+          "id": "moon_dem",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+          "retrievedAt": "2026-09-06T03:04:46.445330+00:00",
+          "bytes": 33201026,
+          "sha256": "45a2b32d56e81ed30db07fead8abc842b249b6511219d9ca2c53f81bc2dc5d62",
+          "lastModified": "Wed, 05 Jun 2019 20:21:01 GMT",
+          "contentType": "image/tiff"
+        },
+        {
+          "id": "earth_day",
+          "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+          "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+          "retrievedAt": "2026-09-06T03:07:30.203227+00:00",
+          "bytes": 22359549,
+          "sha256": "7cf788e13a3a7b4a926b524f8f71d635c56a18c48ba0bfe35695b05a305db3f3",
+          "lastModified": "Tue, 16 Dec 2025 13:13:17 GMT",
+          "contentType": "image/jpeg"
+        },
+        {
+          "id": "earth_night",
+          "sourceUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79765/dnb_land_ocean_ice.2012.13500x6750.jpg",
+          "resolvedUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79765/dnb_land_ocean_ice.2012.13500x6750.jpg",
+          "retrievedAt": "2026-09-06T03:04:55.080489+00:00",
+          "bytes": 7813537,
+          "sha256": "43b8c6cb6fdab028cb24478e431022df2e01fc62b39e5a01be004d4130cc01f2",
+          "lastModified": "Tue, 27 Nov 2012 23:29:23 GMT",
+          "contentType": "image/jpeg"
+        },
+        {
+          "id": "stars",
+          "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+          "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+          "retrievedAt": "2026-09-06T03:05:14.226088+00:00",
+          "bytes": 130530278,
+          "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4",
+          "lastModified": "Wed, 12 Aug 2020 16:16:43 GMT",
+          "contentType": "image/aces"
+        },
+        {
+          "id": "saturn_glb",
+          "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+          "retrievedAt": "2026-09-06T03:04:55.591416+00:00",
+          "bytes": 5476584,
+          "sha256": "8dbfde533b13e938408d8aded1d1ce48a084806233f67775371d83013dba7d38",
+          "lastModified": "Sat, 19 Oct 2024 04:18:18 GMT",
+          "contentType": "model/gltf-binary"
+        },
+        {
+          "id": "rings_profile",
+          "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+          "retrievedAt": "2026-09-06T03:07:33.420322+00:00",
+          "bytes": 8591847,
+          "sha256": "617453b73574f9314373cc998e393472b0232c1fe7b2f2f56ec057b6ff05786d",
+          "lastModified": "Thu, 19 Nov 2020 04:41:15 GMT",
+          "contentType": "text/plain"
+        }
+      ],
+      "observationDate": "various source epochs retained per asset",
+      "units": "text",
+      "datum": "not applicable",
+      "colorSpace": "not applicable",
+      "process": "Aggregate source credits for offline Japanese UI.",
+      "credit": "NASA/JPL/NAIF and original data teams; see credits_ja.json"
+    },
+    {
+      "path": "Content/Star/Textures/earth_clouds_8k.png",
+      "sha256": "c94e0e15a54a873d5ffc68c49067b3337ae04e55b4f36d0cede59f2dee7cc7f2",
+      "bytes": 19108959,
+      "sources": [
+        {
+          "id": "nasa_blue_marble_clouds_2002",
+          "title": "Blue Marble: Clouds",
+          "sourceUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_8192.tif",
+          "sourcePage": "https://visibleearth.nasa.gov/images/57747/blue-marble-clouds",
+          "sourcePageStatus": "Old Visible Earth page redirects to NASA Science Earth Observatory landing page as checked 2026-09-06; indexed original caption identifies this file family.",
+          "currentBackgroundPage": "https://svs.gsfc.nasa.gov/30614/",
+          "datasetEpochReferencePage": "https://svs.gsfc.nasa.gov/2709/",
+          "sha256": "d137775d8966ab8d443fd5126dc6e7ad72072bc1ed50555c5818d221735daf0f",
+          "bytes": 35870468,
+          "dimensions": [
+            8192,
+            4096
+          ],
+          "rawCachePath": "work/clouds/cloud_combined_8192.tif",
+          "retrievedAt": "2026-09-06T08:33:40.160469+00:00",
+          "sourceColorSpace": "Neutral RGB uint8 visual composite; R=G=B verified, no embedded ICC profile or declared transfer function found.",
+          "publishedDate": "2002-02-11"
+        }
+      ],
+      "observationDate": "Historical Blue Marble 2002 cloud composite; exact per-pixel observation dates are not present in the TIFF.",
+      "units": "dimensionless artistic coverage in [0,1]; value=storedByte/255",
+      "datum": "Earth body-fixed, east-positive longitude; visual equirectangular map, no geodetic tags or measured cloud heights in source TIFF",
+      "colorSpace": "linear scalar coverage; UE sRGB=false; sample red/grayscale channel",
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "scientificLimit": "Visualization-derived static coverage, not calibrated cloud optical depth, measured cloud fraction, forecast or current weather. Source can contain baked brightness/shading/shadow, compositing and polar visible/infrared differences. Coverage cannot separate these effects or recover 3D cloud thickness. Engine lighting/shadows remain an artistic approximation; raw observation-level masks are unavailable.",
+      "credit": "NASA Goddard Space Flight Center; Reto Stockli (Blue Marble land surface, shallow water and clouds); MODIS Science Team. Blue Marble compositing enhancements by Robert Simmon.",
+      "process": "{\"script\": \"Tools/Data/clouds.py\", \"inputChannel\": \"R (identical to G and B)\", \"contrast\": \"Identity: no threshold, gain, normalization, sharpening or microdetail generation.\", \"gamma\": \"Coverage=source grayscale byte/255; gamma exponent=1.0. This is an artistic reinterpretation of visual brightness, not a radiometric conversion.\", \"seam\": \"First/last 16 columns taper toward their per-row endpoint average using 1-smoothstep(0,1,t); endpoints match exactly. All other pixels remain byte-identical.\", \"maxSeamBandDegreesEachSide\": 0.703125, \"changedPixelFraction\": 0.0021040141582489014, \"quantization\": \"round-to-nearest uint8 after seam adjustment; PNG gAMA=1.0; no sRGB chunk\"}"
+    }
+  ],
+  "gaps": [
+    "USGS Apollo17 0.5m orthomosaic/DEM bytes not retrieved; official alternative LROC5m crop delivered.",
+    "NASA VTAD Saturn color source observation dates and prime-meridian registration not specified."
+  ],
+  "acquisitionCatalog": "Tools/Data/sources.json",
+  "offlineRuntime": true,
+  "personalApiKeysUsed": false,
+  "sourceAcquisitionReceipts": [
+    {
+      "id": "moon_albedo",
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_16bit_srgb_8k.tif",
+      "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_16bit_srgb_8k.tif",
+      "retrievedAt": "2026-09-06T03:06:27.571148+00:00",
+      "bytes": 243289792,
+      "sha256": "db7808e878b6a55eb409bb231eab8deb477f84b5c9d7396d76ff73e5d54992d9",
+      "lastModified": "Wed, 03 Dec 2025 19:55:35 GMT",
+      "contentType": "image/tiff"
+    },
+    {
+      "id": "moon_dem",
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+      "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16_uint.tif",
+      "retrievedAt": "2026-09-06T03:04:46.445330+00:00",
+      "bytes": 33201026,
+      "sha256": "45a2b32d56e81ed30db07fead8abc842b249b6511219d9ca2c53f81bc2dc5d62",
+      "lastModified": "Wed, 05 Jun 2019 20:21:01 GMT",
+      "contentType": "image/tiff"
+    },
+    {
+      "id": "stars",
+      "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+      "resolvedUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/starmap_2020_8k.exr",
+      "retrievedAt": "2026-09-06T03:05:14.226088+00:00",
+      "bytes": 130530278,
+      "sha256": "dc6c4f413e85707a29a25a9451148154554ecca2c996f84fa8f47b65ef9ff7c4",
+      "lastModified": "Wed, 12 Aug 2020 16:16:43 GMT",
+      "contentType": "image/aces"
+    },
+    {
+      "id": "earth_night",
+      "sourceUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79765/dnb_land_ocean_ice.2012.13500x6750.jpg",
+      "resolvedUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79765/dnb_land_ocean_ice.2012.13500x6750.jpg",
+      "retrievedAt": "2026-09-06T03:04:55.080489+00:00",
+      "bytes": 7813537,
+      "sha256": "43b8c6cb6fdab028cb24478e431022df2e01fc62b39e5a01be004d4130cc01f2",
+      "lastModified": "Tue, 27 Nov 2012 23:29:23 GMT",
+      "contentType": "image/jpeg"
+    },
+    {
+      "id": "saturn_glb",
+      "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+      "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb",
+      "retrievedAt": "2026-09-06T03:04:55.591416+00:00",
+      "bytes": 5476584,
+      "sha256": "8dbfde533b13e938408d8aded1d1ce48a084806233f67775371d83013dba7d38",
+      "lastModified": "Sat, 19 Oct 2024 04:18:18 GMT",
+      "contentType": "model/gltf-binary"
+    },
+    {
+      "id": "earth_day",
+      "sourceUrl": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+      "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/september/world.200409.3x21600x10800.jpg",
+      "retrievedAt": "2026-09-06T03:07:30.203227+00:00",
+      "bytes": 22359549,
+      "sha256": "7cf788e13a3a7b4a926b524f8f71d635c56a18c48ba0bfe35695b05a305db3f3",
+      "lastModified": "Tue, 16 Dec 2025 13:13:17 GMT",
+      "contentType": "image/jpeg"
+    },
+    {
+      "id": "apollo17_dem",
+      "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+      "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.TIF",
+      "retrievedAt": "2026-09-06T03:07:53.576646+00:00",
+      "bytes": 463397471,
+      "sha256": "3f7b5bb5a5c2ca62a0227e9e9444cf354048d038fe624a49a08d9e13d473392e",
+      "lastModified": "Fri, 14 Aug 2026 18:27:01 GMT",
+      "contentType": "binary/octet-stream"
+    },
+    {
+      "id": "apollo17_ortho",
+      "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/EXTRAS/BROWSE/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_MOSAIC_5M.TIF",
+      "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/EXTRAS/BROWSE/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_MOSAIC_5M.TIF",
+      "retrievedAt": "2026-09-06T03:07:41.904212+00:00",
+      "bytes": 115919445,
+      "sha256": "8e3a2dff013059278a58daed87570cb963e37de46ef0639c95afd3a434fc92d7",
+      "lastModified": "Fri, 14 Aug 2026 18:29:06 GMT",
+      "contentType": "binary/octet-stream"
+    },
+    {
+      "id": "saturn_reference",
+      "sourceUrl": "https://images-assets.nasa.gov/image/PIA05389/PIA05389~orig.jpg",
+      "resolvedUrl": "https://images-assets.nasa.gov/image/PIA05389/PIA05389~orig.jpg",
+      "retrievedAt": "2026-09-06T03:11:40.130001+00:00",
+      "bytes": 36983,
+      "sha256": "a9f4c997ec0515b022f4208e32053bf7b83985d6dc6306b2a9dfa5a7bbf2ecfc",
+      "lastModified": "Fri, 17 Feb 2017 02:21:21 GMT",
+      "contentType": "image/jpeg"
+    },
+    {
+      "id": "rings_profile",
+      "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+      "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.TAB",
+      "retrievedAt": "2026-09-06T03:07:33.420322+00:00",
+      "bytes": 8591847,
+      "sha256": "617453b73574f9314373cc998e393472b0232c1fe7b2f2f56ec057b6ff05786d",
+      "lastModified": "Thu, 19 Nov 2020 04:41:15 GMT",
+      "contentType": "text/plain"
+    },
+    {
+      "id": "naif0012.tls",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+      "retrievedAt": "2026-09-06T03:11:40.456561+00:00",
+      "bytes": 5257,
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "lastModified": "Fri, 15 Jul 2016 00:00:37 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    },
+    {
+      "id": "pck00011.tpc",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "retrievedAt": "2026-09-06T03:11:40.745116+00:00",
+      "bytes": 131226,
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "lastModified": "Tue, 27 Dec 2022 16:28:50 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    },
+    {
+      "id": "moon_pa_de421_1900-2050.bpc",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+      "retrievedAt": "2026-09-06T03:11:42.801059+00:00",
+      "bytes": 1770496,
+      "sha256": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+      "lastModified": "Wed, 19 Mar 2008 04:51:40 GMT",
+      "contentType": null
+    },
+    {
+      "id": "moon_080317.tf",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+      "retrievedAt": "2026-09-06T03:11:41.892393+00:00",
+      "bytes": 21437,
+      "sha256": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993",
+      "lastModified": "Thu, 18 Jul 2013 10:07:49 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    },
+    {
+      "id": "apollo17_label",
+      "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+      "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17.LBL",
+      "retrievedAt": "2026-09-06T03:27:01.023382+00:00",
+      "bytes": 3652,
+      "sha256": "b5ba3ece9ec66486df1a7bedce0bf2e610f8e4a4a96c174cdc36534446c58c25",
+      "lastModified": "Fri, 14 Aug 2026 18:26:56 GMT",
+      "contentType": "binary/octet-stream"
+    },
+    {
+      "id": "apollo17_readme",
+      "sourceUrl": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+      "resolvedUrl": "https://pds.mcp.nasa.gov/data/store/img/lunar_reconnaissance_orbiter/pds4/lroc/lro-l-lroc-5-rdr/LROLRC_2001/DATA/SDP/NAC_DTM/APOLLO17/NAC_DTM_APOLLO17_README.TXT",
+      "retrievedAt": "2026-09-06T03:27:01.098908+00:00",
+      "bytes": 9567,
+      "sha256": "84eefc7ab0bad79620ee7616861c8debc637c9d78bd3b6c020a495973e3d8e98",
+      "lastModified": "Fri, 14 Aug 2026 18:26:55 GMT",
+      "contentType": "binary/octet-stream"
+    },
+    {
+      "id": "rings_label",
+      "sourceUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+      "resolvedUrl": "https://pds-rings.seti.org/holdings/volumes/COUVIS_8xxx/COUVIS_8001/data/UVIS_HSP_2005_139_126TAU_E_TAU01KM.LBL",
+      "retrievedAt": "2026-09-06T03:28:24.877274+00:00",
+      "bytes": 12010,
+      "sha256": "b9dab44981775c044f4416f2613a5860e99a5b1901c31dbda28d6f30f04fb5d6",
+      "lastModified": "Fri, 27 Nov 2020 06:27:40 GMT",
+      "transferContentEncoding": "gzip",
+      "contentType": "text/plain"
+    }
+  ],
+  "localMcp": {
+    "package": "@programcomputer/nasa-mcp-server",
+    "version": "1.0.14",
+    "scope": "local stdio, authoring only",
+    "receipt": "Data/nasa_mcp_receipt.json",
+    "includedInRuntime": false
+  }
+}

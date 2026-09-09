@@ -1,0 +1,74 @@
+// A separate optical shell using the existing archived NASA cloud map.
+// Coverage is observed imagery; slab thickness/relief are visual approximations.
+float radiusM = max(RadiusMeters,1.0);
+float shellR = 1.0+max(CloudHeightMeters,0.0)/radiusM;
+bool inside = length(CameraLocal)<shellR;
+if ((!inside && FaceSign<0.0) || (inside && FaceSign>0.0)) return float4(0,0,0,0);
+float3 n = sm.UVToRH(UV);
+float3 p = n*shellR;
+float3 view = sm.SafeNormal(CameraLocal-p);
+float3 sun = sm.SafeNormal(SunDirectionLocal);
+float2 uv = UV;
+uv.x = frac(uv.x+CloudPhase/6.28318530718);
+float2 dx=ddx(UV), dy=ddy(UV);
+dx.x-=round(dx.x); dy.x-=round(dy.x);
+float coverage = saturate(CloudTex.SampleGrad(CloudTexSampler,uv,dx,dy).r);
+float tau = sm.OpticalDepth(coverage,CloudOpacity);
+float opacity = 1.0-exp(-min(tau/max(abs(dot(n,view)),0.18),80.0));
+// STAR_CLOUD_PHOTO_VISIBILITY
+opacity*=photoVisibility;
+if (opacity<0.001) return float4(0,0,0,0);
+
+// Derive bounded surface slopes from the map, without inventing a second
+// unrelated noise texture that changes the photographed weather patterns.
+float texel=1.0/8192.0;
+float east = CloudTex.SampleGrad(CloudTexSampler,uv+float2(texel,0),dx,dy).r;
+float west = CloudTex.SampleGrad(CloudTexSampler,uv-float2(texel,0),dx,dy).r;
+float south = CloudTex.SampleGrad(CloudTexSampler,uv+float2(0,texel*2),dx,dy).r;
+float north = CloudTex.SampleGrad(CloudTexSampler,uv-float2(0,texel*2),dx,dy).r;
+float3 tangent = sm.SafeNormal(float3(-n.y,n.x,0.0));
+float3 northward = sm.SafeNormal(cross(n,tangent));
+float metrePerTexel=6.28318530718*radiusM*texel;
+float eastSlope=(east-west)*CloudReliefMeters/max(2.0*metrePerTexel*length(n.xy),1000.0);
+float northSlope=(north-south)*CloudReliefMeters/(2.0*metrePerTexel);
+float3 normal=sm.SafeNormal(n-tangent*clamp(eastSlope,-0.4,0.4)-northward*clamp(northSlope,-0.4,0.4));
+float solarCos=dot(n,sun);
+float visibility=sm.SphereSunVisibility(p,sun,float3(0,0,0),1.0,SunAngularRadius)
+    *sm.SphereSunVisibility(p,sun,OccluderLocal,OccluderRadius,SunAngularRadius);
+
+// Light passing through the atmosphere above the cloud tops warms the
+// terminator. All distances are Earth radii or metres, never world floats.
+float2 atmosphere=sm.RaySphere(p,sun,1.0+100000.0/radiusM);
+float ds=max(atmosphere.y,0.0)/12.0;
+float3 optical=0.0;
+if(EarthLUTEnabled>0.5)
+{
+    float2 lookup=sm.EarthOpticalUV(CloudHeightMeters,dot(n,sun),radiusM);
+    float2 columns=EarthOpticalLUT.SampleLevel(EarthOpticalLUTSampler,lookup,0).rg*1e6;
+    optical=float3(5.802e-6,13.558e-6,33.1e-6)*columns.x+4.3956e-6*columns.y;
+}
+else
+{
+[loop] for(int i=0;i<12;++i)
+{
+    float h=max((length(p+sun*((i+0.5)*ds))-1.0)*radiusM,0.0);
+    optical+=(float3(5.802e-6,13.558e-6,33.1e-6)*exp(-h/8000.0)
+        +float3(4.3956e-6,4.3956e-6,4.3956e-6)*exp(-h/1200.0))*ds*radiusM;
+}
+}
+float3 sunlight=exp(-min(optical,80.0));
+// Short sunward samples create coherent dark sides within the cloud deck.
+float selfShadow=0.0;
+[unroll] for(int j=1;j<=4;++j)
+{
+    float3 q=p+sun*((float)j*1400.0/radiusM);
+    float height=(length(q)-shellR)*radiusM;
+    float2 shadowUV=sm.RHToUV(q);
+    shadowUV.x=frac(shadowUV.x+CloudPhase/6.28318530718);
+    float other=CloudTex.SampleGrad(CloudTexSampler,shadowUV,dx,dy).r;
+    selfShadow+=max(other-coverage*0.6,0.0)*saturate(1.0-height/3000.0)*0.65;
+}
+float direct=max(dot(normal,sun),0.0)*exp(-selfShadow);
+float fill=0.10*smoothstep(-0.025,0.22,solarCos);
+float3 light=(sunlight*direct+float3(0.45,0.65,1.0)*fill)*visibility;
+return float4(light*0.92*max(SunRadiance,0.0),saturate(opacity));

@@ -1,0 +1,151 @@
+{
+  "sourcePage": "https://science.nasa.gov/earth/earth-observatory/cairos-colorful-nightscape-153803/",
+  "observationDate": "2023-07-26",
+  "credit": "Image courtesy of the Earth Science and Remote Sensing Unit, NASA Johnson Space Center",
+  "sourcePhotoIDs": "Page: ISS069-E-37411 through 37414; delivered panorama filename ends 37415 (discrepancy retained).",
+  "colorSpace": "sRGB, published contrast-enhanced color photograph; not calibrated radiance",
+  "units": "Display RGB 0-255, geographic degrees EPSG:4326",
+  "boundsWsen": [
+    30.76548651707097,
+    29.775971268871245,
+    31.615436732935166,
+    30.286088814971897
+  ],
+  "pixels": [
+    4096,
+    4096
+  ],
+  "sourceSHA256": "fdbf8042daa86c5f860f1295e8a2d4a067ebd860875b0450e9b19ba161051f1c",
+  "sha256": "56aebb51116db79b12e8a51237661aed8dc3e5f2daba7064fc3993b0c21586a6",
+  "processing": "Projective registration to NASA photo map tiles in Web Mercator; geographic resampling with Lanczos and alpha edge feather. No invented roads, emitters or colors.",
+  "registration": {
+    "method": "SIFT/RANSAC registration of published NASA panorama to four NASA georeferenced map tiles from original ISS069-E-37412",
+    "mapProjection": "EPSG:3857 / XYZ tile grid",
+    "zoom": 12,
+    "tileOriginXY": [
+      2402,
+      1688
+    ],
+    "panoramaToLocalTilePixels": [
+      [
+        0.3628343205330384,
+        0.18223897705401015,
+        -1013.0255829882666
+      ],
+      [
+        -0.13580259027678968,
+        0.3638986897487379,
+        273.2993479732785
+      ],
+      [
+        3.1197296309734607e-06,
+        2.3489363494126813e-06,
+        1.0
+      ]
+    ],
+    "localTilePixelsToPanorama": [
+      [
+        2.296489844334351,
+        -1.1671484684122164,
+        2645.383878788509
+      ],
+      [
+        0.863927023068403,
+        2.313799079608045,
+        242.82039640513608
+      ],
+      [
+        -9.193737002324764e-06,
+        -1.7937791026780597e-06,
+        0.9911767478725493
+      ]
+    ],
+    "matches": 123,
+    "inliers": 121,
+    "fitRmsTilePixels": 0.496004329640992,
+    "heldoutMatches": 25,
+    "heldoutRmsTilePixels": 0.43045559280181156,
+    "heldoutMaxTilePixels": 1.0193435904555226,
+    "approxTileMetersPerPixel": 33.09820414237616,
+    "panoramaCornersLonLat": [
+      [
+        30.76548651707097,
+        30.063953865975204
+      ],
+      [
+        31.45366952010852,
+        30.286088814971897
+      ],
+      [
+        31.615436732935166,
+        30.00226919253229
+      ],
+      [
+        30.934354862909345,
+        29.775971268871245
+      ]
+    ],
+    "accuracyLimit": "Residual measures image agreement with NASA map tiles, not absolute ground survey accuracy. NASA georeference is an automated product; published raw footprint corner labels were inconsistent with raw image orientation and were not used."
+  },
+  "independentRegionChecks": [
+    {
+      "photo": 37413,
+      "url": "https://eol.jsc.nasa.gov/images/MapTiles/tiled_astronaut_photos/ISS069-E-37413/12/2400/1690.png",
+      "tile": [
+        12,
+        2400,
+        1690
+      ],
+      "sha256": "4c361794eeddb8d9bac4c2e796ae4a7d7e7780c4e432060b2cdc08f506a5f235",
+      "matchedInliers": 32,
+      "rmsTilePixels": 7.788138270068278,
+      "maxTilePixels": 9.921819114977847,
+      "approxRmsMeters": 257.7733903517722
+    },
+    {
+      "photo": 37412,
+      "url": "https://eol.jsc.nasa.gov/images/MapTiles/tiled_astronaut_photos/ISS069-E-37412/12/2405/1688.png",
+      "tile": [
+        12,
+        2405,
+        1688
+      ],
+      "sha256": "fb8877a2f77b4d442e1e56cd3669615d7f19e01700beab707f0a72bd33856e16",
+      "matchedInliers": 66,
+      "rmsTilePixels": 1.1747594191318647,
+      "maxTilePixels": 2.0630337494428552,
+      "approxRmsMeters": 38.882427072605694
+    }
+  ],
+  "accuracyLimit": "About 14 m held-out image agreement in the fitting area, about 39 m east and 258 m west against other map tiles; these are image alignment residuals, NOT absolute geographic accuracy. Automated NASA placement is not a survey.",
+  "syntheticDetail": false,
+  "alpha": "Smoothstep photographic coverage feather over 400 source pixels; interior observed RGB unchanged. Transition to lower-resolution 2016 VIIRS is display processing.",
+  "sourceFile": "Content/Star/Art/EarthRealism/Sources/Cairo_ISS2023_PublishedPanorama.jpg",
+  "displayDatum": "WGS84 geographic longitude/latitude mapped onto the game mean-radius spherical Earth; not an ellipsoidal terrain survey.",
+  "backgroundDisplayMatch": {
+    "method": "Robust median display-luminance ratio after area averaging the registered photo to the VIIRS sampling footprint. sRGB decoded before averaging.",
+    "cells": 9940,
+    "gain": 0.048146843910217285,
+    "ratioQuantiles": [
+      0.0039164458867162475,
+      0.011639432981610298,
+      0.048146842047572136,
+      0.11040769889950752,
+      0.20063430815935138
+    ],
+    "photoMean": 0.06014280393719673,
+    "viirsMean": 0.7804730534553528,
+    "limits": "Display matching across differently processed 2016 and 2023 observations; not radiometric calibration or measurement of temporal changes."
+  },
+  "backgroundFiltering": {
+    "source": "Content\\Star\\Art\\EarthRealism\\T_Nile_NightLights2016_2K.png",
+    "sourceSHA256": "680b3079fbd0eb01334fd5ec119e6e775bbb66c8ebf01d70fa54766dd9c413fc",
+    "file": "Content\\Star\\Art\\EarthRealism\\T_Nile_NightLights2016_Smooth_2K.png",
+    "sha256": "889406f67a6a9992f002e312d5a86f2bcd6900a0638ef5edc03806d567480409",
+    "processing": "One-texel Gaussian display reconstruction in linear light; no invented features or sharpening. Original 500 m nominal observation is retained separately.",
+    "sigmaSourcePixels": 1.0,
+    "linearLightSumRatio": 1.000028395676834,
+    "syntheticDetail": false
+  },
+  "edgeFeatherSourcePixels": 400
+}

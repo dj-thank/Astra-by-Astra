@@ -1,0 +1,563 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Set the initial scenario to real morning illumination for the Apollo 17 valley/landing scene.",
+  "site": {
+    "latitudeDegrees": 20.1908,
+    "longitudeDegreesEast": 30.7717,
+    "frame": "MOON_ME",
+    "referenceRadiusMeters": 1737400
+  },
+  "selection": {
+    "rangeUtc": [
+      "2026-09-07 00:00:00",
+      "2026-10-06 00:00:00"
+    ],
+    "candidateStepHours": 12,
+    "desiredElevationDegrees": [
+      20,
+      40
+    ],
+    "preferredElevationDegrees": 30,
+    "rule": "Among 12-hour real-vector samples with rising solar elevation in [20,40], choose closest to 30 degrees; earliest epoch breaks ties.",
+    "selectedEpoch": "2026-09-19T00:00:00Z",
+    "officialBodyQueryCount": 4,
+    "candidateSamples": [
+      {
+        "epoch": "2026-09-07T00:00:00Z",
+        "sunElevationDegrees": -58.65733848929718,
+        "surfaceSunElevationDegrees": -58.657682390487395,
+        "sunAzimuthDegreesEastOfNorth": 306.0654253815503
+      },
+      {
+        "epoch": "2026-09-07T12:00:00Z",
+        "sunElevationDegrees": -63.042033111905354,
+        "surfaceSunElevationDegrees": -63.04233293930886,
+        "sunAzimuthDegreesEastOfNorth": 314.83770582895687
+      },
+      {
+        "epoch": "2026-09-08T00:00:00Z",
+        "sunElevationDegrees": -66.7085105448555,
+        "surfaceSunElevationDegrees": -66.70877214501716,
+        "sunAzimuthDegreesEastOfNorth": 326.4050080140817
+      },
+      {
+        "epoch": "2026-09-08T12:00:00Z",
+        "sunElevationDegrees": -69.26930163219804,
+        "surfaceSunElevationDegrees": -69.26953589120966,
+        "sunAzimuthDegreesEastOfNorth": 341.2805855298117
+      },
+      {
+        "epoch": "2026-09-09T00:00:00Z",
+        "sunElevationDegrees": -70.28667513552139,
+        "surfaceSunElevationDegrees": -70.28689842973971,
+        "sunAzimuthDegreesEastOfNorth": 358.7922189106742
+      },
+      {
+        "epoch": "2026-09-09T12:00:00Z",
+        "sunElevationDegrees": -69.52819267258639,
+        "surfaceSunElevationDegrees": -69.52842425468525,
+        "sunAzimuthDegreesEastOfNorth": 16.524462999141672
+      },
+      {
+        "epoch": "2026-09-10T00:00:00Z",
+        "sunElevationDegrees": -67.17007744634483,
+        "surfaceSunElevationDegrees": -67.17033441297778,
+        "sunAzimuthDegreesEastOfNorth": 31.88384461466004
+      },
+      {
+        "epoch": "2026-09-10T12:00:00Z",
+        "sunElevationDegrees": -63.63880194512191,
+        "surfaceSunElevationDegrees": -63.639096077922254,
+        "sunAzimuthDegreesEastOfNorth": 43.93301629387865
+      },
+      {
+        "epoch": "2026-09-11T00:00:00Z",
+        "sunElevationDegrees": -59.338242467607486,
+        "surfaceSunElevationDegrees": -59.33858033624313,
+        "sunAzimuthDegreesEastOfNorth": 53.079155948240796
+      },
+      {
+        "epoch": "2026-09-11T12:00:00Z",
+        "sunElevationDegrees": -54.54889101516974,
+        "surfaceSunElevationDegrees": -54.54927533882917,
+        "sunAzimuthDegreesEastOfNorth": 60.076156523492145
+      },
+      {
+        "epoch": "2026-09-12T00:00:00Z",
+        "sunElevationDegrees": -49.44553995974845,
+        "surfaceSunElevationDegrees": -49.44597082036815,
+        "sunAzimuthDegreesEastOfNorth": 65.56629504923674
+      },
+      {
+        "epoch": "2026-09-12T12:00:00Z",
+        "sunElevationDegrees": -44.13519200611935,
+        "surfaceSunElevationDegrees": -44.135667654467824,
+        "sunAzimuthDegreesEastOfNorth": 70.00770315857808
+      },
+      {
+        "epoch": "2026-09-13T00:00:00Z",
+        "sunElevationDegrees": -38.68468240438268,
+        "surfaceSunElevationDegrees": -38.68519976534782,
+        "sunAzimuthDegreesEastOfNorth": 73.7125105773477
+      },
+      {
+        "epoch": "2026-09-13T12:00:00Z",
+        "sunElevationDegrees": -33.137228597523006,
+        "surfaceSunElevationDegrees": -33.13778359660648,
+        "sunAzimuthDegreesEastOfNorth": 76.89369397866611
+      },
+      {
+        "epoch": "2026-09-14T00:00:00Z",
+        "sunElevationDegrees": -27.521918383010355,
+        "surfaceSunElevationDegrees": -27.522506172609237,
+        "sunAzimuthDegreesEastOfNorth": 79.6997082895417
+      },
+      {
+        "epoch": "2026-09-14T12:00:00Z",
+        "sunElevationDegrees": -21.85918909649412,
+        "surfaceSunElevationDegrees": -21.85980422656663,
+        "sunAzimuthDegreesEastOfNorth": 82.23732904839702
+      },
+      {
+        "epoch": "2026-09-15T00:00:00Z",
+        "sunElevationDegrees": -16.16408270258764,
+        "surfaceSunElevationDegrees": -16.164719260292575,
+        "sunAzimuthDegreesEastOfNorth": 84.58637058159186
+      },
+      {
+        "epoch": "2026-09-15T12:00:00Z",
+        "sunElevationDegrees": -10.448259336123229,
+        "surfaceSunElevationDegrees": -10.448911068033814,
+        "sunAzimuthDegreesEastOfNorth": 86.80929468143391
+      },
+      {
+        "epoch": "2026-09-16T00:00:00Z",
+        "sunElevationDegrees": -4.721311017730066,
+        "surfaceSunElevationDegrees": -4.721971442262934,
+        "sunAzimuthDegreesEastOfNorth": 88.95771555556938
+      },
+      {
+        "epoch": "2026-09-16T12:00:00Z",
+        "sunElevationDegrees": 1.0083159253334417,
+        "surfaceSunElevationDegrees": 1.0076534108581292,
+        "sunAzimuthDegreesEastOfNorth": 91.07707735564978
+      },
+      {
+        "epoch": "2026-09-17T00:00:00Z",
+        "sunElevationDegrees": 6.7326023651325775,
+        "surfaceSunElevationDegrees": 6.731944380080678,
+        "sunAzimuthDegreesEastOfNorth": 93.21033682174841
+      },
+      {
+        "epoch": "2026-09-17T12:00:00Z",
+        "sunElevationDegrees": 12.443313967792925,
+        "surfaceSunElevationDegrees": 12.442667044512033,
+        "sunAzimuthDegreesEastOfNorth": 95.40124319058219
+      },
+      {
+        "epoch": "2026-09-18T00:00:00Z",
+        "sunElevationDegrees": 18.131329097388427,
+        "surfaceSunElevationDegrees": 18.130699576390906,
+        "sunAzimuthDegreesEastOfNorth": 97.69770867550024
+      },
+      {
+        "epoch": "2026-09-18T12:00:00Z",
+        "sunElevationDegrees": 23.785824797253163,
+        "surfaceSunElevationDegrees": 23.78521871899654,
+        "sunAzimuthDegreesEastOfNorth": 100.15577638465378
+      },
+      {
+        "epoch": "2026-09-19T00:00:00Z",
+        "sunElevationDegrees": 29.39317179087997,
+        "surfaceSunElevationDegrees": 29.392594780655116,
+        "sunAzimuthDegreesEastOfNorth": 102.8448183660448
+      },
+      {
+        "epoch": "2026-09-19T12:00:00Z",
+        "sunElevationDegrees": 34.93530911640586,
+        "surfaceSunElevationDegrees": 34.93476625654536,
+        "sunAzimuthDegreesEastOfNorth": 105.85485912809192
+      },
+      {
+        "epoch": "2026-09-20T00:00:00Z",
+        "sunElevationDegrees": 40.387215783043935,
+        "surfaceSunElevationDegrees": 40.38671146251879,
+        "sunAzimuthDegreesEastOfNorth": 109.30735648974208
+      },
+      {
+        "epoch": "2026-09-20T12:00:00Z",
+        "sunElevationDegrees": 45.71281573480646,
+        "surfaceSunElevationDegrees": 45.712353458902925,
+        "sunAzimuthDegreesEastOfNorth": 113.3713703377526
+      },
+      {
+        "epoch": "2026-09-21T00:00:00Z",
+        "sunElevationDegrees": 50.85815649325727,
+        "surfaceSunElevationDegrees": 50.85773862306907,
+        "sunAzimuthDegreesEastOfNorth": 118.28748688287637
+      },
+      {
+        "epoch": "2026-09-21T12:00:00Z",
+        "sunElevationDegrees": 55.73991860103027,
+        "surfaceSunElevationDegrees": 55.73954597090049,
+        "sunAzimuthDegreesEastOfNorth": 124.40050469483279
+      },
+      {
+        "epoch": "2026-09-22T00:00:00Z",
+        "sunElevationDegrees": 60.22652298780023,
+        "surfaceSunElevationDegrees": 60.22619431907616,
+        "sunAzimuthDegreesEastOfNorth": 132.19247293246903
+      },
+      {
+        "epoch": "2026-09-22T12:00:00Z",
+        "sunElevationDegrees": 64.11046496374249,
+        "surfaceSunElevationDegrees": 64.11017598126088,
+        "sunAzimuthDegreesEastOfNorth": 142.27138131775672
+      },
+      {
+        "epoch": "2026-09-23T00:00:00Z",
+        "sunElevationDegrees": 67.08248719749376,
+        "surfaceSunElevationDegrees": 67.08222948558301,
+        "sunAzimuthDegreesEastOfNorth": 155.1772318492326
+      },
+      {
+        "epoch": "2026-09-23T12:00:00Z",
+        "sunElevationDegrees": 68.75611457204316,
+        "surfaceSunElevationDegrees": 68.75587477867775,
+        "sunAzimuthDegreesEastOfNorth": 170.7978045942608
+      },
+      {
+        "epoch": "2026-09-24T00:00:00Z",
+        "sunElevationDegrees": 68.821571996867,
+        "surfaceSunElevationDegrees": 68.82133290872082,
+        "sunAzimuthDegreesEastOfNorth": 187.67033980651973
+      },
+      {
+        "epoch": "2026-09-24T12:00:00Z",
+        "sunElevationDegrees": 67.265709974619,
+        "surfaceSunElevationDegrees": 67.2654542140605,
+        "sunAzimuthDegreesEastOfNorth": 203.45527056966594
+      },
+      {
+        "epoch": "2026-09-25T00:00:00Z",
+        "sunElevationDegrees": 64.38329918300411,
+        "surfaceSunElevationDegrees": 64.38301303866173,
+        "sunAzimuthDegreesEastOfNorth": 216.58334279519067
+      },
+      {
+        "epoch": "2026-09-25T12:00:00Z",
+        "sunElevationDegrees": 60.56269734569533,
+        "surfaceSunElevationDegrees": 60.56237204863721,
+        "sunAzimuthDegreesEastOfNorth": 226.85891943221245
+      },
+      {
+        "epoch": "2026-09-26T00:00:00Z",
+        "sunElevationDegrees": 56.12120532042666,
+        "surfaceSunElevationDegrees": 56.12083632416062,
+        "sunAzimuthDegreesEastOfNorth": 234.79858462936872
+      },
+      {
+        "epoch": "2026-09-26T12:00:00Z",
+        "sunElevationDegrees": 51.273344591054155,
+        "surfaceSunElevationDegrees": 51.27293041824332,
+        "sunAzimuthDegreesEastOfNorth": 241.0156375649572
+      },
+      {
+        "epoch": "2026-09-27T00:00:00Z",
+        "sunElevationDegrees": 46.15529576629878,
+        "surfaceSunElevationDegrees": 46.15483709884181,
+        "sunAzimuthDegreesEastOfNorth": 246.0031352691438
+      },
+      {
+        "epoch": "2026-09-27T12:00:00Z",
+        "sunElevationDegrees": 40.853113406497336,
+        "surfaceSunElevationDegrees": 40.85261247904954,
+        "sunAzimuthDegreesEastOfNorth": 250.11515932366785
+      },
+      {
+        "epoch": "2026-09-28T00:00:00Z",
+        "sunElevationDegrees": 35.42230499878364,
+        "surfaceSunElevationDegrees": 35.42176520421454,
+        "sunAzimuthDegreesEastOfNorth": 253.598810538227
+      },
+      {
+        "epoch": "2026-09-28T12:00:00Z",
+        "sunElevationDegrees": 29.899790037885122,
+        "surfaceSunElevationDegrees": 29.89921566073137,
+        "sunAzimuthDegreesEastOfNorth": 256.6274323688268
+      },
+      {
+        "epoch": "2026-09-29T00:00:00Z",
+        "sunElevationDegrees": 24.31100038992022,
+        "surfaceSunElevationDegrees": 24.310396413841296,
+        "sunAzimuthDegreesEastOfNorth": 259.32520004907565
+      },
+      {
+        "epoch": "2026-09-29T12:00:00Z",
+        "sunElevationDegrees": 18.67413525279733,
+        "surfaceSunElevationDegrees": 18.67350721037443,
+        "sunAzimuthDegreesEastOfNorth": 261.78378239542906
+      },
+      {
+        "epoch": "2026-09-30T00:00:00Z",
+        "sunElevationDegrees": 13.002779825688082,
+        "surfaceSunElevationDegrees": 13.002133672392338,
+        "sunAzimuthDegreesEastOfNorth": 264.0734398946465
+      },
+      {
+        "epoch": "2026-09-30T12:00:00Z",
+        "sunElevationDegrees": 7.307580090949661,
+        "surfaceSunElevationDegrees": 7.3069220927962135,
+        "sunAzimuthDegreesEastOfNorth": 266.2505357231869
+      },
+      {
+        "epoch": "2026-10-01T00:00:00Z",
+        "sunElevationDegrees": 1.5973714217807982,
+        "surfaceSunElevationDegrees": 1.5967080505111333,
+        "sunAzimuthDegreesEastOfNorth": 268.36282984035176
+      },
+      {
+        "epoch": "2026-10-01T12:00:00Z",
+        "sunElevationDegrees": -4.120002199260509,
+        "surfaceSunElevationDegrees": -4.1206643672100345,
+        "sunAzimuthDegreesEastOfNorth": 270.4534750038778
+      },
+      {
+        "epoch": "2026-10-02T00:00:00Z",
+        "sunElevationDegrees": -9.837026866176819,
+        "surfaceSunElevationDegrees": -9.837681249371755,
+        "sunAzimuthDegreesEastOfNorth": 272.5643573536323
+      },
+      {
+        "epoch": "2026-10-02T12:00:00Z",
+        "sunElevationDegrees": -15.545904425264247,
+        "surfaceSunElevationDegrees": -15.546544537523722,
+        "sunAzimuthDegreesEastOfNorth": 274.73928700632416
+      },
+      {
+        "epoch": "2026-10-03T00:00:00Z",
+        "sunElevationDegrees": -21.237884522067404,
+        "surfaceSunElevationDegrees": -21.238504075174525,
+        "sunAzimuthDegreesEastOfNorth": 277.02751955557784
+      },
+      {
+        "epoch": "2026-10-03T12:00:00Z",
+        "sunElevationDegrees": -26.902425583552727,
+        "surfaceSunElevationDegrees": -26.903018594949682,
+        "sunAzimuthDegreesEastOfNorth": 279.48817586997734
+      },
+      {
+        "epoch": "2026-10-04T00:00:00Z",
+        "sunElevationDegrees": -32.52601611870566,
+        "surfaceSunElevationDegrees": -32.52657702816321,
+        "sunAzimuthDegreesEastOfNorth": 282.19635389342585
+      },
+      {
+        "epoch": "2026-10-04T12:00:00Z",
+        "sunElevationDegrees": -38.09038065171805,
+        "surfaceSunElevationDegrees": -38.090904453821814,
+        "sunAzimuthDegreesEastOfNorth": 285.2521590859642
+      },
+      {
+        "epoch": "2026-10-05T00:00:00Z",
+        "sunElevationDegrees": -43.5695850209496,
+        "surfaceSunElevationDegrees": -43.57006742560104,
+        "sunAzimuthDegreesEastOfNorth": 288.7946271367765
+      },
+      {
+        "epoch": "2026-10-05T12:00:00Z",
+        "sunElevationDegrees": -48.925150707663235,
+        "surfaceSunElevationDegrees": -48.92558835084133,
+        "sunAzimuthDegreesEastOfNorth": 293.0236644422007
+      },
+      {
+        "epoch": "2026-10-06T00:00:00Z",
+        "sunElevationDegrees": -54.09751972662591,
+        "surfaceSunElevationDegrees": -54.09791047247836,
+        "sunAzimuthDegreesEastOfNorth": 298.23439082711343
+      }
+    ]
+  },
+  "before": {
+    "epoch": "2026-09-06T00:00:00Z",
+    "backupPath": "work/epoch-selection/bodies_2026-09-06_original.json",
+    "originalBodiesSha256": "699771a5e6aa3f6b4d90c8b153bd74651c3b5795aed6c729d18e1e9871c59d21",
+    "originalBodiesUtf8": "{\n  \"schemaVersion\": 1,\n  \"epoch\": \"2026-09-06T00:00:00Z\",\n  \"timeScale\": \"UTC (Horizons UT)\",\n  \"basis\": \"ecliptic-j2000\",\n  \"origin\": \"solar-system-barycenter\",\n  \"vectors\": \"geometric, no light-time or aberration\",\n  \"bodies\": [\n    {\n      \"id\": \"sun\",\n      \"nameJa\": \"太陽\",\n      \"radiusMeters\": 695700000.0,\n      \"positionMeters\": [\n        -209136998.0915348,\n        -778023116.8065163,\n        14642816.212253591\n      ],\n      \"velocityMetersPerSecond\": [\n        10.647640739962752,\n        4.032931755724854,\n        -0.2231256320416374\n      ],\n      \"basis\": \"ecliptic-j2000\",\n      \"epoch\": \"2026-09-06T00:00:00Z\",\n      \"horizonsId\": \"10\",\n      \"radiusConvention\": \"mean spherical reference\",\n      \"bodyFixedFrame\": \"IAU_SUN\",\n      \"bodyFixedToEclipticJ2000\": [\n        [\n          0.1956912146904992,\n          -0.9730028628570803,\n          0.12235349347232778\n        ],\n        [\n          0.980643716671717,\n          0.19332498949419769,\n          -0.0310378702450671\n        ],\n        [\n          0.006545948765320719,\n          0.12605902311613545,\n          0.9920011457885356\n        ]\n      ],\n      \"orientationConvention\": \"row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north\",\n      \"northPoleEclipticJ2000\": [\n        0.12235349347232778,\n        -0.0310378702450671,\n        0.9920011457885356\n      ],\n      \"orientationEpoch\": \"2026-09-06T00:00:00Z\",\n      \"orientationKernels\": [\n        \"naif0012.tls\",\n        \"pck00011.tpc\"\n      ]\n    },\n    {\n      \"id\": \"earth\",\n      \"nameJa\": \"地球\",\n      \"radiusMeters\": 6371008.4,\n      \"positionMeters\": [\n        144064466353.2569,\n        -44704811921.42347,\n        16084889.47454281\n      ],\n      \"velocityMetersPerSecond\": [\n        8216.17328874922,\n        28390.961465841632,\n        -1.281016960671622\n      ],\n      \"basis\": \"ecliptic-j2000\",\n      \"epoch\": \"2026-09-06T00:00:00Z\",\n      \"horizonsId\": \"399\",\n      \"radiusConvention\": \"mean spherical reference\",\n      \"bodyFixedFrame\": \"IAU_EARTH\",\n      \"bodyFixedToEclipticJ2000\": [\n        [\n          0.9644307939476552,\n          0.26432275163613034,\n          0.0025935791871523227\n        ],\n        [\n          -0.24350796936038324,\n          0.8845812103316765,\n          0.3977687156956024\n        ],\n        [\n          0.102845090030969,\n          -0.3842519554870878,\n          0.9174820554980195\n        ]\n      ],\n      \"orientationConvention\": \"row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north\",\n      \"northPoleEclipticJ2000\": [\n        0.0025935791871523227,\n        0.3977687156956024,\n        0.9174820554980195\n      ],\n      \"orientationEpoch\": \"2026-09-06T00:00:00Z\",\n      \"orientationKernels\": [\n        \"naif0012.tls\",\n        \"pck00011.tpc\"\n      ],\n      \"orientationLimit\": \"IAU_EARTH approximate spin model, not ITRF high-precision Earth orientation.\"\n    },\n    {\n      \"id\": \"moon\",\n      \"nameJa\": \"月\",\n      \"radiusMeters\": 1737400.0,\n      \"positionMeters\": [\n        144030649600.5216,\n        -44338852681.08248,\n        43528712.40904555\n      ],\n      \"velocityMetersPerSecond\": [\n        7158.950531504535,\n        28290.16608665277,\n        -58.91613996309708\n      ],\n      \"basis\": \"ecliptic-j2000\",\n      \"epoch\": \"2026-09-06T00:00:00Z\",\n      \"horizonsId\": \"301\",\n      \"radiusConvention\": \"mean spherical reference\",\n      \"bodyFixedFrame\": \"MOON_ME\",\n      \"bodyFixedToEclipticJ2000\": [\n        [\n          0.09309019109588615,\n          0.995562201503091,\n          0.013788374090151823\n        ],\n        [\n          -0.9954312696375192,\n          0.0927647818664947,\n          0.02261156060731373\n        ],\n        [\n          0.021232139542871342,\n          -0.01583029322470796,\n          0.9996492375162659\n        ]\n      ],\n      \"orientationConvention\": \"row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north\",\n      \"northPoleEclipticJ2000\": [\n        0.013788374090151823,\n        0.02261156060731373,\n        0.9996492375162659\n      ],\n      \"orientationEpoch\": \"2026-09-06T00:00:00Z\",\n      \"orientationKernels\": [\n        \"naif0012.tls\",\n        \"pck00011.tpc\",\n        \"moon_pa_de421_1900-2050.bpc\",\n        \"moon_080317.tf\"\n      ],\n      \"orientationLimit\": \"DE421 mean Earth/polar-axis frame, consistent with conventional LRO mapping; position still Horizons current solution.\"\n    },\n    {\n      \"id\": \"saturn\",\n      \"nameJa\": \"土星\",\n      \"radiusMeters\": 58232000.0,\n      \"positionMeters\": [\n        1389856278262.85,\n        243046861406.8391,\n        -59564751589.4735\n      ],\n      \"velocityMetersPerSecond\": [\n        -2194.330664809676,\n        9495.304278136342,\n        -78.35843484425942\n      ],\n      \"basis\": \"ecliptic-j2000\",\n      \"epoch\": \"2026-09-06T00:00:00Z\",\n      \"horizonsId\": \"699\",\n      \"radiusConvention\": \"mean spherical reference\",\n      \"equatorialRadiusMeters\": 60268000.0,\n      \"polarRadiusMeters\": 54364000.0,\n      \"bodyFixedFrame\": \"IAU_SATURN\",\n      \"bodyFixedToEclipticJ2000\": [\n        [\n          0.8495977204486712,\n          -0.5204542059163162,\n          0.08550516330864615\n        ],\n        [\n          0.4288521117016172,\n          0.7760388369446077,\n          0.4624387417190781\n        ],\n        [\n          -0.3070335155931438,\n          -0.35621783096537607,\n          0.8825187120989773\n        ]\n      ],\n      \"orientationConvention\": \"row-major 3x3 matrix multiplying column vectors; local +X lon0 lat0, +Y lon90East lat0, +Z north\",\n      \"northPoleEclipticJ2000\": [\n        0.08550516330864615,\n        0.4624387417190781,\n        0.8825187120989773\n      ],\n      \"orientationEpoch\": \"2026-09-06T00:00:00Z\",\n      \"orientationKernels\": [\n        \"naif0012.tls\",\n        \"pck00011.tpc\"\n      ]\n    }\n  ],\n  \"provenance\": [\n    {\n      \"path\": \"Data/provenance/horizons_sun.json\",\n      \"sha256\": \"94ae7cd66d653e8bcb69ad75c46a1673157daab6cb9009ba71495541e2e9ecdb\",\n      \"requestParameters\": {\n        \"format\": \"json\",\n        \"CENTER\": \"'500@0'\",\n        \"EPHEM_TYPE\": \"'VECTORS'\",\n        \"TIME_TYPE\": \"'UT'\",\n        \"START_TIME\": \"'2026-09-06 00:00:00'\",\n        \"STOP_TIME\": \"'2026-09-06 00:01:00'\",\n        \"STEP_SIZE\": \"'1 min'\",\n        \"REF_SYSTEM\": \"'ICRF'\",\n        \"REF_PLANE\": \"'ECLIPTIC'\",\n        \"OUT_UNITS\": \"'KM-S'\",\n        \"VEC_TABLE\": \"'2'\",\n        \"VEC_CORR\": \"'NONE'\",\n        \"CSV_FORMAT\": \"'YES'\",\n        \"OBJ_DATA\": \"'YES'\",\n        \"COMMAND\": \"'10'\"\n      },\n      \"sourceUrl\": \"https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-06+00%3A00%3A00%27&STOP_TIME=%272026-09-06+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%2710%27\",\n      \"observationDate\": \"2026-09-06T00:00:00Z\",\n      \"sourceUnits\": \"KM-S; converted to meters and meters/second\"\n    },\n    {\n      \"path\": \"Data/provenance/horizons_earth.json\",\n      \"sha256\": \"e2e961951ad204bbd225a162008e89ff6984d61b489c4f2e838a40d6ca765ff6\",\n      \"requestParameters\": {\n        \"format\": \"json\",\n        \"CENTER\": \"'500@0'\",\n        \"EPHEM_TYPE\": \"'VECTORS'\",\n        \"TIME_TYPE\": \"'UT'\",\n        \"START_TIME\": \"'2026-09-06 00:00:00'\",\n        \"STOP_TIME\": \"'2026-09-06 00:01:00'\",\n        \"STEP_SIZE\": \"'1 min'\",\n        \"REF_SYSTEM\": \"'ICRF'\",\n        \"REF_PLANE\": \"'ECLIPTIC'\",\n        \"OUT_UNITS\": \"'KM-S'\",\n        \"VEC_TABLE\": \"'2'\",\n        \"VEC_CORR\": \"'NONE'\",\n        \"CSV_FORMAT\": \"'YES'\",\n        \"OBJ_DATA\": \"'YES'\",\n        \"COMMAND\": \"'399'\"\n      },\n      \"sourceUrl\": \"https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-06+00%3A00%3A00%27&STOP_TIME=%272026-09-06+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27399%27\",\n      \"observationDate\": \"2026-09-06T00:00:00Z\",\n      \"sourceUnits\": \"KM-S; converted to meters and meters/second\"\n    },\n    {\n      \"path\": \"Data/provenance/horizons_moon.json\",\n      \"sha256\": \"e2c3ba61e499cf7d42faeaeeab1628663c11e0f7a7933317d74d0fd15ac8edfa\",\n      \"requestParameters\": {\n        \"format\": \"json\",\n        \"CENTER\": \"'500@0'\",\n        \"EPHEM_TYPE\": \"'VECTORS'\",\n        \"TIME_TYPE\": \"'UT'\",\n        \"START_TIME\": \"'2026-09-06 00:00:00'\",\n        \"STOP_TIME\": \"'2026-09-06 00:01:00'\",\n        \"STEP_SIZE\": \"'1 min'\",\n        \"REF_SYSTEM\": \"'ICRF'\",\n        \"REF_PLANE\": \"'ECLIPTIC'\",\n        \"OUT_UNITS\": \"'KM-S'\",\n        \"VEC_TABLE\": \"'2'\",\n        \"VEC_CORR\": \"'NONE'\",\n        \"CSV_FORMAT\": \"'YES'\",\n        \"OBJ_DATA\": \"'YES'\",\n        \"COMMAND\": \"'301'\"\n      },\n      \"sourceUrl\": \"https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-06+00%3A00%3A00%27&STOP_TIME=%272026-09-06+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27301%27\",\n      \"observationDate\": \"2026-09-06T00:00:00Z\",\n      \"sourceUnits\": \"KM-S; converted to meters and meters/second\"\n    },\n    {\n      \"path\": \"Data/provenance/horizons_saturn.json\",\n      \"sha256\": \"5c700d3acfda2d00838c850afdd2d3a7fcadeba83bf61e922e84e860867d108a\",\n      \"requestParameters\": {\n        \"format\": \"json\",\n        \"CENTER\": \"'500@0'\",\n        \"EPHEM_TYPE\": \"'VECTORS'\",\n        \"TIME_TYPE\": \"'UT'\",\n        \"START_TIME\": \"'2026-09-06 00:00:00'\",\n        \"STOP_TIME\": \"'2026-09-06 00:01:00'\",\n        \"STEP_SIZE\": \"'1 min'\",\n        \"REF_SYSTEM\": \"'ICRF'\",\n        \"REF_PLANE\": \"'ECLIPTIC'\",\n        \"OUT_UNITS\": \"'KM-S'\",\n        \"VEC_TABLE\": \"'2'\",\n        \"VEC_CORR\": \"'NONE'\",\n        \"CSV_FORMAT\": \"'YES'\",\n        \"OBJ_DATA\": \"'YES'\",\n        \"COMMAND\": \"'699'\"\n      },\n      \"sourceUrl\": \"https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-06+00%3A00%3A00%27&STOP_TIME=%272026-09-06+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27699%27\",\n      \"observationDate\": \"2026-09-06T00:00:00Z\",\n      \"sourceUnits\": \"KM-S; converted to meters and meters/second\"\n    }\n  ],\n  \"orientationCalculation\": {\n    \"library\": \"SpiceyPy 8.2.0\",\n    \"toolkit\": \"CSPICE_N0067\",\n    \"ephemerisTimeTdbSecondsPastJ2000\": 841924869.1825527,\n    \"operation\": \"pxform(bodyFixedFrame,ECLIPJ2000,ET)\"\n  },\n  \"orientationSources\": [\n    {\n      \"path\": \"Data/provenance/kernels/naif0012.tls\",\n      \"id\": \"naif0012.tls\",\n      \"sourceUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls\",\n      \"resolvedUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls\",\n      \"retrievedAt\": \"2026-09-06T03:11:40.456561+00:00\",\n      \"bytes\": 5257,\n      \"sha256\": \"678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b\",\n      \"lastModified\": \"Fri, 15 Jul 2016 00:00:37 GMT\",\n      \"contentType\": \"text/plain; charset=UTF-8\"\n    },\n    {\n      \"path\": \"Data/provenance/kernels/pck00011.tpc\",\n      \"id\": \"pck00011.tpc\",\n      \"sourceUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc\",\n      \"resolvedUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc\",\n      \"retrievedAt\": \"2026-09-06T03:11:40.745116+00:00\",\n      \"bytes\": 131226,\n      \"sha256\": \"3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1\",\n      \"lastModified\": \"Tue, 27 Dec 2022 16:28:50 GMT\",\n      \"contentType\": \"text/plain; charset=UTF-8\"\n    },\n    {\n      \"path\": \"Data/provenance/kernels/moon_pa_de421_1900-2050.bpc\",\n      \"id\": \"moon_pa_de421_1900-2050.bpc\",\n      \"sourceUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc\",\n      \"resolvedUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc\",\n      \"retrievedAt\": \"2026-09-06T03:11:42.801059+00:00\",\n      \"bytes\": 1770496,\n      \"sha256\": \"656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf\",\n      \"lastModified\": \"Wed, 19 Mar 2008 04:51:40 GMT\",\n      \"contentType\": null\n    },\n    {\n      \"path\": \"Data/provenance/kernels/moon_080317.tf\",\n      \"id\": \"moon_080317.tf\",\n      \"sourceUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf\",\n      \"resolvedUrl\": \"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf\",\n      \"retrievedAt\": \"2026-09-06T03:11:41.892393+00:00\",\n      \"bytes\": 21437,\n      \"sha256\": \"78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993\",\n      \"lastModified\": \"Thu, 18 Jul 2013 10:07:49 GMT\",\n      \"contentType\": \"text/plain; charset=UTF-8\"\n    }\n  ]\n}\n",
+    "sunElevationDegrees": -48.682348599733494,
+    "surfaceSunElevationDegrees": -48.682784791608256,
+    "sunAzimuthDegreesEastOfNorth": 294.0338049729835
+  },
+  "after": {
+    "epoch": "2026-09-19T00:00:00Z",
+    "sunElevationDegrees": 29.39317179087997,
+    "surfaceSunElevationDegrees": 29.392594780655116,
+    "sunAzimuthDegreesEastOfNorth": 102.8448183660448
+  },
+  "horizonsResponses": {
+    "sun": {
+      "horizonsId": "10",
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-07+00%3A00%3A00%27&STOP_TIME=%272026-10-06+00%3A00%3A00%27&STEP_SIZE=%2712+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%2710%27",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-07 00:00:00'",
+        "STOP_TIME": "'2026-10-06 00:00:00'",
+        "STEP_SIZE": "'12 h'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'10'"
+      },
+      "retrievedAt": "2026-09-06T08:56:55.202509+00:00",
+      "rawResponseUtf8": "{\"result\":\"*******************************************************************************\\n Revised: July 31, 2013                  Sun                                 10\\n\\n PHYSICAL PROPERTIES (updated 2024-Oct-30):\\n  GM, km^3/s^2          = 132712440041.93938  Mass, 10^24 kg        = ~1988410\\n  Vol. mean radius, km  = 695700              Volume, 10^12 km^3    = 1412000\\n  Solar radius (IAU2015)= 695700 km           Mean density, g/cm^3  = 1.408\\n  Radius (photosphere)  = 696500 km           Angular diam at 1 AU  = 1919.3\\\"\\n  Photosphere temp., K  = 6600 (bottom)       Photosphere temp., K  = 4400(top)\\n  Photospheric depth    = ~500 km             Chromospheric depth   = ~2500 km\\n  Flatness, f           = 0.00005             Adopted sid. rot. per.= 25.38 d\\n  Surface gravity       =  274.0 m/s^2        Escape speed, km/s    =  617.7\\n  Pole (RA,DEC), deg.   = (286.13, 63.87)     Obliquity to ecliptic = 7.25 deg.\\n  Solar constant (1 AU) = 1367.6 W/m^2        Luminosity, 10^24 J/s = 382.8\\n  Mass-energy conv rate = 4.260 x 10^9 kg/s   Effective temp, K     = 5772\\n  Sunspot cycle         = 11.4 yr             Cycle 24 sunspot min. = 2008 A.D.\\n\\n  Motion relative to nearby stars = apex : R.A.= 271 deg.; DEC.= +30 deg.\\n                                    speed: 19.4 km/s (0.0112 au/day)\\n  Motion relative to 2.73K BB/CBR = apex : l= 264.7 +- 0.8; b= 48.2 +- 0.5 deg.\\n                                    speed: 369 +-11 km/s\\n*******************************************************************************\\n\\n\\n*******************************************************************************\\nEphemeris / API_USER Sun Sep  6 01:56:55 2026 Pasadena, USA      / Horizons\\n*******************************************************************************\\nTarget body name: Sun (10)                        {source: DE441}\\nCenter body name: Solar System Barycenter (0)     {source: DE441}\\nCenter-site name: BODY CENTER\\n*******************************************************************************\\nStart time      : A.D. 2026-Sep-07 00:00:00.0000 UT \\nStop  time      : A.D. 2026-Oct-06 00:00:00.0000 UT \\nStep-size       : 720 minutes\\n*******************************************************************************\\nCenter geodetic : 0.0, 0.0, 0.0                   {E-lon(deg),Lat(deg),Alt(km)}\\nCenter cylindric: 0.0, 0.0, 0.0                   {E-lon(deg),Dxy(km),Dz(km)}\\nCenter radii    : (undefined)\\nOutput units    : KM-S\\nCalendar mode   : Mixed Julian/Gregorian\\nOutput type     : GEOMETRIC cartesian states\\nOutput format   : 2 (position and velocity)\\nEOP file        : eop.260904.p261201\\nEOP coverage    : DATA-BASED 1962-JAN-20 TO 2026-SEP-04. PREDICTS-> 2026-NOV-30\\nReference frame : Ecliptic of J2000.0\\n*******************************************************************************\\n            JDUT ,            Calendar Date (UT ),                      X,                      Y,                      Z,                     VX,                     VY,                     VZ,\\n**************************************************************************************************************************************************************************************************\\n$$SOE\\n2461290.500000000, A.D. 2026-Sep-07 00:00:00.0000, -2.082173304756940E+05, -7.776741676240922E+05,  1.462353977377742E+04,  1.064097089477479E-02,  4.044600135734011E-03, -2.230891685843608E-04,\\n2461291.000000000, A.D. 2026-Sep-07 12:00:00.0000, -2.077577121632397E+05, -7.774993146765087E+05,  1.461390267511958E+04,  1.063765699938530E-02,  4.050444987262608E-03, -2.230730349848747E-04,\\n2461291.500000000, A.D. 2026-Sep-08 00:00:00.0000, -2.072982367123499E+05, -7.773242090656603E+05,  1.460426624404080E+04,  1.063435690435935E-02,  4.056297587120726E-03, -2.230582567098415E-04,\\n2461292.000000000, A.D. 2026-Sep-08 12:00:00.0000, -2.068389035307000E+05, -7.771488504468190E+05,  1.459463042269531E+04,  1.063107042941153E-02,  4.062158395670824E-03, -2.230448011702885E-04,\\n2461292.500000000, A.D. 2026-Sep-09 00:00:00.0000, -2.063797120340137E+05, -7.769732384557093E+05,  1.458499515464308E+04,  1.062779738226999E-02,  4.068027857516242E-03, -2.230326358764231E-04,\\n2461293.000000000, A.D. 2026-Sep-09 12:00:00.0000, -2.059206616465589E+05, -7.767973727091837E+05,  1.457536038484419E+04,  1.062453755987227E-02,  4.073906401832269E-03, -2.230217285171723E-04,\\n2461293.500000000, A.D. 2026-Sep-10 00:00:00.0000, -2.054617518015880E+05, -7.766212528058807E+05,  1.456572605964937E+04,  1.062129074946592E-02,  4.079794442728412E-03, -2.230120470284574E-04,\\n2461294.000000000, A.D. 2026-Sep-10 12:00:00.0000, -2.050029819417389E+05, -7.764448783268693E+05,  1.455609212678840E+04,  1.061805672961918E-02,  4.085692379634543E-03, -2.230035596512546E-04,\\n2461294.500000000, A.D. 2026-Sep-11 00:00:00.0000, -2.045443515193821E+05, -7.762682488362711E+05,  1.454645853535528E+04,  1.061483527114498E-02,  4.091600597705912E-03, -2.229962349801998E-04,\\n2461295.000000000, A.D. 2026-Sep-11 12:00:00.0000, -2.040858599969428E+05, -7.760913638818709E+05,  1.453682523579238E+04,  1.061162613794013E-02,  4.097519468243347E-03, -2.229900420031774E-04,\\n2461295.500000000, A.D. 2026-Sep-12 00:00:00.0000, -2.036275068471826E+05, -7.759142229957046E+05,  1.452719217987289E+04,  1.060842908773877E-02,  4.103449349127259E-03, -2.229849501319385E-04,\\n2461296.000000000, A.D. 2026-Sep-12 12:00:00.0000, -2.031692915534462E+05, -7.757368256946286E+05,  1.451755932068173E+04,  1.060524387277604E-02,  4.109390585265713E-03, -2.229809292234053E-04,\\n2461296.500000000, A.D. 2026-Sep-13 00:00:00.0000, -2.027112136098940E+05, -7.755591714808724E+05,  1.450792661259620E+04,  1.060207024035561E-02,  4.115343509058078E-03, -2.229779495908993E-04,\\n2461297.000000000, A.D. 2026-Sep-13 12:00:00.0000, -2.022532725216917E+05, -7.753812598425725E+05,  1.449829401126486E+04,  1.059890793386020E-02,  4.121308440554993E-03, -2.229759820802993E-04,\\n2461297.500000000, A.D. 2026-Sep-14 00:00:00.0000, -2.017954678051729E+05, -7.752030902542920E+05,  1.448866147358553E+04,  1.059575669273845E-02,  4.127285688214562E-03, -2.229749980033407E-04,\\n2461298.000000000, A.D. 2026-Sep-14 12:00:00.0000, -2.013377989879975E+05, -7.750246621775150E+05,  1.447902895768400E+04,  1.059261625327890E-02,  4.133275549129895E-03, -2.229749691894680E-04,\\n2461298.500000000, A.D. 2026-Sep-15 00:00:00.0000, -2.008802656092829E+05, -7.748459750611301E+05,  1.446939642289240E+04,  1.058948634899859E-02,  4.139278309453429E-03, -2.229758679821040E-04,\\n2461299.000000000, A.D. 2026-Sep-15 12:00:00.0000, -2.004228672197089E+05, -7.746670283418926E+05,  1.445976382972603E+04,  1.058636671104510E-02,  4.145294244784811E-03, -2.229776672410023E-04,\\n2461299.500000000, A.D. 2026-Sep-16 00:00:00.0000, -1.999656033816115E+05, -7.744878214448723E+05,  1.445013113986171E+04,  1.058325706856364E-02,  4.151323620546378E-03, -2.229803403423780E-04,\\n2461300.000000000, A.D. 2026-Sep-16 12:00:00.0000, -1.995084736690697E+05, -7.743083537838876E+05,  1.444049831611535E+04,  1.058015714903254E-02,  4.157366692346140E-03, -2.229838611771244E-04,\\n2461300.500000000, A.D. 2026-Sep-17 00:00:00.0000, -1.990514776679613E+05, -7.741286247619186E+05,  1.443086532241950E+04,  1.057706667856969E-02,  4.163423706328587E-03, -2.229882041473793E-04,\\n2461301.000000000, A.D. 2026-Sep-17 12:00:00.0000, -1.985946149760246E+05, -7.739486337715118E+05,  1.442123212380178E+04,  1.057398538221303E-02,  4.169494899512922E-03, -2.229933441617112E-04,\\n2461301.500000000, A.D. 2026-Sep-18 00:00:00.0000, -1.981378852028915E+05, -7.737683801951648E+05,  1.441159868636273E+04,  1.057091298417743E-02,  4.175580500119386E-03, -2.229992566291287E-04,\\n2461302.000000000, A.D. 2026-Sep-18 12:00:00.0000, -1.976812879701236E+05, -7.735878634057014E+05,  1.440196497725480E+04,  1.056784920809030E-02,  4.181680727883455E-03, -2.230059174521267E-04,\\n2461302.500000000, A.D. 2026-Sep-19 00:00:00.0000, -1.972248229112271E+05, -7.734070827666285E+05,  1.439233096466056E+04,  1.056479377720816E-02,  4.187795794358597E-03, -2.230133030189372E-04,\\n2461303.000000000, A.D. 2026-Sep-19 12:00:00.0000, -1.967684896716726E+05, -7.732260376324879E+05,  1.438269661777274E+04,  1.056174641461621E-02,  4.193925903207563E-03, -2.230213901951521E-04,\\n2461303.500000000, A.D. 2026-Sep-20 00:00:00.0000, -1.963122879088889E+05, -7.730447273491865E+05,  1.437306190677284E+04,  1.055870684341247E-02,  4.200071250483075E-03, -2.230301563148334E-04,\\n2461304.000000000, A.D. 2026-Sep-20 12:00:00.0000, -1.958562172922687E+05, -7.728631512543230E+05,  1.436342680281197E+04,  1.055567478687857E-02,  4.206232024897902E-03, -2.230395791712485E-04,\\n2461304.500000000, A.D. 2026-Sep-21 00:00:00.0000, -1.954002775031494E+05, -7.726813086774969E+05,  1.435379127799062E+04,  1.055264996863828E-02,  4.212408408085284E-03, -2.230496370073116E-04,\\n2461305.000000000, A.D. 2026-Sep-21 12:00:00.0000, -1.949444682347955E+05, -7.724991989406078E+05,  1.434415530533966E+04,  1.054963211280551E-02,  4.218600574849978E-03, -2.230603085058213E-04,\\n2461305.500000000, A.D. 2026-Sep-22 00:00:00.0000, -1.944887891923801E+05, -7.723168213581494E+05,  1.433451885880146E+04,  1.054662094412285E-02,  4.224808693410482E-03, -2.230715727795610E-04,\\n2461306.000000000, A.D. 2026-Sep-22 12:00:00.0000, -1.940332400929519E+05, -7.721341752374858E+05,  1.432488191321195E+04,  1.054361618809187E-02,  4.231032925633325E-03, -2.230834093613074E-04,\\n2461306.500000000, A.D. 2026-Sep-23 00:00:00.0000, -1.935778206653965E+05, -7.719512598791202E+05,  1.431524444428185E+04,  1.054061757109608E-02,  4.237273427259882E-03, -2.230957981938042E-04,\\n2461307.000000000, A.D. 2026-Sep-23 12:00:00.0000, -1.931225306503987E+05, -7.717680745769569E+05,  1.430560642858018E+04,  1.053762482051765E-02,  4.243530348126335E-03, -2.231087196197102E-04,\\n2461307.500000000, A.D. 2026-Sep-24 00:00:00.0000, -1.926673698004005E+05, -7.715846186185521E+05,  1.429596784351638E+04,  1.053463766484863E-02,  4.249803832377514E-03, -2.231221543715547E-04,\\n2461308.000000000, A.D. 2026-Sep-24 12:00:00.0000, -1.922123378795434E+05, -7.714008912853524E+05,  1.428632866732404E+04,  1.053165583379730E-02,  4.256094018675480E-03, -2.231360835617091E-04,\\n2461308.500000000, A.D. 2026-Sep-25 00:00:00.0000, -1.917574346636200E+05, -7.712168918529302E+05,  1.427668887904484E+04,  1.052867905839047E-02,  4.262401040403188E-03, -2.231504886723813E-04,\\n2461309.000000000, A.D. 2026-Sep-25 12:00:00.0000, -1.913026599400085E+05, -7.710326195912048E+05,  1.426704845851241E+04,  1.052570707107222E-02,  4.268725025864283E-03, -2.231653515456196E-04,\\n2461309.500000000, A.D. 2026-Sep-26 00:00:00.0000, -1.908480135076167E+05, -7.708480737646602E+05,  1.425740738633729E+04,  1.052273960579969E-02,  4.275066098479354E-03, -2.231806543733393E-04,\\n2461310.000000000, A.D. 2026-Sep-26 12:00:00.0000, -1.903934951768101E+05, -7.706632536325501E+05,  1.424776564389199E+04,  1.051977639813623E-02,  4.281424376979675E-03, -2.231963796873442E-04,\\n2461310.500000000, A.D. 2026-Sep-27 00:00:00.0000, -1.899391047693426E+05, -7.704781584490978E+05,  1.423812321329652E+04,  1.051681718534251E-02,  4.287799975598815E-03, -2.232125103493467E-04,\\n2461311.000000000, A.D. 2026-Sep-27 12:00:00.0000, -1.894848421182766E+05, -7.702927874636832E+05,  1.422848007740406E+04,  1.051386170646587E-02,  4.294193004262948E-03, -2.232290295409644E-04,\\n2461311.500000000, A.D. 2026-Sep-28 00:00:00.0000, -1.890307070679111E+05, -7.701071399210292E+05,  1.421883621978812E+04,  1.051090970242833E-02,  4.300603568780190E-03, -2.232459207536907E-04,\\n2461312.000000000, A.D. 2026-Sep-28 12:00:00.0000, -1.885766994736952E+05, -7.699212150613728E+05,  1.420919162472832E+04,  1.050796091611357E-02,  4.307031771029869E-03, -2.232631677788284E-04,\\n2461312.500000000, A.D. 2026-Sep-29 00:00:00.0000, -1.881228192021378E+05, -7.697350121206305E+05,  1.419954627719865E+04,  1.050501509245314E-02,  4.313477709152084E-03, -2.232807546973747E-04,\\n2461313.000000000, A.D. 2026-Sep-29 12:00:00.0000, -1.876690661307248E+05, -7.695485303305568E+05,  1.418990016285423E+04,  1.050207197850519E-02,  4.319941477745857E-03, -2.232986658684184E-04,\\n2461313.500000000, A.D. 2026-Sep-30 00:00:00.0000, -1.872154401478203E+05, -7.693617689188928E+05,  1.418025326802052E+04,  1.049913132355045E-02,  4.326423168063421E-03, -2.233168859175504E-04,\\n2461314.000000000, A.D. 2026-Sep-30 12:00:00.0000, -1.867619411525704E+05, -7.691747271095063E+05,  1.417060557968152E+04,  1.049619287915774E-02,  4.332922868195609E-03, -2.233353997292049E-04,\\n2461314.500000000, A.D. 2026-Oct-01 00:00:00.0000, -1.863085690548021E+05, -7.689874041225237E+05,  1.416095708546857E+04,  1.049325639927686E-02,  4.339440663286927E-03, -2.233541924325272E-04,\\n2461315.000000000, A.D. 2026-Oct-01 12:00:00.0000, -1.858553237749191E+05, -7.687997991744538E+05,  1.415130777365074E+04,  1.049032164031707E-02,  4.345976635739994E-03, -2.233732493895203E-04,\\n2461315.500000000, A.D. 2026-Oct-02 00:00:00.0000, -1.854022052437923E+05, -7.686119114783000E+05,  1.414165763312433E+04,  1.048738836122509E-02,  4.352530865426778E-03, -2.233925561825707E-04,\\n2461316.000000000, A.D. 2026-Oct-02 12:00:00.0000, -1.849492134026539E+05, -7.684237402436674E+05,  1.413200665340415E+04,  1.048445632356224E-02,  4.359103429907007E-03, -2.234120986012768E-04,\\n2461316.500000000, A.D. 2026-Oct-03 00:00:00.0000, -1.844963482029736E+05, -7.682352846768545E+05,  1.412235482461448E+04,  1.048152529158001E-02,  4.365694404654650E-03, -2.234318626284919E-04,\\n2461317.000000000, A.D. 2026-Oct-03 12:00:00.0000, -1.840436096063497E+05, -7.680465439809420E+05,  1.411270213748148E+04,  1.047859503229383E-02,  4.372303863292713E-03, -2.234518344254970E-04,\\n2461317.500000000, A.D. 2026-Oct-04 00:00:00.0000, -1.835909975843834E+05, -7.678575173558650E+05,  1.410304858332546E+04,  1.047566531555422E-02,  4.378931877837603E-03, -2.234720003161785E-04,\\n2461318.000000000, A.D. 2026-Oct-04 12:00:00.0000, -1.831385121185557E+05, -7.676682039984774E+05,  1.409339415405429E+04,  1.047273591411489E-02,  4.385578518953648E-03, -2.234923467701077E-04,\\n2461318.500000000, A.D. 2026-Oct-05 00:00:00.0000, -1.826861532000996E+05, -7.674786031026045E+05,  1.408373884215759E+04,  1.046980660369719E-02,  4.392243856218834E-03, -2.235128603843917E-04,\\n2461319.000000000, A.D. 2026-Oct-05 12:00:00.0000, -1.822339208298755E+05, -7.672887138590860E+05,  1.407408264070150E+04,  1.046687716305019E-02,  4.398927958402670E-03, -2.235335278641345E-04,\\n2461319.500000000, A.D. 2026-Oct-06 00:00:00.0000, -1.817818150182305E+05, -7.670985354558008E+05,  1.406442554332473E+04,  1.046394737400550E-02,  4.405630893757497E-03, -2.235543360013827E-04,\\n$$EOE\\n**************************************************************************************************************************************************************************************************\\n \\nTIME\\n\\n Times PRIOR to 1962 are UT1, a mean-solar time closely related to the\\nprior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current\\ncivil or \\\"wall-clock\\\" atomic time-scale. UTC is kept within 0.9 seconds\\nof UT1 using integer leap-seconds for 1972 and later years.\\n\\n  Conversion from the internal Barycentric Dynamical Time (TDB) of solar\\nsystem dynamics to the discontinuous civil UT time-scale has not been\\ndetermined for UTC times after the next July or January 1st. Therefore,\\nthe last known leap-second is used as a constant over future intervals,\\na condition noted here as \\\"UT~\\\".\\n\\n  Future but as yet undetermined leap-seconds can be expected to change\\ntime-tags in the \\\"UT~\\\" interval and, in general, the UT scale may not be\\nsuitable for purposes that assume time-tag continuity in the ephemeris.\\nOutput in continuous TDB and TT timescales may instead be requested,\\nthough these are not linked to Earth's rotation.\\n\\n  Time-tags refer to the UT time-scale conversion from TDB on Earth\\nregardless of observer location within the solar system, although clock\\nrates may differ due to the local gravity field and no analog to \\\"UT\\\"\\nmay be defined for that location.\\n \\nCALENDAR SYSTEM\\n\\n  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15\\n(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)\\nare in the Julian calendar system, which is automatically extended for dates\\nprior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for\\nmatching historical dates. The Gregorian calendar more accurately corresponds\\nto the Earth's orbital motion and seasons. A \\\"Gregorian-only\\\" calendar mode is\\navailable if such physical events are the primary interest.\\n\\nREFERENCE FRAME AND COORDINATES\\n\\n  Ecliptic at the standard reference epoch\\n\\n    Reference epoch: J2000.0\\n    X-Y plane: adopted Earth orbital plane at the reference epoch\\n               Note: IAU76 obliquity of 84381.448 arcseconds wrt ICRF X-Y plane\\n    X-axis   : ICRF\\n    Z-axis   : perpendicular to the X-Y plane in the directional (+ or -) sense\\n               of Earth's north pole at the reference epoch.\\n\\n  Symbol meaning:\\n\\n    JDUT     Julian Day Number, Universal Time\\n      X      X-component of position vector (km)\\n      Y      Y-component of position vector (km)\\n      Z      Z-component of position vector (km)\\n      VX     X-component of velocity vector (km/sec)                           \\n      VY     Y-component of velocity vector (km/sec)                           \\n      VZ     Z-component of velocity vector (km/sec)                           \\n\\nABERRATIONS AND CORRECTIONS\\n\\n Geometric state vectors have NO corrections or aberrations applied.\\n\\nComputations by ...\\n\\n    Solar System Dynamics Group, Horizons On-Line Ephemeris System\\n    4800 Oak Grove Drive, Jet Propulsion Laboratory\\n    Pasadena, CA  91109   USA\\n\\n    General site: https://ssd.jpl.nasa.gov/\\n    Mailing list: https://ssd.jpl.nasa.gov/email_list.html\\n    System news : https://ssd.jpl.nasa.gov/horizons/news.html\\n    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html\\n    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x\\n                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html\\n                  command-line   telnet ssd.jpl.nasa.gov 6775\\n                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/horizons_batch.txt\\n                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS\\n    Inquiries   : Jon.D.Giorgini@jpl.nasa.gov\\n*******************************************************************************\\n\",\"signature\":{\"source\":\"NASA/JPL Horizons API\",\"version\":\"1.2\"}}\n",
+      "rawResponseSha256": "c9fe8f3012f174790e05483ab3db608f22a1efea2c47c5330ad76c511bbf5938",
+      "rawResponseBytes": 18754
+    },
+    "moon": {
+      "horizonsId": "301",
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-07+00%3A00%3A00%27&STOP_TIME=%272026-10-06+00%3A00%3A00%27&STEP_SIZE=%2712+h%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27301%27",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-07 00:00:00'",
+        "STOP_TIME": "'2026-10-06 00:00:00'",
+        "STEP_SIZE": "'12 h'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'301'"
+      },
+      "retrievedAt": "2026-09-06T08:56:55.986408+00:00",
+      "rawResponseUtf8": "{\"signature\":{\"version\":\"1.2\",\"source\":\"NASA/JPL Horizons API\"},\"result\":\"*******************************************************************************\\n Revised: July 31, 2013             Moon / (Earth)                          301\\n \\n GEOPHYSICAL DATA (updated 2018-Aug-15):\\n  Vol. mean radius, km  = 1737.53+-0.03    Mass, x10^22 kg       =    7.349\\n  Radius (gravity), km  = 1738.0           Surface emissivity    =    0.92\\n  Radius (IAU), km      = 1737.4           GM, km^3/s^2          = 4902.800066\\n  Density, g/cm^3       =    3.3437        GM 1-sigma, km^3/s^2  =  +-0.0001  \\n  V(1,0)                =   +0.21          Surface accel., m/s^2 =    1.62\\n  Earth/Moon mass ratio = 81.3005690769    Farside crust. thick. = ~80 - 90 km\\n  Mean crustal density  = 2.97+-.07 g/cm^3 Nearside crust. thick.= 58+-8 km \\n  Heat flow, Apollo 15  = 3.1+-.6 mW/m^2   Mean angular diameter = 31'05.2\\\"\\n  Heat flow, Apollo 17  = 2.2+-.5 mW/m^2   Sid. rot. rate, rad/s = 0.0000026617\\n  Geometric Albedo      = 0.12             Mean solar day        = 29.5306 d\\n  Obliquity to orbit    = 6.67 deg         Orbit period          = 27.321582 d\\n  Semi-major axis, a    = 384400 km        Eccentricity          = 0.05490\\n  Mean motion, rad/s    = 2.6616995x10^-6  Inclination           = 5.145 deg\\n  Apsidal period        = 3231.50 d        Nodal period          = 6798.38 d\\n                                 Perihelion  Aphelion    Mean\\n  Solar Constant (W/m^2)         1414+-7     1323+-7     1368+-7\\n  Maximum Planetary IR (W/m^2)   1314        1226        1268\\n  Minimum Planetary IR (W/m^2)      5.2         5.2         5.2\\n********************************************************************************\\n\\n\\n*******************************************************************************\\nEphemeris / API_USER Sun Sep  6 01:56:56 2026 Pasadena, USA      / Horizons\\n*******************************************************************************\\nTarget body name: Moon (301)                      {source: DE441}\\nCenter body name: Solar System Barycenter (0)     {source: DE441}\\nCenter-site name: BODY CENTER\\n*******************************************************************************\\nStart time      : A.D. 2026-Sep-07 00:00:00.0000 UT \\nStop  time      : A.D. 2026-Oct-06 00:00:00.0000 UT \\nStep-size       : 720 minutes\\n*******************************************************************************\\nCenter geodetic : 0.0, 0.0, 0.0                   {E-lon(deg),Lat(deg),Alt(km)}\\nCenter cylindric: 0.0, 0.0, 0.0                   {E-lon(deg),Dxy(km),Dz(km)}\\nCenter radii    : (undefined)\\nOutput units    : KM-S\\nCalendar mode   : Mixed Julian/Gregorian\\nOutput type     : GEOMETRIC cartesian states\\nOutput format   : 2 (position and velocity)\\nEOP file        : eop.260904.p261201\\nEOP coverage    : DATA-BASED 1962-JAN-20 TO 2026-SEP-04. PREDICTS-> 2026-NOV-30\\nReference frame : Ecliptic of J2000.0\\n*******************************************************************************\\n            JDUT ,            Calendar Date (UT ),                      X,                      Y,                      Z,                     VX,                     VY,                     VZ,\\n**************************************************************************************************************************************************************************************************\\n$$SOE\\n2461290.500000000, A.D. 2026-Sep-07 00:00:00.0000,  1.446301555828538E+08, -4.189913694812169E+07,  3.767109983674437E+04,  6.728293838073501E+00,  2.818558605231101E+01, -7.601826737666251E-02,\\n2461291.000000000, A.D. 2026-Sep-07 12:00:00.0000,  1.449165815919780E+08, -4.068257936651964E+07,  3.423307639651373E+04,  6.534468509995406E+00,  2.813724006860544E+01, -8.295209836402861E-02,\\n2461291.500000000, A.D. 2026-Sep-08 00:00:00.0000,  1.451949256404999E+08, -3.946800387190437E+07,  3.052186017750390E+04,  6.353965501790227E+00,  2.809413463609592E+01, -8.864915697699338E-02,\\n2461292.000000000, A.D. 2026-Sep-08 12:00:00.0000,  1.454657400636418E+08, -3.825514482722963E+07,  2.659288509950973E+04,  6.185665892840943E+00,  2.805805780247284E+01, -9.302104557039037E-02,\\n2461292.500000000, A.D. 2026-Sep-09 00:00:00.0000,  1.457295232112493E+08, -3.704366344845290E+07,  2.250481074753404E+04,  6.028194998265228E+00,  2.803059991997888E+01, -9.600719135551294E-02,\\n2461293.000000000, A.D. 2026-Sep-09 12:00:00.0000,  1.459867092207956E+08, -3.583315733315194E+07,  1.831828096216358E+04,  5.879962241089498E+00,  2.801310924092042E+01, -9.757647689798965E-02,\\n2461293.500000000, A.D. 2026-Sep-10 00:00:00.0000,  1.462376597325532E+08, -3.462317170987345E+07,  1.409463804832473E+04,  5.739210794399117E+00,  2.800665717665583E+01, -9.772764218280905E-02,\\n2461294.000000000, A.D. 2026-Sep-10 12:00:00.0000,  1.464826579091717E+08, -3.341321192939356E+07,  9.894647702820599E+03,  5.604074052286383E+00,  2.801201591205569E+01, -9.648838422045714E-02,\\n2461294.500000000, A.D. 2026-Sep-11 00:00:00.0000,  1.467219049753094E+08, -3.220275662506579E+07,  5.777290262386203E+03,  5.472635152175583E+00,  2.802964997040843E+01, -9.391320653933732E-02,\\n2461295.000000000, A.D. 2026-Sep-11 12:00:00.0000,  1.469555193202057E+08, -3.099127092948207E+07,  1.798668879134580E+03,  5.342985419190604E+00,  2.805972196328690E+01, -9.008019525090560E-02,\\n2461295.500000000, A.D. 2026-Sep-12 00:00:00.0000,  1.471835380300711E+08, -2.977821915480827E+07, -1.988924697291106E+03,  5.213277803217921E+00,  2.810211136880295E+01, -8.508699906076167E-02,\\n2461296.000000000, A.D. 2026-Sep-12 12:00:00.0000,  1.474059205609900E+08, -2.856307642090951E+07, -5.537759509546682E+03,  5.081772081881367E+00,  2.815644399503589E+01, -7.904635135474791E-02,\\n2461296.500000000, A.D. 2026-Sep-13 00:00:00.0000,  1.476225541455165E+08, -2.734533883560079E+07, -8.805217806028202E+03,  4.946869658997103E+00,  2.822212898252993E+01, -7.208148614508936E-02,\\n2461297.000000000, A.D. 2026-Sep-13 12:00:00.0000,  1.478332604583150E+08, -2.612453197608696E+07, -1.175415300934203E+04,  4.807136994884074E+00,  2.829839986638886E+01, -6.432176902718112E-02,\\n2461297.500000000, A.D. 2026-Sep-14 00:00:00.0000,  1.480378030499817E+08, -2.490021756996425E+07, -1.435306835564785E+04,  4.661317858424160E+00,  2.838435633908244E+01, -5.589880025310023E-02,\\n2461298.000000000, A.D. 2026-Sep-14 12:00:00.0000,  1.482358950876985E+08, -2.367199840994254E+07, -1.657614068479836E+04,  4.508335532235296E+00,  2.847900383429600E+01, -4.694316457129943E-02,\\n2461298.500000000, A.D. 2026-Sep-15 00:00:00.0000,  1.484272070052593E+08, -2.243952164626850E+07, -1.840311954400409E+04,  4.347286743493054E+00,  2.858128875030149E+01, -3.758191690667623E-02,\\n2461299.000000000, A.D. 2026-Sep-15 12:00:00.0000,  1.486113737496730E+08, -2.120248067836993E+07, -1.981913391196355E+04,  4.177429416679638E+00,  2.869012790534491E+01, -2.793681634115686E-02,\\n2461299.500000000, A.D. 2026-Sep-16 00:00:00.0000,  1.487880014039778E+08, -1.996061591199580E+07, -2.081443802261725E+04,  3.998166390628358E+00,  2.880443154917491E+01, -1.812326072977655E-02,\\n2461300.000000000, A.D. 2026-Sep-16 12:00:00.0000,  1.489566730555953E+08, -1.871371466354937E+07, -2.138412475597113E+04,  3.809027082133951E+00,  2.892311986655166E+01, -8.249833394193828E-03,\\n2461300.500000000, A.D. 2026-Sep-17 00:00:00.0000,  1.491169538593463E+08, -1.746161048557196E+07, -2.152783068716340E+04,  3.609648793154934E+00,  2.904513336506177E+01,  1.581649345384406E-03,\\n2461301.000000000, A.D. 2026-Sep-17 12:00:00.0000,  1.492683953103201E+08, -1.620418216353521E+07, -2.124945186427888E+04,  3.399759021097875E+00,  2.916943784001155E+01,  1.127570888114526E-02,\\n2461301.500000000, A.D. 2026-Sep-18 00:00:00.0000,  1.494105387932364E+08, -1.494135259993713E+07, -2.055688426813018E+04,  3.179159796990142E+00,  2.929502477583839E+01,  2.074250972389535E-02,\\n2461302.000000000, A.D. 2026-Sep-18 12:00:00.0000,  1.495429185125895E+08, -1.367308776303949E+07, -1.946179805169068E+04,  2.947714779439583E+00,  2.942090810987717E+01,  2.989700725082756E-02,\\n2461302.500000000, A.D. 2026-Sep-19 00:00:00.0000,  1.496650639338802E+08, -1.239939583720435E+07, -1.797945024832245E+04,  2.705339589152989E+00,  2.954611828637799E+01,  3.865803406088730E-02,\\n2461303.000000000, A.D. 2026-Sep-19 12:00:00.0000,  1.497765018829160E+08, -1.112032667244201E+07, -1.612853672817023E+04,  2.451995680950964E+00,  2.966969449846303E+01,  4.694740985233103E-02,\\n2461303.500000000, A.D. 2026-Sep-20 00:00:00.0000,  1.498767584598078E+08, -9.835971592646174E+06, -1.393108073160285E+04,  2.187687908694717E+00,  2.979067597849551E+01,  5.468914999257457E-02,\\n2461304.000000000, A.D. 2026-Sep-20 12:00:00.0000,  1.499653609285248E+08, -8.546463585669272E+06, -1.141235223196354E+04,  1.912465828281106E+00,  2.990809317005157E+01,  6.180884043785539E-02,\\n2461304.500000000, A.D. 2026-Sep-21 00:00:00.0000,  1.500418397427179E+08, -7.251977862442143E+06, -8.600809580872767E+03,  1.626428686355807E+00,  3.002095960604406E+01,  6.823324120267316E-02,\\n2461305.000000000, A.D. 2026-Sep-21 12:00:00.0000,  1.501057308640660E+08, -5.952732736734216E+06, -5.528052296857350E+03,  1.329733938684014E+00,  3.012826532792915E+01,  7.389017631146721E-02,\\n2461305.500000000, A.D. 2026-Sep-22 00:00:00.0000,  1.501565785200147E+08, -4.648990740551366E+06, -2.228771448353538E+03,  1.022609014291497E+00,  3.022897270295273E+01,  7.870876367489643E-02,\\n2461306.000000000, A.D. 2026-Sep-22 12:00:00.0000,  1.501939385320874E+08, -3.341059852656104E+06,  1.259318096052390E+03,  7.053658753252119E-01,  3.032201551494958E+01,  8.262003176984756E-02,\\n2461306.500000000, A.D. 2026-Sep-23 00:00:00.0000,  1.502173823220778E+08, -2.029294679964032E+06,  4.895581089216052E+03,  3.784177099642362E-01,  3.040630219715160E+01,  8.555795925806997E-02,\\n2461307.000000000, A.D. 2026-Sep-23 12:00:00.0000,  1.502265016693850E+08, -7.140973950912444E+05,  8.636619757199893E+03,  4.229683774053949E-02,  3.048072401503691E+01,  8.746095664752396E-02,\\n2461307.500000000, A.D. 2026-Sep-24 00:00:00.0000,  1.502209142468031E+08,  6.040817988420870E+05,  1.243650515533588E+04, -3.023273828374572E-01,  3.054416886301816E+01,  8.827378407189101E-02,\\n2461308.000000000, A.D. 2026-Sep-24 12:00:00.0000,  1.502002699034300E+08,  1.924744928662560E+06,  1.624710014799575E+04, -6.546321460937234E-01,  3.059554108274139E+01,  8.794986545167305E-02,\\n2461308.500000000, A.D. 2026-Sep-25 00:00:00.0000,  1.501642575928791E+08,  3.247347499011117E+06,  2.001848953612288E+04, -1.013628040191863E+00,  3.063378732479245E+01,  8.645391746457598E-02,\\n2461309.000000000, A.D. 2026-Sep-25 12:00:00.0000,  1.501126127657554E+08,  4.571300980187921E+06,  2.369952832885459E+04, -1.378151032350157E+00,  3.065792796045593E+01,  8.376476476687067E-02,\\n2461309.500000000, A.D. 2026-Sep-26 00:00:00.0000,  1.500451249632741E+08,  5.895976754038324E+06,  2.723851257679565E+04, -1.746861470618874E+00,  3.066709293417778E+01,  7.987816606288689E-02,\\n2461310.000000000, A.D. 2026-Sep-26 12:00:00.0000,  1.499616452724583E+08,  7.220711674009850E+06,  3.058396871760581E+04, -2.118251727156630E+00,  3.066056029196529E+01,  7.480943640116600E-02,\\n2461310.500000000, A.D. 2026-Sep-27 00:00:00.0000,  1.498620932431138E+08,  8.544815305742865E+06,  3.368554754367005E+04, -2.490663604103841E+00,  3.063779501876182E+01,  6.859562818875808E-02,\\n2461311.000000000, A.D. 2026-Sep-27 12:00:00.0000,  1.497464628337035E+08,  9.867578802168796E+06,  3.649499857582012E+04, -2.862315874714277E+00,  3.059848538103358E+01,  6.129703503034634E-02,\\n2461311.500000000, A.D. 2026-Sep-28 00:00:00.0000,  1.496148269567216E+08,  1.118828524120659E+07,  3.896719100438850E+04, -3.231341405399088E+00,  3.054257380885775E+01,  5.299781399181924E-02,\\n2461312.000000000, A.D. 2026-Sep-28 12:00:00.0000,  1.494673402394550E+08,  1.250622112892938E+07,  4.106113976064138E+04, -3.595832318040903E+00,  3.047027954269547E+01,  4.380558366454679E-02,\\n2461312.500000000, A.D. 2026-Sep-29 00:00:00.0000,  1.493042397024736E+08,  1.382068866196728E+07,  4.274099091212731E+04, -3.953890760558150E+00,  3.038211083294349E+01,  3.384994162868971E-02,\\n2461313.000000000, A.D. 2026-Sep-29 12:00:00.0000,  1.491258431782332E+08,  1.513101826540084E+07,  4.397692025630735E+04, -4.303682214042745E+00,  3.027886535978090E+01,  2.327994381994891E-02,\\n2461313.500000000, A.D. 2026-Sep-30 00:00:00.0000,  1.489325454321288E+08,  1.643658088764603E+07,  4.474590293745510E+04, -4.643487996752483E+00,  3.016161861031402E+01,  1.226068434550243E-02,\\n2461314.000000000, A.D. 2026-Sep-30 12:00:00.0000,  1.487248120908184E+08,  1.773679954610001E+07,  4.503231966115534E+04, -4.971753778958851E+00,  3.003170103729236E+01,  9.691916949332580E-04,\\n2461314.500000000, A.D. 2026-Oct-01 00:00:00.0000,  1.485031716098287E+08,  1.903115967389523E+07,  4.482837554245628E+04, -5.287131462885795E+00,  2.989066575095454E+01, -1.041009610665533E-02,\\n2461315.000000000, A.D. 2026-Oct-01 12:00:00.0000,  1.482682056098782E+08,  2.031921790855878E+07,  4.413431931757182E+04, -5.588512596466223E+00,  2.974024912257265E+01, -2.169000468916771E-02,\\n2461315.500000000, A.D. 2026-Oct-02 00:00:00.0000,  1.480205379704850E+08,  2.160060907302311E+07,  4.295846201940533E+04, -5.875052419656187E+00,  2.958232693361241E+01, -3.268519637249589E-02,\\n2461316.000000000, A.D. 2026-Oct-02 12:00:00.0000,  1.477608230889171E+08,  2.287505121207994E+07,  4.131700394285284E+04, -6.146184521222327E+00,  2.941886859706682E+01, -4.321644461747809E-02,\\n2461316.500000000, A.D. 2026-Oct-03 00:00:00.0000,  1.474897336976453E+08,  2.414234864895442E+07,  3.923368595170230E+04, -6.401626777804617E+00,  2.925189158567373E+01, -5.311447489413190E-02,\\n2461317.000000000, A.D. 2026-Oct-03 12:00:00.0000,  1.472079485941558E+08,  2.540239310710411E+07,  3.673928561479039E+04, -6.641379677210945E+00,  2.908341764642804E+01, -6.222330063218706E-02,\\n2461317.500000000, A.D. 2026-Oct-04 00:00:00.0000,  1.469161405850977E+08,  2.665516299796179E+07,  3.387098054224998E+04, -6.865718280008922E+00,  2.891543179352566E+01, -7.040303590984287E-02,\\n2461318.000000000, A.D. 2026-Oct-04 12:00:00.0000,  1.466149648936951E+08,  2.790072100667187E+07,  3.067160124917328E+04, -7.075178988728251E+00,  2.874984456614951E+01, -7.753220199385069E-02,\\n2461318.500000000, A.D. 2026-Oct-05 00:00:00.0000,  1.463050482336628E+08,  2.913921012079918E+07,  2.718879472526349E+04, -7.270542051431241E+00,  2.858845768983310E+01, -8.350956057022962E-02,\\n2461319.000000000, A.D. 2026-Oct-05 12:00:00.0000,  1.459869787193793E+08,  3.037084824883701E+07,  2.347411845684610E+04, -7.452810421043650E+00,  2.843293312250120E+01, -8.825550452901076E-02,\\n2461319.500000000, A.D. 2026-Oct-06 00:00:00.0000,  1.456612967614375E+08,  3.159592157448531E+07,  1.958208359418809E+04, -7.623185315113615E+00,  2.828476548772474E+01, -9.171302267558268E-02,\\n$$EOE\\n**************************************************************************************************************************************************************************************************\\n \\nTIME\\n\\n Times PRIOR to 1962 are UT1, a mean-solar time closely related to the\\nprior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current\\ncivil or \\\"wall-clock\\\" atomic time-scale. UTC is kept within 0.9 seconds\\nof UT1 using integer leap-seconds for 1972 and later years.\\n\\n  Conversion from the internal Barycentric Dynamical Time (TDB) of solar\\nsystem dynamics to the discontinuous civil UT time-scale has not been\\ndetermined for UTC times after the next July or January 1st. Therefore,\\nthe last known leap-second is used as a constant over future intervals,\\na condition noted here as \\\"UT~\\\".\\n\\n  Future but as yet undetermined leap-seconds can be expected to change\\ntime-tags in the \\\"UT~\\\" interval and, in general, the UT scale may not be\\nsuitable for purposes that assume time-tag continuity in the ephemeris.\\nOutput in continuous TDB and TT timescales may instead be requested,\\nthough these are not linked to Earth's rotation.\\n\\n  Time-tags refer to the UT time-scale conversion from TDB on Earth\\nregardless of observer location within the solar system, although clock\\nrates may differ due to the local gravity field and no analog to \\\"UT\\\"\\nmay be defined for that location.\\n \\nCALENDAR SYSTEM\\n\\n  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15\\n(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)\\nare in the Julian calendar system, which is automatically extended for dates\\nprior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for\\nmatching historical dates. The Gregorian calendar more accurately corresponds\\nto the Earth's orbital motion and seasons. A \\\"Gregorian-only\\\" calendar mode is\\navailable if such physical events are the primary interest.\\n\\nREFERENCE FRAME AND COORDINATES\\n\\n  Ecliptic at the standard reference epoch\\n\\n    Reference epoch: J2000.0\\n    X-Y plane: adopted Earth orbital plane at the reference epoch\\n               Note: IAU76 obliquity of 84381.448 arcseconds wrt ICRF X-Y plane\\n    X-axis   : ICRF\\n    Z-axis   : perpendicular to the X-Y plane in the directional (+ or -) sense\\n               of Earth's north pole at the reference epoch.\\n\\n  Symbol meaning:\\n\\n    JDUT     Julian Day Number, Universal Time\\n      X      X-component of position vector (km)\\n      Y      Y-component of position vector (km)\\n      Z      Z-component of position vector (km)\\n      VX     X-component of velocity vector (km/sec)                           \\n      VY     Y-component of velocity vector (km/sec)                           \\n      VZ     Z-component of velocity vector (km/sec)                           \\n\\nABERRATIONS AND CORRECTIONS\\n\\n Geometric state vectors have NO corrections or aberrations applied.\\n\\nComputations by ...\\n\\n    Solar System Dynamics Group, Horizons On-Line Ephemeris System\\n    4800 Oak Grove Drive, Jet Propulsion Laboratory\\n    Pasadena, CA  91109   USA\\n\\n    General site: https://ssd.jpl.nasa.gov/\\n    Mailing list: https://ssd.jpl.nasa.gov/email_list.html\\n    System news : https://ssd.jpl.nasa.gov/horizons/news.html\\n    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html\\n    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x\\n                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html\\n                  command-line   telnet ssd.jpl.nasa.gov 6775\\n                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/horizons_batch.txt\\n                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS\\n    Inquiries   : Jon.D.Giorgini@jpl.nasa.gov\\n*******************************************************************************\\n\"}\n",
+      "rawResponseSha256": "ae8bd3678a375c40d47b74d24b4f3fe726fc86b56d0cb5a57a8eeacf0e4351a9",
+      "rawResponseBytes": 18871
+    },
+    "earth": {
+      "horizonsId": "399",
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-19+00%3A00%3A00%27&STOP_TIME=%272026-09-19+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27399%27",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-19 00:00:00'",
+        "STOP_TIME": "'2026-09-19 00:01:00'",
+        "STEP_SIZE": "'1 min'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'399'"
+      },
+      "retrievedAt": "2026-09-06T08:56:56.647338+00:00",
+      "rawResponseUtf8": "{\"signature\":{\"source\":\"NASA/JPL Horizons API\",\"version\":\"1.2\"},\"result\":\"*******************************************************************************\\n Revised: April 12, 2021                 Earth                              399\\n \\n GEOPHYSICAL PROPERTIES (revised May 9, 2022):\\n  Vol. Mean Radius (km)    = 6371.01+-0.02   Mass x10^24 (kg)= 5.97219+-0.0006\\n  Equ. radius, km          = 6378.137        Mass layers:\\n  Polar axis, km           = 6356.752          Atmos         = 5.1   x 10^18 kg\\n  Flattening               = 1/298.257223563   oceans        = 1.4   x 10^21 kg\\n  Density, g/cm^3          = 5.51              crust         = 2.6   x 10^22 kg\\n  J2 (IERS 2010)           = 0.00108262545     mantle        = 4.043 x 10^24 kg\\n  g_p, m/s^2  (polar)      = 9.8321863685      outer core    = 1.835 x 10^24 kg\\n  g_e, m/s^2  (equatorial) = 9.7803267715      inner core    = 9.675 x 10^22 kg\\n  g_o, m/s^2               = 9.82022         Fluid core rad  = 3480 km\\n  GM, km^3/s^2             = 398600.435436   Inner core rad  = 1215 km\\n  GM 1-sigma, km^3/s^2     =      0.0014     Escape velocity = 11.186 km/s\\n  Rot. Rate (rad/s)        = 0.00007292115   Surface area:\\n  Mean sidereal day, hr    = 23.9344695944     land          = 1.48 x 10^8 km\\n  Mean solar day 2000.0, s = 86400.002         sea           = 3.62 x 10^8 km\\n  Mean solar day 1820.0, s = 86400.0         Love no., k2    = 0.299\\n  Moment of inertia        = 0.3308          Atm. pressure   = 1.0 bar\\n  Mean surface temp (Ts), K= 287.6           Volume, km^3    = 1.08321 x 10^12\\n  Mean effect. temp (Te), K= 255             Magnetic moment = 0.61 gauss Rp^3\\n  Geometric albedo         = 0.367           Vis. mag. V(1,0)= -3.86\\n  Solar Constant (W/m^2)   = 1367.6 (mean), 1414 (perihelion), 1322 (aphelion)\\n HELIOCENTRIC ORBIT CHARACTERISTICS:\\n  Obliquity to orbit, deg  = 23.4392911  Sidereal orb period  = 1.0000174 y\\n  Orbital speed, km/s      = 29.79       Sidereal orb period  = 365.25636 d\\n  Mean daily motion, deg/d = 0.9856474   Hill's sphere radius = 234.9       \\n*******************************************************************************\\n\\n\\n*******************************************************************************\\nEphemeris / API_USER Sun Sep  6 01:56:57 2026 Pasadena, USA      / Horizons\\n*******************************************************************************\\nTarget body name: Earth (399)                     {source: DE441}\\nCenter body name: Solar System Barycenter (0)     {source: DE441}\\nCenter-site name: BODY CENTER\\n*******************************************************************************\\nStart time      : A.D. 2026-Sep-19 00:00:00.0000 UT \\nStop  time      : A.D. 2026-Sep-19 00:01:00.0000 UT \\nStep-size       : 1 minutes\\n*******************************************************************************\\nCenter geodetic : 0.0, 0.0, 0.0                   {E-lon(deg),Lat(deg),Alt(km)}\\nCenter cylindric: 0.0, 0.0, 0.0                   {E-lon(deg),Dxy(km),Dz(km)}\\nCenter radii    : (undefined)\\nOutput units    : KM-S\\nCalendar mode   : Mixed Julian/Gregorian\\nOutput type     : GEOMETRIC cartesian states\\nOutput format   : 2 (position and velocity)\\nEOP file        : eop.260904.p261201\\nEOP coverage    : DATA-BASED 1962-JAN-20 TO 2026-SEP-04. PREDICTS-> 2026-NOV-30\\nReference frame : Ecliptic of J2000.0\\n*******************************************************************************\\n            JDUT ,            Calendar Date (UT ),                      X,                      Y,                      Z,                     VX,                     VY,                     VZ,\\n**************************************************************************************************************************************************************************************************\\n$$SOE\\n2461302.500000000, A.D. 2026-Sep-19 00:00:00.0000,  1.496847741315897E+08, -1.199697936506788E+07,  1.455815300909430E+04,  1.741161161913849E+00,  2.959856847235891E+01, -2.521535020600041E-03,\\n2461302.500694444, A.D. 2026-Sep-19 00:01:00.0000,  1.496848785907116E+08, -1.199520345022360E+07,  1.455800171261933E+04,  1.740809567947255E+00,  2.959859300279683E+01, -2.521680795885217E-03,\\n$$EOE\\n**************************************************************************************************************************************************************************************************\\n \\nTIME\\n\\n Times PRIOR to 1962 are UT1, a mean-solar time closely related to the\\nprior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current\\ncivil or \\\"wall-clock\\\" atomic time-scale. UTC is kept within 0.9 seconds\\nof UT1 using integer leap-seconds for 1972 and later years.\\n\\n  Conversion from the internal Barycentric Dynamical Time (TDB) of solar\\nsystem dynamics to the discontinuous civil UT time-scale has not been\\ndetermined for UTC times after the next July or January 1st. Therefore,\\nthe last known leap-second is used as a constant over future intervals,\\na condition noted here as \\\"UT~\\\".\\n\\n  Future but as yet undetermined leap-seconds can be expected to change\\ntime-tags in the \\\"UT~\\\" interval and, in general, the UT scale may not be\\nsuitable for purposes that assume time-tag continuity in the ephemeris.\\nOutput in continuous TDB and TT timescales may instead be requested,\\nthough these are not linked to Earth's rotation.\\n\\n  Time-tags refer to the UT time-scale conversion from TDB on Earth\\nregardless of observer location within the solar system, although clock\\nrates may differ due to the local gravity field and no analog to \\\"UT\\\"\\nmay be defined for that location.\\n \\nCALENDAR SYSTEM\\n\\n  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15\\n(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)\\nare in the Julian calendar system, which is automatically extended for dates\\nprior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for\\nmatching historical dates. The Gregorian calendar more accurately corresponds\\nto the Earth's orbital motion and seasons. A \\\"Gregorian-only\\\" calendar mode is\\navailable if such physical events are the primary interest.\\n\\nREFERENCE FRAME AND COORDINATES\\n\\n  Ecliptic at the standard reference epoch\\n\\n    Reference epoch: J2000.0\\n    X-Y plane: adopted Earth orbital plane at the reference epoch\\n               Note: IAU76 obliquity of 84381.448 arcseconds wrt ICRF X-Y plane\\n    X-axis   : ICRF\\n    Z-axis   : perpendicular to the X-Y plane in the directional (+ or -) sense\\n               of Earth's north pole at the reference epoch.\\n\\n  Symbol meaning:\\n\\n    JDUT     Julian Day Number, Universal Time\\n      X      X-component of position vector (km)\\n      Y      Y-component of position vector (km)\\n      Z      Z-component of position vector (km)\\n      VX     X-component of velocity vector (km/sec)                           \\n      VY     Y-component of velocity vector (km/sec)                           \\n      VZ     Z-component of velocity vector (km/sec)                           \\n\\nABERRATIONS AND CORRECTIONS\\n\\n Geometric state vectors have NO corrections or aberrations applied.\\n\\nComputations by ...\\n\\n    Solar System Dynamics Group, Horizons On-Line Ephemeris System\\n    4800 Oak Grove Drive, Jet Propulsion Laboratory\\n    Pasadena, CA  91109   USA\\n\\n    General site: https://ssd.jpl.nasa.gov/\\n    Mailing list: https://ssd.jpl.nasa.gov/email_list.html\\n    System news : https://ssd.jpl.nasa.gov/horizons/news.html\\n    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html\\n    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x\\n                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html\\n                  command-line   telnet ssd.jpl.nasa.gov 6775\\n                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/horizons_batch.txt\\n                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS\\n    Inquiries   : Jon.D.Giorgini@jpl.nasa.gov\\n*******************************************************************************\\n\"}\n",
+      "rawResponseSha256": "2e516b7b5ea7d9a305b9ccdb0b8b835361aa116d3496038247e27e34204ac247",
+      "rawResponseBytes": 8134
+    },
+    "saturn": {
+      "horizonsId": "699",
+      "sourceUrl": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&CENTER=%27500%400%27&EPHEM_TYPE=%27VECTORS%27&TIME_TYPE=%27UT%27&START_TIME=%272026-09-19+00%3A00%3A00%27&STOP_TIME=%272026-09-19+00%3A01%3A00%27&STEP_SIZE=%271+min%27&REF_SYSTEM=%27ICRF%27&REF_PLANE=%27ECLIPTIC%27&OUT_UNITS=%27KM-S%27&VEC_TABLE=%272%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27&OBJ_DATA=%27YES%27&COMMAND=%27699%27",
+      "requestParameters": {
+        "format": "json",
+        "CENTER": "'500@0'",
+        "EPHEM_TYPE": "'VECTORS'",
+        "TIME_TYPE": "'UT'",
+        "START_TIME": "'2026-09-19 00:00:00'",
+        "STOP_TIME": "'2026-09-19 00:01:00'",
+        "STEP_SIZE": "'1 min'",
+        "REF_SYSTEM": "'ICRF'",
+        "REF_PLANE": "'ECLIPTIC'",
+        "OUT_UNITS": "'KM-S'",
+        "VEC_TABLE": "'2'",
+        "VEC_CORR": "'NONE'",
+        "CSV_FORMAT": "'YES'",
+        "OBJ_DATA": "'YES'",
+        "COMMAND": "'699'"
+      },
+      "retrievedAt": "2026-09-06T08:56:57.342286+00:00",
+      "rawResponseUtf8": "{\"signature\":{\"source\":\"NASA/JPL Horizons API\",\"version\":\"1.2\"},\"result\":\"*******************************************************************************\\n Revised: January 26, 2022             Saturn                               699\\n \\n PHYSICAL DATA:\\n  Mass x10^26 (kg)      = 5.6834          Density (g/cm^3)       =  0.687+-.001\\n  Equat. radius (1 bar) = 60268+-4 km     Polar radius (km)      = 54364+-10\\n  Vol. Mean Radius (km) = 58232+-6        Flattening             =  0.09796\\n  Geometric Albedo      = 0.47            Rocky core mass (Mc/M) =  0.1027\\n  Sid. rot. period (III)= 10h 39m 22.4s   Sid. rot. rate (rad/s) =  0.000163785 \\n  Mean solar day, hrs   =~10.656         \\n  GM (km^3/s^2)         = 37931206.234    GM 1-sigma (km^3/s^2)  = +- 98\\n  Equ. grav, ge (m/s^2) = 10.44           Pol. grav, gp (m/s^2)  = 12.14+-0.01\\n  Vis. magnitude V(1,0) = -8.88          \\n  Vis. mag. (opposition)= +0.67           Obliquity to orbit     = 26.73 deg\\n  Sidereal orbit period = 29.447498 yr    Sidereal orbit period  = 10755.698 d\\n  Mean daily motion     = 0.0334979 deg/d Mean orbit velocity    =  9.68 km/s\\n  Atmos. temp. (1 bar)  = 134+-4 K        Escape speed, km/s    =  35.5          \\n  Aroche(ice)/Rp        =  2.71           Hill's sphere rad. Rp  = 1100\\n                                 Perihelion  Aphelion    Mean\\n  Solar Constant (W/m^2)         16.8        13.6        15.1\\n  Maximum Planetary IR (W/m^2)    4.7         4.5         4.6\\n  Minimum Planetary IR (W/m^2)    4.7         4.5         4.6\\n*******************************************************************************\\n\\n\\n*******************************************************************************\\nEphemeris / API_USER Sun Sep  6 01:56:58 2026 Pasadena, USA      / Horizons\\n*******************************************************************************\\nTarget body name: Saturn (699)                    {source: sat441l}\\nCenter body name: Solar System Barycenter (0)     {source: DE441}\\nCenter-site name: BODY CENTER\\n*******************************************************************************\\nStart time      : A.D. 2026-Sep-19 00:00:00.0000 UT \\nStop  time      : A.D. 2026-Sep-19 00:01:00.0000 UT \\nStep-size       : 1 minutes\\n*******************************************************************************\\nCenter geodetic : 0.0, 0.0, 0.0                   {E-lon(deg),Lat(deg),Alt(km)}\\nCenter cylindric: 0.0, 0.0, 0.0                   {E-lon(deg),Dxy(km),Dz(km)}\\nCenter radii    : (undefined)\\nOutput units    : KM-S\\nCalendar mode   : Mixed Julian/Gregorian\\nOutput type     : GEOMETRIC cartesian states\\nOutput format   : 2 (position and velocity)\\nEOP file        : eop.260904.p261201\\nEOP coverage    : DATA-BASED 1962-JAN-20 TO 2026-SEP-04. PREDICTS-> 2026-NOV-30\\nReference frame : Ecliptic of J2000.0\\n*******************************************************************************\\n            JDUT ,            Calendar Date (UT ),                      X,                      Y,                      Z,                     VX,                     VY,                     VZ,\\n**************************************************************************************************************************************************************************************************\\n$$SOE\\n2461302.500000000, A.D. 2026-Sep-19 00:00:00.0000,  1.387350120914707E+09,  2.537030998425590E+08, -5.965017727639042E+07, -2.266702753070678E+00,  9.481401661299165E+00, -7.494256277521094E-02,\\n2461302.500694444, A.D. 2026-Sep-19 00:01:00.0000,  1.387349984912419E+09,  2.537036687266457E+08, -5.965018177294303E+07, -2.266706849155152E+00,  9.481401226090679E+00, -7.494252438408155E-02,\\n$$EOE\\n**************************************************************************************************************************************************************************************************\\n \\nTIME\\n\\n Times PRIOR to 1962 are UT1, a mean-solar time closely related to the\\nprior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current\\ncivil or \\\"wall-clock\\\" atomic time-scale. UTC is kept within 0.9 seconds\\nof UT1 using integer leap-seconds for 1972 and later years.\\n\\n  Conversion from the internal Barycentric Dynamical Time (TDB) of solar\\nsystem dynamics to the discontinuous civil UT time-scale has not been\\ndetermined for UTC times after the next July or January 1st. Therefore,\\nthe last known leap-second is used as a constant over future intervals,\\na condition noted here as \\\"UT~\\\".\\n\\n  Future but as yet undetermined leap-seconds can be expected to change\\ntime-tags in the \\\"UT~\\\" interval and, in general, the UT scale may not be\\nsuitable for purposes that assume time-tag continuity in the ephemeris.\\nOutput in continuous TDB and TT timescales may instead be requested,\\nthough these are not linked to Earth's rotation.\\n\\n  Time-tags refer to the UT time-scale conversion from TDB on Earth\\nregardless of observer location within the solar system, although clock\\nrates may differ due to the local gravity field and no analog to \\\"UT\\\"\\nmay be defined for that location.\\n \\nCALENDAR SYSTEM\\n\\n  Mixed calendar mode was active such that calendar dates after AD 1582-Oct-15\\n(if any) are in the modern Gregorian system. Dates prior to 1582-Oct-5 (if any)\\nare in the Julian calendar system, which is automatically extended for dates\\nprior to its adoption on 45-Jan-1 BC.  The Julian calendar is useful for\\nmatching historical dates. The Gregorian calendar more accurately corresponds\\nto the Earth's orbital motion and seasons. A \\\"Gregorian-only\\\" calendar mode is\\navailable if such physical events are the primary interest.\\n\\nREFERENCE FRAME AND COORDINATES\\n\\n  Ecliptic at the standard reference epoch\\n\\n    Reference epoch: J2000.0\\n    X-Y plane: adopted Earth orbital plane at the reference epoch\\n               Note: IAU76 obliquity of 84381.448 arcseconds wrt ICRF X-Y plane\\n    X-axis   : ICRF\\n    Z-axis   : perpendicular to the X-Y plane in the directional (+ or -) sense\\n               of Earth's north pole at the reference epoch.\\n\\n  Symbol meaning:\\n\\n    JDUT     Julian Day Number, Universal Time\\n      X      X-component of position vector (km)\\n      Y      Y-component of position vector (km)\\n      Z      Z-component of position vector (km)\\n      VX     X-component of velocity vector (km/sec)                           \\n      VY     Y-component of velocity vector (km/sec)                           \\n      VZ     Z-component of velocity vector (km/sec)                           \\n\\nABERRATIONS AND CORRECTIONS\\n\\n Geometric state vectors have NO corrections or aberrations applied.\\n\\nComputations by ...\\n\\n    Solar System Dynamics Group, Horizons On-Line Ephemeris System\\n    4800 Oak Grove Drive, Jet Propulsion Laboratory\\n    Pasadena, CA  91109   USA\\n\\n    General site: https://ssd.jpl.nasa.gov/\\n    Mailing list: https://ssd.jpl.nasa.gov/email_list.html\\n    System news : https://ssd.jpl.nasa.gov/horizons/news.html\\n    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html\\n    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x\\n                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html\\n                  command-line   telnet ssd.jpl.nasa.gov 6775\\n                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/horizons_batch.txt\\n                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS\\n    Inquiries   : Jon.D.Giorgini@jpl.nasa.gov\\n*******************************************************************************\\n\"}\n",
+      "rawResponseSha256": "b4f79a7cc647fca18dfa50037574658ab41db3724107b20d4abf4724908a7654",
+      "rawResponseBytes": 7599
+    }
+  },
+  "orientationSources": [
+    {
+      "path": "Data/provenance/kernels/naif0012.tls",
+      "id": "naif0012.tls",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+      "retrievedAt": "2026-09-06T03:11:40.456561+00:00",
+      "bytes": 5257,
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "lastModified": "Fri, 15 Jul 2016 00:00:37 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    },
+    {
+      "path": "Data/provenance/kernels/pck00011.tpc",
+      "id": "pck00011.tpc",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "retrievedAt": "2026-09-06T03:11:40.745116+00:00",
+      "bytes": 131226,
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "lastModified": "Tue, 27 Dec 2022 16:28:50 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    },
+    {
+      "path": "Data/provenance/kernels/moon_pa_de421_1900-2050.bpc",
+      "id": "moon_pa_de421_1900-2050.bpc",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+      "retrievedAt": "2026-09-06T03:11:42.801059+00:00",
+      "bytes": 1770496,
+      "sha256": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+      "lastModified": "Wed, 19 Mar 2008 04:51:40 GMT",
+      "contentType": null
+    },
+    {
+      "path": "Data/provenance/kernels/moon_080317.tf",
+      "id": "moon_080317.tf",
+      "sourceUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+      "resolvedUrl": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+      "retrievedAt": "2026-09-06T03:11:41.892393+00:00",
+      "bytes": 21437,
+      "sha256": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993",
+      "lastModified": "Thu, 18 Jul 2013 10:07:49 GMT",
+      "contentType": "text/plain; charset=UTF-8"
+    }
+  ],
+  "coordinates": {
+    "vectors": "JPL Horizons geometric ICRF / ecliptic J2000, solar-system barycenter; KM-S converted to double-precision meters and meters/second.",
+    "times": "All selected vectors and rotations use the same UTC epoch; Horizons TIME_TYPE=UT. SPICE str2et converts UTC to TDB seconds since J2000 with naif0012.tls.",
+    "rotations": "SPICE pxform(bodyFixedFrame,ECLIPJ2000,ET); MOON_ME from DE421 lunar orientation, IAU_SUN/IAU_EARTH/IAU_SATURN from pck00011.tpc; row-major matrix multiplying column vectors.",
+    "sunElevation": "degrees(asin(dot(R_MOON_ME_to_ECLIPJ2000 * [cos(lat)cos(lon),cos(lat)sin(lon),sin(lat)], normalize(SunPosition-MoonPosition))))",
+    "surfaceSunElevation": "Same geometric direction evaluated at MoonPosition + 1737400 * rotated radial unit normal."
+  },
+  "documentation": [
+    "https://ssd-api.jpl.nasa.gov/doc/horizons.html",
+    "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf"
+  ],
+  "processing": "Tools/Data/select_epoch.py --acquire; --rebuild uses embedded exact raw responses and hash-pinned local kernels without network.",
+  "limitations": [
+    "Solar elevation is above the spherical radial tangent plane; local slopes, terrain horizon occlusion and solar angular radius are not included.",
+    "This historical/future ephemeris selection sets a game scenario, not the workstation clock or live weather.",
+    "Horizons current translational solution is combined with the existing DE421 lunar orientation; kernel and ephemeris model limits remain explicit.",
+    "IAU_EARTH is an approximate spin model rather than high-precision ITRF.",
+    "Source data checks do not establish packaged-game brightness, shadows, appearance or physical joystick behavior."
+  ]
+}

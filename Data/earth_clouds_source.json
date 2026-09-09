@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "id": "earth_clouds",
+  "path": "Content/Star/Textures/earth_clouds_8k.png",
+  "sha256": "c94e0e15a54a873d5ffc68c49067b3337ae04e55b4f36d0cede59f2dee7cc7f2",
+  "bytes": 19108959,
+  "dimensions": [
+    8192,
+    4096
+  ],
+  "format": "PNG grayscale uint8, one linear scalar channel, gAMA=1.0",
+  "sources": [
+    {
+      "id": "nasa_blue_marble_clouds_2002",
+      "title": "Blue Marble: Clouds",
+      "sourceUrl": "https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_8192.tif",
+      "sourcePage": "https://visibleearth.nasa.gov/images/57747/blue-marble-clouds",
+      "sourcePageStatus": "Old Visible Earth page redirects to NASA Science Earth Observatory landing page as checked 2026-09-06; indexed original caption identifies this file family.",
+      "currentBackgroundPage": "https://svs.gsfc.nasa.gov/30614/",
+      "datasetEpochReferencePage": "https://svs.gsfc.nasa.gov/2709/",
+      "sha256": "d137775d8966ab8d443fd5126dc6e7ad72072bc1ed50555c5818d221735daf0f",
+      "bytes": 35870468,
+      "dimensions": [
+        8192,
+        4096
+      ],
+      "rawCachePath": "work/clouds/cloud_combined_8192.tif",
+      "retrievedAt": "2026-09-06T08:33:40.160469+00:00",
+      "sourceColorSpace": "Neutral RGB uint8 visual composite; R=G=B verified, no embedded ICC profile or declared transfer function found.",
+      "publishedDate": "2002-02-11"
+    }
+  ],
+  "observationDate": "Historical Blue Marble 2002 cloud composite; exact per-pixel observation dates are not present in the TIFF.",
+  "observationEpoch": {
+    "exactPerPixelDatesKnown": false,
+    "composite": "Visible Earth caption describes two days of visible imagery plus a third thermal-infrared day over the poles; NASA SVS 30614 confirms two-day MODIS cloud imagery.",
+    "relatedDatasetDates": [
+      "2002-01",
+      "2001-07-29"
+    ],
+    "relatedDatasetDatesLimit": "NASA SVS 2709 lists these dates for Blue Marble Cloud Cover (dataset 494); assignment to individual pixels of this TIFF is not supplied. Publication date is not an observation timestamp."
+  },
+  "units": "dimensionless artistic coverage in [0,1]; value=storedByte/255",
+  "datum": "Earth body-fixed, east-positive longitude; visual equirectangular map, no geodetic tags or measured cloud heights in source TIFF",
+  "colorSpace": "linear scalar coverage; UE sRGB=false; sample red/grayscale channel",
+  "mapping": {
+    "projection": "equirectangular",
+    "boundsDegrees": {
+      "west": -180,
+      "east": 180,
+      "north": 90,
+      "south": -90
+    },
+    "uv": "u=(longitudeRadians+pi)/(2*pi); v=(pi/2-latitudeRadians)/pi",
+    "pixelCenter": "lon=-180+(column+0.5)*360/8192; lat=90-(row+0.5)*180/4096",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "orientationProcessing": "Original global Blue Marble layout retained; no mirror, flip, longitude shift or resampling. Intended to align with NASA BMNG day map and STAR sphere UVs.",
+    "runtimeAddressing": "U wrap; V clamp"
+  },
+  "processing": {
+    "script": "Tools/Data/clouds.py",
+    "inputChannel": "R (identical to G and B)",
+    "contrast": "Identity: no threshold, gain, normalization, sharpening or microdetail generation.",
+    "gamma": "Coverage=source grayscale byte/255; gamma exponent=1.0. This is an artistic reinterpretation of visual brightness, not a radiometric conversion.",
+    "seam": "First/last 16 columns taper toward their per-row endpoint average using 1-smoothstep(0,1,t); endpoints match exactly. All other pixels remain byte-identical.",
+    "maxSeamBandDegreesEachSide": 0.703125,
+    "changedPixelFraction": 0.0021040141582489014,
+    "quantization": "round-to-nearest uint8 after seam adjustment; PNG gAMA=1.0; no sRGB chunk"
+  },
+  "credit": "NASA Goddard Space Flight Center; Reto Stockli (Blue Marble land surface, shallow water and clouds); MODIS Science Team. Blue Marble compositing enhancements by Robert Simmon.",
+  "scientificLimit": "Visualization-derived static coverage, not calibrated cloud optical depth, measured cloud fraction, forecast or current weather. Source can contain baked brightness/shading/shadow, compositing and polar visible/infrared differences. Coverage cannot separate these effects or recover 3D cloud thickness. Engine lighting/shadows remain an artistic approximation; raw observation-level masks are unavailable.",
+  "knownLimitations": [
+    "No new source detail was invented; close range quality is limited to the 8192x4096 source (about 4.9 km per equatorial texel).",
+    "Polar distortion and any source compositing artifacts are retained; no claimed exact geodetic registration or pole reconstruction.",
+    "Narrow longitude seam repair changes observation-derived pixels and is explicitly artistic.",
+    "Use smooth/translucent coverage when fine cloud edges matter; a hard alpha-test threshold discards wispy detail.",
+    "Texture inspection does not establish an Unreal import, packaged-game appearance, performance or rendered shadow pass."
+  ],
+  "verification": {
+    "raw": {
+      "minMaxByte": [
+        0,
+        255
+      ],
+      "meanByte": 75.44043645262718,
+      "sphereAreaWeightedMeanCoverage": 0.24263776145761437,
+      "fractionAboveHalfCoverage": 0.2585815489292145,
+      "seamAbsoluteDifferenceByte": {
+        "mean": 11.040283203125,
+        "p99": 92.20000000000073,
+        "max": 197
+      }
+    },
+    "output": {
+      "minMaxByte": [
+        0,
+        255
+      ],
+      "meanByte": 75.4405807852745,
+      "sphereAreaWeightedMeanCoverage": 0.24263857825374568,
+      "fractionAboveHalfCoverage": 0.25857245922088623,
+      "seamAbsoluteDifferenceByte": {
+        "mean": 0.0,
+        "p99": 0.0,
+        "max": 0
+      }
+    }
+  }
+}

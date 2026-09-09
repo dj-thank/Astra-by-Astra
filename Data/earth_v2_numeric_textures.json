@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "earthRadiusMeters": 6371008.4,
+  "atmosphereTopMeters": 100000.0,
+  "rayleighScaleHeightMeters": 8000,
+  "mieScaleHeightMeters": 1200,
+  "lutDimensions": [
+    512,
+    256
+  ],
+  "channelUnits": "R/G: Rayleigh/Mie density path integrals in million metres",
+  "linear": true,
+  "EXRRoundTripExact": true,
+  "observedData": false,
+  "quadratureOrder": 128,
+  "referenceOrder": 512,
+  "referenceRays": 1600,
+  "maximumRGBTransmissionAbsoluteError": 0.0003503833136105361,
+  "p99RGBTransmissionAbsoluteError": 0.00015350561032876622,
+  "verticalIntegralRelativeError": 1.1434216009204722e-12,
+  "noise": {
+    "type": "periodic Worley synthesis",
+    "voxelSize": 64,
+    "atlasSize": 528,
+    "tileSize": 66,
+    "seed": 20260908,
+    "observedCloudDetail": false
+  },
+  "OpenEXRVersion": "3.4.15",
+  "outputs": {
+    "Content\\Star\\Art\\EarthV2\\T_EarthOpticalDepth.exr": {
+      "sha256": "5acc4127a67f18ea2e5b86011dc33accb277b459845b80e0c35ead54b3b0fbd4",
+      "bytes": 270764
+    },
+    "Content\\Star\\Art\\EarthV2\\T_CloudDensityAtlas.png": {
+      "sha256": "2912219ddc4f54b47be70c71d9434bb0a073e553259eff860b2104dd124a7156",
+      "bytes": 170213
+    }
+  }
+}

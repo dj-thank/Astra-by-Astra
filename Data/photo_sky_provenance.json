@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_ASSET_CANDIDATE_NOT_RUNTIME_VALIDATED",
+  "source": {
+    "id": "eso0932a",
+    "url": "https://cdn.eso.org/images/original/eso0932a.tif",
+    "page": "https://www.eso.org/public/images/eso0932a/",
+    "rawPath": "work/photo-pass/raw/eso0932a.tif",
+    "receiptPath": "work/photo-pass/eso-source.json",
+    "receiptSha256": "957dd428c09e1ae932c12ae1fe288ea2f2bae175dd84732fee4402aafda2c308",
+    "sha256": "10f209ab83e1fd89e7fa1ed70277ffc6ed19c43549f04ec637c6806d98aff035",
+    "pixels": [
+      6000,
+      3000
+    ],
+    "retrievedAt": "2026-09-06T12:39:55.510331+00:00",
+    "credit": "ESO/S. Brunier",
+    "license": "CC BY 4.0",
+    "licensePage": "https://www.eso.org/public/outreach/copyright/",
+    "observed": "Ground-based optical photographic all-sky mosaic; solar-system bright planets and airglow may be present; not current sky snapshot"
+  },
+  "derived": {
+    "path": "Content/Star/Art/PhotoSky/stars_photo_8k.png",
+    "sha256": "b38f4d66ebd376051fce87422dec59166df398e365c9b83a87dd6ecf35500a60",
+    "bytes": 46628761,
+    "pixels": [
+      8192,
+      4096
+    ],
+    "format": "PNG",
+    "colorSpace": "sRGB encoded display RGB",
+    "process": "Source RGB resized with Lanczos from 6000x3000 to 8192x4096; no tone mapping, white-balance change, inpainting, sharpening, or catalogue-star synthesis.",
+    "resamplingLimit": "POT/mip compatibility only; upsampling adds no observed detail."
+  },
+  "registration": {
+    "projection": "Galactic CAR/equirectangular approximation",
+    "sourcePixelCenterFormula": {
+      "longitudeDeg": "(3050-(x+0.5))*360/6000",
+      "latitudeDeg": "(1475-(y+0.5))*180/3000"
+    },
+    "uvFormula": "u=fract(3050/6000-l/360), v=1475/3000-b/180",
+    "approximateDistortion": "about 1 degree; source panorama is visually registered and is not star astrometry",
+    "rotationSource": "SPICE pxform('J2000','GALACTIC',0) using CSPICE_N0067; fixed validated matrix",
+    "equatorialToGalacticRowMajor": [
+      [
+        -0.0548755393957425,
+        -0.873437104727596,
+        -0.483834991770025
+      ],
+      [
+        0.494109453627744,
+        -0.444829594297575,
+        0.746982248699892
+      ],
+      [
+        -0.867666135683374,
+        -0.19807638961302,
+        0.45598379452142
+      ]
+    ],
+    "obliquityDegrees": 23.439291111,
+    "anchorChecks": {
+      "LMC": {
+        "inputRaDeg": 80.8939,
+        "inputDecDeg": -69.7561,
+        "computedGalacticLDeg": 280.465222585,
+        "computedGalacticBDeg": -32.88849452,
+        "photoUv": [
+          0.729263271,
+          0.674380525
+        ],
+        "toleranceDeg": 0.02
+      },
+      "SMC": {
+        "inputRaDeg": 13.1867,
+        "inputDecDeg": -72.8286,
+        "computedGalacticLDeg": 302.796939394,
+        "computedGalacticBDeg": -44.299308146,
+        "photoUv": [
+          0.667230724,
+          0.737773934
+        ],
+        "toleranceDeg": 0.02
+      }
+    }
+  },
+  "runtime": {
+    "material": "M_Stars",
+    "textureKey": "photo_sky",
+    "shaderInputs": [
+      "StarTex",
+      "StarIntensity",
+      "PhotoSkyTex",
+      "EnhancedStars",
+      "PhotoSkyIntensity",
+      "EyeExposure"
+    ],
+    "enhancedStars": "Cosmetic photo replacement branch; disabled mode samples only the original NASA ICRF/J2000 catalogue.",
+    "duplicateCatalogStars": false,
+    "defaultEnhancedStars": true,
+    "photoSkyIntensity": 0.08,
+    "eyeExposure": "Positive MaterialExpressionEyeAdaptation exposure multiplier; shader uses reciprocal clamped to 0.001..1000000.0 for artistic brightness compensation only.",
+    "catalogueAssetPreserved": "Content/Star/Textures/stars_icrf_j2000_8k.exr"
+  },
+  "artifacts": [
+    {
+      "path": "Content/Star/Art/PhotoSky/stars_photo_8k.png",
+      "sha256": "b38f4d66ebd376051fce87422dec59166df398e365c9b83a87dd6ecf35500a60",
+      "pixels": [
+        8192,
+        4096
+      ],
+      "role": "runtime candidate"
+    },
+    {
+      "path": "Content/Star/Art/PhotoSky/source_comparison.png",
+      "sha256": "2902c342b1183702c83cda0a254edb1e9e441ca7cc4ca5597bd83656bd0d344a",
+      "pixels": [
+        1600,
+        520
+      ],
+      "role": "source/derived visual audit; not a game capture"
+    }
+  ],
+  "validation": {
+    "sourceHash": "PASS",
+    "sourceDimensions": "PASS",
+    "rotationAndAnchors": "PASS",
+    "ueShaderCompile": "NOT_RUN_ROOT_OWNS_UE",
+    "gpuRender": "NOT_RUN_ROOT_OWNS_GPU",
+    "packagedGame": "NOT_RUN_ROOT_OWNS_PACKAGE"
+  }
+}

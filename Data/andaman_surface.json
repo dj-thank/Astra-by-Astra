@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "boundsWsen": [
+    92,
+    11,
+    94,
+    13
+  ],
+  "width": 7200,
+  "height": 7200,
+  "pixelIsPoint": true,
+  "stepDegrees": 0.0002777777777777778,
+  "file": "andaman-dsm-f32.bin",
+  "sha256": "2390c6f9293ae009bb36eeb1671b25b8985451f745ea381979b1ba7c4d9d03ba",
+  "heightUnits": "meters orthometric height EGM2008",
+  "source": "Copernicus DEM GLO-30 public, 2021 release; DSM includes vegetation and structures",
+  "sourceResolutionMetersNominal": 30,
+  "renderDatum": "Mean-radius game Earth with geographic latitude/longitude parameterization; not a full WGS84 ellipsoid/geoid realization",
+  "syntheticHeight": false,
+  "noDataPolicy": "Require all four checked source tiles; no interpolation across absent tiles",
+  "minHeightMeters": -33.761837005615234,
+  "maxHeightMeters": 510.9695129394531,
+  "imagery": {
+    "file": "Content\\Star\\Art\\EarthSurface\\T_Andaman_Observed_8K.png",
+    "sha256": "8975bbdf1829ee128646a30d9e894742c40dc1946d5b7b90ff434812dcaa6d37",
+    "pixels": [
+      8192,
+      8192
+    ],
+    "colorSpace": "sRGB provider display mosaic",
+    "processing": "Four non-overlapping WMS images packed without resampling, sharpening, smoothing or invented detail"
+  },
+  "sources": [
+    {
+      "lat": 11,
+      "lon": 92,
+      "state": "downloaded",
+      "sourceUrl": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N11_00_E092_00_DEM/Copernicus_DSM_COG_10_N11_00_E092_00_DEM.tif",
+      "file": "work\\earth-time\\terrain-source\\Copernicus_DSM_COG_10_N11_00_E092_00_DEM.tif",
+      "sha256": "9265786777a87537ef77ebd23ea5725f9431d5884ad34fe4b062834044719140",
+      "bytes": 5855432,
+      "acquiredUtc": "2026-09-08T23:20:25.854488+00:00"
+    },
+    {
+      "sourceUrl": "https://tiles.maps.eox.at/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=s2cloudless&STYLES=&SRS=EPSG%3A4326&BBOX=92%2C11%2C93%2C12&WIDTH=4096&HEIGHT=4096&FORMAT=image%2Fpng",
+      "file": "work\\earth-time\\terrain-source\\eox2016-11-92.png",
+      "sha256": "f4fa937df78721c4ca991cb9272014a8e8e00cd6d55b2deb4f16335920eab6a3",
+      "date": "2016 mosaic, contains modified Copernicus Sentinel data 2016/2017",
+      "license": "CC BY 4.0",
+      "providerProcessing": "Provider visual mosaic including ocean/background styling; not raw reflectance or current scenery"
+    },
+    {
+      "lat": 11,
+      "lon": 93,
+      "state": "downloaded",
+      "sourceUrl": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N11_00_E093_00_DEM/Copernicus_DSM_COG_10_N11_00_E093_00_DEM.tif",
+      "file": "work\\earth-time\\terrain-source\\Copernicus_DSM_COG_10_N11_00_E093_00_DEM.tif",
+      "sha256": "9c1c914ddc0aae0f70c61e12ca3c7338c078bda1a2302c7fe8874b64484e2011",
+      "bytes": 368065,
+      "acquiredUtc": "2026-09-08T23:20:29.259096+00:00"
+    },
+    {
+      "sourceUrl": "https://tiles.maps.eox.at/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=s2cloudless&STYLES=&SRS=EPSG%3A4326&BBOX=93%2C11%2C94%2C12&WIDTH=4096&HEIGHT=4096&FORMAT=image%2Fpng",
+      "file": "work\\earth-time\\terrain-source\\eox2016-11-93.png",
+      "sha256": "d6f33129eb95f1713ccfdccb606fb58516692930d01794883de3971081c6dea0",
+      "date": "2016 mosaic, contains modified Copernicus Sentinel data 2016/2017",
+      "license": "CC BY 4.0",
+      "providerProcessing": "Provider visual mosaic including ocean/background styling; not raw reflectance or current scenery"
+    },
+    {
+      "lat": 12,
+      "lon": 92,
+      "state": "downloaded",
+      "sourceUrl": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N12_00_E092_00_DEM/Copernicus_DSM_COG_10_N12_00_E092_00_DEM.tif",
+      "file": "work\\earth-time\\terrain-source\\Copernicus_DSM_COG_10_N12_00_E092_00_DEM.tif",
+      "sha256": "fa046377587a463f50586dab3c3b828042d2ce2c204f0a48d1ceaf618bd3d449",
+      "bytes": 11841522,
+      "acquiredUtc": "2026-09-08T23:20:36.638770+00:00"
+    },
+    {
+      "sourceUrl": "https://tiles.maps.eox.at/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=s2cloudless&STYLES=&SRS=EPSG%3A4326&BBOX=92%2C12%2C93%2C13&WIDTH=4096&HEIGHT=4096&FORMAT=image%2Fpng",
+      "file": "work\\earth-time\\terrain-source\\eox2016-12-92.png",
+      "sha256": "83dc38f0b103a00a46db165fe330100e4c10be9312b1695d1f9b6d6fb17add22",
+      "date": "2016 mosaic, contains modified Copernicus Sentinel data 2016/2017",
+      "license": "CC BY 4.0",
+      "providerProcessing": "Provider visual mosaic including ocean/background styling; not raw reflectance or current scenery"
+    },
+    {
+      "lat": 12,
+      "lon": 93,
+      "state": "downloaded",
+      "sourceUrl": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N12_00_E093_00_DEM/Copernicus_DSM_COG_10_N12_00_E093_00_DEM.tif",
+      "file": "work\\earth-time\\terrain-source\\Copernicus_DSM_COG_10_N12_00_E093_00_DEM.tif",
+      "sha256": "a29d817901091275f064e856f415dd4cd5ca47591c657e068e00ed5f8820292f",
+      "bytes": 716127,
+      "acquiredUtc": "2026-09-08T23:20:40.086767+00:00"
+    },
+    {
+      "sourceUrl": "https://tiles.maps.eox.at/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=s2cloudless&STYLES=&SRS=EPSG%3A4326&BBOX=93%2C12%2C94%2C13&WIDTH=4096&HEIGHT=4096&FORMAT=image%2Fpng",
+      "file": "work\\earth-time\\terrain-source\\eox2016-12-93.png",
+      "sha256": "4ea083e7f0164c72ec7c9543247b16577ac604e0b86c4b2c43495bf9dcefe466",
+      "date": "2016 mosaic, contains modified Copernicus Sentinel data 2016/2017",
+      "license": "CC BY 4.0",
+      "providerProcessing": "Provider visual mosaic including ocean/background styling; not raw reflectance or current scenery"
+    }
+  ],
+  "retrievedUtc": "2026-09-08T23:31:18.949873+00:00",
+  "credit": "Copernicus DEM © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018. Copernicus DEM accessed via AWS Open Data. EOxCloudless by EOX IT Services GmbH, contains modified Copernicus Sentinel data 2016; CC BY 4.0."
+}

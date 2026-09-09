@@ -1,0 +1,8 @@
+// For UE Custom expression float3. DetailNormal is a decoded float3 from a
+// MaterialExpressionTextureSampleParameter2D SAMPLERTYPE_NORMAL at UV1*DetailScale.
+// UE normal sampler decoding returns signed tangent-space XYZ: do NOT *2-1 again.
+float2 detailUV = DetailUV * max(DetailScale,0.001);
+float footprint = max(length(ddx(detailUV)),length(ddy(detailUV)));
+float fade = 1.0-smoothstep(0.08,0.5,footprint);
+float3 n = DetailNormal;
+return normalize(float3(n.xy*saturate(NormalStrength)*fade,max(n.z,0.1)));

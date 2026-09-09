@@ -1,0 +1,23 @@
+// For UE Custom expression float3. DetailNormal is a decoded float3 from a
+// MaterialExpressionTextureSampleParameter2D SAMPLERTYPE_NORMAL at UV1*DetailScale.
+// UE normal sampler decoding returns signed tangent-space XYZ: do NOT *2-1 again.
+// Apollo ALSCC image-gradient microrelief is estimated, NOT observed DEM relief.
+// Physical scan scale is supplied by PhotoMoon/material_recipe.json.
+float2 detailUV = DetailUV * max(DetailScale,0.001);
+float footprint = max(length(ddx(detailUV)),length(ddy(detailUV)));
+float fade = 1.0-smoothstep(0.25,1.0,footprint);
+float3 n = DetailNormal;
+// MesoNormal is likewise already decoded by UE's NORMAL sampler. Blend slopes
+// so either flat/zero-strength input is an identity, without double decoding.
+float2 mesoUV = DetailUV*max(MesoScale,0.001);
+float mesoFootprint = max(length(ddx(mesoUV)),length(ddy(mesoUV)));
+float mesoFade = 1.0-smoothstep(0.15,0.75,mesoFootprint);
+float2 slope = n.xy/max(n.z,0.1)*saturate(NormalStrength)*fade;
+float2 mesoSlope=MesoNormal.xy/max(MesoNormal.z,0.1);
+float2 alternateSlope=float2(MesoNormalAlternate.y,-MesoNormalAlternate.x)*1.137/max(MesoNormalAlternate.z,0.1);
+mesoSlope=lerp(mesoSlope,0.5*(mesoSlope+alternateSlope),saturate(MesoBlendStrength));
+slope += mesoSlope*saturate(MesoStrength)*mesoFade;
+// Broken rocks receive their macro/facet normals from actual mesh geometry.
+// Reduce the loose-soil normal overlay so it cannot erase those facets.
+slope*=lerp(1.0,0.2,saturate(ClastUV.x)*saturate(ClastStyleStrength));
+return normalize(float3(slope,1.0));

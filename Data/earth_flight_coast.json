@@ -1,0 +1,23 @@
+{
+  "source": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=91.5%2C10.5%2C94.5%2C13.5&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2025-02-16",
+  "observationDate": "2025-02-16",
+  "retrievedUTC": "2026-09-08",
+  "platform": "Terra MODIS",
+  "credit": "NASA EOSDIS GIBS / NASA Worldview",
+  "boundsWsen": [
+    91.5,
+    10.5,
+    94.5,
+    13.5
+  ],
+  "crs": "EPSG:4326",
+  "units": "degrees",
+  "colorSpace": "sRGB",
+  "pixels": [
+    2048,
+    2048
+  ],
+  "sha256": "1ac2eee171689685743546fd70163e16deff23ac93e814d43465f631159a7598",
+  "processing": "Original WMS PNG bytes; no generated detail or multi-date filling; contains observed clouds",
+  "resolutionNote": "WMS grid is resampled; not a claim of native sensor ground resolution"
+}
