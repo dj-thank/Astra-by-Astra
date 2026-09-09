@@ -41,3 +41,9 @@ jobs:
           persist-credentials: false
       - name: All self-contained native suites with memory and UB checks
         run: python3 Tools/Testing/run_native.py --sanitize --compiler clang++ --jobs 2
+      - name: GCC compatibility for all self-contained native suites
+        run: python3 Tools/Testing/run_native.py --compiler g++ --jobs 2
+      - name: Install libtiff host test dependency
+        run: sudo apt-get update && sudo apt-get install -y libtiff-dev pkg-config
+      - name: Production TIFF decoder with real libtiff and injected read failures
+        run: python3 Tools/Testing/run_raster_decode.py --sanitize --compiler clang++

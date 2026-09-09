@@ -4,6 +4,11 @@
 namespace star::terrain {
 constexpr std::uint64_t MaxDecodedRasterBytes=256ull*1024*1024;
 constexpr std::uint64_t MaxDecodedTileBytes=64ull*1024*1024;
+// The runtime data model represents unsigned integers or IEEE float32 only.
+// Signed, undefined and complex encodings cannot be silently reinterpreted.
+inline bool SupportedRasterSampleFormat(std::uint16_t bits,std::uint16_t format) {
+    return (format==1&&(bits==8||bits==16||bits==32)) || (format==3&&bits==32);
+}
 // Bound products before multiplying. These are allocation limits, not claims
 // about the resolution or scientific accuracy of any source dataset.
 inline bool BoundedRasterLayout(std::uint32_t width,std::uint32_t height,

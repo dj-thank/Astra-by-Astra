@@ -9,6 +9,20 @@ namespace {
 constexpr double MaxSlopeRadians = 35.0 * Pi / 180.0;
 constexpr double WalkSpeed = 1.4;
 constexpr double ProbeSpacing = 0.10;
+bool ValidRotation(const Quatd& q) {
+    const double norm = q.w*q.w + q.x*q.x + q.y*q.y + q.z*q.z;
+    return q.IsFinite() && std::isfinite(norm) && norm > 1e-12;
+}
+bool ValidMoon(const BodyDefinition& moon) {
+    return moon.id == "moon" && moon.landable && moon.centerMeters.IsFinite() &&
+        moon.centerMeters.Length() < 1e18 && std::isfinite(moon.radiusMeters) &&
+        moon.radiusMeters >= 1 && moon.radiusMeters <= 1e11 && ValidRotation(moon.bodyFixedToSimulation);
+}
+bool Parked(const FlightState& ship) {
+    return ship.mode == FlightMode::Landed && ship.landedBodyId == "moon" && ship.gearDeployed &&
+        ship.positionMeters.IsFinite() && ship.velocityMetersPerSecond.IsFinite() &&
+        ship.velocityMetersPerSecond.Length() <= 0.001 && ValidRotation(ship.orientation);
+}
 Vec3d Tangent(const Vec3d& v, const Vec3d& up) {
     Vec3d result = v - up * Vec3d::Dot(v, up);
     if (result.LengthSquared() < 1e-12) {
@@ -19,12 +33,19 @@ Vec3d Tangent(const Vec3d& v, const Vec3d& up) {
 }
 }
 void LunarWalkModel::UpdateCelestialFrame(const BodyDefinition& moon) {
-    if(!ready_||moon.id!=moon_.id) return;
-    const auto q=(moon.bodyFixedToSimulation*moon_.bodyFixedToSimulation.Conjugate()).Normalized();
-    feet_=moon.centerMeters+q.Rotate(feet_-moon_.centerMeters);
-    boardingPoint_=moon.centerMeters+q.Rotate(boardingPoint_-moon_.centerMeters);
-    heading_=q.Rotate(heading_);
-    parkedShip_=TransportFlightFrame(parkedShip_,moon_,moon);moon_=moon;
+    // A celestial frame change is a rigid transport, not a change of surface.
+    // Compute every candidate first so a rejected epoch cannot strand the walker.
+    if (!ready_ || !ValidMoon(moon) || moon.radiusMeters != moon_.radiusMeters) return;
+    auto nextMoon = moon;
+    nextMoon.bodyFixedToSimulation = moon.bodyFixedToSimulation.Normalized();
+    const auto q = (nextMoon.bodyFixedToSimulation * moon_.bodyFixedToSimulation.Conjugate()).Normalized();
+    const auto feet = nextMoon.centerMeters + q.Rotate(feet_ - moon_.centerMeters);
+    const auto boarding = nextMoon.centerMeters + q.Rotate(boardingPoint_ - moon_.centerMeters);
+    const auto heading = q.Rotate(heading_);
+    const auto ship = TransportFlightFrame(parkedShip_, moon_, nextMoon);
+    if (!feet.IsFinite() || !boarding.IsFinite() || !heading.IsFinite() || !Parked(ship)) return;
+    feet_ = feet; boardingPoint_ = boarding; heading_ = heading;
+    parkedShip_ = ship; moon_ = std::move(nextMoon);
 }
 bool LunarWalkModel::Ground(const Vec3d& direction, Vec3d& feet, double& height) const {
     TerrainSample sample;
@@ -46,12 +67,13 @@ bool LunarWalkModel::OutsideHull(const Vec3d& feet) const {
 }
 bool LunarWalkModel::Initialize(const FlightState& ship, const BodyDefinition& moon,
                                 TerrainSampler terrain, const FlightConfig& hull) {
-    ready_ = false; blocked_ = false;
-    if (ship.mode != FlightMode::Landed || ship.landedBodyId != "moon" ||
-        moon.id != "moon" || !moon.landable || !ship.positionMeters.IsFinite() ||
-        !ship.orientation.IsFinite() || !moon.centerMeters.IsFinite() ||
-        !std::isfinite(moon.radiusMeters) || moon.radiusMeters <= 0 || !terrain) return false;
-    parkedShip_ = ship; moon_ = moon; terrain_ = std::move(terrain); hull_ = hull;
+    if (!Parked(ship) || !ValidMoon(moon) || !terrain ||
+        !std::isfinite(hull.hullHalfLengthMeters) || hull.hullHalfLengthMeters <= 0 ||
+        !std::isfinite(hull.hullHalfWidthMeters) || hull.hullHalfWidthMeters <= 0) return false;
+    LunarWalkModel pending;
+    pending.parkedShip_ = ship; pending.parkedShip_.orientation = ship.orientation.Normalized();
+    pending.moon_ = moon; pending.moon_.bodyFixedToSimulation = moon.bodyFixedToSimulation.Normalized();
+    pending.terrain_ = std::move(terrain); pending.hull_ = hull;
     const Vec3d up = (ship.positionMeters - moon.centerMeters).Normalized();
     const Vec3d right = Tangent(Right(ship.orientation), up);
     const Vec3d forward = Tangent(Forward(ship.orientation), up);
@@ -60,11 +82,13 @@ bool LunarWalkModel::Initialize(const FlightState& ship, const BodyDefinition& m
     for (double side : {1.0, -1.0}) for (double along : {0.0, 3.0, -3.0}) {
         const Vec3d candidate = ship.positionMeters + right * (side * (hull.hullHalfWidthMeters + 2.0)) + forward * along;
         Vec3d ground; double height = 0;
-        if (!Ground((candidate - moon.centerMeters).Normalized(), ground, height) || !OutsideHull(ground) ||
+        if (!pending.Ground((candidate - moon.centerMeters).Normalized(), ground, height) || !pending.OutsideHull(ground) ||
             (ground - ship.positionMeters).Length() > 18.0) continue;
-        feet_ = boardingPoint_ = ground; height_ = height;
-        heading_ = Tangent(forward, UpDirection()); pitchRadians_ = 0;
-        ready_ = true; return true;
+        pending.feet_ = pending.boardingPoint_ = ground; pending.height_ = height;
+        pending.heading_ = Tangent(forward, pending.UpDirection());
+        pending.ready_ = true;
+        *this = std::move(pending);
+        return true;
     }
     return false;
 }
@@ -99,7 +123,7 @@ void LunarWalkModel::Advance(double dt, double right, double forward, double yaw
     }
 }
 bool LunarWalkModel::IsSameParkedShip(const FlightState& ship) const {
-    return ready_ && ship.mode == FlightMode::Landed && ship.landedBodyId == "moon" &&
+    return ready_ && Parked(ship) &&
         (ship.positionMeters-parkedShip_.positionMeters).Length() < 0.05 &&
         Vec3d::Dot(Forward(ship.orientation),Forward(parkedShip_.orientation)) > 0.99999 &&
         Vec3d::Dot(Up(ship.orientation),Up(parkedShip_.orientation)) > 0.99999;

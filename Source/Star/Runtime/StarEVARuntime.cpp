@@ -7,6 +7,17 @@
 #include "Engine/World.h"
 #include "InputCoreTypes.h"
 
+void AStarPlayerController::ClearEVAForLoad()
+{
+    if(!Ship) return;
+    // Called only after the restored flight/progress have committed. Loading is
+    // not boarding: no distance gate, hatch sound, fade or implicit unpause.
+    auto* Previous=EVAPawn.Get();EVAPawn=nullptr;EVAFootstepDistance=0;
+    Possess(Ship);SetViewTarget(Ship);Ship->SetEVAAudio(false);
+    if(Previous)Previous->Destroy();
+    ClearInputHandoff();
+}
+
 void AStarPlayerController::ToggleEVA()
 {
     if(!Ship||!Ship->IsReady()||bMainMenu) return;

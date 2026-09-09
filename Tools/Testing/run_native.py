@@ -2,6 +2,7 @@
 """GCC/Clang native regression runner. All fixtures are local and outputs stay in work/."""
 from pathlib import Path
 import argparse, concurrent.futures, json, os, re, subprocess, sys
+from extract_method import prepare_eva
 parser=argparse.ArgumentParser(description='Run self-contained C++17 tests without Unreal or downloaded release content.')
 parser.add_argument('--sanitize',action='store_true',help='Enable AddressSanitizer and UndefinedBehaviorSanitizer.')
 parser.add_argument('--compiler',default=os.environ.get('CXX','g++'))
@@ -10,6 +11,7 @@ args=parser.parse_args()
 root=Path(__file__).resolve().parents[2]
 out=root/'work'/('native-sanitized' if args.sanitize else 'native-tests')
 out.mkdir(parents=True,exist_ok=True)
+prepare_eva(root,out)
 S='Source/Star/'
 flight=S+'Simulation/FlightSimulation.cpp'; audio=S+'Presentation/StarAudioRouting.cpp'; nav=S+'Navigation/NavigationPilot.cpp'; obs=S+'Simulation/ObservationGeometry.cpp'
 data=json.loads((root/'Tests/Fixtures/navigation-bodies.json').read_text())
@@ -32,6 +34,10 @@ for name in ('NavigationBypassed','ResetNavigation','SetFlightPaused','ToggleNav
  methods.append(source[m.start():end])
 (out/'runtime-methods.inc').write_text('\n'.join(methods))
 targets={
+ 'input-robustness':(['Plugins/StarFlightInput/Source/StarFlightInput/Private/Core/StarInputCore.cpp','Tests/Input/InputRobustnessTests.cpp'],[]),
+ 'eva-robustness':([flight,S+'EVA/LunarWalkModel.cpp','Tests/EVA/LunarWalkRobustnessTests.cpp'],[]),
+ 'terrain-robustness':([flight,S+'Terrain/LunarTerrainGeometry.cpp','Tests/Terrain/TerrainRobustnessTests.cpp'],[]),
+ 'eva-lifecycle':(['Tests/Runtime/EVALoadLifecycleTests.cpp'],[]),
  'robustness':([flight,'Tests/Simulation/RobustnessTests.cpp'],[]),
  'raster-policy':(['Tests/Terrain/RasterReadPolicyTests.cpp'],[]),
  'flight':([flight,'Tests/Simulation/FlightSimulationTests.cpp'],[]),
@@ -46,7 +52,7 @@ targets={
 }
 def run(item):
  name,(sources,arguments)=item
- cmd=[args.compiler,'-std=c++17','-O1' if args.sanitize else '-O2','-Wall','-Wextra','-Werror','-I'+str(root/'Source/Star'),'-I'+str(root/'Source/Star/Simulation'),'-I'+str(root/'Source/Star/Presentation'),'-I'+str(out),*[str(root/s) for s in sources],'-o',str(out/name)]
+ cmd=[args.compiler,'-std=c++17','-O1' if args.sanitize else '-O2','-Wall','-Wextra','-Werror','-I'+str(root/'Source/Star'),'-I'+str(root/'Source/Star/Simulation'),'-I'+str(root/'Source/Star/Presentation'),'-I'+str(out),'-I'+str(root/'Plugins/StarFlightInput/Source/StarFlightInput/Public'),*[str(root/s) for s in sources],'-o',str(out/name)]
  if args.sanitize:cmd[1:1]=['-g','-fsanitize=address,undefined,float-cast-overflow','-fno-omit-frame-pointer','-fno-sanitize-recover=all']
  build=subprocess.run(cmd,capture_output=True,text=True,timeout=180)
  (out/(name+'-build.log')).write_text(build.stdout+build.stderr)

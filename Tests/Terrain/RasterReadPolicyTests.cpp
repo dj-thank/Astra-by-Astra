@@ -2,6 +2,7 @@
 #include "Terrain/RasterReadPolicy.h"
 #include <cstdint>
 #include <iostream>
+#include <initializer_list>
 #include <limits>
 #include <string>
 
@@ -64,4 +65,17 @@ void Layouts() {
     Check(!CompleteDecodedTile(0,0),"zero tile rejected");
 }
 }
-int main(){Ranges();Layouts();std::cout<<checks<<" checks, "<<failures<<" failures\n";return failures?1:0;}
+int main(){Ranges();Layouts();
+    using namespace star::terrain;
+    for(std::uint16_t format=0;format<8;++format)for(std::uint16_t bits:std::initializer_list<std::uint16_t>{1,8,16,32,64})
+        Check(SupportedRasterSampleFormat(bits,format)==((format==1&&(bits==8||bits==16||bits==32))||(format==3&&bits==32)),"explicit numeric sample formats");
+    std::uint64_t result=17;
+    Check(RangeSeekPosition(100,10,100,SEEK_SET,result)&&result==100,"seek EOF permitted");
+    Check(!RangeSeekPosition(0,0,0,SEEK_SET,result)&&result==100,"unknown size cannot seek");
+    for(std::uint64_t position=0;position<=100;++position)for(int delta=-101;delta<=101;++delta) {
+        result=999;
+        const auto wanted=static_cast<std::int64_t>(position)+delta;
+        const bool ok=RangeSeekPosition(100,position,static_cast<std::uint64_t>(delta),SEEK_CUR,result);
+        Check(ok==(wanted>=0&&wanted<=100)&&result==(ok?static_cast<std::uint64_t>(wanted):999),"relative seek bounds and failure atomicity");
+    }
+std::cout<<checks<<" checks, "<<failures<<" failures\n";return failures?1:0;}

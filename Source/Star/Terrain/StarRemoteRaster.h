@@ -9,5 +9,6 @@ struct FStarRemoteRaster
     bool Floating=false;
     TArray<uint8> Samples;
     FString SourceUrl,Error;
+    // Failure updates Error only; successful replacement publishes all data and clears Error.
     bool Load(const FString& Url,int32 MaximumDimension,const FString& CacheDirectory,const std::atomic<bool>& Cancel);
 };

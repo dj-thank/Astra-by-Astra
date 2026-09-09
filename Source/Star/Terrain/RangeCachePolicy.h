@@ -1,10 +1,31 @@
 #pragma once
 #include <algorithm>
 #include <cstdint>
+#include <cstdio>
 #include <string_view>
 namespace star::terrain {
 constexpr std::uint64_t RangeBlockBytes=1024*1024;
 constexpr std::uint64_t MaxRangeFileBytes=4ull*1024*1024*1024;
+// TIFF's toff_t is unsigned, but CUR/END encode a signed relative displacement
+// in it. Check both directions without signed conversion or unsigned wraparound.
+inline bool RangeSeekPosition(std::uint64_t size,std::uint64_t position,
+    std::uint64_t offset,int origin,std::uint64_t& result) {
+    if(!size||size>MaxRangeFileBytes||position>size)return false;
+    std::uint64_t next=offset;
+    if(origin==SEEK_CUR||origin==SEEK_END) {
+        const auto base=origin==SEEK_CUR?position:size;
+        if(offset&(1ull<<63)) {
+            const auto magnitude=~offset+1;
+            if(magnitude>base)return false;
+            next=base-magnitude;
+        } else {
+            if(offset>size-base)return false;
+            next=base+offset;
+        }
+    } else if(origin!=SEEK_SET)return false;
+    if(next>size)return false;
+    result=next;return true;
+}
 inline bool CompleteRangeBlock(std::uint64_t size,std::uint64_t index,std::uint64_t bytes) {
     if(!size||size>MaxRangeFileBytes||index>(size-1)/RangeBlockBytes)return false;
     return bytes==std::min(RangeBlockBytes,size-index*RangeBlockBytes);

@@ -1058,6 +1058,7 @@ bool AStarPlayerController::LoadGame()
     const auto PreviousFlight=Ship->Simulation()->State();const double PreviousUtc=Director->WorldUtc();
     if(!Ship->SetWorldUtc(SavedUtc)||!Ship->RestoreFlight(Pending))
     { Ship->SetWorldUtc(PreviousUtc);Ship->RestoreFlight(PreviousFlight);FString Ignored;Exploration->RestoreProgressJson(PreviousProgress,Ignored);SetStatus(TEXT("飛行位置を復元できませんでした。"));return false; }
+    ClearEVAForLoad();
     Director->SetClockRate(SavedRate);
     ResetNavigation();
     const TSharedPtr<FJsonObject>* Settings=nullptr;
@@ -1114,7 +1115,7 @@ bool AStarPlayerController::LoadGame()
         auto* Walker=Valid?GetWorld()->SpawnActor<AStarEVAPawn>():nullptr;
         if(Walker&&Walker->InitializeFromShip(Ship)&&Walker->RestoreSaveState(Saved))
         {
-            EVAPawn=Walker;Possess(Walker);SetViewTarget(Walker);ClearInputHandoff();Ship->SetEVAAudio(true);
+            EVAPawn=Walker;EVAFootstepDistance=0;Possess(Walker);SetViewTarget(Walker);ClearInputHandoff();Ship->SetEVAAudio(true);
             SetStatus(TEXT("月面の歩行位置を復元しました。"));
         }
         else { if(Walker)Walker->Destroy();SetStatus(TEXT("歩行位置を安全に復元できないため、着陸船から再開します。")); }
