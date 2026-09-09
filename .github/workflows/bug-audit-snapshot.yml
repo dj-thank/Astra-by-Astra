@@ -1,0 +1,23 @@
+name: Bug audit source snapshot
+on:
+  push:
+    branches: [fix/star-bug-hardening-20260910]
+    paths: [.github/workflows/bug-audit-snapshot.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Archive tracked source only (no credentials or local saves)
+        run: git archive --format=tar HEAD > "$RUNNER_TEMP/star-source.tar"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: star-bug-audit-source
+          path: ${{ runner.temp }}/star-source.tar
+          retention-days: 1
+          if-no-files-found: error
