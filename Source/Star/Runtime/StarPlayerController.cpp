@@ -269,7 +269,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
             NavigationQADeviceGeneration=InputStatus.ConnectionGeneration;
         }
         if(InputStatus.bRequiresPause&&!bFlightPaused&&!bBenchmark&&!bAcceptance&&!bGuidedTour&&!QAFocusOnly)
-        { StarDiagnostics::Event(TEXT("pause_cause"),TEXT("input_device_requires_pause"));SetFlightPaused(true);SetStatus(TEXT("入力機器を確認してください。安全のため一時停止しました。")); }
+        { StarDiagnostics::Event(TEXT("pause_cause"),FString::Printf(TEXT("input_device_requires_pause connected=%d focused=%d armed=%d generation=%u"),InputStatus.bConnected,InputStatus.bFocused,InputStatus.bArmed,InputStatus.ConnectionGeneration));SetFlightPaused(true);SetStatus(TEXT("入力機器を確認してください。安全のため一時停止しました。")); }
     }
     if(bGuidedTour) UpdateGuidedTourCommand(DeltaTime);
     if(bNavigationQA) UpdateNavigationQABeforeFlight();
@@ -1081,7 +1081,11 @@ bool AStarPlayerController::LoadGame()
     SetFlightAssistEnabled(bFlightAssistPreference);
     bSessionStarted=true;
     SetStatus(TEXT("飛行位置と発見記録を復元しました。"));
-    if(!NavigationBypassed()&&Navigation.Tick(*Ship->Simulation()).requiresSafetyPause) SetFlightPaused(true);
+    if(!NavigationBypassed()){
+        bMainMenu=false;if(HUD)HUD->SetMainMenuVisible(false);
+        StarDiagnostics::Event(TEXT("load_ready"),TEXT("Restored voyage; waiting for explicit resume"));
+        SetFlightPaused(true);
+    }
     const TSharedPtr<FJsonObject>* EVA=nullptr;
     if(Json->TryGetObjectField(TEXT("eva"),EVA))
     {
@@ -1115,7 +1119,10 @@ bool AStarPlayerController::LoadGame()
     }
     return true;
 }
-void AStarPlayerController::SetStatus(const FString& Message,double Seconds) { StatusMessage=Message;StatusExpires=Clock+Seconds; }
+void AStarPlayerController::SetStatus(const FString& Message,double Seconds) {
+    if(StatusMessage!=Message)StarDiagnostics::Event(TEXT("status"),Message);
+    StatusMessage=Message;StatusExpires=Clock+Seconds;
+}
 void AStarPlayerController::CapturePhoto()
 {
     if(bNavigationQA&&!bNavigationQAPathReady) return;

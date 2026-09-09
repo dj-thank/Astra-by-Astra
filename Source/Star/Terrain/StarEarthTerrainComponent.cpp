@@ -26,7 +26,29 @@ struct FTile
     star::Vec3d Anchor;
     FStarRemoteRaster Height,Color;
     TArray<uint8> Mask,WaterMask,LandMask;
+    TArray<FFloat16Color> DisplayColors;
+    int LandPixels=0;
 };
+bool PrepareDisplay(FTile& T,const std::atomic<bool>& Cancel)
+{
+    StarDiagnostics::FScope Scope(TEXT("terrain_prepare_pixels"));
+    const auto& C=T.Color;const auto* RGB=reinterpret_cast<const uint16*>(C.Samples.GetData());
+    T.DisplayColors.SetNumUninitialized(C.Width*C.Height);T.Mask.SetNumZeroed(AtlasTile*AtlasTile);
+    for(int Y=0;Y<C.Height;++Y){
+        if(Cancel.load())return false;
+        for(int X=0;X<C.Width;++X){
+            const int P=Y*C.Width+X;const bool Valid=RGB[P*4]||RGB[P*4+1]||RGB[P*4+2];
+            T.DisplayColors[P]=FFloat16Color(FLinearColor(RGB[P*4]*0.0001f,RGB[P*4+1]*0.0001f,RGB[P*4+2]*0.0001f,Valid&&T.LandMask[P]?1:0));
+            T.LandPixels+=Valid&&T.LandMask[P]?1:0;
+        }
+    }
+    for(int Y=0;Y<AtlasTile;++Y){
+        if(Cancel.load())return false;
+        for(int X=0;X<AtlasTile;++X){const int P=(Y*C.Height/AtlasTile)*C.Width+(X*C.Width/AtlasTile);
+            T.Mask[Y*AtlasTile+X]=T.WaterMask[P]||((RGB[P*4]||RGB[P*4+1]||RGB[P*4+2])&&T.LandMask[P])?255:0;}
+    }
+    T.Color.Samples.Empty();T.LandMask.Empty();return true;
+}
 UTexture2D* Texture(int W,int H,EPixelFormat Format,const void* Bytes,int64 Size)
 {
     auto* T=UTexture2D::CreateTransient(W,H,Format);if(!T)return nullptr;
@@ -166,6 +188,7 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
                     else T->Color.Error=TEXT("Measured water classification unavailable; keep global fallback");
                 }
                 T->Ready=T->Ready&&!JobCancel->load();
+                if(T->Ready)T->Ready=PrepareDisplay(*T,*JobCancel);
                 StarDiagnostics::Event(T->Ready?TEXT("terrain_download_ready"):JobCancel->load()?TEXT("terrain_download_cancelled"):TEXT("terrain_download_failed"),Name+TEXT(" ")+T->Color.Error+TEXT(" ")+T->Height.Error);
                 return T;
             });break;
@@ -176,17 +199,7 @@ void UStarEarthTerrainComponent::Upload(int32 Index)
 {
     StarDiagnostics::FScope DiagnosticScope(TEXT("terrain_gpu_upload"));
     auto& T=*State->Tiles[Index];const auto& C=T.Color;const auto& D=T.Height;
-    const auto* RGB=reinterpret_cast<const uint16*>(C.Samples.GetData());
-    TArray<FFloat16Color> Colors;Colors.SetNum(C.Width*C.Height);T.Mask.SetNumZeroed(AtlasTile*AtlasTile);
-    int LandPixels=0;
-    for(int Y=0;Y<C.Height;++Y)for(int X=0;X<C.Width;++X)
-    {
-        int P=Y*C.Width+X;const bool Valid=RGB[P*4]||RGB[P*4+1]||RGB[P*4+2];
-        Colors[P]=FFloat16Color(FLinearColor(RGB[P*4]*0.0001f,RGB[P*4+1]*0.0001f,RGB[P*4+2]*0.0001f,Valid&&T.LandMask[P]?1:0));
-        LandPixels+=Valid&&T.LandMask[P]?1:0;
-    }
-    for(int Y=0;Y<AtlasTile;++Y)for(int X=0;X<AtlasTile;++X)
-    {int P=(Y*C.Height/AtlasTile)*C.Width+(X*C.Width/AtlasTile);T.Mask[Y*AtlasTile+X]=T.WaterMask[P]||((RGB[P*4]||RGB[P*4+1]||RGB[P*4+2])&&T.LandMask[P])?255:0;}
+    const auto& Colors=T.DisplayColors;const int LandPixels=T.LandPixels;
     Images[Index]=Texture(C.Width,C.Height,PF_FloatRGBA,Colors.GetData(),Colors.Num()*sizeof(FFloat16Color));
     if(!Images[Index]){T.Ready=false;return;}
     WaterMasks[Index]=Texture(C.Width,C.Height,PF_G8,T.WaterMask.GetData(),T.WaterMask.Num());
@@ -238,7 +251,7 @@ void UStarEarthTerrainComponent::Upload(int32 Index)
     int WaterPixels=0;for(uint8 Value:T.WaterMask)WaterPixels+=Value?1:0;
     UE_LOG(LogTemp,Display,TEXT("STAR classified water: %s WorldCover v200/2021 class 80, water pixels %d/%d; shared global water BRDF"),*GeoName(T.Lat,T.Lon),WaterPixels,T.WaterMask.Num());
     UE_LOG(LogTemp,Display,TEXT("STAR observed land pixels: %s %d/%d"),*GeoName(T.Lat,T.Lon),LandPixels,C.Width*C.Height);
-    T.Height.Samples.Empty();T.Color.Samples.Empty();RefreshCoverage();
+    T.Height.Samples.Empty();T.DisplayColors.Empty();T.WaterMask.Empty();RefreshCoverage();
 }
 void UStarEarthTerrainComponent::RefreshCoverage()
 {

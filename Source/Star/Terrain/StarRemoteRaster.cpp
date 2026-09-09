@@ -1,4 +1,5 @@
 #include "Terrain/StarRemoteRaster.h"
+#include "Terrain/RangeCachePolicy.h"
 #include "Runtime/StarDiagnostics.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
@@ -20,7 +21,7 @@ struct FRangeReader
     uint64 Position=0,Size=0;
     double Deadline=FPlatformTime::Seconds()+150;
     TMap<uint64,TArray<uint8>> Blocks;
-    static constexpr uint64 BlockSize=1024*1024;
+    static constexpr uint64 BlockSize=star::terrain::RangeBlockBytes;
     bool Failed=false;
     bool Fetch(uint64 Index)
     {
@@ -28,8 +29,9 @@ struct FRangeReader
         if(Blocks.Contains(Index))return true;
         const FString Path=Directory/TEXT("range-")+LexToString(Index)+TEXT(".bin");
         TArray<uint8> Bytes;
-        if(IFileManager::Get().FileExists(*Path)&&FFileHelper::LoadFileToArray(Bytes,*Path)&&Bytes.Num()>0&&Bytes.Num()<=BlockSize)
+        if(IFileManager::Get().FileExists(*Path)&&FFileHelper::LoadFileToArray(Bytes,*Path)&&star::terrain::CompleteRangeBlock(Size,Index,Bytes.Num()))
         {Blocks.Add(Index,MoveTemp(Bytes));return true;}
+        if(!Bytes.IsEmpty())StarDiagnostics::Event(TEXT("raster_cache_incomplete"),FString::Printf(TEXT("source=%s block=%llu bytes=%d; refetch"),*FPaths::GetCleanFilename(Directory),Index,Bytes.Num()));
         struct FResponse {std::atomic<bool> Done{false};int Code=0;TArray<uint8> Data;FString Range;};
         auto Response=MakeShared<FResponse,ESPMode::ThreadSafe>();
         auto Request=FHttpModule::Get().CreateRequest();
@@ -52,7 +54,8 @@ struct FRangeReader
         FString Prefix,Total;if(!Response->Range.Split(TEXT("/"),&Prefix,&Total))return false;
         if(!Prefix.StartsWith(FString::Printf(TEXT("bytes %llu-"),Index*BlockSize)))return false;
         Size=FCString::Strtoui64(*Total,nullptr,10);
-        if(!Size||Size>4ull*1024*1024*1024)return false;
+        if(!star::terrain::CompleteRangeBlock(Size,Index,Response->Data.Num())){
+            StarDiagnostics::Event(TEXT("raster_range_incomplete"),FString::Printf(TEXT("source=%s block=%llu bytes=%d total=%llu"),*FPaths::GetCleanFilename(Directory),Index,Response->Data.Num(),Size));return false;}
         IFileManager::Get().MakeDirectory(*Directory,true);
         FFileHelper::SaveArrayToFile(Response->Data,*Path);
         FFileHelper::SaveStringToFile(LexToString(Size),*(Directory/TEXT("size.txt")));

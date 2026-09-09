@@ -2,6 +2,9 @@
 #include "Runtime/StarShipPawn.h"
 #include "Runtime/StarWorldDirector.h"
 #include "HAL/PlatformTime.h"
+#include "UI/StarHUDWidget.h"
+#include "Framework/Application/SlateApplication.h"
+#include "Input/Events.h"
 
 namespace {
 const TCHAR* LocalStages[]={TEXT("00_normal_start"),TEXT("01_C_accelerate"),TEXT("02_turn_right"),TEXT("03_turn_left"),
@@ -39,7 +42,14 @@ void AStarPlayerController::UpdateLocalFlightQABefore()
     switch(NavigationQAStage){
     case 0: if(Ship->IsCockpitView())HandleAction(TEXT("ToggleView"));break;
     case 1: case 9: HandleAction(TEXT("ToggleCruise"));break;
-    case 8: HandleAction(TEXT("Pause"));HandleAction(TEXT("ToggleCruise"));break;
+    case 8:
+        HandleAction(TEXT("Pause"));UpdateSnapshot(0);if(HUD)HUD->ApplySnapshot(Snapshot);
+        if(!RequireNavigationQA(HUD&&HUD->IsMenuOpen(),TEXT("Pause menu did not open for C key test")))return;
+        FSlateApplication::Get().ProcessKeyDownEvent(FKeyEvent(EKeys::C,FModifierKeysState(),0,false,0,0));
+        FSlateApplication::Get().ProcessKeyUpEvent(FKeyEvent(EKeys::C,FModifierKeysState(),0,false,0,0));
+        if(!RequireNavigationQA(!bFlightPaused&&Sim.State().mode==star::FlightMode::Maneuver,
+            TEXT("Real Slate C shortcut did not leave the pause menu and exit cruise")))return;
+        break;
     case 6: HandleAction(TEXT("Pause"));break;
     case 7: case 12: HandleAction(TEXT("Resume"));break;
     case 10: LocalFlightQASaved=Sim.State();if(!RequireNavigationQA(SaveGame(),TEXT("Local driving save failed")))return;break;

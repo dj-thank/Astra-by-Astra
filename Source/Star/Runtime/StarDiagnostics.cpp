@@ -23,7 +23,7 @@ struct FRecorder {
 };
 FRecorder& Recorder(){static FRecorder Value;return Value;}
 uint64 FrameNumber=0;
-double FrameStart=0,FrameDelta=0,NextSample=0;
+double FrameStart=0,FrameDelta=0,NextSample=0,PreviousFrameStart=0,WallFrameDelta=0;
 bool SampleFrame=false;
 const TCHAR* CurrentPhase=TEXT("startup");
 void WriteLocked(FRecorder& R,const TCHAR* Type,const TSharedRef<FJsonObject>& Json,bool Flush)
@@ -34,11 +34,12 @@ void WriteLocked(FRecorder& R,const TCHAR* Type,const TSharedRef<FJsonObject>& J
     Json->SetStringField(TEXT("utc"),FDateTime::UtcNow().ToIso8601());
     Json->SetNumberField(TEXT("monotonicSeconds"),FPlatformTime::Seconds());
     Json->SetNumberField(TEXT("frame"),IsInGameThread()?static_cast<double>(FrameNumber):-1);
+    Json->SetStringField(TEXT("thread"),IsInGameThread()?TEXT("game"):TEXT("worker"));
     FString Text;FJsonSerializer::Serialize(Json,TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Text));
     Text+=TEXT("\n");FTCHARToUTF8 Bytes(*Text);
     if(R.Writer->Tell()+Bytes.Length()>8*1024*1024){
         R.Writer->Flush();R.Writer.Reset();R.Part=(R.Part+1)%2;
-        R.Writer.Reset(IFileManager::Get().CreateFileWriter(*(R.Folder/FString::Printf(TEXT("flight-%d.jsonl"),R.Part))));
+        R.Writer.Reset(IFileManager::Get().CreateFileWriter(*(R.Folder/FString::Printf(TEXT("flight-%d.jsonl"),R.Part)),FILEWRITE_AllowRead));
         if(!R.Writer)return;
     }
     R.Writer->Serialize(const_cast<ANSICHAR*>(Bytes.Get()),Bytes.Length());
@@ -57,7 +58,7 @@ void StarDiagnostics::Initialize()
     R.Folder=FPaths::ProjectSavedDir()/TEXT("Diagnostics")/(FDateTime::UtcNow().ToString(TEXT("%Y%m%d-%H%M%S"))+
         FString::Printf(TEXT("-%u-"),FPlatformProcess::GetCurrentProcessId())+FGuid::NewGuid().ToString(EGuidFormats::Digits).Left(8));
     IFileManager::Get().MakeDirectory(*R.Folder,true);
-    R.Writer.Reset(IFileManager::Get().CreateFileWriter(*(R.Folder/TEXT("flight-0.jsonl"))));
+    R.Writer.Reset(IFileManager::Get().CreateFileWriter(*(R.Folder/TEXT("flight-0.jsonl")),FILEWRITE_AllowRead));
     auto Json=MakeShared<FJsonObject>();Json->SetNumberField(TEXT("schema"),1);
     FString Version;if(GConfig)GConfig->GetString(TEXT("/Script/EngineSettings.GeneralProjectSettings"),TEXT("ProjectVersion"),Version,GGameIni);
     Json->SetStringField(TEXT("version"),Version);Json->SetNumberField(TEXT("maximumSessionBytes"),16*1024*1024);
@@ -87,9 +88,10 @@ StarDiagnostics::FScope::~FScope(){Event(TEXT("operation_end"),Name,true,(FPlatf
 void StarDiagnostics::BeginFrame(double DeltaSeconds)
 {
     ++FrameNumber;FrameStart=FPlatformTime::Seconds();FrameDelta=DeltaSeconds;
+    WallFrameDelta=PreviousFrameStart>0?FrameStart-PreviousFrameStart:DeltaSeconds;PreviousFrameStart=FrameStart;
     SampleFrame=FrameStart>=NextSample;if(SampleFrame)NextSample=FrameStart+0.5;
     Phase(TEXT("input"));
-    if(DeltaSeconds>0.25)Event(TEXT("frame_gap"),TEXT("Time between game ticks exceeded 250 ms"),true,DeltaSeconds*1000);
+    if(WallFrameDelta>0.25)Event(TEXT("frame_gap"),TEXT("Actual time between game ticks exceeded 250 ms"),true,WallFrameDelta*1000);
 }
 void StarDiagnostics::Phase(const TCHAR* Name)
 {CurrentPhase=Name;if(SampleFrame)Event(TEXT("phase_begin"),Name);}
@@ -104,6 +106,7 @@ void StarDiagnostics::Flight(const star::FlightSimulation& Sim,const star::Fligh
     if(!SampleFrame)return;
     const auto& S=Sim.State();auto Json=MakeShared<FJsonObject>();
     Json->SetStringField(TEXT("phase"),PhaseName);Json->SetNumberField(TEXT("frameDelta"),FrameDelta);
+    Json->SetNumberField(TEXT("wallFrameDelta"),WallFrameDelta);
     Json->SetNumberField(TEXT("worldUtc"),Utc);Json->SetNumberField(TEXT("simulationSeconds"),S.simulationTimeSeconds);
     Json->SetNumberField(TEXT("mode"),static_cast<int>(S.mode));Json->SetNumberField(TEXT("speedMps"),S.velocityMetersPerSecond.Length());
     Json->SetNumberField(TEXT("throttle"),S.throttle);Json->SetNumberField(TEXT("inputThrottle"),Input.throttle);

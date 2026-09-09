@@ -1,5 +1,6 @@
 #include "FlightSimulation.h"
 #include "EarthFlight.h"
+#include "../../Source/Star/Terrain/RangeCachePolicy.h"
 
 #include <cmath>
 #include <functional>
@@ -240,6 +241,13 @@ void EarthScenicFlight() {
     }
 }
 void LocalPlanetDrive() {
+    using star::terrain::CompleteRangeBlock;
+    constexpr std::uint64_t block=star::terrain::RangeBlockBytes;
+    Check(!CompleteRangeBlock(0,0,block),"cache without complete size metadata must refetch");
+    Check(!CompleteRangeBlock(block*3,1,1234),"interrupted middle block must refetch");
+    Check(CompleteRangeBlock(block*3,1,block),"complete middle block is reusable");
+    Check(CompleteRangeBlock(block+123,1,123),"short final range is valid only at exact expected size");
+    Check(!CompleteRangeBlock(block+123,1,122)&&!CompleteRangeBlock(block+123,2,1),"truncated and out-of-file ranges rejected");
     BodyDefinition earth;earth.id="earth";earth.radiusMeters=6371000;earth.atmosphereHeightMeters=15000;
     earth.centerMeters={1.49e11,-4e10,2e10};
     FlightSimulation sim({earth});FlightState s;

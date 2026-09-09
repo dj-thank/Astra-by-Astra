@@ -597,6 +597,7 @@ FReply UStarHUDWidget::NativeOnPreviewKeyDown(const FGeometry& Geometry, const F
             if(Key==EKeys::F) return Activate(TEXT("FlightContext"),1);
             if(Key==EKeys::O) return Activate(TEXT("ToggleAutopilot"),1);
             if(Key==EKeys::B) return Activate(TEXT("NavigationSafeBrake"),1);
+            if(Key==EKeys::C) return Activate(TEXT("ToggleCruise"),1);
         }
         if (Key == EKeys::PageUp || Key == EKeys::PageDown || Key == EKeys::Gamepad_LeftShoulder || Key == EKeys::Gamepad_RightShoulder)
         {
