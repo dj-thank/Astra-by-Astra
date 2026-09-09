@@ -67,7 +67,12 @@ double Vec3d::LengthSquared() const { return x*x+y*y+z*z; }
 bool Vec3d::IsFinite() const { return std::isfinite(x)&&std::isfinite(y)&&std::isfinite(z); }
 Vec3d Vec3d::Normalized(Vec3d fallback) const {
     const double length = Length();
-    return IsFinite() && length > 1.0e-14 ? *this / length : fallback;
+    if(!IsFinite()||length<=1.0e-14) return fallback;
+    if(std::isfinite(length)) return *this/length;
+    // Finite components can still overflow their norm. Scale first in that case.
+    const double scale=std::max({std::abs(x),std::abs(y),std::abs(z)});
+    const Vec3d scaled=*this/scale;
+    return scaled/scaled.Length();
 }
 double Vec3d::Dot(const Vec3d& a,const Vec3d& b) { return a.x*b.x+a.y*b.y+a.z*b.z; }
 Vec3d Vec3d::Cross(const Vec3d& a,const Vec3d& b) { return {a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x}; }
@@ -79,7 +84,11 @@ Quatd Quatd::operator*(const Quatd& b) const {
 Quatd Quatd::Conjugate() const { return {w,-x,-y,-z}; }
 Quatd Quatd::Normalized() const {
     const double n = std::hypot(std::hypot(w,x),std::hypot(y,z));
-    return IsFinite() && n > 1.0e-14 ? Quatd{w/n,x/n,y/n,z/n} : Quatd{};
+    if(!IsFinite()||n<=1.0e-14) return {};
+    if(std::isfinite(n)) return {w/n,x/n,y/n,z/n};
+    const double scale=std::max({std::abs(w),std::abs(x),std::abs(y),std::abs(z)});
+    const Quatd scaled{w/scale,x/scale,y/scale,z/scale};
+    return scaled.Normalized();
 }
 bool Quatd::IsFinite() const { return std::isfinite(w)&&std::isfinite(x)&&std::isfinite(y)&&std::isfinite(z); }
 Vec3d Quatd::Rotate(const Vec3d& v) const {
@@ -222,15 +231,35 @@ FlightSimulation::Surface FlightSimulation::SampleSurface(const BodyDefinition& 
 }
 bool FlightSimulation::UpdateCelestialFrames(const std::vector<BodyDefinition>& bodies) {
     if(bodies.size()!=bodies_.size()) return false;
-    for(std::size_t i=0;i<bodies.size();++i)
-        if(bodies[i].id!=bodies_[i].id||!bodies[i].centerMeters.IsFinite()||!bodies[i].bodyFixedToSimulation.IsFinite()) return false;
+    auto pending=bodies;
+    for(std::size_t i=0;i<pending.size();++i) {
+        auto& b=pending[i];
+        const auto& r=b.bodyFixedToSimulation;
+        const double norm=std::hypot(std::hypot(r.w,r.x),std::hypot(r.y,r.z));
+        if(b.id!=bodies_[i].id||!b.centerMeters.IsFinite()||b.centerMeters.Length()>=1.0e18||
+           !std::isfinite(b.radiusMeters)||b.radiusMeters<1.0||b.radiusMeters>1.0e11||
+           !std::isfinite(b.atmosphereHeightMeters)||b.atmosphereHeightMeters<0||b.atmosphereHeightMeters>b.radiusMeters||
+           !std::isfinite(b.terrainMinHeightMeters)||b.terrainMinHeightMeters<-b.radiusMeters*0.5||b.terrainMinHeightMeters>b.radiusMeters*0.5||
+           !std::isfinite(b.terrainMaxHeightMeters)||b.terrainMaxHeightMeters<b.terrainMinHeightMeters||b.terrainMaxHeightMeters>b.radiusMeters*0.5||
+           !std::isfinite(b.terrainMaxSlope)||b.terrainMaxSlope<0||b.terrainMaxSlope>100||
+           !r.IsFinite()||!std::isfinite(norm)||norm<=1.0e-12) return false;
+        b.bodyFixedToSimulation=b.bodyFixedToSimulation.Normalized();
+    }
     const auto* from=NearestReferenceBody(bodies_,state_);if(!from)return false;
-    const auto index=static_cast<std::size_t>(from-bodies_.data());const auto& to=bodies[index];
+    const auto index=static_cast<std::size_t>(from-bodies_.data());const auto& to=pending[index];
     const auto q=(to.bodyFixedToSimulation*from->bodyFixedToSimulation.Conjugate()).Normalized();
-    state_=TransportFlightFrame(state_,*from,to);
-    guidanceAcceleration_=q.Rotate(guidanceAcceleration_);
-    guidanceReleasePosition_=to.centerMeters+q.Rotate(guidanceReleasePosition_-from->centerMeters);
-    bodies_=bodies;return true;
+    const auto state=TransportFlightFrame(state_,*from,to);
+    const auto acceleration=q.Rotate(guidanceAcceleration_);
+    const auto release=to.centerMeters+q.Rotate(guidanceReleasePosition_-from->centerMeters);
+    if(!ValidStateData(state)||!acceleration.IsFinite()||!release.IsFinite()) return false;
+    if(state.mode==FlightMode::Landed) {
+        const auto offset=state.positionMeters-to.centerMeters;
+        const auto surface=SampleSurface(to,offset.Normalized());
+        if(!to.landable||std::abs(offset.Length()-to.radiusMeters-surface.height-config_.landingClearanceMeters)>1.0) return false;
+    }
+    // No partially updated flight, guidance, or body data on rejection.
+    state_=state;guidanceAcceleration_=acceleration;guidanceReleasePosition_=release;
+    bodies_=std::move(pending);return true;
 }
 bool FlightSimulation::RestoreState(const FlightState& s) {
     if(!ValidStateData(s)||(!s.targetBodyId.empty()&&!FindBody(s.targetBodyId)))return false;

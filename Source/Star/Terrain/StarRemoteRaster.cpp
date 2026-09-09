@@ -1,5 +1,6 @@
 #include "Terrain/StarRemoteRaster.h"
 #include "Terrain/RangeCachePolicy.h"
+#include "Terrain/RasterReadPolicy.h"
 #include "Runtime/StarDiagnostics.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
@@ -51,11 +52,10 @@ struct FRangeReader
         }
         if(Response->Code!=206||Response->Data.IsEmpty()||Response->Data.Num()>BlockSize){
             StarDiagnostics::Event(TEXT("raster_http_failed"),FString::Printf(TEXT("source=%s block=%llu http=%d bytes=%d"),*FPaths::GetCleanFilename(Directory),Index,Response->Code,Response->Data.Num()));return false;}
-        FString Prefix,Total;if(!Response->Range.Split(TEXT("/"),&Prefix,&Total))return false;
-        if(!Prefix.StartsWith(FString::Printf(TEXT("bytes %llu-"),Index*BlockSize)))return false;
-        Size=FCString::Strtoui64(*Total,nullptr,10);
-        if(!star::terrain::CompleteRangeBlock(Size,Index,Response->Data.Num())){
+        std::uint64_t CheckedSize=0;
+        if(!star::terrain::ValidateRangeResponse(TCHAR_TO_UTF8(*Response->Range),Index,Response->Data.Num(),Size,CheckedSize)){
             StarDiagnostics::Event(TEXT("raster_range_incomplete"),FString::Printf(TEXT("source=%s block=%llu bytes=%d total=%llu"),*FPaths::GetCleanFilename(Directory),Index,Response->Data.Num(),Size));return false;}
+        Size=CheckedSize;
         IFileManager::Get().MakeDirectory(*Directory,true);
         FFileHelper::SaveArrayToFile(Response->Data,*Path);
         FFileHelper::SaveStringToFile(LexToString(Size),*(Directory/TEXT("size.txt")));
@@ -93,10 +93,14 @@ void Unmap(thandle_t,void*,toff_t){}
 
 bool FStarRemoteRaster::Load(const FString& Url,int32 MaximumDimension,const FString& Cache,const std::atomic<bool>& Cancel)
 {
+    if(MaximumDimension<=0){Error=TEXT("Invalid raster dimension limit");return false;}
     SourceUrl=Url;
     FRangeReader R{Url,Cache/FMD5::HashAnsiString(*Url),Cancel};
     FString SizeText;
-    if(IFileManager::Get().FileExists(*(R.Directory/TEXT("size.txt")))&&FFileHelper::LoadFileToString(SizeText,*(R.Directory/TEXT("size.txt"))))R.Size=FCString::Strtoui64(*SizeText,nullptr,10);
+    if(IFileManager::Get().FileExists(*(R.Directory/TEXT("size.txt")))&&FFileHelper::LoadFileToString(SizeText,*(R.Directory/TEXT("size.txt")))) {
+        std::uint64_t CachedSize=0;
+        if(star::terrain::ParseRangeFileSize(TCHAR_TO_UTF8(*SizeText),CachedSize))R.Size=CachedSize;
+    }
     if(!R.Fetch(0)||!R.Size){Error=TEXT("HTTP range unavailable");return false;}
     TIFF* T=TIFFClientOpen("STAR observed raster","rm",&R,Read,Write,Seek,Close,Size,Map,Unmap);
     if(!T){Error=TEXT("Invalid TIFF");return false;}
@@ -112,16 +116,20 @@ bool FStarRemoteRaster::Load(const FString& Url,int32 MaximumDimension,const FSt
     TIFFGetField(T,TIFFTAG_IMAGEWIDTH,&W);TIFFGetField(T,TIFFTAG_IMAGELENGTH,&H);
     TIFFGetFieldDefaulted(T,TIFFTAG_SAMPLESPERPIXEL,&C);TIFFGetFieldDefaulted(T,TIFFTAG_BITSPERSAMPLE,&B);
     TIFFGetFieldDefaulted(T,TIFFTAG_SAMPLEFORMAT,&Format);TIFFGetFieldDefaulted(T,TIFFTAG_PLANARCONFIG,&Planar);
-    if(!TIFFIsTiled(T)||Planar!=PLANARCONFIG_CONTIG||C>4||(B!=8&&B!=16&&B!=32))
+    if(!TIFFIsTiled(T)||Planar!=PLANARCONFIG_CONTIG||!C||C>4||(B!=8&&B!=16&&B!=32))
     {TIFFClose(T);Error=TEXT("Unsupported TIFF layout");return false;}
     TIFFGetField(T,TIFFTAG_TILEWIDTH,&TW);TIFFGetField(T,TIFFTAG_TILELENGTH,&TH);
     const int64 TileBytes=TIFFTileSize64(T),Stride=C*(B/8);
-    if(!TW||!TH||TileBytes<=0||TileBytes>64*1024*1024){TIFFClose(T);return false;}
-    TArray<uint8> Tile;Tile.SetNumUninitialized(TileBytes);Samples.SetNumZeroed(int64(W)*H*Stride);
+    std::uint64_t SampleBytes=0;
+    if(TileBytes<=0||!star::terrain::BoundedRasterLayout(W,H,C,B,MaximumDimension,TW,TH,TileBytes,SampleBytes))
+    {TIFFClose(T);Error=TEXT("Invalid or oversized raster layout");return false;}
+    TArray<uint8> Tile;Tile.SetNumUninitialized(static_cast<int32>(TileBytes));Samples.SetNumZeroed(static_cast<int32>(SampleBytes));
     bool Ok=true;
     for(uint32 Y=0;Y<H&&Ok;Y+=TH)for(uint32 X=0;X<W&&Ok;X+=TW)
     {
-        if(Cancel.load()||TIFFReadEncodedTile(T,TIFFComputeTile(T,X,Y,0,0),Tile.GetData(),TileBytes)<0){Ok=false;break;}
+        if(Cancel.load()){Ok=false;break;}
+        const auto Decoded=TIFFReadEncodedTile(T,TIFFComputeTile(T,X,Y,0,0),Tile.GetData(),TileBytes);
+        if(!star::terrain::CompleteDecodedTile(Decoded,static_cast<std::uint64_t>(TileBytes))){Ok=false;break;}
         for(uint32 Row=0;Row<FMath::Min(TH,H-Y);++Row)
             FMemory::Memcpy(Samples.GetData()+(int64(Y+Row)*W+X)*Stride,Tile.GetData()+int64(Row)*TW*Stride,FMath::Min(TW,W-X)*Stride);
     }

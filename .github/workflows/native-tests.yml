@@ -7,11 +7,17 @@ permissions:
 jobs:
   core:
     runs-on: windows-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Flight simulation
         shell: pwsh
         run: ./Tools/Simulation/Test-Native.ps1
+      - name: Malformed data and raster safety regressions
+        shell: pwsh
+        run: ./Tools/Simulation/Test-Robustness.ps1
       - name: Audio routing
         shell: pwsh
         run: ./Tools/Audio/Test-Routing.ps1
@@ -26,3 +32,12 @@ jobs:
       - name: Continuous world and solar geometry
         shell: pwsh
         run: ./Tools/Simulation/Test-WorldContinuity.ps1
+  sanitizers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: All self-contained native suites with memory and UB checks
+        run: python3 Tools/Testing/run_native.py --sanitize --compiler clang++ --jobs 2
