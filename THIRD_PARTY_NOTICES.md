@@ -16,7 +16,7 @@
 | ESO/S. Brunierの天の川 | CC BY 4.0。クレジットを維持 |
 | EOXのSentinelモザイク | CC BY 4.0。クレジットを維持 |
 | Poly Haven / ambientCGの表面素材 | CC0 |
-| SDL 3 | zlib。`Plugins/StarFlightInput/ThirdParty/SDL3/LICENSE.txt` |
+| SDL 3 | zlib。`ソースの Plugins/StarFlightInput/ThirdParty/SDL3/LICENSE.txt、実行版の licenses/SDL3.txt` |
 | Noto Sans JP | SIL Open Font License 1.1。素材パックの `Content/Star/UI/Fonts/OFL.txt` |
 | Unreal Engineとそこから生成するVRマテリアル | EpicのEULA。エンジン本体・Editor用ツールを一般公開リポジトリへ再配布しない |
 
