@@ -38,7 +38,12 @@ template<class T> struct TArray {
     void Empty(){values.clear();}
 };
 struct FMD5{static FString HashAnsiString(const char*){return "host-cache-disabled";}};
-struct IFileManager{static IFileManager& Get(){static IFileManager f;return f;}bool FileExists(const char*){return false;}};
+struct IFileManager{
+    static IFileManager& Get(){static IFileManager f;return f;}
+    bool FileExists(const char*){return false;}
+    int64 FileSize(const char* path){std::error_code error;const auto size=std::filesystem::file_size(path,error);return error?-1:static_cast<int64>(size);}
+};
+struct FPlatformTime{static double Seconds(){return 0.0;}};
 namespace FFileHelper{bool LoadFileToString(FString&,const char*){return false;}}
 namespace FMath{template<class T>T Min(T a,T b){return std::min(a,b);}}
 namespace FMemory{void Memcpy(void* dst,const void* src,int64 n){std::memcpy(dst,src,static_cast<std::size_t>(n));}}
@@ -48,7 +53,7 @@ int injectedFailures=0,injectedCancels=0;
 std::atomic<bool>* cancelTarget=nullptr;
 struct FRangeReader {
     FString Url,Directory;const std::atomic<bool>& Cancel;
-    uint64 Position=0,Size=0;bool Failed=false;std::vector<uint8> bytes{};
+    uint64 Position=0,Size=0;double Deadline=150;bool Failed=false;std::vector<uint8> bytes{};
     FRangeReader(FString url,FString directory,const std::atomic<bool>& cancel):Url(std::move(url)),Directory(std::move(directory)),Cancel(cancel){}
     bool Fetch(uint64){
         if(Cancel.load())return false;
