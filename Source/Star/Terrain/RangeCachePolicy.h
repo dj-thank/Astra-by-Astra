@@ -1,11 +1,13 @@
 #pragma once
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <string_view>
 namespace star::terrain {
 constexpr std::uint64_t RangeBlockBytes=1024*1024;
 constexpr std::uint64_t MaxRangeFileBytes=4ull*1024*1024*1024;
+constexpr std::size_t MaxResidentRangeBlocks=32;
 // TIFF's toff_t is unsigned, but CUR/END encode a signed relative displacement
 // in it. Check both directions without signed conversion or unsigned wraparound.
 inline bool RangeSeekPosition(std::uint64_t size,std::uint64_t position,
@@ -46,6 +48,18 @@ inline bool RangeNumber(std::string_view& text,std::uint64_t& result) {
     }
     result=n;return true;
 }
+}
+// A compressed Content-Encoding describes a different byte representation.
+// Accept only an absent encoding or identity for byte-addressed TIFF reads.
+inline bool IdentityRangeEncoding(std::string_view encoding) {
+    if(encoding.size()>128)return false;
+    detail::TrimRangeWhitespace(encoding);
+    if(encoding.empty())return true;
+    constexpr std::string_view identity="identity";
+    if(encoding.size()!=identity.size())return false;
+    for(std::size_t i=0;i<identity.size();++i)
+        if(encoding[i]!=identity[i]&&encoding[i]!=identity[i]-'a'+'A')return false;
+    return true;
 }
 inline bool ParseRangeFileSize(std::string_view text,std::uint64_t& size) {
     if(text.size()>128)return false;
