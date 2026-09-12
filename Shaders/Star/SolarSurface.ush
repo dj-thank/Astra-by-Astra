@@ -1,0 +1,25 @@
+// Observation-anchored detail; periodic local flow is an artistic model.
+float phi=(UV.x-0.5)*6.283185307;
+float lat=(0.5-UV.y)*3.14159265;
+float3 n=float3(cos(lat)*cos(phi),cos(lat)*sin(phi),sin(lat));
+float a=SolarTime*6.283185307/60.0;
+float activity=sm.FBM(n*16.0);
+float2 flow=float2(sin(a+activity*7.0),cos(a+activity*9.0))*0.0014*sin(lat+1.5707963);
+// UE sphere UV has longitude [-pi,pi], source atlas has [0,2pi].
+float2 observed=float2(frac(UV.x+0.5),UV.y);
+float3 aia=Texture2DSample(AiaTex,AiaTexSampler,observed+flow).rgb;
+float hmi=Texture2DSample(HmiTex,HmiTexSampler,observed).r;
+float valid=Texture2DSample(QualityTex,QualityTexSampler,observed).b;
+float granule=sm.Noise(n*380.0+float3(sin(a*2.0),cos(a*2.0),sin(a))*0.35);
+float detail=max(aia.r,max(aia.g,aia.b));
+float intensity=(0.12+2.6*pow(max(detail,0.0),1.2))*(0.74+0.26*granule)*lerp(0.38,1.0,smoothstep(0.1,0.65,hmi));
+float3 warm=lerp(float3(1.0,0.045,0.003),float3(1.0,0.52,0.13),saturate(detail*1.5));
+// Missing polar observations receive explicitly modeled granulation.
+float polar=sm.FBM(n*48.0+float3(sin(a),cos(a),sin(a*2.0))*0.18);
+float polarBrightness=0.18+1.45*polar*polar+0.10*granule;
+float3 polarColor=lerp(float3(1.0,0.065,0.007),float3(1.0,0.52,0.13),saturate(polar*1.8));
+intensity=lerp(polarBrightness,intensity,smoothstep(0.1,0.9,valid));
+warm=lerp(polarColor,warm,smoothstep(0.1,0.9,valid));
+// Display compression only on the close solar disk; lighting stays photometric.
+float3 observedDisk=baseSun*warm*intensity*0.012;
+return lerp(baseSun,observedDisk,SolarDetail);

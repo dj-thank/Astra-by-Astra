@@ -1,0 +1,4 @@
+float period=lerp(30.0,90.0,step(0.5,Seed.r));
+float life=frac(SolarTime/period+Seed.r);
+float growth=smoothstep(0.0,0.32,life)*(1.0-smoothstep(0.72,1.0,life));
+return RadialNormal*SolarScaleCm*UV.y*(growth-1.0)*0.70;

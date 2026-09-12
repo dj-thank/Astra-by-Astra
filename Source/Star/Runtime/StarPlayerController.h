@@ -79,6 +79,9 @@ private:
     void CapturePhoto();
     void SetStatus(const FString& Message,double Seconds=5.0);
     void UpdateBenchmark(double Dt);
+    void UpdateSolarQA(double Dt);
+    FDelegateHandle SolarScreenshotHandle;
+    int32 SolarLastCapture=-1;
     void TickAstronomyQA();
     void UpdateUnifiedWorldQA(double Dt);
     bool UnifiedStartedNormally=false, UnifiedGuideChecked=false, UnifiedGuidePreserved=false;

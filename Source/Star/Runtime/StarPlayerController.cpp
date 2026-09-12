@@ -35,6 +35,10 @@
 #include "Serialization/JsonSerializer.h"
 #include "UnrealClient.h"
 #include <cfloat>
+#include "ImageUtils.h"
+#include "IImageWrapperModule.h"
+#include "IImageWrapper.h"
+#include "Modules/ModuleManager.h"
 
 namespace {
 bool IsEarthFlightPose(const FString& Pose) {
@@ -126,6 +130,7 @@ void AStarPlayerController::BeginPlay()
 }
 void AStarPlayerController::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(SolarScreenshotHandle.IsValid())UGameViewportClient::OnScreenshotCaptured().Remove(SolarScreenshotHandle);
     if(auto* Plugin=FStarFlightInputModule::GetIfAvailable()) Plugin->SetGameplayEnabled(false);
     if(InputSettings) { InputSettings->OnClose.Unbind();InputSettings->RemoveFromParent(); }
     if(HUD) { HUD->OnAction.Unbind();HUD->RemoveFromParent(); }
@@ -378,6 +383,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
         }
         Controls={};Controls.hasThrottle=true;Controls.throttle=BenchmarkThrottle;Controls.paused=bFlightPaused||bPhotoMode;
         Controls.yaw=(!FParse::Param(FCommandLine::Get(),TEXT("StarEarthLayerQA"))&&BenchmarkStageTime>=12.0&&BenchmarkStageTime<15.0)?0.12:0.0;
+        if(FParse::Param(FCommandLine::Get(),TEXT("StarSunQA")))Controls.yaw=0;
     }
     if(bBenchmark&&FParse::Param(FCommandLine::Get(),TEXT("StarTimeQA")))
     { TickAstronomyQA();Controls.paused=bFlightPaused||bPhotoMode; }
@@ -816,10 +822,11 @@ void AStarPlayerController::HandleAction(FName Action,float Value)
     else if(Action==TEXT("TargetEarth")) SelectTarget(TEXT("earth"));
     else if(Action==TEXT("TargetMoon")) SelectTarget(TEXT("moon"));
     else if(Action==TEXT("TargetSaturn")) SelectTarget(TEXT("saturn"));
+    else if(Action==TEXT("TargetSun")) SelectTarget(TEXT("sun"));
     else if(Action==TEXT("TargetNext"))
     {
         const auto Id=Sim->State().targetBodyId;
-        SelectTarget(Id=="earth"?TEXT("moon"):Id=="moon"?TEXT("saturn"):TEXT("earth"));
+        SelectTarget(Id=="earth"?TEXT("moon"):Id=="moon"?TEXT("saturn"):Id=="saturn"?TEXT("sun"):TEXT("earth"));
     }
     else if(Action==TEXT("RecenterLook")) Ship->RecenterLook();
     else if(Action==TEXT("TogglePhoto"))
@@ -1236,6 +1243,17 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
         }
         if(IsEarthFlightPose(EarthPose))
             State=star::MakeEarthFlight(Catalog.Find(TEXT("earth"))->Definition,Catalog.Find(TEXT("sun"))->Definition.centerMeters,EarthFlightPresetForPose(EarthPose));
+        if(FParse::Param(FCommandLine::Get(),TEXT("StarSunQA")))
+        {
+            const auto& Sun=Catalog.Find(TEXT("sun"))->Definition;
+            double Start=120;FParse::Value(FCommandLine::Get(),TEXT("StarSunStartR="),Start);
+            double Speed=4;FParse::Value(FCommandLine::Get(),TEXT("StarSunSpeedR="),Speed);
+            const auto X=Sun.bodyFixedToSimulation.Rotate({1,0,0}),Y=Sun.bodyFixedToSimulation.Rotate({0,1,0}),Z=Sun.bodyFixedToSimulation.Rotate({0,0,1});
+            State.positionMeters=Sun.centerMeters+(X*Start+Y*8+Z*2)*Sun.radiusMeters;
+            State.velocityMetersPerSecond=-X*(Sun.radiusMeters*Speed);State.orientation=star::Quatd::FromForwardUp(-X,Z);
+            State.mode=star::FlightMode::Cruise;State.targetBodyId="moon";State.throttleNeutralRequired=false;
+            BenchmarkThrottle=static_cast<float>(Sun.radiusMeters*Speed/(50.0*star::SpeedOfLightMps));State.throttle=BenchmarkThrottle;
+        }
         if(!Unified&&Ship->RestoreFlight(State)) ResetNavigation();
         if(BenchmarkStage==0)
         {
@@ -1246,6 +1264,12 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
         if(IsEarthFlightPose(EarthPose)) ConfigureFlightCaptureView(Ship,EarthFlightPresetForPose(EarthPose),Catalog.Find(TEXT("earth"))->Definition);
         const bool WantCockpit=Unified?Ship->IsCockpitView():bVRRequested || BenchmarkStage==3 || (IsEarthFlightPose(EarthPose)&&FParse::Param(FCommandLine::Get(),TEXT("StarEarthFlightCockpit")));
         if(WantCockpit!=Ship->IsCockpitView()) Ship->ToggleView();
+        if(FParse::Param(FCommandLine::Get(),TEXT("StarSunQA")))
+        {
+            Ship->ClearGuidedCamera();
+            const auto& Sun=Catalog.Find(TEXT("sun"))->Definition;
+            Ship->SetGuidedCameraOffset(Sun.bodyFixedToSimulation.Rotate({160,50,40}),0.25);
+        }
         if(IsEarthFlightPose(EarthPose) && !bBenchmarkPitchOverride && WantCockpit) Ship->SetLook(0,EarthPose==TEXT("nightflight")?-25:-8,false);
         if(BenchmarkStage==3) Ship->SetLook(BenchmarkLookYaw,bBenchmarkPitchOverride?BenchmarkLookPitch:-12,false);
         else if(BenchmarkLookYaw!=0||bBenchmarkPitchOverride) Ship->SetLook(BenchmarkLookYaw,BenchmarkLookPitch,false);
@@ -1282,6 +1306,7 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
         FFileHelper::SaveStringToFile(Json,*(BenchmarkPath/FString::Printf(TEXT("scene-%d.json"),BenchmarkStage)),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
     }
     FString EarthCameraPose;
+    if(FParse::Param(FCommandLine::Get(),TEXT("StarSunQA")))UpdateSolarQA(Dt);
     if(FParse::Value(FCommandLine::Get(),TEXT("StarBenchmarkEarth="),EarthCameraPose) && !IsEarthFlightPose(EarthCameraPose))
     {
         const auto& Earth=Ship->Director()->Catalog().Find(TEXT("earth"))->Definition;
@@ -1392,4 +1417,43 @@ void AStarPlayerController::UpdateBenchmark(double Dt)
         FFileHelper::SaveStringToFile(Text,*(BenchmarkPath/FString::Printf(TEXT("scene-%d.json"),BenchmarkStage)),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
         FScreenshotRequest::RequestScreenshot(BenchmarkPath/FString::Printf(TEXT("scene-%d.png"),BenchmarkStage),bBenchmarkShowUI,false);
     }
+}
+void AStarPlayerController::UpdateSolarQA(double Dt)
+{
+    if(FParse::Param(FCommandLine::Get(),TEXT("StarSunLifecycleQA")))
+    {
+        static int32 Step=0;static double Frozen=0,Saved=0;
+        auto Event=[&](const TCHAR* Name,bool Pass){const FString Line=FString::Printf(TEXT("{\"test\":\"%s\",\"pass\":%s,\"utc\":%.9f}\n"),Name,Pass?TEXT("true"):TEXT("false"),Ship->Director()->WorldUtc());FFileHelper::SaveStringToFile(Line,*(BenchmarkPath/TEXT("solar-lifecycle.jsonl")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM,&IFileManager::Get(),FILEWRITE_Append);};
+        if(Step==0&&BenchmarkStageTime>=4){SetFlightPaused(true);Frozen=Ship->Director()->WorldUtc();++Step;}
+        if(Step==1&&BenchmarkStageTime>=6){Event(TEXT("pause-freezes-solar-phase"),Frozen==Ship->Director()->WorldUtc());SetFlightPaused(false);++Step;}
+        if(Step==2&&BenchmarkStageTime>=8){Event(TEXT("resume-advances-phase"),Ship->Director()->WorldUtc()>Frozen);Saved=Ship->Director()->WorldUtc();Event(TEXT("save"),SaveGame());++Step;}
+        if(Step==3&&BenchmarkStageTime>=10){HandleAction(TEXT("ClockHour"),1);Event(TEXT("clock-changes-phase"),Ship->Director()->WorldUtc()>Saved+3599);++Step;}
+        if(Step==4&&BenchmarkStageTime>=12){const bool Loaded=LoadGame();Event(TEXT("reload-restores-solar-phase"),Loaded&&Ship->Director()->WorldUtc()==Saved);SetFlightPaused(false);++Step;}
+    }
+    const auto& Sun=Ship->Director()->Catalog().Find(TEXT("sun"))->Definition;
+    const auto Radial=(Ship->Simulation()->State().positionMeters-Sun.centerMeters).Normalized();
+    const auto Up=Sun.bodyFixedToSimulation.Rotate({0,0,1});
+    const auto Side=star::Vec3d::Cross(Up,Radial).Normalized();
+    Ship->SetGuidedCameraOffset(Radial*160+Side*50+Up*40,Dt);
+    Ship->LookAtAbsolute(Sun.centerMeters,Dt*2.0);
+    const bool Movie=FParse::Param(FCommandLine::Get(),TEXT("StarSunMovie"));
+    if(Movie&&!SolarScreenshotHandle.IsValid())
+    {
+        SolarScreenshotHandle=UGameViewportClient::OnScreenshotCaptured().AddLambda([](int32 W,int32 H,const TArray<FColor>& Pixels)
+        {
+            TArray<FColor> Small;FImageUtils::ImageResize(W,H,Pixels,1920,1080,Small,true);
+            auto& M=FModuleManager::LoadModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));auto Wrapper=M.CreateImageWrapper(EImageFormat::JPEG);
+            if(Wrapper->SetRaw(Small.GetData(),Small.Num()*sizeof(FColor),1920,1080,ERGBFormat::BGRA,8))
+                FFileHelper::SaveArrayToFile(Wrapper->GetCompressed(87),*FPaths::ChangeExtension(FScreenshotRequest::GetFilename(),TEXT("jpg")));
+        });
+    }
+    const int32 Bucket=FMath::FloorToInt(BenchmarkStageTime*(Movie?8.0:2.0));
+    if(Bucket==SolarLastCapture)return;SolarLastCapture=Bucket;
+    const auto& S=Ship->Simulation()->State();const auto P=(S.positionMeters-Sun.centerMeters)/Sun.radiusMeters;
+    const double Angle=2*FMath::Asin(1.0/(Ship->CameraAbsoluteMeters()-Sun.centerMeters).Length()*Sun.radiusMeters)*180/PI;
+    const FString Name=FString::Printf(TEXT("solar-%05d.jpg"),Bucket);
+    const FString Line=FString::Printf(TEXT("{\"file\":\"%s\",\"t\":%.6f,\"utc\":%.6f,\"simulationTime\":%.6f,\"radius\":%.6f,\"angle\":%.6f,\"positionR\":[%.9f,%.9f,%.9f],\"speed\":%.6f,\"recoveries\":%llu,\"paused\":%s,\"shipHidden\":%s}\n"),
+        *Name,BenchmarkStageTime,Ship->Director()->WorldUtc(),S.simulationTimeSeconds,P.Length(),Angle,P.x,P.y,P.z,S.velocityMetersPerSecond.Length(),static_cast<unsigned long long>(S.recoveryCount),bFlightPaused?TEXT("true"):TEXT("false"),Ship->IsHidden()?TEXT("true"):TEXT("false"));
+    FFileHelper::SaveStringToFile(Line,*(BenchmarkPath/TEXT("solar-flight.jsonl")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM,&IFileManager::Get(),FILEWRITE_Append);
+    if(Movie&&!FScreenshotRequest::IsScreenshotRequested())FScreenshotRequest::RequestScreenshot(BenchmarkPath/Name,bBenchmarkShowUI,false);
 }

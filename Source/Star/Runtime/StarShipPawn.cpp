@@ -1,5 +1,5 @@
-#include "Simulation/SolarLighting.h"
 #include "Runtime/StarShipPawn.h"
+#include "Simulation/SolarLighting.h"
 #include "Runtime/StarDiagnostics.h"
 #include "Runtime/StarWorldDirector.h"
 #include "Runtime/StarDataCatalog.h"

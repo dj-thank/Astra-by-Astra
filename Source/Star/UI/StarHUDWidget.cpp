@@ -366,6 +366,7 @@ TSharedRef<SWidget> UStarHUDWidget::BuildMenu()
     Add(TEXT("地球   /   昼と夜の観測"), TEXT("TargetEarth"));
     Add(TEXT("月   /   軌道観測と着陸"), TEXT("TargetMoon"));
     Add(TEXT("土星   /   環と影の観測"), TEXT("TargetSaturn"));
+    Add(TEXT("太陽   /   プラズマの観測"), TEXT("TargetSun"));
     if(!bMain&&!Current.bGuidedTour&&!Current.bOnFoot)
     {
         NavigationPanel->AddSlot().AutoHeight().Padding(0, 16, 0, 8)

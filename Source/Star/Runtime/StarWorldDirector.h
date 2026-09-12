@@ -13,6 +13,7 @@ class APostProcessVolume;
 class ASkyLight;
 class UStarLunarTerrainComponent;
 class UStarEarthTerrainComponent;
+class UStarSolarVisualComponent;
 
 UCLASS()
 class STAR_API AStarWorldDirector : public AActor
@@ -79,6 +80,7 @@ private:
     uint64 EnvironmentTerrainRevision=0;
     FRenderCommandFence EnvironmentFence;
     UPROPERTY() TObjectPtr<USceneComponent> SceneRoot;
+    UPROPERTY() TObjectPtr<UStarSolarVisualComponent> SolarVisual;
     UPROPERTY() TArray<TObjectPtr<UProceduralMeshComponent>> BodyMeshes;
     UPROPERTY() TArray<TObjectPtr<UProceduralMeshComponent>> Atmospheres;
     UPROPERTY() TArray<TObjectPtr<UMaterialInstanceDynamic>> BodyMaterials;

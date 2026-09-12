@@ -1,5 +1,6 @@
-#include "Simulation/SolarLighting.h"
 #include "Runtime/StarWorldDirector.h"
+#include "Simulation/SolarLighting.h"
+#include "Runtime/StarSolarVisualComponent.h"
 #include "ProceduralMeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -47,6 +48,8 @@ AStarWorldDirector::AStarWorldDirector()
     PrimaryActorTick.bCanEverTick = false;
     SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("CelestialScene"));
     SetRootComponent(SceneRoot);
+    SolarVisual=CreateDefaultSubobject<UStarSolarVisualComponent>(TEXT("SolarVisual"));
+    SolarVisual->SetupAttachment(SceneRoot);
     EarthTerrain=CreateDefaultSubobject<UStarEarthTerrainComponent>(TEXT("ObservedEarthTerrain"));
     EarthTerrain->SetupAttachment(SceneRoot);
     LunarTerrain=CreateDefaultSubobject<UStarLunarTerrainComponent>(TEXT("LunarTerrain"));
@@ -199,9 +202,17 @@ void AStarWorldDirector::CreateBodies()
         else if(Id==TEXT("moon")) Base=Material(TEXT("/Game/Star/Materials/MI_Moon.MI_Moon"));
         else if(Id==TEXT("saturn")) Base=Material(TEXT("/Game/Star/Materials/MI_Saturn.MI_Saturn"));
         else Base=Material(TEXT("/Game/Star/Materials/M_Sun.M_Sun"));
+        if(Id==TEXT("sun")&&!FParse::Param(FCommandLine::Get(),TEXT("StarLegacySun")))
+            if(auto* Motion=Material(TEXT("/Game/Star/SolarMotion/M_SolarSurface.M_SolarSurface")))Base=Motion;
         auto* Dynamic=Base?UMaterialInstanceDynamic::Create(Base,this):nullptr;
         Mesh->SetMaterial(0,Dynamic);
         BodyMaterials.Add(Dynamic);
+        if(Id==TEXT("sun")&&!SolarVisual->Initialize(Mesh,Dynamic))
+        {
+            Dynamic=UMaterialInstanceDynamic::Create(Material(TEXT("/Game/Star/Materials/M_Sun.M_Sun")),this);
+            Mesh->SetMaterial(0,Dynamic);BodyMaterials.Last()=Dynamic;
+            UE_LOG(LogTemp,Warning,TEXT("STAR solar motion unavailable: analytic fallback"));
+        }
         if(Id==TEXT("earth"))
         {
             EarthCloudMesh=NewMesh(TEXT("EarthCloudDeck"));
@@ -602,6 +613,7 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
             auto* Mat=BodyMaterials[I].Get();
             // Photosphere surface brightness is independent of observer distance.
             Mat->SetScalarParameterValue(TEXT("SunRadiance"),static_cast<float>(Solar.diskLuminance));
+            SolarVisual->Update(AstronomicalUtc,FMath::RadiansToDegrees(2.0*Solar.angularRadiusRadians),RenderRadius,!NativeAtmosphere);
             Mat->SetScalarParameterValue(TEXT("EarthRadiusMeters"),0.0f);
             if(LocalEarth)
             {

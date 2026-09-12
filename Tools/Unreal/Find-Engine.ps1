@@ -4,6 +4,12 @@ $ErrorActionPreference='Stop'
 $candidates=@()
 if($EngineRoot){$candidates+=$EngineRoot}
 if($env:STAR_UE_ROOT){$candidates+=$env:STAR_UE_ROOT}
+$launcher=Join-Path $env:ProgramData 'Epic/UnrealEngineLauncher/LauncherInstalled.dat'
+if(Test-Path -LiteralPath $launcher){
+    foreach($entry in (Get-Content -LiteralPath $launcher -Raw -Encoding utf8 | ConvertFrom-Json).InstallationList){
+        if($entry.AppName -eq 'UE_5.8'){$candidates+=$entry.InstallLocation}
+    }
+}
 $candidates+=@('C:\Program Files\Epic Games\UE_5.8')
 foreach($candidate in ($candidates | Select-Object -Unique)){
     $versionPath=Join-Path $candidate 'Engine\Build\Build.version'
