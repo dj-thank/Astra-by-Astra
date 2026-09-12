@@ -1,0 +1,55 @@
+name: Offline raster adapter tests (not Unreal)
+
+on:
+  pull_request:
+    paths:
+      - 'Source/Star/Terrain/**'
+      - 'Tests/Terrain/**'
+      - 'Tools/Testing/run_raster_integration.py'
+      - '.github/workflows/raster-integration.yml'
+  push:
+    paths:
+      - 'Source/Star/Terrain/**'
+      - 'Tests/Terrain/**'
+      - 'Tools/Testing/run_raster_integration.py'
+      - '.github/workflows/raster-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  raster:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: GCC offline adapter and policies
+            compiler: g++
+            options: ''
+          - name: Clang ASan UBSan offline adapter and policies
+            compiler: clang++
+            options: '--sanitize'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install compiler and system TIFF development library
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ clang pkg-config libtiff-dev
+      - name: Run production adapter and policy regressions
+        run: python3 Tools/Testing/run_raster_integration.py --compiler ${{ matrix.compiler }} ${{ matrix.options }}
+      - name: Preserve test evidence only (no fixtures or binaries)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: raster-evidence-${{ matrix.compiler }}
+          path: |
+            work/raster-integration/run-*/*.log
+            work/raster-integration/run-*/results.json
+          if-no-files-found: warn
+          retention-days: 14

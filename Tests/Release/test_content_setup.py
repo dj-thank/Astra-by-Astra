@@ -43,4 +43,49 @@ class ContentSetupTests(unittest.TestCase):
   result=subprocess.run(['pwsh','-NoProfile','-File',str(self.root/'Tools/Setup-Content.ps1')],capture_output=True)
   self.assertNotEqual(result.returncode,0);self.assertFalse((self.root/'Content/new.txt').exists());self.assertEqual(edited.read_text(),'my work')
 
-if __name__=='__main__':unittest.main()
+ def test_duplicate_target_prevents_any_extraction(self):
+  result=self.run_setup([('Art/new.txt','new'),('Content/same.txt','one'),('Content/same.txt','two')])
+  self.assertNotEqual(result.returncode,0)
+  self.assertFalse((self.root/'Art/new.txt').exists());self.assertFalse((self.root/'Content/same.txt').exists())
+ def test_file_directory_collision_prevents_any_extraction(self):
+  for paths in [('Content/item','Content/item/child'),('Content/item/child','Content/item')]:
+   with self.subTest(paths=paths):
+    result=self.run_setup([('Art/new.txt','new'),(paths[0],'one'),(paths[1],'two')])
+    self.assertNotEqual(result.returncode,0);self.assertFalse((self.root/'Art/new.txt').exists())
+ def test_existing_file_ancestor_prevents_any_extraction(self):
+  blocker=self.root/'Content/item';blocker.parent.mkdir();blocker.write_text('mine')
+  result=self.run_setup([('Art/new.txt','new'),('Content/item/child','release')])
+  self.assertNotEqual(result.returncode,0);self.assertEqual(blocker.read_text(),'mine')
+  self.assertFalse((self.root/'Art/new.txt').exists())
+ def test_windows_path_aliases_are_rejected_before_writes(self):
+  for path in ['Content/file:stream','Content/CON.txt','Content/NUL','Content/trailing.',
+               'Content/trailing /file','Content/./file','Content//file','content/alias.txt']:
+   with self.subTest(path=path):
+    result=self.run_setup([('Art/new.txt','new'),(path,'bad')])
+    self.assertNotEqual(result.returncode,0);self.assertFalse((self.root/'Art/new.txt').exists())
+ def test_case_colliding_files_prevent_any_extraction(self):
+  result=self.run_setup([('Art/new.txt','new'),('Content/Case.txt','one'),('Content/case.txt','two')])
+  self.assertNotEqual(result.returncode,0);self.assertFalse((self.root/'Art/new.txt').exists())
+ def test_content_junction_cannot_escape_project(self):
+  import os
+  with tempfile.TemporaryDirectory(dir=ROOT/'work') as outside:
+   link=self.root/'Content'
+   if os.name=='nt':
+    made=subprocess.run(['cmd','/c','mklink','/J',str(link),outside],capture_output=True)
+    self.assertEqual(made.returncode,0,made.stderr.decode(errors='replace'))
+   else:
+    link.symlink_to(outside,target_is_directory=True)
+   try:
+    result=self.run_setup([('Art/new.txt','new'),('Content/escaped.txt','bad')])
+    self.assertNotEqual(result.returncode,0)
+    self.assertFalse((Path(outside)/'escaped.txt').exists());self.assertFalse((self.root/'Art/new.txt').exists())
+   finally:
+    if os.name=='nt':os.rmdir(link)
+    else:link.unlink()
+ def test_valid_explicit_directories_are_idempotent(self):
+  files=[('Content/',''),('Content/nested/',''),('Content/nested/asset.txt','good'),('Art/','')]
+  for _ in range(2):
+   result=self.run_setup(files);self.assertEqual(result.returncode,0,result.stderr)
+  self.assertEqual((self.root/'Content/nested/asset.txt').read_text(),'good')
+
+if __name__=='__main__':unittest.main(verbosity=2)

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <vector>
 
 using namespace star;
@@ -21,7 +22,7 @@ std::vector<BodyDefinition> LoadBodies(const char* path) {
         bodies.push_back(body);
     Check(bodies.size()>=3,"dated body fixture unavailable");return bodies;
 }
-const BodyDefinition& Body(const std::vector<BodyDefinition>& bodies,const std::string& id) {
+const BodyDefinition& Body(const std::vector<BodyDefinition>& bodies,std::string_view id) {
     for(const auto& body:bodies) if(body.id==id) return body;
     throw std::runtime_error("body missing");
 }
