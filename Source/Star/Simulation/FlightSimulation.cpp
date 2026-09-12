@@ -319,7 +319,11 @@ double FlightSimulation::LocalCruiseSpeedLimitMps() const {
         const double clearance=std::max(0.0,(state_.positionMeters-body.centerMeters).Length()-shell);
         // All directions share this envelope: crossing the horizon cannot
         // switch between an approach cap and an interplanetary speed target.
-        limit=std::min(limit,config_.maxLandingSpeedMps+clearance*0.08);
+        const double orbital=Clamp((clearance-100000.0)/300000.0,0.0,1.0);
+        const double boost=70000.0*orbital*orbital*(3.0-2.0*orbital);
+        // Preserve the existing near-surface envelope; higher speed is only
+        // available well above the surface and never authorizes a transfer.
+        limit=std::min(limit,config_.maxLandingSpeedMps+clearance*0.08+boost);
     }
     return std::min(limit,config_.maxCruiseSpeedMps);
 }
@@ -571,9 +575,7 @@ ContactEvent FlightSimulation::Step(const FlightInput& raw) {
     propulsion_.engineOutput+=(propulsion_.powerDemand-propulsion_.engineOutput)*(1.0-std::exp(-dt/engineTime));
     if(state_.velocityMetersPerSecond.Length()>config_.maxCruiseSpeedMps)
         state_.velocityMetersPerSecond=state_.velocityMetersPerSecond.Normalized()*config_.maxCruiseSpeedMps;
-    const Vec3d destination=state_.positionMeters+state_.velocityMetersPerSecond*dt;
-    const auto hit=Sweep(state_.positionMeters,destination,before);
-    if(hit.body)return ResolveContact(hit);
+    Vec3d destination=state_.positionMeters+state_.velocityMetersPerSecond*dt;
     if(localCruise&&flightAssistEnabled_) {
         // Transport the local horizon through the actual integrated motion.
         // This flight assist keeps a level course around a curved planet;
@@ -584,8 +586,14 @@ ContactEvent FlightSimulation::Step(const FlightInput& raw) {
             if(ratio<relativeDistance){nearby=&body;relativeDistance=ratio;}
         }
         if(nearby) {
-            const auto from=(state_.positionMeters-nearby->centerMeters).Normalized();
+            const auto offset=state_.positionMeters-nearby->centerMeters;
+            const auto from=offset.Normalized();
             const auto to=(destination-nearby->centerMeters).Normalized();
+            // Integrate commanded vertical displacement separately from the
+            // curved horizontal path. A tangent Euler step otherwise gains
+            // altitude every tick, increasingly visible at orbital cruise speed.
+            const double heightStep=Vec3d::Dot(state_.velocityMetersPerSecond,from)*dt;
+            destination=nearby->centerMeters+to*std::max(1.0,offset.Length()+heightStep);
             const auto axis=Vec3d::Cross(from,to);
             if(axis.Length()>1e-12) {
                 const auto transport=Quatd::FromAxisAngle(axis,std::atan2(axis.Length(),Vec3d::Dot(from,to)));
@@ -594,6 +602,8 @@ ContactEvent FlightSimulation::Step(const FlightInput& raw) {
             }
         }
     }
+    const auto hit=Sweep(state_.positionMeters,destination,before);
+    if(hit.body)return ResolveContact(hit);
     state_.positionMeters=destination;
     return {};
 }

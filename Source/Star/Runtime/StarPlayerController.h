@@ -80,6 +80,9 @@ private:
     void SetStatus(const FString& Message,double Seconds=5.0);
     void UpdateBenchmark(double Dt);
     void UpdateSolarQA(double Dt);
+    void UpdateVoyageMovie(double Dt);
+    double VoyageRecordingStart=0;
+    bool bVoyageAudioStopped=false;
     FDelegateHandle SolarScreenshotHandle;
     int32 SolarLastCapture=-1;
     void TickAstronomyQA();

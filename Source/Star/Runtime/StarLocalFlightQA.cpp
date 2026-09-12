@@ -5,6 +5,9 @@
 #include "UI/StarHUDWidget.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Input/Events.h"
+#include "Misc/FileHelper.h"
+#include "HAL/FileManager.h"
+#include "HAL/PlatformFileManager.h"
 
 namespace {
 const TCHAR* LocalStages[]={TEXT("00_normal_start"),TEXT("01_C_accelerate"),TEXT("02_turn_right"),TEXT("03_turn_left"),
@@ -52,11 +55,31 @@ void AStarPlayerController::UpdateLocalFlightQABefore()
         break;
     case 6: HandleAction(TEXT("Pause"));break;
     case 7: case 12: HandleAction(TEXT("Resume"));break;
-    case 10: LocalFlightQASaved=Sim.State();if(!RequireNavigationQA(SaveGame(),TEXT("Local driving save failed")))return;break;
+    case 10: {
+        LocalFlightQASaved=Sim.State();
+        if(!RequireNavigationQA(SaveGame()&&SaveGame(),TEXT("Local driving save/backup failed")))return;
+        const FString Main=SaveFilename(),Backup=Main+TEXT(".bak"),Held=Backup+TEXT(".qa-kept");FString Before,After;
+        if(!RequireNavigationQA(FFileHelper::LoadFileToString(Before,*Main)&&IFileManager::Get().Move(*Held,*Backup)&&IFileManager::Get().MakeDirectory(*Backup),TEXT("Cannot prepare isolated backup failure probe")))return;
+        const bool Refused=!SaveGame();FFileHelper::LoadFileToString(After,*Main);
+        const bool Restored=IFileManager::Get().DeleteDirectory(*Backup)&&IFileManager::Get().Move(*Backup,*Held);
+        if(!RequireNavigationQA(Refused&&Before==After&&Restored,TEXT("Failed backup replaced the live save")))return;
+        break;
+    }
     case 11:
-        if(!RequireNavigationQA(LoadGame(),TEXT("Local driving load failed")))return;
+        // Corrupt only this driver's isolated save; load through the normal F9 action.
+        if(!RequireNavigationQA(FFileHelper::SaveStringToFile(TEXT("incomplete save"),*SaveFilename()),TEXT("Cannot prepare damaged-save probe")))return;
+        HandleAction(TEXT("Load"));
+        if(!RequireNavigationQA(bFlightPaused,TEXT("Normal Load action resumed without user consent")))return;
         if(!RequireNavigationQA((Sim.State().positionMeters-LocalFlightQASaved.positionMeters).Length()<.001&&
             Sim.State().mode==star::FlightMode::LocalCruise,TEXT("Load lost position or local cruise mode")))return;
+        {
+            FString Before,After;const FString Backup=SaveFilename()+TEXT(".bak");
+            FFileHelper::LoadFileToString(Before,*Backup);
+            TUniquePtr<IFileHandle> Locked(FPlatformFileManager::Get().GetPlatformFile().OpenRead(*SaveFilename(),false));
+            if(!RequireNavigationQA(Locked.IsValid(),TEXT("Cannot lock isolated damaged primary")))return;
+            const bool Refused=!SaveGame();FFileHelper::LoadFileToString(After,*Backup);Locked.Reset();
+            if(!RequireNavigationQA(Refused&&Before==After&&SaveGame(),TEXT("Recovery followed by failed save destroyed the valid backup")))return;
+        }
         break;
     case 13: SelectTarget(TEXT("earth"));break;
     case 14: KeyboardThrottle=0;HandleAction(TEXT("ToggleAutopilot"));break;
@@ -105,7 +128,7 @@ void AStarPlayerController::UpdateLocalFlightQAAfter()
     const double Delta=(BodyPosition-LocalFlightQABeforeBodyPosition).Length();LocalFlightQATravel+=Delta;
     const double Speed=State.velocityMetersPerSecond.Length();
     if(!RequireNavigationQA(!NavigationBypassed()&&State.recoveryCount==0&&State.positionMeters.IsFinite()&&
-        State.orientation.IsFinite()&&Dt>=0&&Delta<=20001*Dt+2&&Speed<=20001,
+        State.orientation.IsFinite()&&Dt>=0&&Delta<=(Ship->Simulation()->Config().maxLocalCruiseSpeedMps+1)*Dt+2&&Speed<=Ship->Simulation()->Config().maxLocalCruiseSpeedMps+1,
         TEXT("Local flight exceeded speed, recovered or jumped")))return;
     if(!RequireNavigationQA(!Navigation.Tick(*Ship->Simulation()).requiresSafetyPause,
         TEXT("Local cruise incorrectly requested interplanetary safety pause")))return;
@@ -127,7 +150,7 @@ void AStarPlayerController::UpdateLocalFlightQAAfter()
     }
     if(Age<LocalDurations[NavigationQAStage])return;
     const int S=NavigationQAStage;
-    if((S==1||S==5||S==7||S==9||S==12||S==20)&&!RequireNavigationQA(Speed>15000&&!bFlightPaused,
+    if((S==1||S==5||S==7||S==9||S==12||S==20)&&!RequireNavigationQA(Speed>75000&&!bFlightPaused,
         TEXT("Ordinary C/resume failed to sustain fast local flight")))return;
     if(S==4&&!RequireNavigationQA(Speed<1,TEXT("Space braking failed to stop local cruise")))return;
     if(S==8&&!RequireNavigationQA(!bFlightPaused&&Speed<301&&State.mode==star::FlightMode::Maneuver,

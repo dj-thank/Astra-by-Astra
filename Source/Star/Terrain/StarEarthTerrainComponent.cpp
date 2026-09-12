@@ -12,6 +12,7 @@
 #include "Misc/Paths.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
+#include "Misc/FileHelper.h"
 
 namespace {
 // Coverage is a binary footprint, independent of the HDR observation resolution.
@@ -123,7 +124,8 @@ struct FStarEarthTerrainState
     TSharedPtr<std::atomic<bool>,ESPMode::ThreadSafe> JobCancel;
     double JobStarted=0;
     TArray<TUniquePtr<FTile>> Tiles;
-    int South=0,West=0,JobIndex=-1;bool Located=false,Enabled=true,Near=false;
+    TArray<uint8> CoverageIndex;
+    int South=0,West=0,JobIndex=-1;bool Located=false,Enabled=true,Near=false,Deferred=false;
     star::BodyDefinition Earth;
 };
 void FStarEarthTerrainDeleter::operator()(FStarEarthTerrainState* S) const {delete S;}
@@ -137,9 +139,30 @@ void UStarEarthTerrainComponent::Shutdown(){if(State){State->Cancel.store(true);
 void UStarEarthTerrainComponent::Initialize(UMaterialInterface* M)
 {
     Material=M;State->Enabled=M&&!FParse::Param(FCommandLine::Get(),TEXT("StarOfflineEarth"));
+    if(!FFileHelper::LoadFileToArray(State->CoverageIndex,*(FPaths::ProjectContentDir()/TEXT("Star/Data/earth-rgbnir-coverage.bin")))||State->CoverageIndex.Num()!=180*360)
+        State->CoverageIndex.Empty();
     FHttpModule::Get();
 }
-void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth,const star::Vec3d& Camera,const star::Vec3d& Origin)
+bool UStarEarthTerrainComponent::FindSurveyDirection(const star::BodyDefinition& Earth,const star::Vec3d& Position,star::Vec3d& Forward) const
+{
+    if(State->CoverageIndex.Num()!=180*360)return false;
+    const auto Local=Earth.bodyFixedToSimulation.Conjugate().Rotate(Position-Earth.centerMeters).Normalized();
+    double Best=-2;star::Vec3d Target;
+    for(int Lat=-85;Lat<85;++Lat)for(int Lon=-180;Lon<180;++Lon){
+        if(!State->CoverageIndex[(Lat+90)*360+Lon+180])continue;
+        const auto DirectionToCell=Direction(Lat+.5,Lon+.5);const double Score=star::Vec3d::Dot(Local,DirectionToCell);
+        if(Score<=Best)continue;
+        int Neighbors=0;
+        for(int Y=-2;Y<=2;++Y)for(int X=-2;X<=2;++X)
+            Neighbors+=State->CoverageIndex[(Lat+Y+90)*360+(Lon+X+540)%360]?1:0;
+        // Prefer a broad covered region rather than a lone remote-island tile.
+        if(Neighbors>=20){Best=Score;Target=DirectionToCell;}
+    }
+    const auto Tangent=(Target-Local*star::Vec3d::Dot(Local,Target)).Normalized();
+    if(Best<-1||Tangent.LengthSquared()<.5)return false;
+    Forward=Earth.bodyFixedToSimulation.Rotate(Tangent);return true;
+}
+void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth,const star::Vec3d& Camera,const star::Vec3d& Origin,double SpeedMps)
 {
     if(!State||!State->Enabled||State->Cancel.load())return;
     State->Earth=Earth;
@@ -147,6 +170,7 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
     const bool Near=star::EarthDetailInRange(Local.Length()-Earth.radiusMeters,State->Near);
     if(State->Near!=Near)++RenderRevision;
     State->Near=Near;
+    State->Deferred=SpeedMps>30000;
     for(auto& M:Meshes)if(M)M->SetVisibility(Near);
     for(int I=0;I<Meshes.Num();++I)if(Meshes[I])
     {
@@ -158,7 +182,7 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
     if(State->Job.IsValid()&&State->JobCancel&&!State->JobCancel->load()&&State->Tiles.IsValidIndex(State->JobIndex)){
         const auto& Tile=*State->Tiles[State->JobIndex];
         const int LongitudeOffset=(Tile.Lon-West+720)%360;
-        if(!Near||Tile.Lat<South||Tile.Lat>South+2||LongitudeOffset>=3){
+        if(!Near||State->Deferred||Tile.Lat<South||Tile.Lat>South+2||LongitudeOffset>=3){
             State->JobCancel->store(true);
             StarDiagnostics::Event(TEXT("terrain_cancel"),GeoName(Tile.Lat,Tile.Lon)+(Near?TEXT(": superseded region"):TEXT(": left detail range")));
         }
@@ -176,7 +200,7 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
                 *GeoName(State->Tiles[Index]->Lat,State->Tiles[Index]->Lon),*State->Tiles[Index]->Height.Error,*State->Tiles[Index]->Color.Error);
         }
     }
-    if(!Near)return;
+    if(!Near||State->Deferred)return;
     if(!State->Located||South!=State->South||West!=State->West)
     {
         // Finish the single bounded read before shifting the 3x3 window. No concurrent writers.
@@ -210,6 +234,10 @@ void UStarEarthTerrainComponent::UpdateTerrain(const star::BodyDefinition& Earth
         // Central footprint first, then its adjacent tiles. Missing ocean or polar products stay absent.
         for(int I:{4,1,3,5,7,0,2,6,8})if(!State->Tiles[I]->Attempted)
         {
+            const auto& Tile=*State->Tiles[I];
+            if(State->CoverageIndex.Num()==180*360&&!State->CoverageIndex[(Tile.Lat+90)*360+Tile.Lon+180]){
+                State->Tiles[I]->Attempted=true;continue;
+            }
             State->Tiles[I]->Attempted=true;State->JobIndex=I;
             const int TileLat=State->Tiles[I]->Lat,TileLon=State->Tiles[I]->Lon;
             const auto JobCancel=MakeShared<std::atomic<bool>,ESPMode::ThreadSafe>(false);State->JobCancel=JobCancel;
@@ -336,11 +364,17 @@ FString UStarEarthTerrainComponent::StatusText() const
 {
     if(!State||!State->Near)return FString();
     if(!State->Enabled)return TEXT("地表：全球地図（オフライン）");
+    if(State->Deferred)return TEXT("高速航行中 · 全球地球画像を表示（減速後に詳細を先読み）");
     const bool Detailed=Meshes.ContainsByPredicate([](const auto& M){return M&&M->IsVisible();});
     if(State->Job.IsValid()){
         if(FPlatformTime::Seconds()-State->JobStarted>10)return TEXT("地表の読込に時間がかかっています · 操縦できます");
         return Detailed?TEXT("2021年の詳細地表 · 周辺を読み込み中（操縦できます）"):TEXT("地表を読み込み中 · 全球地図で操縦できます");
     }
-    if(Detailed)return TEXT("詳細地表：2021年観測画像・実測地形 ／ 晴天");
-    return TEXT("この地域の詳細地表は未取得 ／ 全球地図を表示中");
+    if(Detailed)return TEXT("詳細地表：2021年観測画像・実測地形 ／ 雲なし表示");
+    if(State->CoverageIndex.Num()==180*360){
+        bool Covered=false;
+        for(const auto& T:State->Tiles)Covered|=State->CoverageIndex[(T->Lat+90)*360+T->Lon+180]!=0;
+        if(!Covered)return TEXT("全球地球を表示中 · この海域・地域は詳細画像の提供範囲外");
+    }
+    return TEXT("詳細画像は未取得 · 全球地球を表示中");
 }

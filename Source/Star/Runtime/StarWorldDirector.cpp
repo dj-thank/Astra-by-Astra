@@ -5,6 +5,7 @@
 #include "Materials/MaterialInterface.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/DirectionalLight.h"
+#include "Engine/Texture2D.h"
 #include "Engine/SkyLight.h"
 #include "Engine/PostProcessVolume.h"
 #include "Engine/World.h"
@@ -209,6 +210,10 @@ void AStarWorldDirector::CreateBodies()
         if(Id==TEXT("sun"))SolarVisual->Initialize(Mesh,Dynamic);
         if(Id==TEXT("earth"))
         {
+            // Custom spherical sampling cannot supply conventional UV density.
+            // The offline globe must remain legible without any terrain network request.
+            if(Dynamic)for(const TCHAR* Name:{TEXT("DayTex"),TEXT("NightTex"),TEXT("WaterMaskTex")})
+                if(auto* Texture=Cast<UTexture2D>(Dynamic->K2_GetTextureParameterValue(Name)))Texture->bForceMiplevelsToBeResident=true;
             EarthCloudMesh=NewMesh(TEXT("EarthCloudDeck"));
             Sphere(EarthCloudMesh,512,256);
             EarthCloudMaterial=UMaterialInstanceDynamic::Create(Material(bEarthVolumeClouds?
@@ -405,7 +410,11 @@ star::FlightState AStarWorldDirector::InitialFlightState() const
     const auto* Moon=Data.Find(TEXT("moon"));
     const auto* Sun=Data.Find(TEXT("sun"));
     if(!Earth||!Moon||!Sun) return State;
-    return star::InitialVoyage(Earth->Definition,Sun->Definition);
+    State=star::InitialVoyage(Earth->Definition,Sun->Definition);
+    star::Vec3d Forward;
+    if(EarthTerrain&&EarthTerrain->FindSurveyDirection(Earth->Definition,State.positionMeters,Forward))
+        State.orientation=star::Quatd::FromForwardUp(Forward,(State.positionMeters-Earth->Definition.centerMeters).Normalized());
+    return State;
 }
 void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::Vec3d& Origin,const star::Vec3d& Camera,double Dt,bool bActiveCameraUpdate)
 {
@@ -791,7 +800,7 @@ float AStarWorldDirector::MinimumExposureEV() const
 void AStarWorldDirector::UpdateTerrain(const star::FlightState& State,const star::Vec3d& Origin)
 {
     if(LunarTerrain) LunarTerrain->UpdateTerrain(State.positionMeters,Origin);
-    if(const auto* Earth=Data.Find(TEXT("earth")))EarthTerrain->UpdateTerrain(Earth->Definition,State.positionMeters,Origin);
+    if(const auto* Earth=Data.Find(TEXT("earth")))EarthTerrain->UpdateTerrain(Earth->Definition,State.positionMeters,Origin,State.velocityMetersPerSecond.Length());
 }
 bool AStarWorldDirector::TerrainReadyForLanding() const
 {

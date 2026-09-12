@@ -69,7 +69,7 @@ private:
     TSharedRef<SWidget> BuildSettingsPanel();
     TSharedRef<SWidget> MakeButton(const FString& Label, FName Action, float Value = 1);
     TSharedRef<SWidget> MakeText(TAttribute<FText> Text, float Size, FLinearColor Color, float Wrap = 0) const;
-    TSharedRef<SWidget> MakeMetric(const FString& Label, TAttribute<FText> Value, float Width) const;
+    TSharedRef<SWidget> MakeMetric(TAttribute<FText> Label, TAttribute<FText> Value, float Width) const;
     void ShowPanel(EPanel Value);
     void RebuildMenu();
     FReply Activate(FName Action, float Value);

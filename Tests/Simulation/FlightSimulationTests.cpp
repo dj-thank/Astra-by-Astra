@@ -260,9 +260,9 @@ void LocalPlanetDrive() {
         const auto before=sim.State();const auto result=sim.Advance(1.0/30,input);
         Check(result.contact.kind==ContactKind::None,"level planet drive has no contact");
         peak=std::max(peak,sim.State().velocityMetersPerSecond.Length());
-        Check((sim.State().positionMeters-before.positionMeters).Length()<670,"no local travel jump");
+        Check((sim.State().positionMeters-before.positionMeters).Length()<3334,"no local travel jump");
     }
-    Check(peak>19000&&peak<=20000.001,"local cruise reaches bounded 20 km/s");
+    Check(peak>99000&&peak<=100000.001,"orbital local cruise reaches bounded 100 km/s");
     Near(sim.Telemetry("earth").referenceAltitudeMeters,450000,100,"assisted drive follows curved horizon");
     Check((sim.State().positionMeters-s.positionMeters).Length()>2000000,"drive visibly covers regional distances");
     FlightState loaded;Check(DeserializeFlightState(SerializeFlightState(sim.State()),loaded),"local mode save round trip");
@@ -282,6 +282,14 @@ void LocalPlanetDrive() {
     s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+16000};
     Check(sim.RestoreState(s),"near-ground drive fixture");
     Check(sim.LocalCruiseSpeedLimitMps()<111,"near-ground local speed envelope");
+    for(double height:{114999.,115000.,115001.,414999.,415000.,415001.}){
+        s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+height};
+        Check(sim.RestoreState(s),"orbital envelope boundary fixture");
+        const double a=sim.LocalCruiseSpeedLimitMps();s.positionMeters.z+=.01;
+        Check(sim.RestoreState(s),"adjacent envelope fixture");
+        Check(std::abs(a-sim.LocalCruiseSpeedLimitMps())<.1,"no speed jump at orbital boost boundary");
+    }
+    s.positionMeters=earth.centerMeters+Vec3d{0,0,earth.radiusMeters+16000};
     s.orientation=Quatd::FromForwardUp({0,0,-1},{1,0,0});Check(sim.RestoreState(s),"inward fixture");
     const double inward=sim.LocalCruiseSpeedLimitMps();s.orientation=Quatd::FromForwardUp({0,0,1},{1,0,0});
     Check(sim.RestoreState(s),"outward fixture");Near(sim.LocalCruiseSpeedLimitMps(),inward,1e-9,"turning across horizon never unlocks transfer speed");

@@ -104,9 +104,9 @@ struct FlightConfig {
     double fixedStepSeconds = 1.0 / 120.0;
     double maxFrameSeconds = 0.25; // Excess wall time is reported, never fast-forwarded.
     double maxManeuverSpeedMps = 300.0;
-    double maxLocalCruiseSpeedMps = 20000.0;
-    double localCruiseAccelerationMps2 = 4000.0;
-    double localCruiseBrakeMps2 = 8000.0;
+    double maxLocalCruiseSpeedMps = 100000.0;
+    double localCruiseAccelerationMps2 = 20000.0;
+    double localCruiseBrakeMps2 = 40000.0;
     double maxLandingSpeedMps = 30.0;
     double maxCruiseSpeedMps = 50.0 * SpeedOfLightMps;
     double maneuverAccelerationMps2 = 45.0;

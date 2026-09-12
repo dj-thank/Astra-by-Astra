@@ -100,7 +100,7 @@ void AStarPlayerController::BeginPlay()
     bNavigationQA=bLocalFlightQA||FParse::Param(FCommandLine::Get(),TEXT("StarNavigationQA"));
     FParse::Value(FCommandLine::Get(),TEXT("StarEVAPath="),EVAQADirectory);
     if(bEVAQA&&EVAQADirectory.IsEmpty()) { bEVAQA=false;UE_LOG(LogTemp,Error,TEXT("StarEVAQA requires isolated StarEVAPath")); }
-    if((bEVAQA||bBenchmark||bGuidedTourTest)&&FParse::Param(FCommandLine::Get(),TEXT("StarAudioCapture")))
+    if((bEVAQA||bBenchmark||bGuidedTourTest||bNavigationQA)&&FParse::Param(FCommandLine::Get(),TEXT("StarAudioCapture")))
     {
         // Automated captures may be unfocused; Windows otherwise mutes the
         // entire master bus before the capture. Normal focus/pause stays intact.
@@ -319,7 +319,8 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
             LookX+=X/FMath::Max(DeltaTime*40,0.001f);
             LookY-=Y/FMath::Max(DeltaTime*40,0.001f);
         }
-        Ship->SetLook(LookX*DeltaTime*55*LookSensitivity,LookY*DeltaTime*45*LookSensitivity,bPhotoMode);
+        if(!FParse::Param(FCommandLine::Get(),TEXT("StarVoyageMovie")))
+            Ship->SetLook(LookX*DeltaTime*55*LookSensitivity,LookY*DeltaTime*45*LookSensitivity,bPhotoMode);
         if(bPhotoMode)
         {
             FVector Move=FVector::ZeroVector;
@@ -422,6 +423,7 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
     if(bAcceptance) UpdateAcceptanceAfterFlight();
     if(bGuidedTour) UpdateGuidedTourQA(DeltaTime);
     if(bNavigationQA) UpdateNavigationQAAfterFlight();
+    if(bNavigationQA&&FParse::Param(FCommandLine::Get(),TEXT("StarVoyageMovie")))UpdateVoyageMovie(DeltaTime);
     if(HUD) HUD->ApplySnapshot(Snapshot);
     Ship->UpdatePresentation(Snapshot,bFlightPaused||bPhotoMode,MasterVolume);
     if(bBenchmark&&FParse::Param(FCommandLine::Get(),TEXT("StarUnifiedWorldQA")))UpdateUnifiedWorldQA(DeltaTime);
@@ -850,7 +852,7 @@ void AStarPlayerController::HandleAction(FName Action,float Value)
         if(bGuidedTour) { LoadGame();return; }
         const bool PreviousSlot=bTourSaveSlot;
         bTourSaveSlot=Action==TEXT("LoadTour");
-        if(LoadGame()) { bMainMenu=false;if(HUD)HUD->SetMainMenuVisible(false);SetFlightPaused(false); }
+        if(LoadGame()) { bMainMenu=false;if(HUD)HUD->SetMainMenuVisible(false); }
         else bTourSaveSlot=PreviousSlot;
     }
     else if(Action==TEXT("PhotoCapture")) CapturePhoto();
@@ -908,7 +910,6 @@ void AStarPlayerController::UpdateSnapshot(double Dt)
     double Closest=DBL_MAX;
     for(const auto& Body:Catalog.Bodies())
     {
-        if(Body.Definition.id=="sun") continue;
         const double Distance=(State.positionMeters-Body.Definition.centerMeters).Length()-Body.Definition.radiusMeters;
         if(Distance<Closest) { Closest=Distance;Nearest=&Body; }
     }
@@ -916,6 +917,7 @@ void AStarPlayerController::UpdateSnapshot(double Dt)
     Snapshot.BodyName=Closest<10000000&&Nearest?Nearest->Name:TEXT("深宇宙");
     if(Nearest)
     {
+        Snapshot.AltitudeReferenceName=Nearest->Name;
         const auto Telemetry=Ship->Simulation()->Telemetry(Nearest->Definition.id);
         Snapshot.AltitudeM=Telemetry.surfaceAltitudeMeters;
         Snapshot.VerticalSpeedMps=-Telemetry.closingSpeedMps;
@@ -1021,7 +1023,19 @@ bool AStarPlayerController::SaveGame()
     IFileManager::Get().MakeDirectory(*FPaths::GetPath(Filename),true);
     if(!FFileHelper::SaveStringToFile(Text,*Temp,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM))
     { SetStatus(TEXT("セーブを書き込めませんでした。"));return false; }
-    if(IFileManager::Get().FileExists(*Filename)) IFileManager::Get().Copy(*Backup,*Filename,true,true);
+    if(IFileManager::Get().FileExists(*Filename)){
+        FString Old,OldFlight,OldEpoch,OldProgress;double OldVersion=0;TSharedPtr<FJsonObject> OldJson;star::FlightState Checked;
+        if(!FFileHelper::LoadFileToString(Old,*Filename))
+        { SetStatus(TEXT("以前のセーブを確認できません。上書きを中止しました。"));return false; }
+        const bool Healthy=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Old),OldJson)&&OldJson.IsValid()&&
+            OldJson->TryGetNumberField(TEXT("schemaVersion"),OldVersion)&&OldVersion==1&&
+            OldJson->TryGetStringField(TEXT("dataEpoch"),OldEpoch)&&OldEpoch==Ship->Director()->Catalog().DataEpoch()&&
+            OldJson->TryGetStringField(TEXT("exploration"),OldProgress)&&
+            OldJson->TryGetStringField(TEXT("flight"),OldFlight)&&star::DeserializeFlightState(TCHAR_TO_UTF8(*OldFlight),Checked);
+        // A restored backup must never be replaced by the damaged primary.
+        if(Healthy&&IFileManager::Get().Copy(*Backup,*Filename,true,true)!=COPY_OK)
+        { SetStatus(TEXT("バックアップを保存できません。以前のセーブを保持しました。"));return false; }
+    }
     if(!IFileManager::Get().Move(*Filename,*Temp,true,true,false,true))
     { SetStatus(TEXT("セーブを確定できませんでした。以前のデータを保持しています。"));return false; }
     SetStatus(TEXT("飛行位置と発見記録を保存しました。"));
@@ -1037,16 +1051,18 @@ bool AStarPlayerController::LoadGame()
         return false;
     }
     if(!Ship||!Ship->IsReady()||!Exploration) return false;
-    FString Text;
-    if(!FFileHelper::LoadFileToString(Text,*SaveFilename())) { SetStatus(TEXT("保存された飛行記録がありません。"));return false; }
     TSharedPtr<FJsonObject> Json;
-    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Json)||!Json.IsValid())
-    { SetStatus(TEXT("セーブを読み込めません。現在の飛行を保持します。"));return false; }
     double Version=0;FString Epoch,FlightText,ProgressText;
-    if(!Json->TryGetNumberField(TEXT("schemaVersion"),Version)||Version!=1||!Json->TryGetStringField(TEXT("dataEpoch"),Epoch)||Epoch!=Ship->Director()->Catalog().DataEpoch()||!Json->TryGetStringField(TEXT("flight"),FlightText)||!Json->TryGetStringField(TEXT("exploration"),ProgressText))
-    { SetStatus(TEXT("セーブの形式または天体データの世代が一致しません。"));return false; }
     star::FlightState Pending;
-    if(!star::DeserializeFlightState(TCHAR_TO_UTF8(*FlightText),Pending)) { SetStatus(TEXT("飛行記録が破損しています。"));return false; }
+    auto ReadCandidate=[&](const FString& Path){
+        FString Text;Json.Reset();
+        if(!FFileHelper::LoadFileToString(Text,*Path)||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Json)||!Json.IsValid())return false;
+        if(!Json->TryGetNumberField(TEXT("schemaVersion"),Version)||Version!=1||!Json->TryGetStringField(TEXT("dataEpoch"),Epoch)||Epoch!=Ship->Director()->Catalog().DataEpoch()||!Json->TryGetStringField(TEXT("flight"),FlightText)||!Json->TryGetStringField(TEXT("exploration"),ProgressText))return false;
+        return star::DeserializeFlightState(TCHAR_TO_UTF8(*FlightText),Pending);
+    };
+    const bool FromBackup=!ReadCandidate(SaveFilename());
+    if(FromBackup&&!ReadCandidate(SaveFilename()+TEXT(".bak")))
+    { SetStatus(TEXT("セーブとバックアップを読み込めません。現在の飛行を保持します。"));return false; }
     auto* Director=Ship->Director();
     double SavedUtc=0,SavedRate=1;const bool HasClock=Json->TryGetNumberField(TEXT("astronomyUtc"),SavedUtc);
     if(!HasClock)
@@ -1093,7 +1109,7 @@ bool AStarPlayerController::LoadGame()
     Ship->SetInteriorMonitor(bInteriorMonitor);
     SetFlightAssistEnabled(bFlightAssistPreference);
     bSessionStarted=true;
-    SetStatus(TEXT("飛行位置と発見記録を復元しました。"));
+    SetStatus(FromBackup?TEXT("バックアップから復元しました。飛行に戻る操作で再開します。"):TEXT("飛行位置と発見記録を復元しました。"));
     if(!NavigationBypassed()){
         bMainMenu=false;if(HUD)HUD->SetMainMenuVisible(false);
         StarDiagnostics::Event(TEXT("load_ready"),TEXT("Restored voyage; waiting for explicit resume"));

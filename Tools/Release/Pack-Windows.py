@@ -39,7 +39,7 @@ if not exist "%~dp0Windows\\Star.exe" (
  pause
  exit /b 1
 )
-{check}start "" "%~dp0Windows\\Star.exe" -UserDir="%~dp0UserData" -NoVSync -ExecCmds="t.MaxFPS 0" {flags}
+{check}start "" "%~dp0Windows\\Star.exe" -UserDir="%~dp0UserData" -ExecCmds="DisableAllScreenMessages" {flags}
 '''
 vr_check='''reg query "HKLM\\SOFTWARE\\Khronos\\OpenXR\\1" /v ActiveRuntime >nul 2>&1
 if errorlevel 1 (

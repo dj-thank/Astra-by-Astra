@@ -14,6 +14,8 @@
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
 #include "UnrealClient.h"
+#include "Simulation/SolarLighting.h"
+#include "AudioMixerBlueprintLibrary.h"
 
 namespace
 {
@@ -72,7 +74,7 @@ void AStarPlayerController::ConfigureNavigationQA()
 bool AStarPlayerController::CheckNavigationQADeadline()
 {
     if(bNavigationQAFinished) return false;
-    if(FPlatformTime::Seconds()-NavigationQAStartedWall>(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA"))?600:bLocalFlightQA?240:120))
+    if(FPlatformTime::Seconds()-NavigationQAStartedWall>(FParse::Param(FCommandLine::Get(),TEXT("StarVoyageMovie"))?1200:FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA"))?600:bLocalFlightQA?240:120))
     { FinishNavigationQA(false,TEXT("Navigation QA exceeded 120 wall seconds"));return false; }
     return true;
 }
@@ -88,14 +90,34 @@ void AStarPlayerController::UpdateNavigationQABeforeFlight()
     {
         if(bNavigationQAFinished||!CheckNavigationQADeadline())return;
         auto& Sim=*Ship->Simulation();
+        const bool Movie=FParse::Param(FCommandLine::Get(),TEXT("StarVoyageMovie"));
         if(!bNavigationQAStarted){
             if(!RequireNavigationQA(FMath::Abs(Sim.Telemetry("earth").referenceAltitudeMeters-450000)<1&&!NavigationBypassed(),TEXT("Sun transfer must start at the normal Earth departure without bypass")))return;
             NavigationQAInitialFixture=Sim.State();
             HandleAction(TEXT("StartFlight"));
             if(InputSettings)CloseInputSettings();
             HandleAction(TEXT("Resume"));
-            HandleAction(TEXT("TargetSun"));HandleAction(TEXT("ToggleAutopilot"));
-            NavigationQAStageName=TEXT("sun-alignment");bNavigationQAStarted=true;
+            if(Movie){
+                if(Ship->IsCockpitView())HandleAction(TEXT("ToggleView"));
+                HandleAction(TEXT("ToggleCruise"));NavigationQAStage=-1;NavigationQAStageName=TEXT("earth-coast");
+                UAudioMixerBlueprintLibrary::StartRecordingOutput(GetWorld(),600);
+                VoyageRecordingStart=FPlatformTime::Seconds();
+            }else{HandleAction(TEXT("TargetSun"));HandleAction(TEXT("ToggleAutopilot"));NavigationQAStageName=TEXT("sun-alignment");}
+            bNavigationQAStarted=true;
+        }
+        if(Movie&&NavigationQAStage==-1&&Sim.State().simulationTimeSeconds>=45){
+            NavigationQAStage=-3;NavigationQAStageName=TEXT("earth-sunset");
+        }
+        if(Movie&&NavigationQAStage==-3){
+            const auto* Earth=Sim.FindBody("earth");const auto* Sun=Sim.FindBody("sun");
+            if(star::BodyHorizonClearance(*Earth,Sun->centerMeters,Sim.State().positionMeters)<FMath::DegreesToRadians(-0.65)){
+                NavigationQAStage=-2;NavigationQAStageName=TEXT("chase-sunset");
+                KeyboardThrottle=0;HandleAction(TEXT("ToggleCruise"));
+            }
+        }
+        if(Movie&&NavigationQAStage==-2&&Sim.State().velocityMetersPerSecond.Length()<1){
+            KeyboardThrottle=0;HandleAction(TEXT("TargetSun"));HandleAction(TEXT("ToggleAutopilot"));
+            NavigationQAStage=0;NavigationQAStageName=TEXT("sun-alignment");
         }
         if(NavigationQAStage==0&&Navigation.Tick(Sim).canConfirmTransfer){
             HandleAction(TEXT("FlightContext"));
@@ -230,6 +252,28 @@ void AStarPlayerController::InjectNavigationQAInput(star::FlightInput& Controls)
     if(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))
     {
         Controls={};Controls.hasThrottle=true;Controls.paused=bFlightPaused||bNavigationQAFinished;
+        if(FParse::Param(FCommandLine::Get(),TEXT("StarVoyageMovie"))){
+            const auto& Sim=*Ship->Simulation();const auto& S=Sim.State();
+            if(NavigationQAStage==-1)Controls.throttle=1;
+            if(NavigationQAStage==-2)Controls.brake=true;
+            if(NavigationQAStage==-3){
+                const auto* Earth=Sim.FindBody("earth");const auto* Sun=Sim.FindBody("sun");
+                const auto Up=(S.positionMeters-Earth->centerMeters).Normalized();
+                const auto Sunward=(Sun->centerMeters-S.positionMeters).Normalized();
+                const auto Away=(Up*star::Vec3d::Dot(Sunward,Up)-Sunward).Normalized();
+                auto Error=(S.orientation.Conjugate()*star::Quatd::FromForwardUp(Away,Up)).Normalized();
+                if(Error.w<0)Error={-Error.w,-Error.x,-Error.y,-Error.z};
+                const double Length=std::hypot(Error.x,Error.y,Error.z),Angle=2*std::atan2(Length,Error.w);
+                const double Scale=(Length>1e-12?Angle/Length:0)*1.8;
+                Controls.roll=FMath::Clamp(Error.x*Scale/Sim.Config().rollRateRadiansPerSecond,-1.0,1.0);
+                Controls.pitch=FMath::Clamp(-Error.y*Scale/Sim.Config().pitchRateRadiansPerSecond,-1.0,1.0);
+                Controls.yaw=FMath::Clamp(-Error.z*Scale/Sim.Config().yawRateRadiansPerSecond,-1.0,1.0);
+                const double Clearance=FMath::RadiansToDegrees(star::BodyHorizonClearance(*Earth,Sun->centerMeters,S.positionMeters));
+                Controls.throttle=Angle<.25?FMath::Clamp((Clearance+.4)/8.0,.04,1.0):0;
+                Controls.brake=Angle>=.25;
+            }
+            KeyboardThrottle=static_cast<float>(Controls.throttle);
+        }
         NavigationQARequestedInput=Controls;NavigationQABeforeState=Ship->Simulation()->State();return;
     }
     if(bLocalFlightQA){InjectLocalFlightQA(Controls);return;}
@@ -303,7 +347,7 @@ void AStarPlayerController::UpdateNavigationQAAfterFlight()
             if(!RequireNavigationQA(Radius>=7.9&&Radius<=8.2&&State.velocityMetersPerSecond.Length()<1&&State.recoveryCount==0,TEXT("Sun arrival outside stopping shell")))return;
             NavigationQAStage=2;NavigationQAStageName=TEXT("sun-arrived");NavigationQAStageWall=FPlatformTime::Seconds();CaptureNavigationQAStage();
         }
-        if(NavigationQAStage==2&&FPlatformTime::Seconds()-NavigationQAStageWall>2)
+        if(NavigationQAStage==2&&FPlatformTime::Seconds()-NavigationQAStageWall>(FParse::Param(FCommandLine::Get(),TEXT("StarVoyageMovie"))?40:2))
             FinishNavigationQA(true,TEXT("Normal Earth departure -> Sun selection/preload -> O alignment -> F confirmation -> continuous AP flight -> stopped at 8 solar radii; scripted input"));
         return;
     }
@@ -373,7 +417,7 @@ void AStarPlayerController::FinishNavigationQA(bool Success,const FString& Reaso
         Result->SetStringField(TEXT("scope"),TEXT("UE runtime with scripted HandleAction and control inputs; normal navigation gate; physical keyboard, HOTAS, screenshot visual quality and whole-route acceptance are not established"));
         if(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))Result->SetStringField(TEXT("scope"),TEXT("One continuous Earth-to-Sun route through normal actions and navigation gates, with shared UTC; scripted input, no physical keyboard/HOTAS acceptance"));
         Result->SetNumberField(TEXT("wallSeconds"),FPlatformTime::Seconds()-NavigationQAStartedWall);
-        Result->SetNumberField(TEXT("maximumWallSeconds"),FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA"))?600:bLocalFlightQA?240:120);
+        Result->SetNumberField(TEXT("maximumWallSeconds"),FParse::Param(FCommandLine::Get(),TEXT("StarVoyageMovie"))?1200:FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA"))?600:bLocalFlightQA?240:120);
         Result->SetBoolField(TEXT("scriptedInput"),true);Result->SetBoolField(TEXT("physicalInputTested"),false);
         Result->SetNumberField(TEXT("assertions"),NavigationQAAssertions);Result->SetNumberField(TEXT("frames"),NavigationQAFrames);
         Result->SetBoolField(TEXT("navigationBypassed"),NavigationBypassed());
