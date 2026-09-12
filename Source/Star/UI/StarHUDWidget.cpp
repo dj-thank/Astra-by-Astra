@@ -67,11 +67,11 @@ FString UStarHUDWidget::Speed(double Mps)
     return FString::Printf(TEXT("%.1f m/s"), Mps);
 }
 
-TSharedRef<SWidget> UStarHUDWidget::MakeMetric(const FString& Label, TAttribute<FText> Value, float Width) const
+TSharedRef<SWidget> UStarHUDWidget::MakeMetric(TAttribute<FText> Label, TAttribute<FText> Value, float Width) const
 {
     return SNew(SBox).WidthOverride(Width)
     [ SNew(SVerticalBox)
-        + SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 5)[MakeText(T(Label), 13, Muted)]
+        + SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 5)[MakeText(Label, 13, Muted)]
         + SVerticalBox::Slot().AutoHeight()[MakeText(Value, 24, White)] ];
 }
 
@@ -177,9 +177,9 @@ TSharedRef<SWidget> UStarHUDWidget::BuildFlightHUD()
         [ SNew(SVerticalBox)
             + SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 22)
             [ SNew(SHorizontalBox)
-                + SHorizontalBox::Slot().AutoWidth()[MakeMetric(TEXT("対天体速度"), TAttribute<FText>::CreateLambda([this] { return T(Speed(Current.SpeedMps)); }), 215)]
-                + SHorizontalBox::Slot().AutoWidth()[MakeMetric(TEXT("高度"), TAttribute<FText>::CreateLambda([this] { return T(Distance(Current.AltitudeM)); }), 215)]
-                + SHorizontalBox::Slot().AutoWidth()[MakeMetric(TEXT("昇降速度"), TAttribute<FText>::CreateLambda([this] { return T(Speed(Current.VerticalSpeedMps)); }), 205)]
+                + SHorizontalBox::Slot().AutoWidth()[MakeMetric(T(TEXT("対天体速度")), TAttribute<FText>::CreateLambda([this] { return T(Speed(Current.SpeedMps)); }), 215)]
+                + SHorizontalBox::Slot().AutoWidth()[MakeMetric(TAttribute<FText>::CreateLambda([this] { return T(Current.AltitudeReferenceName+TEXT(" 基準の高度")); }), TAttribute<FText>::CreateLambda([this] { return T(Distance(Current.AltitudeM)); }), 270)]
+                + SHorizontalBox::Slot().AutoWidth()[MakeMetric(T(TEXT("昇降速度")), TAttribute<FText>::CreateLambda([this] { return T(Speed(Current.VerticalSpeedMps)); }), 205)]
             ]
             + SVerticalBox::Slot().AutoHeight()
               [MakeText(TAttribute<FText>::CreateLambda([this]
@@ -366,6 +366,7 @@ TSharedRef<SWidget> UStarHUDWidget::BuildMenu()
     Add(TEXT("地球   /   昼と夜の観測"), TEXT("TargetEarth"));
     Add(TEXT("月   /   軌道観測と着陸"), TEXT("TargetMoon"));
     Add(TEXT("土星   /   環と影の観測"), TEXT("TargetSaturn"));
+    Add(TEXT("太陽   /   プラズマの観測"), TEXT("TargetSun"));
     if(!bMain&&!Current.bGuidedTour&&!Current.bOnFoot)
     {
         NavigationPanel->AddSlot().AutoHeight().Padding(0, 16, 0, 8)

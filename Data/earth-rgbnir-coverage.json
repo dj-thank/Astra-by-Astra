@@ -1,0 +1,12 @@
+{
+  "source": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/esa_worldcover_grid_composites.fgb",
+  "retrievedUtc": "2026-09-12T15:33:54.923184+00:00",
+  "observationYear": 2021,
+  "sourceSha256": "fb1ff9bd2c1896cb8a590de6dabb24641839182dd104a36979d4de7c42a40137",
+  "resultSha256": "4ddd2863036b1b35889a0c06522dffb210bf3db84f2c6eab0b360d0e0abf1b2a",
+  "format": "180 south-to-north rows x 360 west-to-east columns; uint8; SW integer degree cell; latitude -90..89 longitude -180..179",
+  "tiles": 19359,
+  "processing": "Extract exact RGBNIR 2021 S3 object identifiers from the official FlatGeobuf attribute strings; retain provider coverage, not land/water classification",
+  "license": "CC BY 4.0",
+  "credit": "ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed by ESA WorldCover consortium"
+}

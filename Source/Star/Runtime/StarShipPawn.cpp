@@ -1,5 +1,5 @@
-#include "Simulation/SolarLighting.h"
 #include "Runtime/StarShipPawn.h"
+#include "Simulation/SolarLighting.h"
 #include "Runtime/StarDiagnostics.h"
 #include "Runtime/StarWorldDirector.h"
 #include "Runtime/StarDataCatalog.h"
@@ -331,6 +331,20 @@ bool AStarShipPawn::LoadShip()
         TaskLight->SetLightColor(FLinearColor(1.0f,0.94f,0.84f));
         TaskLight->SetAttenuationRadius(240);TaskLight->SetSourceRadius(18);TaskLight->SetSourceLength(65);
         TaskLight->SetCastShadows(false);TaskLight->SetLightingChannels(false,true,false);TaskLight->RegisterComponent();
+    }
+    // Gentle, exposure-compensated exterior fill keeps the hull readable in
+    // solar backlight. Channel 2 affects only exterior ship parts.
+    for(int32 Side:{-1,1})
+    {
+        auto* Fill=NewObject<UPointLightComponent>(this,FName(*FString::Printf(TEXT("HullReadabilityLight%d"),Side)));
+        AddInstanceComponent(Fill);Fill->SetupAttachment(VisualRoot);
+        Fill->SetRelativeLocation(FVector(Side*2200,Side*1600,2200));
+        Fill->SetIntensityUnits(ELightUnits::Lumens);Fill->SetIntensity(5000);
+        Fill->InverseExposureBlend=1.0f;
+        Fill->SetLightColor(FLinearColor(1.0f,0.94f,0.86f));
+        Fill->SetAttenuationRadius(8000);Fill->SetSourceRadius(800);
+        Fill->SetCastShadows(false);Fill->SetLightingChannels(false,false,true);
+        Fill->RegisterComponent();
     }
     if(!LoadPhotoPlumes()) return false;
     return Meshes.Num()>0;

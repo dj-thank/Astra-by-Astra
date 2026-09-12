@@ -213,7 +213,7 @@ MATERIAL_SPECS["M_Thruster"]["defines"] = (PHOTO_PLUME_DEFINE, "STAR_ENGINE_FX_V
 
 def shader_source(filename: str, defines=()) -> str:
     """A function body, with helper struct methods explicitly parameterized."""
-    valid = {v["shader"] for v in MATERIAL_SPECS.values()} | {"SurfaceNormal.ush", "SurfacePhoto.ush", "Sun.ush"}
+    valid = {v["shader"] for v in MATERIAL_SPECS.values()} | {"SurfaceNormal.ush", "SurfacePhoto.ush", "Sun.ush", "SolarSurface.ush", "SolarPlasma.ush", "SolarPlasmaOffset.ush"}
     if filename not in valid:
         raise ValueError(f"Unknown owned shader: {filename}")
     source_path = AXIAL_SHADER_PATH if filename == "AxialDisk.custom.hlsl" else SHADER_DIR / filename

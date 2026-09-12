@@ -129,7 +129,7 @@ FStarObjectiveView UStarExplorationSubsystem::GetTutorialObjective() const
     const TCHAR* TutorialTitles[] = {TEXT("操船を確かめる"), TEXT("目的地を選ぶ"), TEXT("視点を切り替える"), TEXT("観測を始める"), TEXT("月に着陸する")};
     const TCHAR* TutorialDetails[] = {
         TEXT("推力を上げて離陸。軌道から始めた場合は、20 m/s以上で操船を確認します。"),
-        TEXT("メニューで地球・月・土星から目的地を選びます。"),
+        TEXT("メニューで地球・月・土星・太陽から目的地を選びます。"),
         TEXT("V または視点ボタンでコックピットと船外視点を切り替えます。"),
         TEXT("目的地を向いて減速。目標の観測条件を満たし、スキャンを続けます。"),
         TEXT("月へ接近して脚を展開。姿勢を整え、ゆっくり降下して着陸します。")};

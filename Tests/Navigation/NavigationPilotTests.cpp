@@ -205,10 +205,12 @@ void MovingCelestialFrameTest(const std::vector<BodyDefinition>& bodies) {
 int main(int argc,char** argv) {
     try {
         Check(argc==2,"pass dated body fixture path");const auto bodies=LoadBodies(argv[1]);
+        for(const auto& body:bodies)if(body.id=="sun")Check(NavigationPilot::StandOffMeters(body)==body.radiusMeters*7.0,"Sun observing standoff is seven radii above photosphere");
         LocalSpeedDoesNotFreeze(bodies);
         GateTests(bodies);LifecycleTests(bodies);BlockedRouteTest(bodies);HoldAndAlignmentTests(bodies);
         MovingCelestialFrameTest(bodies);
         TransferIntegration(bodies,false);TransferIntegration(bodies,true);TransferIntegration(bodies,false,"saturn");
+        TransferIntegration(bodies,false,"sun");
         std::cout << "PASS " << checks << " navigation assertions (native core only)\n";return 0;
     } catch(const std::exception& error) {std::cerr << "FAIL after " << checks << ": " << error.what() << "\n";return 1;}
 }

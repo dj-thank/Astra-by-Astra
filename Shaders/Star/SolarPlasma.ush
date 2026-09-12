@@ -1,0 +1,11 @@
+float period=lerp(30.0,90.0,step(0.5,Seed.r));
+float life=frac(SolarTime/period+Seed.r);
+float envelope=smoothstep(0.0,0.15,life)*(1.0-smoothstep(0.7,1.0,life));
+float front=smoothstep(UV.x-0.12,UV.x+0.12,life*2.5);
+float fibres=0.45+0.55*pow(0.5+0.5*sin(UV.x*110.0-SolarTime*6.2831853/3.0+Seed.r*43.0),3.0);
+float knots=sm.Noise(float3(UV.x*21.0,Seed.r*19.0,sin(SolarTime*6.2831853/30.0)*2.0));
+fibres*=0.22+0.78*smoothstep(0.2,0.8,knots);
+float taper=pow(max(sin(UV.x*3.14159265),0.0),0.35);
+float opacity=SolarDetail*envelope*front*taper*fibres*0.42*Seed.b;
+float3 color=lerp(float3(1.0,0.055,0.005),float3(1.0,0.48,0.08),fibres)*SunRadiance*0.012;
+return float4(color,opacity);

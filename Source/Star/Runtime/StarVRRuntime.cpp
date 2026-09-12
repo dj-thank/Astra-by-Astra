@@ -19,6 +19,18 @@ void AStarPlayerController::RecenterVR()
 void AStarPlayerController::UpdateVR()
 {
     if(!bVRRequested||!Ship)return;
+    bool UsesFocus=false,HasFocus=true;
+    UHeadMountedDisplayFunctionLibrary::GetVRFocusState(UsesFocus,HasFocus);
+    const bool Ready=UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayConnected()&&
+        UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled()&&
+        UHeadMountedDisplayFunctionLibrary::HasValidTrackingPosition()&&(!UsesFocus||HasFocus);
+    if(auto* Limit=IConsoleManager::Get().FindConsoleVariable(TEXT("t.MaxFPS")))
+        if(Limit->GetFloat()!=(Ready?0.0f:30.0f))Limit->Set(Ready?0.0f:30.0f,ECVF_SetByCode);
+    if(!Ready&&bSessionStarted&&!bFlightPaused){
+        SetFlightPaused(true);
+        SetStatus(TEXT("VRの接続・追跡を確認してください。復帰後に手動で飛行を再開します。"));
+    }
+    if(!Ready)return;
     if(!VRPanel)
     {
         // A seated, world-space panel: it stays in the cockpit when the head turns.

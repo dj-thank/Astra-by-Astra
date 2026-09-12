@@ -17,10 +17,11 @@ public:
     UStarEarthTerrainComponent();
     virtual ~UStarEarthTerrainComponent() override;
     void Initialize(UMaterialInterface* SurfaceMaterial);
-    void UpdateTerrain(const star::BodyDefinition& Earth,const star::Vec3d& Camera,const star::Vec3d& Origin);
+    void UpdateTerrain(const star::BodyDefinition& Earth,const star::Vec3d& Camera,const star::Vec3d& Origin,double SpeedMps=0);
     void ApplyGlobeCoverage(UMaterialInstanceDynamic* Globe);
     void Shutdown();
     FString StatusText() const;
+    bool FindSurveyDirection(const star::BodyDefinition& Earth,const star::Vec3d& Position,star::Vec3d& Forward) const;
     uint64 RadianceRevision() const { return RenderRevision; }
 protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

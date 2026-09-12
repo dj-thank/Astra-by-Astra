@@ -11,11 +11,24 @@
 #include "Misc/CoreDelegates.h"
 #include "Misc/ConfigCacheIni.h"
 #include "Misc/FileHelper.h"
+#include "Async/Async.h"
+#include "Containers/Queue.h"
+#include "HAL/Event.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
+#include <atomic>
 
 namespace {
 struct FRecorder {
     FCriticalSection Mutex;
     TUniquePtr<FArchive> Writer;
+    TQueue<FString,EQueueMode::Mpsc> Pending;
+    TFuture<void> Worker;
+    FEvent* Wake=nullptr;
+    std::atomic<int32> PendingBytes{0};
+    std::atomic<bool> Closing{false};
+    int32 Dropped=0,SlowWriteMs=0;
+    bool Enabled=false;
     FString Folder;
     uint64 Sequence=0;
     int Part=0;
@@ -26,9 +39,33 @@ uint64 FrameNumber=0;
 double FrameStart=0,FrameDelta=0,NextSample=0,PreviousFrameStart=0,WallFrameDelta=0;
 bool SampleFrame=false;
 const TCHAR* CurrentPhase=TEXT("startup");
+void Drain(FRecorder& R)
+{
+    // The writer and every disk flush belong exclusively to this thread.
+    while(!R.Closing.load()||!R.Pending.IsEmpty()){
+        R.Wake->Wait(1000);
+        if(R.SlowWriteMs>0)FPlatformProcess::Sleep(R.SlowWriteMs/1000.0f);
+        FString Text;
+        while(R.Pending.Dequeue(Text)){
+            R.PendingBytes.fetch_sub(Text.Len()*sizeof(TCHAR));
+            if(!R.Writer)continue;
+            FTCHARToUTF8 Bytes(*Text);
+            if(R.Writer->Tell()+Bytes.Length()>8*1024*1024){
+                R.Writer->Flush();R.Writer.Reset();R.Part=(R.Part+1)%2;
+                R.Writer.Reset(IFileManager::Get().CreateFileWriter(*(R.Folder/FString::Printf(TEXT("flight-%d.jsonl"),R.Part)),FILEWRITE_AllowRead));
+            }
+            if(R.Writer)R.Writer->Serialize(const_cast<ANSICHAR*>(Bytes.Get()),Bytes.Length());
+        }
+        if(R.Writer)R.Writer->Flush();
+    }
+    R.Writer.Reset();
+}
 void WriteLocked(FRecorder& R,const TCHAR* Type,const TSharedRef<FJsonObject>& Json,bool Flush)
 {
-    if(!R.Writer||R.Closed)return;
+    if(!R.Enabled||R.Closed)return;
+    // Bound backlog during a slow/full disk. Gaps remain explicit in the next record.
+    if(R.PendingBytes.load()>1024*1024){++R.Dropped;return;}
+    if(R.Dropped){Json->SetNumberField(TEXT("droppedBefore"),R.Dropped);R.Dropped=0;}
     Json->SetStringField(TEXT("type"),Type);
     Json->SetNumberField(TEXT("sequence"),static_cast<double>(++R.Sequence));
     Json->SetStringField(TEXT("utc"),FDateTime::UtcNow().ToIso8601());
@@ -36,14 +73,8 @@ void WriteLocked(FRecorder& R,const TCHAR* Type,const TSharedRef<FJsonObject>& J
     Json->SetNumberField(TEXT("frame"),IsInGameThread()?static_cast<double>(FrameNumber):-1);
     Json->SetStringField(TEXT("thread"),IsInGameThread()?TEXT("game"):TEXT("worker"));
     FString Text;FJsonSerializer::Serialize(Json,TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Text));
-    Text+=TEXT("\n");FTCHARToUTF8 Bytes(*Text);
-    if(R.Writer->Tell()+Bytes.Length()>8*1024*1024){
-        R.Writer->Flush();R.Writer.Reset();R.Part=(R.Part+1)%2;
-        R.Writer.Reset(IFileManager::Get().CreateFileWriter(*(R.Folder/FString::Printf(TEXT("flight-%d.jsonl"),R.Part)),FILEWRITE_AllowRead));
-        if(!R.Writer)return;
-    }
-    R.Writer->Serialize(const_cast<ANSICHAR*>(Bytes.Get()),Bytes.Length());
-    if(Flush)R.Writer->Flush();
+    Text+=TEXT("\n");R.PendingBytes.fetch_add(Text.Len()*sizeof(TCHAR));R.Pending.Enqueue(MoveTemp(Text));
+    if(Flush)R.Wake->Trigger();
 }
 void Write(const TCHAR* Type,const TSharedRef<FJsonObject>& Json,bool Flush)
 {
@@ -59,6 +90,13 @@ void StarDiagnostics::Initialize()
         FString::Printf(TEXT("-%u-"),FPlatformProcess::GetCurrentProcessId())+FGuid::NewGuid().ToString(EGuidFormats::Digits).Left(8));
     IFileManager::Get().MakeDirectory(*R.Folder,true);
     R.Writer.Reset(IFileManager::Get().CreateFileWriter(*(R.Folder/TEXT("flight-0.jsonl")),FILEWRITE_AllowRead));
+    R.Enabled=R.Writer.IsValid();
+    if(R.Enabled){
+        R.Wake=FPlatformProcess::GetSynchEventFromPool(false);
+        FParse::Value(FCommandLine::Get(),TEXT("StarDiagnosticsSlowWriteMs="),R.SlowWriteMs);
+        R.SlowWriteMs=FMath::Clamp(R.SlowWriteMs,0,1000);
+        R.Worker=Async(EAsyncExecution::Thread,[&R]{Drain(R);});
+    }
     auto Json=MakeShared<FJsonObject>();Json->SetNumberField(TEXT("schema"),1);
     FString Version;if(GConfig)GConfig->GetString(TEXT("/Script/EngineSettings.GeneralProjectSettings"),TEXT("ProjectVersion"),Version,GGameIni);
     Json->SetStringField(TEXT("version"),Version);Json->SetNumberField(TEXT("maximumSessionBytes"),16*1024*1024);
@@ -67,13 +105,17 @@ void StarDiagnostics::Initialize()
     FFileHelper::SaveStringToFile(Metadata,*(R.Folder/TEXT("session.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
     WriteLocked(R,TEXT("session_start"),Json,true);
     FCoreDelegates::OnPreExit.AddStatic(&StarDiagnostics::Shutdown);
-    if(R.Writer){UE_LOG(LogTemp,Display,TEXT("STAR flight recorder: %s"),*R.Folder);}
+    if(R.Enabled){UE_LOG(LogTemp,Display,TEXT("STAR flight recorder: %s (async, 1 MiB backlog)"),*R.Folder);}
     else {UE_LOG(LogTemp,Error,TEXT("STAR flight recorder cannot write to %s"),*R.Folder);}
 }
 void StarDiagnostics::Shutdown()
 {
-    auto& R=Recorder();FScopeLock Lock(&R.Mutex);if(R.Closed)return;
-    WriteLocked(R,TEXT("session_end"),MakeShared<FJsonObject>(),true);R.Closed=true;R.Writer.Reset();
+    auto& R=Recorder();
+    {FScopeLock Lock(&R.Mutex);if(R.Closed)return;
+        WriteLocked(R,TEXT("session_end"),MakeShared<FJsonObject>(),true);R.Closed=true;R.Closing.store(true);
+        if(R.Wake)R.Wake->Trigger();}
+    if(R.Worker.IsValid())R.Worker.Wait();
+    if(R.Wake){FPlatformProcess::ReturnSynchEventToPool(R.Wake);R.Wake=nullptr;}
 }
 FString StarDiagnostics::Directory(){return FPaths::ProjectSavedDir()/TEXT("Diagnostics");}
 void StarDiagnostics::Event(const TCHAR* Type,const FString& Detail,bool Flush,double Milliseconds)

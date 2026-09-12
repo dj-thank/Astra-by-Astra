@@ -81,6 +81,7 @@ private:
     UAudioComponent* CreatePlayer();
     void RequestCue(int32 CueIndex);
     void CompleteCueLoad(int32 CueIndex);
+    UFUNCTION() void CompleteCuePrime(const USoundWave* Wave, bool bCancelled);
     USoundWave* GetCueWave(int32 CueIndex) const;
     void PausePlayers();
     void UpdateMix(float DeltaTime);

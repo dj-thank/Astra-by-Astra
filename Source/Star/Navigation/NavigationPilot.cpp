@@ -10,7 +10,7 @@ double Clamp(double value, double low, double high) { return std::max(low,std::m
 double Shell(const BodyDefinition& body) {
     return body.radiusMeters + std::max(0.0,body.landable ? body.terrainMaxHeightMeters : body.atmosphereHeightMeters);
 }
-double Tolerance(const BodyDefinition& body) { return std::max(100.0,body.radiusMeters*0.0001); }
+double Tolerance(const BodyDefinition& body) { return body.id=="sun"?100.0:std::max(100.0,body.radiusMeters*0.0001); }
 double Heading(const FlightState& state, const BodyDefinition& body) {
     return std::acos(Clamp(Vec3d::Dot(Forward(state.orientation),
         (body.centerMeters-state.positionMeters).Normalized()),-1,1))*180.0/Pi;
@@ -54,6 +54,7 @@ Vec3d StableUp(Vec3d forward, Vec3d candidate) {
 }
 
 double NavigationPilot::StandOffMeters(const BodyDefinition& body) {
+    if(body.id=="sun")return body.radiusMeters*7.0;
     return std::max(100000.0,body.radiusMeters*0.15);
 }
 const BodyDefinition* NavigationPilot::NearestBody(const FlightSimulation& simulation) const {

@@ -1,9 +1,11 @@
-#include "Simulation/SolarLighting.h"
 #include "Runtime/StarWorldDirector.h"
+#include "Simulation/SolarLighting.h"
+#include "Runtime/StarSolarVisualComponent.h"
 #include "ProceduralMeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/DirectionalLight.h"
+#include "Engine/Texture2D.h"
 #include "Engine/SkyLight.h"
 #include "Engine/PostProcessVolume.h"
 #include "Engine/World.h"
@@ -47,6 +49,8 @@ AStarWorldDirector::AStarWorldDirector()
     PrimaryActorTick.bCanEverTick = false;
     SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("CelestialScene"));
     SetRootComponent(SceneRoot);
+    SolarVisual=CreateDefaultSubobject<UStarSolarVisualComponent>(TEXT("SolarVisual"));
+    SolarVisual->SetupAttachment(SceneRoot);
     EarthTerrain=CreateDefaultSubobject<UStarEarthTerrainComponent>(TEXT("ObservedEarthTerrain"));
     EarthTerrain->SetupAttachment(SceneRoot);
     LunarTerrain=CreateDefaultSubobject<UStarLunarTerrainComponent>(TEXT("LunarTerrain"));
@@ -186,6 +190,7 @@ void AStarWorldDirector::Ring(UProceduralMeshComponent* Mesh,double Inner,double
     }
     Mesh->CreateMeshSection_LinearColor(0,Vertices,Triangles,Normals,UV,TArray<FLinearColor>(),TArray<FProcMeshTangent>(),false);
 }
+void AStarWorldDirector::PreloadSun(){if(SolarVisual)SolarVisual->RequestPreload();}
 void AStarWorldDirector::CreateBodies()
 {
     for(const auto& Body:Data.Bodies())
@@ -202,8 +207,13 @@ void AStarWorldDirector::CreateBodies()
         auto* Dynamic=Base?UMaterialInstanceDynamic::Create(Base,this):nullptr;
         Mesh->SetMaterial(0,Dynamic);
         BodyMaterials.Add(Dynamic);
+        if(Id==TEXT("sun"))SolarVisual->Initialize(Mesh,Dynamic);
         if(Id==TEXT("earth"))
         {
+            // Custom spherical sampling cannot supply conventional UV density.
+            // The offline globe must remain legible without any terrain network request.
+            if(Dynamic)for(const TCHAR* Name:{TEXT("DayTex"),TEXT("NightTex"),TEXT("WaterMaskTex")})
+                if(auto* Texture=Cast<UTexture2D>(Dynamic->K2_GetTextureParameterValue(Name)))Texture->bForceMiplevelsToBeResident=true;
             EarthCloudMesh=NewMesh(TEXT("EarthCloudDeck"));
             Sphere(EarthCloudMesh,512,256);
             EarthCloudMaterial=UMaterialInstanceDynamic::Create(Material(bEarthVolumeClouds?
@@ -400,7 +410,11 @@ star::FlightState AStarWorldDirector::InitialFlightState() const
     const auto* Moon=Data.Find(TEXT("moon"));
     const auto* Sun=Data.Find(TEXT("sun"));
     if(!Earth||!Moon||!Sun) return State;
-    return star::InitialVoyage(Earth->Definition,Sun->Definition);
+    State=star::InitialVoyage(Earth->Definition,Sun->Definition);
+    star::Vec3d Forward;
+    if(EarthTerrain&&EarthTerrain->FindSurveyDirection(Earth->Definition,State.positionMeters,Forward))
+        State.orientation=star::Quatd::FromForwardUp(Forward,(State.positionMeters-Earth->Definition.centerMeters).Normalized());
+    return State;
 }
 void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::Vec3d& Origin,const star::Vec3d& Camera,double Dt,bool bActiveCameraUpdate)
 {
@@ -596,12 +610,14 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
                 Mat->SetScalarParameterValue(TEXT("OccluderRadius"),static_cast<float>(Occluder->Definition.radiusMeters/Body.radiusMeters));
             }
         };
+        if(Body.id=="sun")BodyMaterials[I]=SolarVisual->GetSurfaceMaterial();
         SetParameters(BodyMaterials[I]);
         if(Body.id=="sun" && BodyMaterials[I])
         {
             auto* Mat=BodyMaterials[I].Get();
             // Photosphere surface brightness is independent of observer distance.
             Mat->SetScalarParameterValue(TEXT("SunRadiance"),static_cast<float>(Solar.diskLuminance));
+            SolarVisual->Update(AstronomicalUtc,FMath::RadiansToDegrees(2.0*Solar.angularRadiusRadians),RenderRadius,!NativeAtmosphere);
             Mat->SetScalarParameterValue(TEXT("EarthRadiusMeters"),0.0f);
             if(LocalEarth)
             {
@@ -762,8 +778,9 @@ void AStarWorldDirector::UpdateLocalEnvironment(const star::Vec3d& Origin,const 
     const uint64 TerrainRevision=EarthTerrain?EarthTerrain->RadianceRevision():0;
     const bool TimeChanged=FMath::Abs(AstronomicalUtc-EnvironmentCaptureUtc)>0.1;
     const bool Changed=Drift>EnvironmentValidityMeters*0.2||AngularDrift>FMath::DegreesToRadians(0.5)||
-        TerrainRevision!=EnvironmentTerrainRevision||(Age>=2.0&&TimeChanged);
-    if(Eligible&&!bEnvironmentPending&&EnvironmentClock>=3.0&&Age>=0.5&&(!bEnvironmentActive||Changed))
+        TerrainRevision!=EnvironmentTerrainRevision||(Age>=30.0&&TimeChanged);
+    // Coalesce arriving terrain tiles; ordinary UTC ticks do not change the local lighting appreciably.
+    if(Eligible&&!bEnvironmentPending&&EnvironmentClock>=3.0&&Age>=2.0&&(!bEnvironmentActive||Changed))
     {
         EnvironmentBody=BodyId;EnvironmentCapturePosition=Local;
         EnvironmentSunLocal=SunLocal;EnvironmentWorldDirection=WorldDirection;
@@ -783,7 +800,7 @@ float AStarWorldDirector::MinimumExposureEV() const
 void AStarWorldDirector::UpdateTerrain(const star::FlightState& State,const star::Vec3d& Origin)
 {
     if(LunarTerrain) LunarTerrain->UpdateTerrain(State.positionMeters,Origin);
-    if(const auto* Earth=Data.Find(TEXT("earth")))EarthTerrain->UpdateTerrain(Earth->Definition,State.positionMeters,Origin);
+    if(const auto* Earth=Data.Find(TEXT("earth")))EarthTerrain->UpdateTerrain(Earth->Definition,State.positionMeters,Origin,State.velocityMetersPerSecond.Length());
 }
 bool AStarWorldDirector::TerrainReadyForLanding() const
 {

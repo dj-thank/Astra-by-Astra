@@ -40,6 +40,7 @@ struct FStarHUDSnapshot
     UPROPERTY(BlueprintReadOnly) FString ControllerName;
     UPROPERTY(BlueprintReadOnly) double SpeedMps = 0;
     UPROPERTY(BlueprintReadOnly) double AltitudeM = 0;
+    UPROPERTY(BlueprintReadOnly) FString AltitudeReferenceName = TEXT("地球");
     UPROPERTY(BlueprintReadOnly) double TargetDistanceM = 0;
     // Runtime projects the actual target relative to the active camera. No UI-side world coordinates.
     UPROPERTY(BlueprintReadOnly) bool bHasTargetDirection = false;

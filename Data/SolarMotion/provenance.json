@@ -1,0 +1,483 @@
+{
+  "imageProvenance": {
+    "schema": 2,
+    "projection": "Carrington longitude / heliographic latitude; gnomonic TAN perspective; JP2 north-up origin top-left",
+    "size": [
+      4096,
+      2048
+    ],
+    "color": "8-bit JP2 display intensities; fixed gamma .6 for EUV, 1 for HMI; SunPy AIA LUT; not radiometrically calibrated",
+    "entries": [
+      {
+        "channel": "171",
+        "latest": "2026-09-11T13:59:45.352",
+        "oldest": "2026-08-15T12:00:09.348",
+        "observerLongitude": 190.67589,
+        "observerLatitude": 7.2377639,
+        "distanceSolarRadii": 216.3657040229885,
+        "imageCenter": [
+          2047.5,
+          2047.5
+        ],
+        "imageScale": 0.60000002,
+        "observedRadius": 953.31899,
+        "coveredFraction": 0.7897597551345825,
+        "input": [
+          {
+            "file": "2026-08-15_src10.jp2",
+            "sha256": "d08b9c65e28b03caeae2b5cd513e1cdfc50e6ca1e6b0cd42324beb6108d291bf",
+            "date": "2026-08-15T12:00:09.348",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-18_src10.jp2",
+            "sha256": "caa8b5db0e188472048a10f9a1b43ab7544388060019106e1b627cfd4df36d64",
+            "date": "2026-08-18T11:59:57.351",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-21_src10.jp2",
+            "sha256": "b50b79b4e2dc5b41e4b029bdae2fff728ea32003fa17ac62f540e68dde4f2071",
+            "date": "2026-08-21T11:59:45.348",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-24_src10.jp2",
+            "sha256": "d4e8b078ba48b7769082585b388d91c097a8534309a5a9ee5fc3557ac8e71b33",
+            "date": "2026-08-24T11:59:57.348",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-27_src10.jp2",
+            "sha256": "1856bf369a9818e5308112afadcce58941d77822a70fe9c9a6d6b2c3304e5fc3",
+            "date": "2026-08-27T11:59:57.349",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-30_src10.jp2",
+            "sha256": "1fe25fe11db84aa75bd27f1136863a4815b10f736d1334eaace2bc27be24dbb8",
+            "date": "2026-08-30T11:59:57.349",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-02_src10.jp2",
+            "sha256": "dd34eb8fbab090fe1e213d7ce4312a6efc9a6288514a262cecdedbe95cee3c60",
+            "date": "2026-09-02T11:59:57.348",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-05_src10.jp2",
+            "sha256": "ed8c6da7c26111dc861c3c8c05b470bc10946654b66228028e6a45fdcc08d59c",
+            "date": "2026-09-05T11:59:57.349",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-08_src10.jp2",
+            "sha256": "b1bfc8dbece92c67284093e9d2d12b5d7aa53166303fc04f6af2247343883d54",
+            "date": "2026-09-08T11:59:57.349",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-11_src10.jp2",
+            "sha256": "a392cb773fde0a97ebb229745c65d61fd80057f8156992dcea96c401d57cae69",
+            "date": "2026-09-11T13:59:45.352",
+            "quality": "1073741824"
+          }
+        ],
+        "weightedAgeDaysRange": [
+          1.0000267028808594,
+          27.08255386352539
+        ],
+        "coveredSphericalAreaFraction": 0.938034342658343
+      },
+      {
+        "channel": "193",
+        "latest": "2026-09-11T14:00:16.842",
+        "oldest": "2026-08-15T11:59:52.842",
+        "observerLongitude": 190.67107,
+        "observerLatitude": 7.237783,
+        "distanceSolarRadii": 216.36557471264368,
+        "imageCenter": [
+          2047.5,
+          2047.5
+        ],
+        "imageScale": 0.60000008,
+        "observedRadius": 953.31958,
+        "coveredFraction": 0.7897598743438721,
+        "input": [
+          {
+            "file": "2026-08-15_src11.jp2",
+            "sha256": "55c10ebacb2154ab12660eba318371148d53aeaa15329f0167971fd6b089f9e9",
+            "date": "2026-08-15T11:59:52.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-18_src11.jp2",
+            "sha256": "9ec732e8ec2a137abb7dc604aedca7dd4ede8aebed32d22797ae64dde2b2fca1",
+            "date": "2026-08-18T12:00:04.841",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-21_src11.jp2",
+            "sha256": "ad91b7d7527e8152ab57851e15dcda9f514d7044f269cc049cddd4ef7f5c7291",
+            "date": "2026-08-21T12:00:16.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-24_src11.jp2",
+            "sha256": "535d4aca206e531071b5505b4cc74ecdbaf552f5bc58ed785b9bbc300103830c",
+            "date": "2026-08-24T12:00:04.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-27_src11.jp2",
+            "sha256": "23634f185f944a307ff70ce5672e555768751c169a71c98dea9648bc1db1a9b9",
+            "date": "2026-08-27T11:59:52.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-30_src11.jp2",
+            "sha256": "5bb164e06ce34bde4fd40af10072e872e1a9b59bf8332b393c1be4eaf9e20ab4",
+            "date": "2026-08-30T11:59:52.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-02_src11.jp2",
+            "sha256": "2f96f253f07a2dbf900ad39d01336658eaacd41dbc6d8016abd6e6a473be2148",
+            "date": "2026-09-02T12:00:16.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-05_src11.jp2",
+            "sha256": "a3831f18516cfb8883d0b7a84f035475922ff3d6767818d46bdd760641b8485a",
+            "date": "2026-09-05T12:00:16.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-08_src11.jp2",
+            "sha256": "1e6afa0c904ef56dbf97a127172d80d140b7f7b2fa87cabaf3c3afd15022cc30",
+            "date": "2026-09-08T12:00:04.842",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-11_src11.jp2",
+            "sha256": "5c78078c3b5ded3adc98903de1ac94a346b3bec4ae1a0586751bfb5820cce02a",
+            "date": "2026-09-11T14:00:16.842",
+            "quality": "1073741824"
+          }
+        ],
+        "weightedAgeDaysRange": [
+          1.0000134706497192,
+          27.083097457885742
+        ],
+        "coveredSphericalAreaFraction": 0.9380344353192789
+      },
+      {
+        "channel": "211",
+        "latest": "2026-09-11T13:59:57.623",
+        "oldest": "2026-08-15T11:59:57.624",
+        "observerLongitude": 190.67394,
+        "observerLatitude": 7.2377715,
+        "distanceSolarRadii": 216.36566091954023,
+        "imageCenter": [
+          2047.5,
+          2047.5
+        ],
+        "imageScale": 0.60000008,
+        "observedRadius": 953.31923,
+        "coveredFraction": 0.7897597551345825,
+        "input": [
+          {
+            "file": "2026-08-15_src12.jp2",
+            "sha256": "62cde63c3f8dd9f7688002df95f4cd0573aa07b28b942e3c02f83032a2ffb7ca",
+            "date": "2026-08-15T11:59:57.624",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-18_src12.jp2",
+            "sha256": "022e6cc3b53bde7a5b0d957c72138dcd09f50a39520bd22eca8595a81ebe93fd",
+            "date": "2026-08-18T12:00:09.623",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-21_src12.jp2",
+            "sha256": "5477ac89ed8970f4cc5cd9f47793da2de8f3d9267d0aa2eea396df23c2bc3dc7",
+            "date": "2026-08-21T11:59:45.623",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-24_src12.jp2",
+            "sha256": "7c002536562eab5947b26d4b619352369ecd37a4949acd855acf186afd785349",
+            "date": "2026-08-24T12:00:09.623",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-27_src12.jp2",
+            "sha256": "c113661b1e749b82b09495e1c7e7f6f0ae5179b149c47fa07f756ef5605a4f59",
+            "date": "2026-08-27T11:59:57.624",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-30_src12.jp2",
+            "sha256": "aaabf9fd55febb0563cd8b36261e4f15c17487bd8a71067383c5ac147357b88d",
+            "date": "2026-08-30T11:59:57.632",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-02_src12.jp2",
+            "sha256": "3efccd4e2caef9c31aa51c0d0bfa294ffececdeb7e3f48313218a5822a0bfc73",
+            "date": "2026-09-02T11:59:45.629",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-05_src12.jp2",
+            "sha256": "240e93103410a0be0a4a23633fc419fa273b60e50215f74307a84ddab30301b6",
+            "date": "2026-09-05T12:00:09.624",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-08_src12.jp2",
+            "sha256": "a67e3b013037d385f395eab40117b5672312b989b496b251133a92129dbcae30",
+            "date": "2026-09-08T11:59:57.632",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-11_src12.jp2",
+            "sha256": "a2e40655a822fd217008022f004bb12a104b227370e497b77109e87158a1e965",
+            "date": "2026-09-11T13:59:57.623",
+            "quality": "1073741824"
+          }
+        ],
+        "weightedAgeDaysRange": [
+          1.0000107288360596,
+          27.082826614379883
+        ],
+        "coveredSphericalAreaFraction": 0.9380343462724489
+      },
+      {
+        "channel": "304",
+        "latest": "2026-09-11T13:59:53.128",
+        "oldest": "2026-08-15T11:59:53.129",
+        "observerLongitude": 190.67462,
+        "observerLatitude": 7.2377691,
+        "distanceSolarRadii": 216.3656752873563,
+        "imageCenter": [
+          2047.5,
+          2047.5
+        ],
+        "imageScale": 0.60000002,
+        "observedRadius": 953.31915,
+        "coveredFraction": 0.7897597551345825,
+        "input": [
+          {
+            "file": "2026-08-15_src13.jp2",
+            "sha256": "8608bc88b9e75e06b6e66900e22bf5ded9e98d29d5758390824e12fec94ff5a7",
+            "date": "2026-08-15T11:59:53.129",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-18_src13.jp2",
+            "sha256": "c49a100ab149601f442492418cc9587939bf77517399d1d11c67709200609f60",
+            "date": "2026-08-18T11:59:53.129",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-21_src13.jp2",
+            "sha256": "2bc2924b7e95750d8495f2bdedec444b0c71c5a3b05070d823604e6f84312251",
+            "date": "2026-08-21T11:59:53.129",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-24_src13.jp2",
+            "sha256": "80cd67b96a0e0e9839be2568b3bd40c49a2913163eeed9367122de562e678eff",
+            "date": "2026-08-24T12:00:05.129",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-27_src13.jp2",
+            "sha256": "2b237160cbf5d4aa6eaecfe25cd95d1803c2216ef75b6cab42fe5e3976102eb8",
+            "date": "2026-08-27T12:00:17.130",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-08-30_src13.jp2",
+            "sha256": "c4de73a61753cbfac7c559ab6ba27fd10f7f6a307880a3f610d0d3c61910adfa",
+            "date": "2026-08-30T11:59:53.129",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-02_src13.jp2",
+            "sha256": "a67f202dbb6f424a5532b035624ee533422b30515fc4a2fbc41306e5005cc7f9",
+            "date": "2026-09-02T11:59:53.129",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-05_src13.jp2",
+            "sha256": "db3050e7ba6f65326487a268b75abbb64851fca06dfe6be1f74de4b21ca1d2fd",
+            "date": "2026-09-05T11:59:53.137",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-08_src13.jp2",
+            "sha256": "f80762cc59741b8ccf62ca847c07896f65b09b9d54c2100d1bf89ac4a4548aec",
+            "date": "2026-09-08T12:00:05.129",
+            "quality": "1073741824"
+          },
+          {
+            "file": "2026-09-11_src13.jp2",
+            "sha256": "545dba5ba28f5d0f769888f388a7697a4c4b81fe774b5639eb16d65853e33fb6",
+            "date": "2026-09-11T13:59:53.128",
+            "quality": "1073741824"
+          }
+        ],
+        "weightedAgeDaysRange": [
+          1.0000380277633667,
+          27.082826614379883
+        ],
+        "coveredSphericalAreaFraction": 0.9380343507544777
+      },
+      {
+        "channel": "white",
+        "latest": "2026-09-11T10:49:18.900",
+        "oldest": "2026-08-15T11:59:51.900",
+        "observerLongitude": 192.41507,
+        "observerLatitude": 7.2331266,
+        "distanceSolarRadii": 216.4152011494253,
+        "imageCenter": [
+          2047.5,
+          2047.5
+        ],
+        "imageScale": 0.60000002,
+        "observedRadius": 953.10101,
+        "coveredFraction": 0.7898159027099609,
+        "input": [
+          {
+            "file": "2026-08-15_src18.jp2",
+            "sha256": "0ad989753343f99ad19be544fa186fa288655733c50757f8bc2774fa1fdd66d9",
+            "date": "2026-08-15T11:59:51.900",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-08-18_src18.jp2",
+            "sha256": "b8f42042a216bd0d89f3ee3427d3086551cfe712ab7d0e30eb52beb55c9ef593",
+            "date": "2026-08-18T11:59:51.600",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-08-21_src18.jp2",
+            "sha256": "34310ed298aed52da4d3f571c5fdcb910fc0961440804323e90974a1d7e4c7bb",
+            "date": "2026-08-21T11:59:51.300",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-08-24_src18.jp2",
+            "sha256": "bb8046fe6427e8cbf29d84f80fde40b8a3960122071a0011b06bf5918c5f2cdb",
+            "date": "2026-08-24T11:59:51.000",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-08-27_src18.jp2",
+            "sha256": "2390c913b76c0147ff33f3a9e10fa4e3739a0d7979e534f71900a28a2c9f3cb8",
+            "date": "2026-08-27T11:59:50.700",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-08-30_src18.jp2",
+            "sha256": "c3d8d3397286cb12ad5e9e913bedaceb126161daf6db41e0448dfed1327b1095",
+            "date": "2026-08-30T11:59:50.300",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-09-02_src18.jp2",
+            "sha256": "21d4cb79ddfd86a6d87985ea64b17be6c2403b72db0f6b2a4d8760210dd8d286",
+            "date": "2026-09-02T11:59:50.000",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-09-05_src18.jp2",
+            "sha256": "03404121f62479950419ed4ac4fce7d970d5d23575580038412765fbe740d3bc",
+            "date": "2026-09-05T11:59:49.600",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-09-08_src18.jp2",
+            "sha256": "c76ec93a3bcc9fb7c4029781dfa9bc97ca5ca3677bda76555227d8f0623e005d",
+            "date": "2026-09-08T11:59:49.300",
+            "quality": "1024"
+          },
+          {
+            "file": "2026-09-11_src18.jp2",
+            "sha256": "db213ffe6c91944050abd57838d4f3e749b8ee511999dc8b9df6b81f0587f12e",
+            "date": "2026-09-11T10:49:18.900",
+            "quality": "1024"
+          }
+        ],
+        "weightedAgeDaysRange": [
+          0.9923831224441528,
+          26.951007843017578
+        ],
+        "coveredSphericalAreaFraction": 0.9380660851113638
+      }
+    ],
+    "notes": [
+      "EUV surface heights are projected to photospheric radius; no simultaneous full-sphere claim.",
+      "EUV gamma .6, HMI gamma 1, AIA standard SunPy LUT; display intensities only.",
+      "Near-limb samples downweighted; low-observability polar caps masked.",
+      "Weighted observation age is not an exact single observation timestamp."
+    ]
+  },
+  "fieldProvenance": {
+    "model": "PFSS",
+    "lmax": 24,
+    "sourceSurfaceSolarRadii": 2.5,
+    "date": "2026-09-11T14:04:00",
+    "inputSource": "https://gong.nso.edu/data/magmap/QR/zqs/202609/mrzqs260911/mrzqs260911t1404c2315_131.fits.gz",
+    "inputSha256": "368629d303ccf4f624b28c7b93b44be6dfa0bb2f6d8a64a47c7b457a915cefe1",
+    "units": "Gauss",
+    "coordinateMapping": "Carrington Cartesian [x,y,z] -> renderer [-x,z,y]",
+    "diagnostics": {
+      "boundaryRmsG": 17.66985962225517,
+      "resolvedBoundaryRmsG": 8.659531635055547,
+      "truncationRmsG": 15.402331288893658,
+      "removedMeanG": 0.20629180001002778,
+      "sourceSurfaceTransverseMaxG": 1.799678219603664e-18
+    },
+    "boundaryTests": [
+      {
+        "l": 1,
+        "surfaceBrFactor": 1.0,
+        "sourceSurfaceTransverseFactor": 0.0
+      },
+      {
+        "l": 2,
+        "surfaceBrFactor": 1.0,
+        "sourceSurfaceTransverseFactor": 0.0
+      },
+      {
+        "l": 10,
+        "surfaceBrFactor": 1.0,
+        "sourceSurfaceTransverseFactor": 0.0
+      },
+      {
+        "l": 24,
+        "surfaceBrFactor": 1.0,
+        "sourceSurfaceTransverseFactor": 0.0
+      }
+    ],
+    "radialBoundaryEvidence": "https://gong.nso.edu/data/magmap/ : LOS converted assuming approximately radial photospheric fields before remapping; polar estimates remain modelled.",
+    "limitations": [
+      "PFSS current-free extrapolation, not a measured 3D field or plasma density.",
+      "lmax 24 resolves global/large active-region topology; not fine prominence structure.",
+      "Synoptic map spans prior rotation. MAPDATE is latest contribution, not every pixel date.",
+      "Emission along low closed lines is qualitative and uncalibrated."
+    ]
+  },
+  "model": "96 PFSS arches + 320 synthetic spicules; UTC-periodic artistic flow, opacity and displacement; close disk display compression .012",
+  "frame": "UE local [Carrington X,-Carrington Y,North Z], radius=1",
+  "curvesSha256": "1f4bd5224aea54f54b61452abc3ea24d548c8ec14a71234a18b77d4b08acafd3",
+  "assets": {
+    "sun-304.jpg": "7a70bcd40cc581f59f643a26f16f8ebcf6a8bb3d808ea088891287b98ee5e19c",
+    "sun-white.jpg": "da6a79616aab819eaa3e648637baaf83d89604503d3effcb5ac7a680fae80863",
+    "quality-white.png": "e6261474090ca52c9c4c6928882c6b03f0b6cf6fda64594fe0ec71be61a20e23"
+  }
+}
