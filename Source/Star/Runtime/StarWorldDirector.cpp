@@ -189,6 +189,7 @@ void AStarWorldDirector::Ring(UProceduralMeshComponent* Mesh,double Inner,double
     }
     Mesh->CreateMeshSection_LinearColor(0,Vertices,Triangles,Normals,UV,TArray<FLinearColor>(),TArray<FProcMeshTangent>(),false);
 }
+void AStarWorldDirector::PreloadSun(){if(SolarVisual)SolarVisual->RequestPreload();}
 void AStarWorldDirector::CreateBodies()
 {
     for(const auto& Body:Data.Bodies())
@@ -202,17 +203,10 @@ void AStarWorldDirector::CreateBodies()
         else if(Id==TEXT("moon")) Base=Material(TEXT("/Game/Star/Materials/MI_Moon.MI_Moon"));
         else if(Id==TEXT("saturn")) Base=Material(TEXT("/Game/Star/Materials/MI_Saturn.MI_Saturn"));
         else Base=Material(TEXT("/Game/Star/Materials/M_Sun.M_Sun"));
-        if(Id==TEXT("sun")&&!FParse::Param(FCommandLine::Get(),TEXT("StarLegacySun")))
-            if(auto* Motion=Material(TEXT("/Game/Star/SolarMotion/M_SolarSurface.M_SolarSurface")))Base=Motion;
         auto* Dynamic=Base?UMaterialInstanceDynamic::Create(Base,this):nullptr;
         Mesh->SetMaterial(0,Dynamic);
         BodyMaterials.Add(Dynamic);
-        if(Id==TEXT("sun")&&!SolarVisual->Initialize(Mesh,Dynamic))
-        {
-            Dynamic=UMaterialInstanceDynamic::Create(Material(TEXT("/Game/Star/Materials/M_Sun.M_Sun")),this);
-            Mesh->SetMaterial(0,Dynamic);BodyMaterials.Last()=Dynamic;
-            UE_LOG(LogTemp,Warning,TEXT("STAR solar motion unavailable: analytic fallback"));
-        }
+        if(Id==TEXT("sun"))SolarVisual->Initialize(Mesh,Dynamic);
         if(Id==TEXT("earth"))
         {
             EarthCloudMesh=NewMesh(TEXT("EarthCloudDeck"));
@@ -607,6 +601,7 @@ void AStarWorldDirector::UpdateScene(const star::FlightState& State,const star::
                 Mat->SetScalarParameterValue(TEXT("OccluderRadius"),static_cast<float>(Occluder->Definition.radiusMeters/Body.radiusMeters));
             }
         };
+        if(Body.id=="sun")BodyMaterials[I]=SolarVisual->GetSurfaceMaterial();
         SetParameters(BodyMaterials[I]);
         if(Body.id=="sun" && BodyMaterials[I])
         {
@@ -774,8 +769,9 @@ void AStarWorldDirector::UpdateLocalEnvironment(const star::Vec3d& Origin,const 
     const uint64 TerrainRevision=EarthTerrain?EarthTerrain->RadianceRevision():0;
     const bool TimeChanged=FMath::Abs(AstronomicalUtc-EnvironmentCaptureUtc)>0.1;
     const bool Changed=Drift>EnvironmentValidityMeters*0.2||AngularDrift>FMath::DegreesToRadians(0.5)||
-        TerrainRevision!=EnvironmentTerrainRevision||(Age>=2.0&&TimeChanged);
-    if(Eligible&&!bEnvironmentPending&&EnvironmentClock>=3.0&&Age>=0.5&&(!bEnvironmentActive||Changed))
+        TerrainRevision!=EnvironmentTerrainRevision||(Age>=30.0&&TimeChanged);
+    // Coalesce arriving terrain tiles; ordinary UTC ticks do not change the local lighting appreciably.
+    if(Eligible&&!bEnvironmentPending&&EnvironmentClock>=3.0&&Age>=2.0&&(!bEnvironmentActive||Changed))
     {
         EnvironmentBody=BodyId;EnvironmentCapturePosition=Local;
         EnvironmentSunLocal=SunLocal;EnvironmentWorldDirection=WorldDirection;

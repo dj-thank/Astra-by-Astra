@@ -22,6 +22,7 @@ class STAR_API AStarWorldDirector : public AActor
 public:
     AStarWorldDirector();
     bool Initialize();
+    void PreloadSun();
     const FStarDataCatalog& Catalog() const { return Data; }
     FString Error() const { return LoadError; }
     bool IsReady() const { return bReady; }

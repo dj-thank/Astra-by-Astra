@@ -389,6 +389,9 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
     { TickAstronomyQA();Controls.paused=bFlightPaused||bPhotoMode; }
     StarDiagnostics::Phase(TEXT("clock"));
     if(!Controls.paused) { Ship->AdvanceWorldClock(DeltaTime);Navigation.FollowCelestialFrames(*Ship->Simulation()); }
+    // The transfer probe measures motion after the dated celestial-frame update,
+    // excluding Earth's orbital translation from the ship's propulsion distance.
+    if(bNavigationQA&&FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))NavigationQABeforeAdvanceState=Ship->Simulation()->State();
     Ship->AdvanceFlight(DeltaTime,Controls);
     if(bBenchmark&&BenchmarkStage>=BenchmarkStart&&BenchmarkStage<BenchmarkStart+BenchmarkCount&&FParse::Param(FCommandLine::Get(),TEXT("StarEarthFlightQA")))
     {
@@ -489,6 +492,7 @@ void AStarPlayerController::SelectTarget(const FString& Id)
     if(Ship->Simulation()->SetTarget(TCHAR_TO_UTF8(*Id)))
     {
         Navigation.SelectDestination(*Ship->Simulation(),TCHAR_TO_UTF8(*Id));
+        if(Id==TEXT("sun")&&Ship->Director())Ship->Director()->PreloadSun();
         NavigationCommand=Navigation.Tick(*Ship->Simulation());
         if(!NavigationBypassed()&&NavigationCommand.requiresSafetyPause) SetFlightPaused(true);
         if(Exploration) Exploration->NotifyAction(FName(*(TEXT("Target")+Id)));

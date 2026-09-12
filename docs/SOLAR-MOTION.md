@@ -16,7 +16,9 @@ HMI光球、AIA 304 Å、GONGに基づくPFSS曲線を利用します。画像�
 
 素材と出典は `Data/SolarMotion/` に収録しています。既存のSTAR共通コンテンツを導入した独立チェックアウトで、専用のUnreal Pythonコマンドレットから `Tools/Unreal/import_solar_motion.py` を実行すると、新しいSolarMotionフォルダのみを作成・更新します。従来のM_Sunは変更しません。追加素材が欠けると従来の太陽へ戻ります。
 
-`Tools/Unreal/Build-SolarPackage.ps1` はWin64ビルドとcook/stageを行います。必要エンジンは5.8.2で、Epic Launcherのインストール記録も探索します。容量節約のため、この独立ビルドで生成した一時PCHはゲームビルド後に削除し、再コンパイル時に再生成します。
+`Tools/Unreal/Build-SolarPackage.ps1` はWin64ビルドとcook/stageを行います。必要エンジンは5.8.2で、Epic Launcherのインストール記録も探索します。PCHは保持し、次回のビルドで再利用します。
+
+軽量版では、起動時は従来の太陽を表示し、太陽の目的地選択または見かけの直径0.8度から詳細素材を非同期に先読みします。読込完了後に観測画像と立体構造を接続します。素材が読めない場合は従来表示を継続します。4Kの太陽画像とUTCに基づく動きは維持しています。負荷と音声の変更は `PERFORMANCE.md` を参照してください。
 
 ## 検証経路
 

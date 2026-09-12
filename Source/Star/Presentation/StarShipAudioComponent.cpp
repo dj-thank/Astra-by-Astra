@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Sound/SoundGenerator.h"
 #include "Sound/SoundWave.h"
+#include "AudioMixerBlueprintLibrary.h"
 
 #include <atomic>
 
@@ -92,6 +93,7 @@ struct FStarAudioRuntime
     star::audio::routing::Input Input;
     star::audio::routing::State Router;
     std::array<bool, star::audio::routing::CueCount> Attempted{};
+    std::array<bool, star::audio::routing::CueCount> Primed{};
     std::array<TSharedPtr<FStreamableHandle>, star::audio::routing::CueCount> Loads;
     std::array<StarShipAudio::FPlayerState, star::audio::routing::LayerCount> Layers;
     std::array<StarShipAudio::FPlayerState, star::audio::routing::MusicVoiceCount> Music;
@@ -279,7 +281,14 @@ void UStarShipAudioComponent::CompleteCueLoad(int32 CueIndex)
     if (Wave && static_cast<bool>(Wave->bLooping) == Spec(CueId).loop)
     {
         WaveAssets.Add(StarShipAudio::AssetId(CueId), Wave);
-        Runtime->Router.SetAvailable(CueId, true);
+        // A loaded package does not imply that the first streamed audio chunk is ready.
+        if(Wave->IsStreaming() && Wave->GetNumChunks()>1)
+        {
+            FOnSoundLoadComplete Ready;
+            Ready.BindDynamic(this,&UStarShipAudioComponent::CompleteCuePrime);
+            UAudioMixerBlueprintLibrary::PrimeSoundForPlayback(Wave,Ready);
+        }
+        else CompleteCuePrime(Wave,false);
     }
     else
     {
@@ -288,9 +297,26 @@ void UStarShipAudioComponent::CompleteCueLoad(int32 CueIndex)
     }
     Runtime->Loads[CueIndex].Reset();
 }
+void UStarShipAudioComponent::CompleteCuePrime(const USoundWave* Wave,bool bCancelled)
+{
+    using namespace star::audio::routing;
+    if(!Runtime||!Wave)return;
+    for(int32 I=0;I<static_cast<int32>(CueCount);++I)
+    {
+        const Cue Id=static_cast<Cue>(I);
+        const auto* Found=WaveAssets.Find(StarShipAudio::AssetId(Id));
+        if(Found && Found->Get()==Wave)
+        {
+            Runtime->Primed[I]=!bCancelled;
+            Runtime->Router.SetAvailable(Id,!bCancelled);
+            UE_LOG(LogTemp,Display,TEXT("STAR audio primed: %s ready=%d"),*StarShipAudio::AssetId(Id).ToString(),!bCancelled);
+        }
+    }
+}
 USoundWave* UStarShipAudioComponent::GetCueWave(int32 CueIndex) const
 {
     if (CueIndex < 0 || CueIndex >= static_cast<int32>(star::audio::routing::CueCount)) return nullptr;
+    if(!Runtime->Primed[CueIndex])return nullptr;
     const auto* Found = WaveAssets.Find(StarShipAudio::AssetId(static_cast<star::audio::routing::Cue>(CueIndex)));
     return Found ? Found->Get() : nullptr;
 }

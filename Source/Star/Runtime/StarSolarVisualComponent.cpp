@@ -3,19 +3,47 @@
 #include "ProceduralMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/Texture2D.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "Runtime/StarDiagnostics.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
-bool UStarSolarVisualComponent::Initialize(UProceduralMeshComponent* Photosphere,UMaterialInstanceDynamic* Material) {
-    SurfaceMaterial=Material;
+void UStarSolarVisualComponent::Initialize(UProceduralMeshComponent* InPhotosphere,UMaterialInstanceDynamic* Material) {
+    Photosphere=InPhotosphere;SurfaceMaterial=Material;
+}
+void UStarSolarVisualComponent::RequestPreload() {
+    if(bRequested||!Photosphere||FParse::Param(FCommandLine::Get(),TEXT("StarLegacySun")))return;
+    bRequested=true;
+    TArray<FSoftObjectPath> Paths;
+    for(const TCHAR* Name:{TEXT("AiaTex"),TEXT("HmiTex"),TEXT("QualityTex"),TEXT("M_SolarSurface"),TEXT("M_SolarPlasma")})
+        Paths.Emplace(FString::Printf(TEXT("/Game/Star/SolarMotion/%s.%s"),Name,Name));
+    UE_LOG(LogTemp,Display,TEXT("STAR solar preload requested: destination/approach; analytic Sun remains available"));
+    Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,[this]{
+        StarDiagnostics::FScope Scope(TEXT("solar_preload_commit"));
+        if(!BuildVisual())UE_LOG(LogTemp,Warning,TEXT("STAR solar motion unavailable: analytic fallback retained"));
+        Load.Reset();
+    }));
+}
+void UStarSolarVisualComponent::EndPlay(const EEndPlayReason::Type Reason) {
+    if(Load){Load->CancelHandle();Load.Reset();}
+    Super::EndPlay(Reason);
+}
+bool UStarSolarVisualComponent::BuildVisual() {
     for(const TCHAR* Path:{TEXT("/Game/Star/SolarMotion/AiaTex.AiaTex"),TEXT("/Game/Star/SolarMotion/HmiTex.HmiTex"),TEXT("/Game/Star/SolarMotion/QualityTex.QualityTex")})
-        if(!LoadObject<UTexture2D>(nullptr,Path))return false;
-    auto* Base=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Star/SolarMotion/M_SolarPlasma.M_SolarPlasma"));
+    {
+        auto* Texture=Cast<UTexture2D>(FSoftObjectPath(Path).ResolveObject());if(!Texture)return false;
+        // Spherical custom sampling has no ordinary UV-density estimate. Keep
+        // only these three observation maps sharp after preloading at a distance.
+        Texture->bForceMiplevelsToBeResident=true;
+    }
+    auto* Base=Cast<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Star/SolarMotion/M_SolarPlasma.M_SolarPlasma")).ResolveObject());
+    auto* Surface=Cast<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Star/SolarMotion/M_SolarSurface.M_SolarSurface")).ResolveObject());
     FString Text;TSharedPtr<FJsonObject> Root;
-    if(!Base||!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("Star/Data/solar-motion-curves.json")))||
+    if(!Base||!Surface||!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("Star/Data/solar-motion-curves.json")))||
        !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root)||!Root.IsValid())return false;
     const TArray<TSharedPtr<FJsonValue>>* Curves=nullptr;
     if(!Root->TryGetArrayField(TEXT("curves"),Curves)||Curves->IsEmpty())return false;
@@ -47,9 +75,15 @@ bool UStarSolarVisualComponent::Initialize(UProceduralMeshComponent* Photosphere
     Plasma->SetTranslucentSortPriority(7);Plasma->SetBoundsScale(1.2f);Plasma->RegisterComponent();
     Plasma->CreateMeshSection_LinearColor(0,V,T,N,UV,Colors,Tangents,false,false);
     PlasmaMaterial=UMaterialInstanceDynamic::Create(Base,this);Plasma->SetMaterial(0,PlasmaMaterial);
+    Plasma->SetVisibility(false);
+    auto* Detailed=UMaterialInstanceDynamic::Create(Surface,this);
+    Detailed->CopyMaterialUniformParameters(SurfaceMaterial);
+    Detailed->SetScalarParameterValue(TEXT("SolarDetail"),0);
+    SurfaceMaterial=Detailed;Photosphere->SetMaterial(0,Detailed);
     bAvailable=true;UE_LOG(LogTemp,Display,TEXT("STAR solar motion: %d curves, %d vertices; UTC deterministic; modeled emission"),CurveIndex,V.Num());return true;
 }
 void UStarSolarVisualComponent::Update(double Utc,double DiameterDegrees,double RadiusCm,bool Visible) {
+    if(DiameterDegrees>=0.8)RequestPreload();
     if(!bAvailable)return;
     const auto S=star::solarvisual::Evaluate(DiameterDegrees,Utc,!FParse::Param(FCommandLine::Get(),TEXT("StarLegacySun")));
     SurfaceMaterial->SetScalarParameterValue(TEXT("SolarDetail"),S.surface);

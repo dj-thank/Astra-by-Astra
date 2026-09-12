@@ -72,7 +72,7 @@ void AStarPlayerController::ConfigureNavigationQA()
 bool AStarPlayerController::CheckNavigationQADeadline()
 {
     if(bNavigationQAFinished) return false;
-    if(FPlatformTime::Seconds()-NavigationQAStartedWall>(bLocalFlightQA?240:120))
+    if(FPlatformTime::Seconds()-NavigationQAStartedWall>(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA"))?600:bLocalFlightQA?240:120))
     { FinishNavigationQA(false,TEXT("Navigation QA exceeded 120 wall seconds"));return false; }
     return true;
 }
@@ -84,6 +84,26 @@ bool AStarPlayerController::RequireNavigationQA(bool Condition,const TCHAR* Reas
 }
 void AStarPlayerController::UpdateNavigationQABeforeFlight()
 {
+    if(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))
+    {
+        if(bNavigationQAFinished||!CheckNavigationQADeadline())return;
+        auto& Sim=*Ship->Simulation();
+        if(!bNavigationQAStarted){
+            if(!RequireNavigationQA(FMath::Abs(Sim.Telemetry("earth").referenceAltitudeMeters-450000)<1&&!NavigationBypassed(),TEXT("Sun transfer must start at the normal Earth departure without bypass")))return;
+            NavigationQAInitialFixture=Sim.State();
+            HandleAction(TEXT("StartFlight"));
+            if(InputSettings)CloseInputSettings();
+            HandleAction(TEXT("Resume"));
+            HandleAction(TEXT("TargetSun"));HandleAction(TEXT("ToggleAutopilot"));
+            NavigationQAStageName=TEXT("sun-alignment");bNavigationQAStarted=true;
+        }
+        if(NavigationQAStage==0&&Navigation.Tick(Sim).canConfirmTransfer){
+            HandleAction(TEXT("FlightContext"));
+            if(!RequireNavigationQA(Navigation.Tick(Sim).highSpeedAuthorized,TEXT("Sun transfer confirmation failed")))return;
+            NavigationQAStage=1;NavigationQAStageName=TEXT("sun-transfer");bNavigationQACapturePending=true;
+        }
+        return;
+    }
     if(bLocalFlightQA){UpdateLocalFlightQABefore();return;}
     if(bNavigationQAFinished||!CheckNavigationQADeadline()) return;
     if(!RequireNavigationQA(!NavigationBypassed(),TEXT("Navigation QA must not bypass navigation permission"))) return;
@@ -207,6 +227,11 @@ void AStarPlayerController::UpdateNavigationQABeforeFlight()
 }
 void AStarPlayerController::InjectNavigationQAInput(star::FlightInput& Controls)
 {
+    if(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))
+    {
+        Controls={};Controls.hasThrottle=true;Controls.paused=bFlightPaused||bNavigationQAFinished;
+        NavigationQARequestedInput=Controls;NavigationQABeforeState=Ship->Simulation()->State();return;
+    }
     if(bLocalFlightQA){InjectLocalFlightQA(Controls);return;}
     if(bNavigationQAFinished) { Controls=star::FlightInput{};Controls.paused=true;return; }
     // Scripted input, labelled as such in the result. All ordinary permission,
@@ -229,6 +254,7 @@ void AStarPlayerController::ObserveNavigationQAControls(const star::FlightInput&
     // and pausing. It must not alter physical state; Advance is tested against
     // this post-gate snapshot, including the resulting mode.
     NavigationQABeforeAdvanceState=Ship->Simulation()->State();
+    if(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))return;
     if(bLocalFlightQA)return;
     if(!RequireNavigationQA(SamePhysicalState(NavigationQABeforeAdvanceState,NavigationQABeforeState),
         TEXT("Navigation gate changed position, velocity, attitude, time, target or recovery count"))) return;
@@ -259,9 +285,28 @@ void AStarPlayerController::UpdateNavigationQAAfterFlight()
     const double Dt=State.simulationTimeSeconds-NavigationQABeforeAdvanceState.simulationTimeSeconds;
     const double Distance=(State.positionMeters-NavigationQABeforeAdvanceState.positionMeters).Length();
     const double MaximumSpeed=FMath::Max(State.velocityMetersPerSecond.Length(),NavigationQABeforeAdvanceState.velocityMetersPerSecond.Length());
-    if(!RequireNavigationQA(Dt>=0&&Distance<=MaximumSpeed*Dt+2&&State.recoveryCount==NavigationQABeforeAdvanceState.recoveryCount,
+    // Substep speed can peak between the sampled endpoint velocities, especially
+    // at the fictional cruise drive's acceleration. Bound that physical excursion.
+    const double SubstepAllowance=FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA"))?
+        Ship->Simulation()->Config().cruiseAccelerationMps2*Dt*Dt:0;
+    if(!RequireNavigationQA(Dt>=0&&Distance<=MaximumSpeed*Dt+SubstepAllowance+2&&State.recoveryCount==NavigationQABeforeAdvanceState.recoveryCount,
         TEXT("Position/time discontinuity or collision recovery outside fixture/load boundary"))) return;
     if(NavigationQAAppliedInput.paused&&!RequireNavigationQA(SameHeldState(State,NavigationQABeforeAdvanceState),TEXT("Paused Advance changed physical flight state or mode"))) return;
+    if(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))
+    {
+        if(bNavigationQACapturePending){CaptureNavigationQAStage();bNavigationQACapturePending=false;}
+        // Arrival revokes transfer permission at the shell; the existing AP then
+        // brakes the last few metres per second before the observation stop.
+        if(NavigationQAStage==1&&Navigation.Tick(*Ship->Simulation()).status==star::navigation::NavigationStatus::Arrived&&State.velocityMetersPerSecond.Length()<1){
+            const auto* Sun=Ship->Simulation()->FindBody("sun");
+            const double Radius=(State.positionMeters-Sun->centerMeters).Length()/Sun->radiusMeters;
+            if(!RequireNavigationQA(Radius>=7.9&&Radius<=8.2&&State.velocityMetersPerSecond.Length()<1&&State.recoveryCount==0,TEXT("Sun arrival outside stopping shell")))return;
+            NavigationQAStage=2;NavigationQAStageName=TEXT("sun-arrived");NavigationQAStageWall=FPlatformTime::Seconds();CaptureNavigationQAStage();
+        }
+        if(NavigationQAStage==2&&FPlatformTime::Seconds()-NavigationQAStageWall>2)
+            FinishNavigationQA(true,TEXT("Normal Earth departure -> Sun selection/preload -> O alignment -> F confirmation -> continuous AP flight -> stopped at 8 solar radii; scripted input"));
+        return;
+    }
     if((NavigationQAStage<=3||NavigationQAStage>=5)&&!RequireNavigationQA(!Navigation.Tick(*Ship->Simulation()).highSpeedAuthorized,
         TEXT("Unconfirmed QA stage acquired transfer permission"))) return;
     if((NavigationQAStage==6||NavigationQAStage==7)&&!RequireNavigationQA(SameHeldState(State,NavigationQAHighSpeedFixture)&&bFlightPaused,
@@ -326,8 +371,9 @@ void AStarPlayerController::FinishNavigationQA(bool Success,const FString& Reaso
         auto Result=MakeShared<FJsonObject>();Result->SetBoolField(TEXT("success"),Success);
         Result->SetStringField(TEXT("reason"),Reason);Result->SetStringField(TEXT("stage"),NavigationQAStageName);
         Result->SetStringField(TEXT("scope"),TEXT("UE runtime with scripted HandleAction and control inputs; normal navigation gate; physical keyboard, HOTAS, screenshot visual quality and whole-route acceptance are not established"));
+        if(FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA")))Result->SetStringField(TEXT("scope"),TEXT("One continuous Earth-to-Sun route through normal actions and navigation gates, with shared UTC; scripted input, no physical keyboard/HOTAS acceptance"));
         Result->SetNumberField(TEXT("wallSeconds"),FPlatformTime::Seconds()-NavigationQAStartedWall);
-        Result->SetNumberField(TEXT("maximumWallSeconds"),bLocalFlightQA?240:120);
+        Result->SetNumberField(TEXT("maximumWallSeconds"),FParse::Param(FCommandLine::Get(),TEXT("StarSunTransferQA"))?600:bLocalFlightQA?240:120);
         Result->SetBoolField(TEXT("scriptedInput"),true);Result->SetBoolField(TEXT("physicalInputTested"),false);
         Result->SetNumberField(TEXT("assertions"),NavigationQAAssertions);Result->SetNumberField(TEXT("frames"),NavigationQAFrames);
         Result->SetBoolField(TEXT("navigationBypassed"),NavigationBypassed());
