@@ -42,34 +42,58 @@ bool UStarSolarVisualComponent::BuildVisual() {
     }
     auto* Base=Cast<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Star/SolarMotion/M_SolarPlasma.M_SolarPlasma")).ResolveObject());
     auto* Surface=Cast<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Star/SolarMotion/M_SolarSurface.M_SolarSurface")).ResolveObject());
+    if(!Base||!Surface||!SurfaceMaterial||!Photosphere||!GetOwner())return false;
+    const FString CurvesPath=FPaths::ProjectContentDir()/TEXT("Star/Data/solar-motion-curves.json");
+    // Bound JSON size before loading to avoid OOM on corrupt/modified content.
+    if(IFileManager::Get().FileSize(*CurvesPath)>8*1024*1024)return false;
     FString Text;TSharedPtr<FJsonObject> Root;
-    if(!Base||!Surface||!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("Star/Data/solar-motion-curves.json")))||
+    if(!FFileHelper::LoadFileToString(Text,*CurvesPath)||
        !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root)||!Root.IsValid())return false;
     const TArray<TSharedPtr<FJsonValue>>* Curves=nullptr;
-    if(!Root->TryGetArrayField(TEXT("curves"),Curves)||Curves->IsEmpty())return false;
+    if(!Root->TryGetArrayField(TEXT("curves"),Curves)||Curves->IsEmpty()||Curves->Num()>4096)return false;
     TArray<FVector> V,N;TArray<FVector2D> UV;TArray<FLinearColor> Colors;TArray<int32> T;TArray<FProcMeshTangent> Tangents;
     int32 CurveIndex=0;
     for(const auto& Entry:*Curves) {
-        const auto& Points=Entry->AsArray();if(Points.Num()<3)continue;
+        if(!Entry.IsValid()||Entry->Type!=EJson::Array)continue;
+        const auto& Points=Entry->AsArray();if(Points.Num()<3||Points.Num()>8192)continue;
+        // Validate all points before building geometry; reject non-finite or malformed curves.
+        TArray<FVector> Clean;Clean.Reserve(Points.Num());
+        bool Valid=true;
+        for(const auto& P:Points) {
+            if(!P.IsValid()||P->Type!=EJson::Array) {Valid=false;break;}
+            const auto& A=P->AsArray();
+            if(A.Num()<3) {Valid=false;break;}
+            double X=0,Y=0,Z=0;
+            if(!A[0]->TryGetNumber(X)||!A[1]->TryGetNumber(Y)||!A[2]->TryGetNumber(Z)||
+               !FMath::IsFinite(X)||!FMath::IsFinite(Y)||!FMath::IsFinite(Z)) {Valid=false;break;}
+            // Solar loop coordinates are unit-sphere-ish; reject absurd values.
+            if(FMath::Abs(X)>10.0||FMath::Abs(Y)>10.0||FMath::Abs(Z)>10.0) {Valid=false;break;}
+            Clean.Add(FVector(X,Y,Z));
+        }
+        if(!Valid||Clean.Num()<3)continue;
+        // Bound total vertices to keep GPU upload and index range safe.
+        const int32 SidesPreview=(CurveIndex+1>96)?4:6;
+        if(V.Num()>2000000-Clean.Num()*SidesPreview*2)break;
         const float Seed=FMath::Frac((++CurveIndex)*0.61803398875f);
         const bool Spicule=CurveIndex>96;const int32 Sides=Spicule?4:6;
         for(int32 Layer=0;Layer<2;++Layer) {
         const int32 Start=V.Num();
-        for(int32 i=0;i<Points.Num();++i) {
-            auto Point=[&](int32 j){const auto& A=Points[j]->AsArray();return FVector(A[0]->AsNumber(),A[1]->AsNumber(),A[2]->AsNumber());};
-            const FVector P=Point(i);const FVector Along=(Point(FMath::Min(i+1,Points.Num()-1))-Point(FMath::Max(i-1,0))).GetSafeNormal();
+        for(int32 i=0;i<Clean.Num();++i) {
+            const FVector P=Clean[i];
+            const FVector Along=(Clean[FMath::Min(i+1,Clean.Num()-1)]-Clean[FMath::Max(i-1,0)]).GetSafeNormal();
             const FVector U=FVector::CrossProduct(Along,P.GetSafeNormal()).GetSafeNormal();const FVector W=FVector::CrossProduct(Along,U).GetSafeNormal();
-            const float S=static_cast<float>(i)/(Points.Num()-1);const float Width=(Spicule?0.001f:0.006f)*(Layer?3.0f:1.0f)*(0.30f+0.70f*FMath::Sin(PI*S));
+            const float S=static_cast<float>(i)/(Clean.Num()-1);const float Width=(Spicule?0.001f:0.006f)*(Layer?3.0f:1.0f)*(0.30f+0.70f*FMath::Sin(PI*S));
             for(int32 k=0;k<Sides;++k) {
                 const float A=2*PI*k/Sides;V.Add(P+(U*FMath::Cos(A)+W*FMath::Sin(A))*Width);
                 N.Add(P.GetSafeNormal());UV.Add(FVector2D(S,FMath::Max(0.0,P.Length()-1.0)));
                 Colors.Add(FLinearColor(Seed,Spicule?0.5f:1.0f,Layer?0.065f:1.0f,1));
                 Tangents.Emplace(Along,false);
-                if(i+1<Points.Num()){const int32 a=Start+i*Sides+k,b=Start+i*Sides+(k+1)%Sides;T.Append({a,a+Sides,b,b,a+Sides,b+Sides});}
+                if(i+1<Clean.Num()){const int32 a=Start+i*Sides+k,b=Start+i*Sides+(k+1)%Sides;T.Append({a,a+Sides,b,b,a+Sides,b+Sides});}
             }
         }
         }
     }
+    if(V.Num()==0||V.Num()!=N.Num()||V.Num()!=UV.Num()||V.Num()!=Colors.Num()||V.Num()!=Tangents.Num()||T.Num()%3!=0)return false;
     Plasma=NewObject<UProceduralMeshComponent>(GetOwner(),TEXT("SolarPlasma"));GetOwner()->AddInstanceComponent(Plasma);
     Plasma->SetupAttachment(Photosphere);Plasma->SetCollisionEnabled(ECollisionEnabled::NoCollision);Plasma->SetCastShadow(false);
     Plasma->SetTranslucentSortPriority(7);Plasma->SetBoundsScale(1.2f);Plasma->RegisterComponent();

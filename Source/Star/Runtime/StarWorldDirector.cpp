@@ -850,7 +850,8 @@ FStarObservationSample AStarWorldDirector::Observe(const star::FlightState& Stat
     {
         Sample.bViewingBody=true;
         const auto Point=Camera+Forward*Hit;
-        Sample.SunIllumination=star::Vec3d::Dot((Point-Body->Definition.centerMeters).Normalized(),(Sun->Definition.centerMeters-Point).Normalized());
+        const double RawIllumination=star::Vec3d::Dot((Point-Body->Definition.centerMeters).Normalized(),(Sun->Definition.centerMeters-Point).Normalized());
+        Sample.SunIllumination=FMath::Clamp(RawIllumination,-1.0,1.0);
     }
     if(Target==TEXT("saturn"))
     {

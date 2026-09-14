@@ -107,7 +107,7 @@ void UStarExplorationSubsystem::SubmitObservation(const FStarObservationSample& 
 
 void UStarExplorationSubsystem::NotifyAction(FName Action)
 {
-    if (Action == TEXT("TargetEarth") || Action == TEXT("TargetMoon") || Action == TEXT("TargetSaturn")) Tracker.TargetSelected();
+    if (Action == TEXT("TargetEarth") || Action == TEXT("TargetMoon") || Action == TEXT("TargetSaturn") || Action == TEXT("TargetSun")) Tracker.TargetSelected();
     if (Action == TEXT("ToggleView")) Tracker.ViewChanged();
 }
 

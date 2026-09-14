@@ -126,7 +126,15 @@ public:
         for (std::size_t i = 0; i < ObjectiveCount; ++i)
         {
             if (!std::isfinite(incoming.seconds[i]) || incoming.seconds[i] < 0 || incoming.seconds[i] > Durations[i]) return false;
-            if (incoming.seconds[i] == Durations[i] && !Qualifies(i, incoming.discoveries[i])) return false;
+            if (incoming.seconds[i] == Durations[i])
+            {
+                // The stored discovery proves physical conditions were met.
+                // Ignore the transient scan-button flag so a valid save is
+                // never rejected because of input state at record time.
+                Sample physical = incoming.discoveries[i];
+                physical.scanning = true;
+                if (!Qualifies(i, physical)) return false;
+            }
         }
         state_ = incoming;
         lastSequence_ = 0; // root may start a new simulation sequence after load

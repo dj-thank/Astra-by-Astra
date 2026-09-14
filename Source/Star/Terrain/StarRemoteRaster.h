@@ -9,5 +9,7 @@ struct FStarRemoteRaster
     bool Floating=false;
     TArray<uint8> Samples;
     FString SourceUrl,Error;
+    // Failure changes Error only; dimensions, samples and source remain the last
+    // successful raster. Unsupported sample formats/orientations fail closed.
     bool Load(const FString& Url,int32 MaximumDimension,const FString& CacheDirectory,const std::atomic<bool>& Cancel);
 };

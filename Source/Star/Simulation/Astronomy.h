@@ -24,7 +24,7 @@ class EphemerisTable {
 public:
     static constexpr const char* Ids[4]={"sun","earth","moon","saturn"};
     bool Load(const std::uint8_t* bytes,std::size_t size) {
-        rows_.clear();
+        // Validate a replacement completely before publishing it.
         if(!bytes||size<32||std::memcmp(bytes,"STAREPH1",8)!=0) return false;
         // File format is explicitly little-endian IEEE754, as on Win64.
         const std::uint32_t endian=1;if(*reinterpret_cast<const std::uint8_t*>(&endian)!=1) return false;
@@ -33,6 +33,8 @@ public:
         std::memcpy(&start,bytes+16,8);std::memcpy(&step,bytes+24,8);
         if(count<2||count>200000||bodies!=4||!std::isfinite(start)||!std::isfinite(step)||step<=0||step>3600||
            size!=32+static_cast<std::size_t>(count)*4*10*sizeof(double)) return false;
+        const double end=start+step*static_cast<double>(count-1);
+        if(!std::isfinite(end)||end<=start||start+step<=start) return false;
         std::vector<std::array<AstronomicalPose,4>> pending(count);
         for(std::size_t i=0;i<count;++i) for(std::size_t j=0;j<4;++j) {
             double v[10];std::memcpy(v,bytes+32+(i*4+j)*sizeof(v),sizeof(v));
@@ -48,17 +50,23 @@ public:
     bool Contains(double utc) const { return !rows_.empty()&&std::isfinite(utc)&&utc>=Start()&&utc<=End(); }
     bool At(double utc,std::array<AstronomicalPose,4>& out) const {
         if(!Contains(utc)) return false;
-        const double t=(utc-start_)/step_;const std::size_t i=std::min(static_cast<std::size_t>(t),rows_.size()-2);
+        const double raw=(utc-start_)/step_;
+        if(!std::isfinite(raw)) return false;
+        // Bound the floating index before conversion, including endpoint rounding.
+        const double t=std::clamp(raw,0.0,static_cast<double>(rows_.size()-1));
+        const std::size_t i=std::min(static_cast<std::size_t>(t),rows_.size()-2);
         const double u=t-static_cast<double>(i),u2=u*u,u3=u2*u;
+        std::array<AstronomicalPose,4> pending;
         for(std::size_t j=0;j<4;++j) {
             const auto& a=rows_[i][j];const auto& b=rows_[i+1][j];
-            out[j].position=a.position*(2*u3-3*u2+1)+a.velocity*((u3-2*u2+u)*step_)+
+            pending[j].position=a.position*(2*u3-3*u2+1)+a.velocity*((u3-2*u2+u)*step_)+
                 b.position*(-2*u3+3*u2)+b.velocity*((u3-u2)*step_);
-            out[j].velocity=a.position*((6*u2-6*u)/step_)+a.velocity*(3*u2-4*u+1)+
+            pending[j].velocity=a.position*((6*u2-6*u)/step_)+a.velocity*(3*u2-4*u+1)+
                 b.position*((-6*u2+6*u)/step_)+b.velocity*(3*u2-2*u);
-            out[j].rotation=Slerp(a.rotation,b.rotation,u);
+            pending[j].rotation=Slerp(a.rotation,b.rotation,u);
+            if(!pending[j].position.IsFinite()||!pending[j].velocity.IsFinite()||!pending[j].rotation.IsFinite()) return false;
         }
-        return true;
+        out=pending;return true;
     }
 private:
     double start_=0,step_=0;

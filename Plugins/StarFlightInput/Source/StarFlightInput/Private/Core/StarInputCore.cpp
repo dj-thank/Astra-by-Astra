@@ -8,6 +8,16 @@
 #include <vector>
 
 namespace star::input {
+namespace {
+bool ValidAxis(const AxisBinding& a) {
+    // Validate before integer subtraction or applying a nonlinear curve. These
+    // entry points are also called directly, not only after loading a profile.
+    return a.Index >= 0 && a.Index < MaxRawAxes && a.Minimum >= -32768 && a.Maximum <= 32767 &&
+        a.Minimum < a.Center && a.Center < a.Maximum &&
+        std::isfinite(a.Deadzone) && a.Deadzone >= 0 && a.Deadzone <= 0.5f &&
+        std::isfinite(a.Exponent) && a.Exponent >= 0.2f && a.Exponent <= 5.0f;
+}
+}
 Profile::Profile() {
     for (int i = 0; i < AxisCount; ++i) Axes[i].Index = i;
     Axes[3].Deadzone = 0.02f;
@@ -16,10 +26,7 @@ Profile::Profile() {
 }
 bool ValidateProfile(const Profile& p, std::string& error) {
     for (const auto& a : p.Axes) {
-        if (a.Index < 0 || a.Index >= MaxRawAxes || a.Minimum < -32768 || a.Maximum > 32767 ||
-            a.Minimum >= a.Center || a.Center >= a.Maximum ||
-            !std::isfinite(a.Deadzone) || a.Deadzone < 0 || a.Deadzone > 0.5f ||
-            !std::isfinite(a.Exponent) || a.Exponent < 0.2f || a.Exponent > 5.0f) {
+        if (!ValidAxis(a)) {
             error = "Invalid axis index, calibration, deadzone or curve"; return false;
         }
     }
@@ -42,7 +49,7 @@ bool ProfileFitsDevice(const Profile& p, const RawState& raw) {
     return p.HatIndex >= -1 && p.HatIndex < raw.NumHats;
 }
 float NormalizeAxis(std::int16_t value, const AxisBinding& a, bool throttle) {
-    if (a.Minimum >= a.Center || a.Center >= a.Maximum) return 0;
+    if (!ValidAxis(a)) return 0;
     float v;
     if (throttle) {
         v = std::clamp((static_cast<float>(value) - a.Minimum) / (a.Maximum - a.Minimum), 0.0f, 1.0f);
@@ -58,7 +65,8 @@ float NormalizeAxis(std::int16_t value, const AxisBinding& a, bool throttle) {
 }
 ControlFrame MapControls(const RawState& raw, const Profile& p) {
     ControlFrame out;
-    if (!raw.Connected || !raw.AxisDataReady || !ProfileFitsDevice(p, raw)) return out;
+    std::string error;
+    if (!raw.Connected || !raw.AxisDataReady || !ValidateProfile(p, error) || !ProfileFitsDevice(p, raw)) return out;
     out.Yaw = NormalizeAxis(raw.Axes[p.Axes[0].Index], p.Axes[0], false);
     out.Pitch = NormalizeAxis(raw.Axes[p.Axes[1].Index], p.Axes[1], false);
     out.Roll = NormalizeAxis(raw.Axes[p.Axes[2].Index], p.Axes[2], false);
@@ -77,7 +85,11 @@ ControlFrame MapControls(const RawState& raw, const Profile& p) {
 void SafetyInterlock::Reset() { Armed = false; NeutralSeconds = 0; }
 ControlFrame SafetyInterlock::Update(const RawState& raw, const Profile& p, bool focused,
                                     bool enabled, float seconds) {
-    if (!raw.Connected || !raw.AxisDataReady || !focused || !enabled || !ProfileFitsDevice(p, raw)) { Reset(); return {}; }
+    std::string error;
+    if (!std::isfinite(seconds) || seconds <= 0 || !raw.Connected || !raw.AxisDataReady ||
+        !focused || !enabled || !ValidateProfile(p, error) || !ProfileFitsDevice(p, raw)) {
+        Reset(); return {};
+    }
     const auto mapped = MapControls(raw, p);
     if (!Armed) {
         // Safety uses linear calibrated position, not a curve that could conceal displacement.

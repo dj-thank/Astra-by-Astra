@@ -10,6 +10,15 @@ double Clamp(double v, double lo, double hi) { return std::max(lo, std::min(hi, 
 double Snap(double value, double step) { return std::round(value / step) * step; }
 bool Cancelled(const std::atomic_bool* c) { return c && c->load(std::memory_order_relaxed); }
 bool Equal(const Rect& a, const Rect& b) { return a.x0 == b.x0 && a.x1 == b.x1 && a.y0 == b.y0 && a.y1 == b.y1; }
+bool Equal(Vec3d a, Vec3d b) { return a.x == b.x && a.y == b.y && a.z == b.z; }
+bool ValidChart(const Chart& c) {
+    const auto unit = [](Vec3d v) { return v.IsFinite() && std::abs(v.LengthSquared()-1) < 1e-8; };
+    return std::isfinite(c.radius) && c.radius >= 1 && c.radius <= 1e11 &&
+        unit(c.radial) && unit(c.east) && unit(c.north) &&
+        std::abs(Vec3d::Dot(c.radial,c.east)) < 1e-8 &&
+        std::abs(Vec3d::Dot(c.radial,c.north)) < 1e-8 &&
+        Vec3d::Dot(Vec3d::Cross(c.radial,c.east),c.north) > 1-1e-8;
+}
 Vec3d ApolloSiteDirection()
 {
     constexpr double latitude=20.1908*Pi/180,longitude=30.7717*Pi/180;
@@ -33,6 +42,7 @@ bool Rect::Contains(double x, double y, double margin) const
 Chart Chart::At(Vec3d direction, double radiusMeters)
 {
     Chart c;
+    if (!direction.IsFinite() || direction.Length() < 1e-12) { c.radius = 0; return c; }
     c.radial = direction.Normalized();
     // A chart is retained as the ship moves. The polar fallback cannot rotate an
     // existing chart or make it singular when the ship subsequently crosses a pole.
@@ -45,12 +55,15 @@ Chart Chart::At(Vec3d direction, double radiusMeters)
 Vec3d Chart::Direction(double x, double y) const { return (radial*radius + east*x + north*y).Normalized(); }
 bool Chart::Project(Vec3d direction, double& x, double& y) const
 {
+    if (!ValidChart(*this) || !direction.IsFinite() || direction.Length() < 1e-12) return false;
     direction = direction.Normalized();
     const double d = Vec3d::Dot(direction,radial);
     if (d <= 0.1) return false;
-    x = radius * Vec3d::Dot(direction,east) / d;
-    y = radius * Vec3d::Dot(direction,north) / d;
-    return std::isfinite(x) && std::isfinite(y);
+    const double nextX = radius * Vec3d::Dot(direction,east) / d;
+    const double nextY = radius * Vec3d::Dot(direction,north) / d;
+    if (!std::isfinite(nextX) || !std::isfinite(nextY)) return false;
+    x = nextX; y = nextY;
+    return true;
 }
 bool Patch::operator==(const Patch& other) const {
     return level == other.level && step == other.step && Equal(rect,other.rect) &&
@@ -66,7 +79,7 @@ Plan MakePlan(const Chart& chart, Vec3d direction, double altitude, double terra
     Plan plan;
     plan.chart = chart;
     double x = 0, y = 0;
-    if (!chart.Project(direction,x,y) || !std::isfinite(altitude)) return plan;
+    if (!chart.Project(direction,x,y) || !std::isfinite(altitude) || !std::isfinite(terrainRange)) return plan;
     // 5m posts through the final 1.2km. Power-of-two changes keep all rings aligned.
     const double level = std::floor(std::log2(std::max(1.0, altitude / 1200.0)));
     plan.fineStep = 5.0 * std::pow(2.0,Clamp(level,0.0,8.0));
@@ -139,8 +152,9 @@ Plan MakePlan(const Chart& chart, Vec3d direction, double altitude, double terra
 }
 bool SamePlan(const Plan& a, const Plan& b)
 {
-    return a.chart.radial.x == b.chart.radial.x && a.chart.radial.y == b.chart.radial.y &&
-        a.chart.radial.z == b.chart.radial.z && a.fineStep == b.fineStep && a.patches == b.patches &&
+    return a.chart.radius == b.chart.radius && Equal(a.chart.radial,b.chart.radial) &&
+        Equal(a.chart.east,b.chart.east) && Equal(a.chart.north,b.chart.north) &&
+        a.fineStep == b.fineStep && a.patches == b.patches &&
         a.clastPatches == b.clastPatches;
 }
 Vec3d UnrealLocalCentimeters(Vec3d v) { return {100*v.x,-100*v.y,100*v.z}; }
@@ -148,9 +162,21 @@ Vec3d UnrealLocalCentimeters(Vec3d v) { return {100*v.x,-100*v.y,100*v.z}; }
 Mesh BuildPatch(const Chart& chart, const Patch& patch, const HeightSampler& sample, const std::atomic_bool* cancel)
 {
     Mesh mesh;
-    const int nx = static_cast<int>(std::llround((patch.rect.x1-patch.rect.x0)/patch.step));
-    const int ny = static_cast<int>(std::llround((patch.rect.y1-patch.rect.y0)/patch.step));
-    if (nx < 1 || ny < 1 || nx > static_cast<int>(MaxPatchCells) || ny > static_cast<int>(MaxPatchCells) || Cancelled(cancel)) return mesh;
+    if (!ValidChart(chart) || !sample || Cancelled(cancel) ||
+        !std::isfinite(patch.step) || patch.step <= 0 ||
+        !std::isfinite(patch.rect.x0) || !std::isfinite(patch.rect.x1) ||
+        !std::isfinite(patch.rect.y0) || !std::isfinite(patch.rect.y1)) return mesh;
+    for (double edge : patch.edgeStep) if (!std::isfinite(edge) || edge < 0) return mesh;
+    const double cellsX = (patch.rect.x1-patch.rect.x0)/patch.step;
+    const double cellsY = (patch.rect.y1-patch.rect.y0)/patch.step;
+    const auto validCells = [](double n) {
+        return std::isfinite(n) && n >= 1 && n <= MaxPatchCells && std::abs(n-std::round(n)) < 1e-8;
+    };
+    if (!validCells(cellsX) || !validCells(cellsY) ||
+        patch.rect.x0 + patch.step <= patch.rect.x0 || patch.rect.x1 + patch.step <= patch.rect.x1 ||
+        patch.rect.y0 + patch.step <= patch.rect.y0 || patch.rect.y1 + patch.step <= patch.rect.y1) return mesh;
+    const int nx = static_cast<int>(std::round(cellsX)), ny = static_cast<int>(std::round(cellsY));
+    bool samplesValid = true;
     const auto position = [&](double x, double y) {
         const auto radial = chart.Direction(x,y);
         const double lat = std::asin(Clamp(radial.z,-1.0,1.0))*180/Pi;
@@ -158,7 +184,9 @@ Mesh BuildPatch(const Chart& chart, const Patch& patch, const HeightSampler& sam
         const double lon = std::abs(radial.z) > 1.0-1e-14 ? 0.0 : std::atan2(radial.y,radial.x)*180/Pi;
         const double height = sample(lat,lon);
         ++mesh.sourceSamples;
-        return radial*(chart.radius+height);
+        const auto point = radial*(chart.radius+height);
+        if (!std::isfinite(height) || chart.radius+height <= 0 || !point.IsFinite()) samplesValid = false;
+        return point;
     };
     mesh.anchorBodyMeters = position((patch.rect.x0+patch.rect.x1)*0.5,(patch.rect.y0+patch.rect.y1)*0.5);
     if (!mesh.anchorBodyMeters.IsFinite()) return mesh;
@@ -348,7 +376,17 @@ Mesh BuildPatch(const Chart& chart, const Patch& patch, const HeightSampler& sam
         if(patch.skirtEdges&1) skirt((y+1)*(nx+1),y*(nx+1));
         if(patch.skirtEdges&2) skirt(y*(nx+1)+nx,(y+1)*(nx+1)+nx);
     }
-    mesh.complete = !Cancelled(cancel);
+    mesh.complete = samplesValid && !Cancelled(cancel);
+    for (const auto& v : mesh.vertices) {
+        if (!v.position.IsFinite() || !v.normal.IsFinite() || !v.tangent.IsFinite() ||
+            !std::isfinite(v.uv0.u) || !std::isfinite(v.uv0.v) ||
+            !std::isfinite(v.uv1.u) || !std::isfinite(v.uv1.v) ||
+            !std::isfinite(v.uv2.u) || !std::isfinite(v.uv2.v) ||
+            !std::isfinite(v.uv3.u) || !std::isfinite(v.uv3.v)) mesh.complete = false;
+    }
+    // A missing normal, seam or pole sample is just as incomplete as a missing
+    // primary post; normalization fallbacks must not disguise unavailable data.
+    if (!mesh.complete) { mesh.vertices.clear(); mesh.indices.clear(); mesh.surfaceIndexCount = 0; }
     return mesh;
 }
 void AppendReconstructedClasts(Mesh& mesh, const Chart& chart, const Patch& patch, const std::atomic_bool* cancel, bool dense, bool companions)

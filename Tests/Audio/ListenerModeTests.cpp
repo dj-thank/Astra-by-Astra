@@ -14,7 +14,8 @@ int main(){
  in.interiorMonitor=false;s.SetInput(in);Check(s.TryEvent(Cue::SpoolUp,1)<0,"opt-out rejects new events before fade finishes");Run(s,6);Check(Beds(s.Output())<1e-12,"opt-out exterior has no vacuum machinery");Check(s.TryEvent(Cue::SpoolUp,1)<0,"vacuum rejects machinery events");
  in.eva=true;s.SetInput(in);Run(s,3);Check(s.Output().fallbackLayers[7]>0.06,"EVA internal fan fallback");Check(s.Output().fallbackLayers[8]>0.03,"EVA cooling fallback");Check(s.Output().whineGain<1e-12,"no ship engine in suit");
  Check(s.TryEvent(Cue::Footstep1,.5)>=0,"conducted footstep allowed in EVA");Check(s.TryEvent(Cue::SpoolUp,1)<0,"EVA rejects engine transitions");Check(s.TryEvent(Cue::RCS,1)<0,"EVA rejects ship RCS");
- for(auto cue:{Cue::SuitFan,Cue::SuitCooling})s.SetAvailable(cue,true);Run(s,.5);Check(s.Output().fallbackLayers[7]==0&&s.Output().assetLayers[7]>0,"late fan load replaces only fallback");
+ for(auto cue:{Cue::SuitFan,Cue::SuitCooling}) { s.SetAvailable(cue,true); }
+ Run(s,.5);Check(s.Output().fallbackLayers[7]==0&&s.Output().assetLayers[7]>0,"late fan load replaces only fallback");
  in.paused=true;s.SetInput(in);Check(Beds(s.Output())==0,"pause immediately clears output");Check(s.TryEvent(Cue::ExitHatch,2)<0,"paused hatch discarded");
  in.paused=false;in.eva=false;in.interiorMonitor=true;s.SetInput(in);Run(s,4);Check(s.TryEvent(Cue::Footstep1,.5)<0,"walking disabled outside EVA");Check(s.Output().assetLayers[7]<1e-12,"no suit fan after EVA");Check(s.TryEvent(Cue::ThrusterPulse,.3)<0&&s.TryEvent(Cue::SuitValve,.7)<0,"suit-only actions disabled outside EVA");
  in.masterVolume=0;s.SetInput(in);Check(s.TryEvent(Cue::EnterHatch,2)<0&&Beds(s.Output())==0,"mute clears beds and hatch events");

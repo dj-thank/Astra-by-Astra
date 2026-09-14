@@ -914,7 +914,8 @@ void AStarPlayerController::UpdateSnapshot(double Dt)
         if(Distance<Closest) { Closest=Distance;Nearest=&Body; }
     }
     Snapshot.BodyId=Nearest?UTF8_TO_TCHAR(Nearest->Definition.id.c_str()):TEXT("space");
-    Snapshot.BodyName=Closest<10000000&&Nearest?Nearest->Name:TEXT("深宇宙");
+    const double RegionThreshold=Nearest?FMath::Max(10000000.0,Nearest->Definition.radiusMeters*0.5):10000000.0;
+    Snapshot.BodyName=Nearest&&Closest<RegionThreshold?Nearest->Name:TEXT("深宇宙");
     if(Nearest)
     {
         Snapshot.AltitudeReferenceName=Nearest->Name;
@@ -1085,6 +1086,7 @@ bool AStarPlayerController::LoadGame()
     const auto PreviousFlight=Ship->Simulation()->State();const double PreviousUtc=Director->WorldUtc();
     if(!Ship->SetWorldUtc(SavedUtc)||!Ship->RestoreFlight(Pending))
     { Ship->SetWorldUtc(PreviousUtc);Ship->RestoreFlight(PreviousFlight);FString Ignored;Exploration->RestoreProgressJson(PreviousProgress,Ignored);SetStatus(TEXT("飛行位置を復元できませんでした。"));return false; }
+    ClearEVAForLoad();
     Director->SetClockRate(SavedRate);
     ResetNavigation();
     const TSharedPtr<FJsonObject>* Settings=nullptr;
@@ -1141,7 +1143,7 @@ bool AStarPlayerController::LoadGame()
         auto* Walker=Valid?GetWorld()->SpawnActor<AStarEVAPawn>():nullptr;
         if(Walker&&Walker->InitializeFromShip(Ship)&&Walker->RestoreSaveState(Saved))
         {
-            EVAPawn=Walker;Possess(Walker);SetViewTarget(Walker);ClearInputHandoff();Ship->SetEVAAudio(true);
+            EVAPawn=Walker;EVAFootstepDistance=0;Possess(Walker);SetViewTarget(Walker);ClearInputHandoff();Ship->SetEVAAudio(true);
             SetStatus(TEXT("月面の歩行位置を復元しました。"));
         }
         else { if(Walker)Walker->Destroy();SetStatus(TEXT("歩行位置を安全に復元できないため、着陸船から再開します。")); }
@@ -1470,7 +1472,9 @@ void AStarPlayerController::UpdateSolarQA(double Dt)
     const int32 Bucket=FMath::FloorToInt(BenchmarkStageTime*(Movie?8.0:2.0));
     if(Bucket==SolarLastCapture)return;SolarLastCapture=Bucket;
     const auto& S=Ship->Simulation()->State();const auto P=(S.positionMeters-Sun.centerMeters)/Sun.radiusMeters;
-    const double Angle=2*FMath::Asin(1.0/(Ship->CameraAbsoluteMeters()-Sun.centerMeters).Length()*Sun.radiusMeters)*180/PI;
+    const double CameraDistance=(Ship->CameraAbsoluteMeters()-Sun.centerMeters).Length();
+    const double AngularRatio=CameraDistance>1e-9?Sun.radiusMeters/CameraDistance:1.0;
+    const double Angle=2*FMath::Asin(FMath::Clamp(AngularRatio,0.0,1.0))*180/PI;
     const FString Name=FString::Printf(TEXT("solar-%05d.jpg"),Bucket);
     const FString Line=FString::Printf(TEXT("{\"file\":\"%s\",\"t\":%.6f,\"utc\":%.6f,\"simulationTime\":%.6f,\"radius\":%.6f,\"angle\":%.6f,\"positionR\":[%.9f,%.9f,%.9f],\"speed\":%.6f,\"recoveries\":%llu,\"paused\":%s,\"shipHidden\":%s}\n"),
         *Name,BenchmarkStageTime,Ship->Director()->WorldUtc(),S.simulationTimeSeconds,P.Length(),Angle,P.x,P.y,P.z,S.velocityMetersPerSecond.Length(),static_cast<unsigned long long>(S.recoveryCount),bFlightPaused?TEXT("true"):TEXT("false"),Ship->IsHidden()?TEXT("true"):TEXT("false"));

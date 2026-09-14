@@ -109,6 +109,7 @@ private:
     void SetFlightAssistEnabled(bool Enabled);
     void ClearInputHandoff();
     void ToggleEVA();
+    void ClearEVAForLoad();
     void TickEVA(double Dt);
     void TickEVAQA(double Dt);
     void RequestQAQuit();

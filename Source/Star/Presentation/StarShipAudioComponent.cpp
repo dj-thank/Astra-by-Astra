@@ -315,7 +315,7 @@ void UStarShipAudioComponent::CompleteCuePrime(const USoundWave* Wave,bool bCanc
 }
 USoundWave* UStarShipAudioComponent::GetCueWave(int32 CueIndex) const
 {
-    if (CueIndex < 0 || CueIndex >= static_cast<int32>(star::audio::routing::CueCount)) return nullptr;
+    if (!Runtime || CueIndex < 0 || CueIndex >= static_cast<int32>(star::audio::routing::CueCount)) return nullptr;
     if(!Runtime->Primed[CueIndex])return nullptr;
     const auto* Found = WaveAssets.Find(StarShipAudio::AssetId(static_cast<star::audio::routing::Cue>(CueIndex)));
     return Found ? Found->Get() : nullptr;
