@@ -12,12 +12,12 @@
 
 バイブコーディングで作っている実験的な個人プロジェクトです。完成されたシミュレーターを目指した品質保証はありませんが、動くところから触って広げられるように公開しています。不具合報告や小さな改善も歓迎します。
 
-[ダウンロード](https://github.com/dj-thank/STAR/releases) · [遊び方](docs/PLAYING.md) · [ビルド](docs/BUILDING.md) · [改造・参加](CONTRIBUTING.md) · [素材の出典](docs/CREDITS.md)
+[ダウンロード](https://github.com/dj-thank/Astra-by-Astra/releases) · [遊び方](docs/PLAYING.md) · [ビルド](docs/BUILDING.md) · [改造・参加](CONTRIBUTING.md) · [素材の出典](docs/CREDITS.md)
 
 ## できること
 
 - 地球・月・土星を一つの宇宙で自由飛行。現在地からのガイド航行と手動操縦。
-- Cで周辺巡航。地球上空では最大20 km/s、地表に近づくと速度を制限。
+- Cで周辺巡航。地球上空では最大100 km/s、地表に近づくと速度を制限。
 - 探査船の操縦席と三人称視点を切り替え。
 - 同じ航海を続けながら見る地球上空、夜景、朝日・夕焼け。景色専用の開始モードはありません。
 - 地球・大気からの反射光と、日没後の露出順応。[光と昼夜の扱い](docs/LIGHTING.md)。
@@ -32,7 +32,7 @@
 
 ## 遊ぶ
 
-[Releases](https://github.com/dj-thank/STAR/releases)のWindows版をダウンロードし、すべて展開して `Play-STAR.cmd` を開いてください。EXEだけを抜き出さず、フォルダー全体を保管してください。ソースのZIPはゲーム実行版とは別です。
+[Releases](https://github.com/dj-thank/Astra-by-Astra/releases)のWindows版をダウンロードし、すべて展開して `Play-STAR.cmd` を開いてください。EXEだけを抜き出さず、フォルダー全体を保管してください。ソースのZIPはゲーム実行版とは別です。
 
 対象はWindows 11 / 64 bit / DirectX 12対応GPUです。開発時の描画目標は4K・30fpsですが、GPUや場面により変わります。初期設定は1920×1080です。環境に合わせて調整してください。詳細地表の取得にはインターネット接続とキャッシュ用の空き容量が必要です。
 

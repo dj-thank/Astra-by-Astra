@@ -296,7 +296,11 @@ void AStarPlayerController::PlayerTick(float DeltaTime)
         Controls.hasThrottle=true;
         const float PadThrottle=Axes.FindRef(TEXT("PadThrottle"));
         if(PadThrottle>0.02f) Controls.throttle=PadThrottle;
-        if(Plugin&&Plugin->GetStatus().bArmed) Controls.throttle=Plugin->GetControlFrame().Throttle;
+        const bool KeyboardThrottleActive=Key(EKeys::W)>0||Key(EKeys::S)>0;
+        const auto InputStatus=Plugin?Plugin->GetStatus():FStarFlightInputStatus{};
+        const bool ControllerThrottleAvailable=Plugin&&InputStatus.bArmed;
+        const float ControllerThrottle=ControllerThrottleAvailable?Plugin->GetControlFrame().Throttle:0.0f;
+        Controls.throttle=ThrottleInput.Resolve(Controls.throttle,ControllerThrottle,ControllerThrottleAvailable,KeyboardThrottleActive);
         float MouseX=0,MouseY=0;
         GetInputMouseDelta(MouseX,MouseY);
         if(IsInputKeyDown(EKeys::RightMouseButton)&&!IsInputKeyDown(EKeys::LeftAlt)&&!IsInputKeyDown(EKeys::RightAlt))
@@ -465,6 +469,7 @@ void AStarPlayerController::SetFlightPaused(bool Value)
         bTakeoffRequested=false;
         bKeyboardLiftHeld=false;
         KeyboardThrottle=0;
+        ThrottleInput.Reset();
         if(Ship&&Ship->Simulation()) Ship->Simulation()->SetThrottle(0);
     }
     if(auto* Plugin=FStarFlightInputModule::GetIfAvailable()) Plugin->SetGameplayEnabled(!Value&&!bPhotoMode&&!bGuidedTour&&!EVAPawn);
@@ -949,7 +954,13 @@ void AStarPlayerController::UpdateSnapshot(double Dt)
     {
         const auto Status=Plugin->GetStatus();
         Snapshot.bJoystickConnected=Status.bConnected;
-        if(Status.bConnected) Snapshot.ControllerName=Status.DeviceName+(Status.bArmed?TEXT(""):TEXT(" · 設定 / 中立待ち"));
+        if(Status.bConnected)
+        {
+            Snapshot.ControllerName=Status.DeviceName+
+                (!Status.bMappingConfirmed?TEXT(" · 設定が必要"):Status.bArmed?TEXT(""):TEXT(" · 中立待ち"));
+            if(Status.bArmed&&ThrottleInput.WaitingForControllerPickup())
+                Snapshot.ControllerName+=FString::Printf(TEXT(" · スロットルを %.0f%% に合わせて引継"),KeyboardThrottle*100.0f);
+        }
     }
     auto ObservationState=State;
     if(EVAPawn) ObservationState.positionMeters=EVAPawn->PositionAbsoluteMeters();

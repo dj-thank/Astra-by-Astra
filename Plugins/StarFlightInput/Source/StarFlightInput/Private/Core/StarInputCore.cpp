@@ -107,6 +107,30 @@ ControlFrame SafetyInterlock::Update(const RawState& raw, const Profile& p, bool
     }
     return mapped;
 }
+float ThrottleInputArbiter::Resolve(float keyboardThrottle, float controllerThrottle,
+                                   bool controllerAvailable, bool keyboardActive) {
+    keyboardThrottle = std::clamp(keyboardThrottle, 0.0f, 1.0f);
+    controllerThrottle = std::clamp(controllerThrottle, 0.0f, 1.0f);
+    if (!controllerAvailable) {
+        HasControllerSample = false;
+        ControllerOwns = false;
+        return keyboardThrottle;
+    }
+    if (!HasControllerSample) {
+        HasControllerSample = true;
+        LastControllerThrottle = controllerThrottle;
+    }
+    if (keyboardActive) {
+        ControllerOwns = false;
+    } else if (!ControllerOwns) {
+        constexpr float PickupTolerance = 0.02f;
+        const float before = LastControllerThrottle - keyboardThrottle;
+        const float after = controllerThrottle - keyboardThrottle;
+        if (std::abs(after) <= PickupTolerance || before * after <= 0) ControllerOwns = true;
+    }
+    LastControllerThrottle = controllerThrottle;
+    return ControllerOwns ? controllerThrottle : keyboardThrottle;
+}
 std::string SerializeProfile(const Profile& p) {
     std::ostringstream s; s.imbue(std::locale::classic()); s << std::setprecision(9);
     s << "STAR_INPUT_PROFILE 1\n";

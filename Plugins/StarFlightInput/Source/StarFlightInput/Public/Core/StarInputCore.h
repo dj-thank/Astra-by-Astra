@@ -79,4 +79,18 @@ private:
     bool Armed = false;
     float NeutralSeconds = 0;
 };
+
+// Keyboard throttle remains usable while the physical lever is elsewhere.
+// The controller picks up only when its lever reaches/crosses the live command.
+class ThrottleInputArbiter {
+public:
+    STAR_INPUT_API float Resolve(float KeyboardThrottle, float ControllerThrottle,
+        bool ControllerAvailable, bool KeyboardActive);
+    void Reset() { HasControllerSample = false; ControllerOwns = true; LastControllerThrottle = 0; }
+    bool WaitingForControllerPickup() const { return HasControllerSample && !ControllerOwns; }
+private:
+    bool HasControllerSample = false;
+    bool ControllerOwns = true;
+    float LastControllerThrottle = 0;
+};
 }

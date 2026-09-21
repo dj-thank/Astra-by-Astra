@@ -20,6 +20,7 @@ struct FStarFlightInputModule {
     void SetGameplayEnabled(bool) {}
 };
 struct AxisMap { void Reset() {} };
+struct ThrottleInputAdapter { void Reset() {} };
 struct ShipAdapter {
     star::FlightSimulation* simulation;
     star::FlightSimulation* Simulation() { return simulation; }
@@ -35,6 +36,7 @@ struct AStarPlayerController {
     double KeyboardThrottle=0,AutopilotManualThrottle=0;
     bool W=false,S=false;
     AxisMap Axes;
+    ThrottleInputAdapter ThrottleInput;
     star::navigation::NavigationPilot Navigation;
     star::navigation::NavigationCommand NavigationCommand;
     bool IsInputKeyDown(EKeys::Key key) const { return key==EKeys::W?W:S; }
