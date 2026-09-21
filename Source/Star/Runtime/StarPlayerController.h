@@ -5,6 +5,7 @@
 #include "StarViewTypes.h"
 #include "GuidedTour/GuidedTour.h"
 #include "Navigation/NavigationPilot.h"
+#include "Core/StarInputCore.h"
 #include "StarPlayerController.generated.h"
 
 class UStarHUDWidget;
@@ -241,6 +242,7 @@ private:
     double BenchmarkStageTime=0;
     FString BenchmarkPath;
     float KeyboardThrottle=0;
+    star::input::ThrottleInputArbiter ThrottleInput;
     float UIScale=1;
     float MasterVolume=0.5f;
     float LookSensitivity=1;
